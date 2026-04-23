@@ -8,3 +8,6 @@ rt_out/temp/
 rt_out/poses/panda/panda_pose.log
 rt_out/poses/ur5/ur5_pose.log
 models/furniture/Reflective table/materials/textures/DepotEnvMap.dds
+
+.codex/
+.vscode/
