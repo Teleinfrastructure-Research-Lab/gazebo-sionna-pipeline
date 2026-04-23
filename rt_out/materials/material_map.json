@@ -1,0 +1,59 @@
+{
+  "default_material": "composite",
+  "model_rules": [
+    { "match_type": "contains", "pattern": "floor_surface_visual", "material": "__skip__" },
+    { "match_type": "contains", "pattern": "ceiling_surface_visual", "material": "__skip__" },
+
+    { "match_type": "contains", "pattern": "floor_visual", "material": "vinyl_tile" },
+    { "match_type": "contains", "pattern": "ceiling_visual", "material": "ceiling_board" },
+
+    { "match_type": "contains", "pattern": "_glass_visual", "material": "glass" },
+    { "match_type": "contains", "pattern": "_frame_", "material": "wood" },
+
+    { "match_type": "contains", "pattern": "_wall_", "material": "panel_wall" },
+    { "match_type": "contains", "pattern": "_pier_", "material": "panel_wall" },
+    { "match_type": "contains", "pattern": "_overdoor_", "material": "panel_wall" },
+    { "match_type": "contains", "pattern": "east_wall_visual", "material": "panel_wall" },
+    { "match_type": "contains", "pattern": "west_wall_visual", "material": "panel_wall" },
+
+    { "match_type": "contains", "pattern": "lamp_fixture_01_diffuser", "material": "plastic" },
+    { "match_type": "contains", "pattern": "lamp_fixture_02_diffuser", "material": "plastic" },
+    { "match_type": "contains", "pattern": "lamp_fixture_03_diffuser", "material": "plastic" },
+    { "match_type": "contains", "pattern": "lamp_fixture_04_diffuser", "material": "plastic" },
+
+    { "match_type": "contains", "pattern": "lamp_fixture_01", "material": "metal" },
+    { "match_type": "contains", "pattern": "lamp_fixture_02", "material": "metal" },
+    { "match_type": "contains", "pattern": "lamp_fixture_03", "material": "metal" },
+    { "match_type": "contains", "pattern": "lamp_fixture_04", "material": "metal" },
+
+    { "match_type": "contains", "pattern": "factory_door", "material": "wood" },
+    { "match_type": "contains", "pattern": "Picking_Shelves", "material": "metal" },
+
+    { "match_type": "contains", "pattern": "MonitorAndKeyboard | body | visual_monitor", "material": "plastic" },
+    { "match_type": "contains", "pattern": "MonitorAndKeyboard | body | visual_keyboard", "material": "plastic" },
+
+    { "match_type": "contains", "pattern": "gasket_part", "material": "metal" },
+    { "match_type": "contains", "pattern": "cross_joint_part", "material": "metal" },
+    { "match_type": "contains", "pattern": "t_brace_part", "material": "metal" },
+    { "match_type": "contains", "pattern": "disk_part", "material": "metal" },
+    { "match_type": "contains", "pattern": "piston_rod_part", "material": "metal" },
+    { "match_type": "contains", "pattern": "gear_part", "material": "metal" },
+    { "match_type": "contains", "pattern": "arm_part", "material": "metal" },
+
+    { "match_type": "contains", "pattern": "Sofa", "material": "textile" },
+    { "match_type": "contains", "pattern": "CoffeeTable", "material": "chipboard" },
+
+    { "match_type": "contains", "pattern": "Reflective table", "material": "chipboard" },
+    { "match_type": "contains", "pattern": "OfficeDesk", "material": "wood" },
+    { "match_type": "contains", "pattern": "Desk", "material": "wood" },
+
+    { "match_type": "contains", "pattern": "person_standing", "material": "human_skin" },
+    { "match_type": "contains", "pattern": "aws_robomaker_warehouse_ClutteringC_01", "material": "cardboard" },
+    { "match_type": "contains", "pattern": "naoH25V40", "material": "plastic" },
+    { "match_type": "contains", "pattern": "cerberus", "material": "metal" },
+    { "match_type": "contains", "pattern": "x500", "material": "metal" },
+    { "match_type": "contains", "pattern": "shelf", "material": "metal" },
+    { "match_type": "contains", "pattern": "bin", "material": "plastic" },
+    { "match_type": "contains", "pattern": "chair", "material": "textile" }
+  ]
+}

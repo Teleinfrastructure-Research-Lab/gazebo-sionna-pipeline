@@ -1,0 +1,299 @@
+[
+  {
+    "model": "ur5_rg2",
+    "model_pose": "0.49698599999999998 -0.84106599999999998 0.79500000000000004 0 0 -0.0401467",
+    "static": false,
+    "links": [
+      {
+        "link": "base_link",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "base_link_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://ur5_rg2/meshes/visual/ur5/base.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "shoulder_link",
+        "link_pose": "0 0 0.089159000000000321 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "shoulder_link_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://ur5_rg2/meshes/visual/ur5/shoulder.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "upper_arm_link",
+        "link_pose": "-1.1102230246251565e-16 0.13584999999999992 0.089159000000000321 7.2222372914521344e-35 -8.8910200000000086e-18 -3.2106528101523409e-52",
+        "visuals": [
+          {
+            "visual_name": "upper_arm_link_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://ur5_rg2/meshes/visual/ur5/upperarm.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "forearm_link",
+        "link_pose": "-5.5511151231257827e-16 0.016149999999999998 0.51415900000000014 -1.3481509610710651e-33 -5.8514400000000022e-17 3.9443122298248379e-50",
+        "visuals": [
+          {
+            "visual_name": "forearm_link_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://ur5_rg2/meshes/visual/ur5/forearm.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "wrist_1_link",
+        "link_pose": "-2.2204460492503131e-16 0.016149999999999998 0.90640900000000058 7.7037197775489434e-33 -5.6127200000000067e-16 -2.1619411034922278e-48",
+        "visuals": [
+          {
+            "visual_name": "wrist_1_link_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://ur5_rg2/meshes/visual/ur5/wrist1.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "wrist_2_link",
+        "link_pose": "-5.5511151231257827e-16 0.10914999999999975 0.90640900000000058 -4.622231866529366e-33 -5.6127200000000077e-16 1.297164662095337e-48",
+        "visuals": [
+          {
+            "visual_name": "wrist_2_link_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://ur5_rg2/meshes/visual/ur5/wrist2.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "wrist_3_link",
+        "link_pose": "-8.8817841970012523e-16 0.10914999999999964 1.0010600000000003 0 -9.3297900000000119e-16 0",
+        "visuals": [
+          {
+            "visual_name": "wrist_3_link_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://ur5_rg2/meshes/visual/ur5/wrist3.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "rg2_hand",
+        "link_pose": "-1.1102230246251565e-16 0.19144999999999956 1.0010600000000003 1.5707999999999995 7.7715611723760958e-16 1.5707999999999995",
+        "visuals": [
+          {
+            "visual_name": "rg2_hand_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://ur5_rg2/meshes/visual/rg2/hand.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "rg2_leftfinger",
+        "link_pose": "1.5795098562421117e-10 0.29645000000000032 1.0180600000000011 1.5708000000000015 -1.5193402091995267e-13 1.5708",
+        "visuals": [
+          {
+            "visual_name": "rg2_leftfinger_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://ur5_rg2/meshes/visual/rg2/finger.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "rg2_rightfinger",
+        "link_pose": "2.1897728075259693e-10 0.29644999999999977 0.98405900000000035 1.5708 -7.5384143372048129e-14 1.5707999999999984",
+        "visuals": [
+          {
+            "visual_name": "rg2_rightfinger_visual",
+            "visual_pose": "0 0 0 3.1415926535897931 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://ur5_rg2/meshes/visual/rg2/finger.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "tool0",
+        "link_pose": "-3.3306690738754696e-16 0.38415000000000005 1.0010600000000003 -1.5708000000000022 -9.567750829974502e-16 4.9082961489550287e-18",
+        "visuals": []
+      }
+    ]
+  },
+  {
+    "model": "Panda",
+    "model_pose": "0.58382500000000004 0.73862399999999995 0.79500000000000004 -0.0053702899999999998 0.008233400000000014 3.13645",
+    "static": false,
+    "links": [
+      {
+        "link": "panda_link0",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "panda_link0_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Panda/meshes/visual/link0.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "panda_link1",
+        "link_pose": "-1.8873791418627661e-15 -7.7715611723760958e-16 0.33299999999999985 -3.6540718421844211e-18 -1.3830322323188958e-17 0.026652435995779343",
+        "visuals": [
+          {
+            "visual_name": "panda_link1_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Panda/meshes/visual/link1.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "panda_link2",
+        "link_pose": "-1.6653345369377348e-15 -1.1102230246251565e-15 0.33299999999999985 -1.5707963267948932 -0.00056374969507734258 0.026652435995779072",
+        "visuals": [
+          {
+            "visual_name": "panda_link2_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Panda/meshes/visual/link2.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "panda_link3",
+        "link_pose": "-0.00017808162513355263 -4.7474332870445224e-06 0.64899994978543341 -2.5117598572004301e-07 -0.00056374963912213618 0.027097981260841661",
+        "visuals": [
+          {
+            "visual_name": "panda_link3_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Panda/meshes/visual/link3.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "panda_link4",
+        "link_pose": "0.082291617224041103 0.0022305620771971846 0.64904645912819936 1.570796075015503 0.069249420435820774 0.027097963697595248",
+        "visuals": [
+          {
+            "visual_name": "panda_link4_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Panda/meshes/visual/link4.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "panda_link5",
+        "link_pose": "0.026580338996291752 0.00072062697766717143 1.0378346065481328 0.0081286470144680701 0.068771444140203628 0.14484823528116794",
+        "visuals": [
+          {
+            "visual_name": "panda_link5_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Panda/meshes/visual/link5.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "panda_link6",
+        "link_pose": "0.026580338996295638 0.00072062697766939188 1.0378346065481354 1.5789279390861506 0.073876317512710357 0.14488984522498377",
+        "visuals": [
+          {
+            "visual_name": "panda_link6_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Panda/meshes/visual/link6.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "panda_link7",
+        "link_pose": "0.11342074386344875 0.013391712457975657 1.0313394025280647 -3.1334022373970254 0.073869832919790449 0.14568658228750747",
+        "visuals": [
+          {
+            "visual_name": "panda_link7_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Panda/meshes/visual/link7.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "panda_hand",
+        "link_pose": "0.1054805527717666 0.01311242695468362 0.92463478517232811 -3.0835355111309872 0.046427405429649314 0.93213043595140843",
+        "visuals": [
+          {
+            "visual_name": "panda_hand_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Panda/meshes/visual/hand.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "panda_leftfinger",
+        "link_pose": "0.10111608212231454 0.012982961074063049 0.86639823210575939 -3.0835355111309681 0.04642740542962695 0.93213043595167677",
+        "visuals": [
+          {
+            "visual_name": "panda_leftfinger_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Panda/meshes/visual/finger.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "panda_rightfinger",
+        "link_pose": "0.098612183243730167 0.014852535120929433 0.86657966090538674 -3.0835355111309681 0.04642740542962695 0.93213043595167677",
+        "visuals": [
+          {
+            "visual_name": "panda_rightfinger_visual",
+            "visual_pose": "0 0 0 0 0 3.1415926535897931",
+            "geometry_type": "mesh",
+            "uri": "model://Panda/meshes/visual/finger.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "panda_link8",
+        "link_pose": "0.097837191253618394 0.012843582030958478 0.82191912547474899 -3.0835355111309681 0.04642740542962695 0.93213043595167677",
+        "visuals": []
+      }
+    ]
+  }
+]

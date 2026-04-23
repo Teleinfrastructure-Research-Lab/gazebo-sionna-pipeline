@@ -1,0 +1,106 @@
+<scene version="3.0.0">
+    <integrator type="path">
+        <integer name="max_depth" value="8" />
+    </integrator>
+    <sensor type="perspective">
+        <transform name="to_world">
+            <lookat origin="12, 12, 8" target="0, 0, 1" up="0, 0, 1" />
+        </transform>
+        <float name="fov" value="45" />
+        <sampler type="independent">
+            <integer name="sample_count" value="16" />
+        </sampler>
+        <film type="hdrfilm">
+            <integer name="width" value="1280" />
+            <integer name="height" value="720" />
+        </film>
+    </sensor>
+    <emitter type="constant" />
+    <shape type="ply" id="merged_cardboard">
+        <string name="filename" value="merged_by_material/cardboard.ply" />
+        <bsdf type="twosided">
+            <bsdf type="diffuse">
+                <rgb name="reflectance" value="0.63, 0.50, 0.30" />
+            </bsdf>
+        </bsdf>
+    </shape>
+    <shape type="ply" id="merged_ceiling_board">
+        <string name="filename" value="merged_by_material/ceiling_board.ply" />
+        <bsdf type="twosided">
+            <bsdf type="diffuse">
+                <rgb name="reflectance" value="0.78, 0.78, 0.76" />
+            </bsdf>
+        </bsdf>
+    </shape>
+    <shape type="ply" id="merged_chipboard">
+        <string name="filename" value="merged_by_material/chipboard.ply" />
+        <bsdf type="twosided">
+            <bsdf type="diffuse">
+                <rgb name="reflectance" value="0.57, 0.42, 0.24" />
+            </bsdf>
+        </bsdf>
+    </shape>
+    <shape type="ply" id="merged_glass">
+        <string name="filename" value="merged_by_material/glass.ply" />
+        <bsdf type="dielectric">
+            <string name="int_ior" value="bk7" />
+            <string name="ext_ior" value="air" />
+        </bsdf>
+    </shape>
+    <shape type="ply" id="merged_human_skin">
+        <string name="filename" value="merged_by_material/human_skin.ply" />
+        <bsdf type="twosided">
+            <bsdf type="diffuse">
+                <rgb name="reflectance" value="0.72, 0.56, 0.50" />
+            </bsdf>
+        </bsdf>
+    </shape>
+    <shape type="ply" id="merged_metal">
+        <string name="filename" value="merged_by_material/metal.ply" />
+        <bsdf type="twosided">
+            <bsdf type="diffuse">
+                <rgb name="reflectance" value="0.62, 0.64, 0.67" />
+            </bsdf>
+        </bsdf>
+    </shape>
+    <shape type="ply" id="merged_panel_wall">
+        <string name="filename" value="merged_by_material/panel_wall.ply" />
+        <bsdf type="twosided">
+            <bsdf type="diffuse">
+                <rgb name="reflectance" value="0.82, 0.84, 0.88" />
+            </bsdf>
+        </bsdf>
+    </shape>
+    <shape type="ply" id="merged_plastic">
+        <string name="filename" value="merged_by_material/plastic.ply" />
+        <bsdf type="twosided">
+            <bsdf type="diffuse">
+                <rgb name="reflectance" value="0.30, 0.30, 0.35" />
+            </bsdf>
+        </bsdf>
+    </shape>
+    <shape type="ply" id="merged_textile">
+        <string name="filename" value="merged_by_material/textile.ply" />
+        <bsdf type="twosided">
+            <bsdf type="diffuse">
+                <rgb name="reflectance" value="0.20, 0.25, 0.45" />
+            </bsdf>
+        </bsdf>
+    </shape>
+    <shape type="ply" id="merged_vinyl_tile">
+        <string name="filename" value="merged_by_material/vinyl_tile.ply" />
+        <bsdf type="twosided">
+            <bsdf type="diffuse">
+                <rgb name="reflectance" value="0.40, 0.40, 0.42" />
+            </bsdf>
+        </bsdf>
+    </shape>
+    <shape type="ply" id="merged_wood">
+        <string name="filename" value="merged_by_material/wood.ply" />
+        <bsdf type="twosided">
+            <bsdf type="diffuse">
+                <rgb name="reflectance" value="0.55, 0.34, 0.18" />
+            </bsdf>
+        </bsdf>
+    </shape>
+</scene>

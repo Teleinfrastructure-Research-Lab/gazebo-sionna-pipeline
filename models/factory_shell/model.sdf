@@ -1,0 +1,920 @@
+<?xml version="1.0"?>
+<sdf version="1.12">
+  <model name="factory_shell">
+    <static>true</static>
+    <model name='factory_floor'>
+      <static>true</static>
+      <link name='floor_link'>
+        <pose>0 0 0 0 0 0</pose>
+        <collision name='floor_collision'>
+          <geometry>
+            <box>
+              <size>9.5 9.5 0.20000000000000001</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1.2</mu>
+                <mu2>1.2</mu2>
+              </ode>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='floor_visual'>
+          <geometry>
+            <box>
+              <size>9.5 9.5 0.20000000000000001</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.239999995 0.239999995 0.219999999 1</ambient>
+            <diffuse>0.379999995 0.379999995 0.349999994 1</diffuse>
+            <specular>0.119999997 0.119999997 0.100000001 1</specular>
+          </material>
+        </visual>
+        <visual name='floor_surface_visual'>
+          <pose>0 0 0.10050000000000001 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://factory_shell/surfaces/tiled_plane_9p5m_8x.obj</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.119999997 0.119999997 0.119999997 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>model://factory_shell/textures/interior_tiles_1k/textures/interior_tiles_diff_1k.jpg</albedo_map>
+                <roughness_map>model://factory_shell/textures/interior_tiles_1k/textures/interior_tiles_rough_1k.exr</roughness_map>
+                <metalness>0.0</metalness>
+                <ambient_occlusion_map>model://factory_shell/textures/interior_tiles_1k/textures/interior_tiles_ao_1k.jpg</ambient_occlusion_map>
+                <normal_map type='tangent'>model://factory_shell/textures/interior_tiles_1k/textures/interior_tiles_nor_gl_1k.exr</normal_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='factory_ceiling'>
+      <static>true</static>
+      <link name='ceiling_link'>
+        <pose>0 0 2.96 0 0 0</pose>
+        <collision name='ceiling_collision'>
+          <geometry>
+            <box>
+              <size>9.5 9.5 0.12</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='ceiling_visual'>
+          <geometry>
+            <box>
+              <size>9.5 9.5 0.12</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.579999983 0.579999983 0.560000002 1</ambient>
+            <diffuse>0.720000029 0.720000029 0.680000007 1</diffuse>
+            <specular>0.0299999993 0.0299999993 0.0299999993 1</specular>
+          </material>
+        </visual>
+        <visual name='ceiling_surface_visual'>
+          <pose>0 0 -0.060499999999999998 3.1415926535897931 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://factory_shell/surfaces/tiled_plane_9p5m_8x.obj</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.0500000007 0.0500000007 0.0500000007 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>model://factory_shell/textures/ceiling_interior_1k/textures/ceiling_interior_diff_1k.jpg</albedo_map>
+                <roughness_map>model://factory_shell/textures/ceiling_interior_1k/textures/ceiling_interior_rough_1k.exr</roughness_map>
+                <metalness>0.0</metalness>
+                <ambient_occlusion_map>model://factory_shell/textures/ceiling_interior_1k/textures/ceiling_interior_ao_1k.jpg</ambient_occlusion_map>
+                <normal_map type='tangent'>model://factory_shell/textures/ceiling_interior_1k/textures/ceiling_interior_nor_gl_1k.exr</normal_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='north_wall'>
+      <static>true</static>
+      <link name='north_wall_lower_link'>
+        <pose>0 4.6500000000000004 0.55000000000000004 0 0 0</pose>
+        <collision name='north_wall_lower_collision'>
+          <geometry>
+            <box>
+              <size>9.5 0.20000000000000001 0.90000000000000002</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='north_wall_lower_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://factory_shell/meshes/north_wall_lower.obj</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.150000006 0.150000006 0.150000006 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_diff_1k.jpg</albedo_map>
+                <roughness_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_rough_1k.exr</roughness_map>
+                <metalness>0.0</metalness>
+                <ambient_occlusion_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_ao_1k.jpg</ambient_occlusion_map>
+                <normal_map type='tangent'>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_nor_gl_1k.exr</normal_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='north_wall_upper_link'>
+        <pose>0 4.6500000000000004 2.4500000000000002 0 0 0</pose>
+        <collision name='north_wall_upper_collision'>
+          <geometry>
+            <box>
+              <size>9.5 0.20000000000000001 0.90000000000000002</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='north_wall_upper_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://factory_shell/meshes/north_wall_upper.obj</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.150000006 0.150000006 0.150000006 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_diff_1k.jpg</albedo_map>
+                <roughness_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_rough_1k.exr</roughness_map>
+                <metalness>0.0</metalness>
+                <ambient_occlusion_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_ao_1k.jpg</ambient_occlusion_map>
+                <normal_map type='tangent'>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_nor_gl_1k.exr</normal_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='north_wall_left_pier_link'>
+        <pose>-3.3250000000000002 4.6500000000000004 1.5 0 0 0</pose>
+        <collision name='north_wall_left_pier_collision'>
+          <geometry>
+            <box>
+              <size>2.8500000000000001 0.20000000000000001 1</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='north_wall_left_pier_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://factory_shell/meshes/north_wall_left_pier.obj</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.150000006 0.150000006 0.150000006 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_diff_1k.jpg</albedo_map>
+                <roughness_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_rough_1k.exr</roughness_map>
+                <metalness>0.0</metalness>
+                <ambient_occlusion_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_ao_1k.jpg</ambient_occlusion_map>
+                <normal_map type='tangent'>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_nor_gl_1k.exr</normal_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='north_wall_center_pier_link'>
+        <pose>0 4.6500000000000004 1.5 0 0 0</pose>
+        <collision name='north_wall_center_pier_collision'>
+          <geometry>
+            <box>
+              <size>0.80000000000000004 0.20000000000000001 1</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='north_wall_center_pier_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://factory_shell/meshes/north_wall_center_pier.obj</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.150000006 0.150000006 0.150000006 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_diff_1k.jpg</albedo_map>
+                <roughness_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_rough_1k.exr</roughness_map>
+                <metalness>0.0</metalness>
+                <ambient_occlusion_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_ao_1k.jpg</ambient_occlusion_map>
+                <normal_map type='tangent'>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_nor_gl_1k.exr</normal_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='north_wall_right_pier_link'>
+        <pose>3.3250000000000002 4.6500000000000004 1.5 0 0 0</pose>
+        <collision name='north_wall_right_pier_collision'>
+          <geometry>
+            <box>
+              <size>2.8500000000000001 0.20000000000000001 1</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='north_wall_right_pier_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://factory_shell/meshes/north_wall_right_pier.obj</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.150000006 0.150000006 0.150000006 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_diff_1k.jpg</albedo_map>
+                <roughness_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_rough_1k.exr</roughness_map>
+                <metalness>0.0</metalness>
+                <ambient_occlusion_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_ao_1k.jpg</ambient_occlusion_map>
+                <normal_map type='tangent'>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_nor_gl_1k.exr</normal_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='north_window_left_link'>
+        <pose>-1.1499999999999999 4.6500000000000004 1.5 0 0 0</pose>
+        <collision name='north_window_left_glass_collision'>
+          <geometry>
+            <box>
+              <size>1.4199999999999999 0.029999999999999999 0.92000000000000004</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='north_window_left_glass_visual'>
+          <geometry>
+            <box>
+              <size>1.4199999999999999 0.029999999999999999 0.92000000000000004</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.620000005 0.75 0.819999993 0.300000012</ambient>
+            <diffuse>0.74000001 0.860000014 0.920000017 0.300000012</diffuse>
+            <specular>0.219999999 0.219999999 0.219999999 1</specular>
+          </material>
+          <transparency>0.59999999999999998</transparency>
+        </visual>
+        <visual name='north_window_left_frame_top_visual'>
+          <pose>0 0 0.46999999999999997 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.5 0.059999999999999998 0.059999999999999998</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.200000003 0.219999999 1</ambient>
+            <diffuse>0.280000001 0.300000012 0.319999993 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <visual name='north_window_left_frame_bottom_visual'>
+          <pose>0 0 -0.46999999999999997 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.5 0.059999999999999998 0.059999999999999998</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.200000003 0.219999999 1</ambient>
+            <diffuse>0.280000001 0.300000012 0.319999993 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <visual name='north_window_left_frame_left_visual'>
+          <pose>-0.71999999999999997 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.059999999999999998 0.059999999999999998 1</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.200000003 0.219999999 1</ambient>
+            <diffuse>0.280000001 0.300000012 0.319999993 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <visual name='north_window_left_frame_right_visual'>
+          <pose>0.71999999999999997 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.059999999999999998 0.059999999999999998 1</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.200000003 0.219999999 1</ambient>
+            <diffuse>0.280000001 0.300000012 0.319999993 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <visual name='north_window_left_frame_center_visual'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.050000000000000003 0.050000000000000003 0.92000000000000004</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.200000003 0.219999999 1</ambient>
+            <diffuse>0.280000001 0.300000012 0.319999993 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <visual name='north_window_left_frame_transom_visual'>
+          <pose>0 0 0.10000000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.4199999999999999 0.050000000000000003 0.050000000000000003</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.200000003 0.219999999 1</ambient>
+            <diffuse>0.280000001 0.300000012 0.319999993 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='north_window_right_link'>
+        <pose>1.1499999999999999 4.6500000000000004 1.5 0 0 0</pose>
+        <collision name='north_window_right_glass_collision'>
+          <geometry>
+            <box>
+              <size>1.4199999999999999 0.029999999999999999 0.92000000000000004</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='north_window_right_glass_visual'>
+          <geometry>
+            <box>
+              <size>1.4199999999999999 0.029999999999999999 0.92000000000000004</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.620000005 0.75 0.819999993 0.300000012</ambient>
+            <diffuse>0.74000001 0.860000014 0.920000017 0.300000012</diffuse>
+            <specular>0.219999999 0.219999999 0.219999999 1</specular>
+          </material>
+          <transparency>0.59999999999999998</transparency>
+        </visual>
+        <visual name='north_window_right_frame_top_visual'>
+          <pose>0 0 0.46999999999999997 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.5 0.059999999999999998 0.059999999999999998</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.200000003 0.219999999 1</ambient>
+            <diffuse>0.280000001 0.300000012 0.319999993 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <visual name='north_window_right_frame_bottom_visual'>
+          <pose>0 0 -0.46999999999999997 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.5 0.059999999999999998 0.059999999999999998</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.200000003 0.219999999 1</ambient>
+            <diffuse>0.280000001 0.300000012 0.319999993 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <visual name='north_window_right_frame_left_visual'>
+          <pose>-0.71999999999999997 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.059999999999999998 0.059999999999999998 1</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.200000003 0.219999999 1</ambient>
+            <diffuse>0.280000001 0.300000012 0.319999993 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <visual name='north_window_right_frame_right_visual'>
+          <pose>0.71999999999999997 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.059999999999999998 0.059999999999999998 1</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.200000003 0.219999999 1</ambient>
+            <diffuse>0.280000001 0.300000012 0.319999993 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <visual name='north_window_right_frame_center_visual'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.050000000000000003 0.050000000000000003 0.92000000000000004</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.200000003 0.219999999 1</ambient>
+            <diffuse>0.280000001 0.300000012 0.319999993 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <visual name='north_window_right_frame_transom_visual'>
+          <pose>0 0 0.10000000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.4199999999999999 0.050000000000000003 0.050000000000000003</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.200000003 0.219999999 1</ambient>
+            <diffuse>0.280000001 0.300000012 0.319999993 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='south_wall'>
+      <static>true</static>
+      <link name='south_wall_left_link'>
+        <pose>-2.5625 -4.6500000000000004 1.5 0 0 0</pose>
+        <collision name='south_wall_left_collision'>
+          <geometry>
+            <box>
+              <size>4.375 0.20000000000000001 2.7999999999999998</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='south_wall_left_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://factory_shell/meshes/south_wall_left.obj</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.150000006 0.150000006 0.150000006 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_diff_1k.jpg</albedo_map>
+                <roughness_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_rough_1k.exr</roughness_map>
+                <metalness>0.0</metalness>
+                <ambient_occlusion_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_ao_1k.jpg</ambient_occlusion_map>
+                <normal_map type='tangent'>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_nor_gl_1k.exr</normal_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='south_wall_right_link'>
+        <pose>2.5625 -4.6500000000000004 1.5 0 0 0</pose>
+        <collision name='south_wall_right_collision'>
+          <geometry>
+            <box>
+              <size>4.375 0.20000000000000001 2.7999999999999998</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='south_wall_right_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://factory_shell/meshes/south_wall_right.obj</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.150000006 0.150000006 0.150000006 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_diff_1k.jpg</albedo_map>
+                <roughness_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_rough_1k.exr</roughness_map>
+                <metalness>0.0</metalness>
+                <ambient_occlusion_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_ao_1k.jpg</ambient_occlusion_map>
+                <normal_map type='tangent'>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_nor_gl_1k.exr</normal_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='south_wall_overdoor_link'>
+        <pose>0 -4.6500000000000004 2.4422799999999998 0 0 0</pose>
+        <collision name='south_wall_overdoor_collision'>
+          <geometry>
+            <box>
+              <size>0.90000000000000002 0.20000000000000001 0.91544999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='south_wall_overdoor_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://factory_shell/meshes/south_wall_overdoor.obj</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.150000006 0.150000006 0.150000006 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_diff_1k.jpg</albedo_map>
+                <roughness_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_rough_1k.exr</roughness_map>
+                <metalness>0.0</metalness>
+                <ambient_occlusion_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_ao_1k.jpg</ambient_occlusion_map>
+                <normal_map type='tangent'>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_nor_gl_1k.exr</normal_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='east_wall'>
+      <static>true</static>
+      <link name='east_wall_link'>
+        <pose>4.6500000000000004 0 1.5 0 0 1.5708</pose>
+        <collision name='east_wall_collision'>
+          <geometry>
+            <box>
+              <size>9.5 0.20000000000000001 2.7999999999999998</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='east_wall_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://factory_shell/meshes/east_wall.obj</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.150000006 0.150000006 0.150000006 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_diff_1k.jpg</albedo_map>
+                <roughness_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_rough_1k.exr</roughness_map>
+                <metalness>0.0</metalness>
+                <ambient_occlusion_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_ao_1k.jpg</ambient_occlusion_map>
+                <normal_map type='tangent'>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_nor_gl_1k.exr</normal_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 -6.343825442146034e-14 -1.3322676295501878e-15 0 0 1.3988810110276972e-14</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='west_wall'>
+      <static>true</static>
+      <link name='west_wall_link'>
+        <pose>-4.6500000000000004 0 1.5 0 0 1.5708</pose>
+        <collision name='west_wall_collision'>
+          <geometry>
+            <box>
+              <size>9.5 0.20000000000000001 2.7999999999999998</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='west_wall_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://factory_shell/meshes/west_wall.obj</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.150000006 0.150000006 0.150000006 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_diff_1k.jpg</albedo_map>
+                <roughness_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_rough_1k.exr</roughness_map>
+                <metalness>0.0</metalness>
+                <ambient_occlusion_map>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_ao_1k.jpg</ambient_occlusion_map>
+                <normal_map type='tangent'>model://factory_shell/textures/plastered_wall_02_1k/textures/plastered_wall_02_nor_gl_1k.exr</normal_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 6.343825442146034e-14 -1.3322676295501878e-15 0 0 1.3988810110276972e-14</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <pose>0 0 0 0 0 0</pose>
+  </model>
+</sdf>

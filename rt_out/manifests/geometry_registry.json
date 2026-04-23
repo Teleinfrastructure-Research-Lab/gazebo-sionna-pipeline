@@ -1,0 +1,6348 @@
+[
+  {
+    "model_name": "factory_door",
+    "link_name": "body",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      2.3139306066671253e-10,
+      -4.649999999998848,
+      0.08963641930563847,
+      -1.2517544308155565e-10,
+      -9.193330900737867e-10,
+      -5.295087609005843e-10
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://OrangeDoors/meshes/door.obj",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/furniture/OrangeDoors/meshes/door.obj",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "lamp_fixture_01",
+    "link_name": "lamp_fixture_01_link",
+    "visual_name": "lamp_fixture_01_housing",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      -2.5,
+      -2.0,
+      2.86,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size": [
+      1.2,
+      0.35,
+      0.08
+    ]
+  },
+  {
+    "model_name": "lamp_fixture_01",
+    "link_name": "lamp_fixture_01_link",
+    "visual_name": "lamp_fixture_01_diffuser",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      -2.5,
+      -2.0,
+      2.86,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      -0.04,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size": [
+      1.08,
+      0.24,
+      0.03
+    ]
+  },
+  {
+    "model_name": "lamp_fixture_02",
+    "link_name": "lamp_fixture_02_link",
+    "visual_name": "lamp_fixture_02_housing",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      2.5,
+      -2.0,
+      2.86,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size": [
+      1.2,
+      0.35,
+      0.08
+    ]
+  },
+  {
+    "model_name": "lamp_fixture_02",
+    "link_name": "lamp_fixture_02_link",
+    "visual_name": "lamp_fixture_02_diffuser",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      2.5,
+      -2.0,
+      2.86,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      -0.04,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size": [
+      1.08,
+      0.24,
+      0.03
+    ]
+  },
+  {
+    "model_name": "lamp_fixture_03",
+    "link_name": "lamp_fixture_03_link",
+    "visual_name": "lamp_fixture_03_housing",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      -2.5,
+      2.0,
+      2.86,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size": [
+      1.2,
+      0.35,
+      0.08
+    ]
+  },
+  {
+    "model_name": "lamp_fixture_03",
+    "link_name": "lamp_fixture_03_link",
+    "visual_name": "lamp_fixture_03_diffuser",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      -2.5,
+      2.0,
+      2.86,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      -0.04,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size": [
+      1.08,
+      0.24,
+      0.03
+    ]
+  },
+  {
+    "model_name": "lamp_fixture_04",
+    "link_name": "lamp_fixture_04_link",
+    "visual_name": "lamp_fixture_04_housing",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      2.5,
+      2.0,
+      2.86,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size": [
+      1.2,
+      0.35,
+      0.08
+    ]
+  },
+  {
+    "model_name": "lamp_fixture_04",
+    "link_name": "lamp_fixture_04_link",
+    "visual_name": "lamp_fixture_04_diffuser",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      2.5,
+      2.0,
+      2.86,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      -0.04,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size": [
+      1.08,
+      0.24,
+      0.03
+    ]
+  },
+  {
+    "model_name": "aws_robomaker_warehouse_ClutteringC_01",
+    "link_name": "link",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      3.64376,
+      3.49835,
+      0.07,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://aws_robomaker_warehouse_ClutteringC_01/meshes/aws_robomaker_warehouse_ClutteringC_01_visual.DAE",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/furniture/aws_robomaker_warehouse_ClutteringC_01/meshes/aws_robomaker_warehouse_ClutteringC_01_visual.DAE",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "OfficeChairBlue",
+    "link_name": "body",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      3.5722,
+      -3.45491,
+      0.1,
+      0.0,
+      0.0,
+      1.6421200000000002
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://OfficeChairBlue/meshes/OfficeChairBlue.obj",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/furniture/OfficeChairBlue/meshes/OfficeChairBlue.obj",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "OfficeChairBlack",
+    "link_name": "body",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -3.33288,
+      3.71251,
+      0.1,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://OfficeChairBlack/meshes/OfficeChairBlack.obj",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/furniture/OfficeChairBlack/meshes/OfficeChairBlack.obj",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "OfficeChairGrey",
+    "link_name": "body",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -3.63845,
+      -3.1747,
+      0.1,
+      0.0,
+      0.0,
+      -1.5493700000000004
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://OfficeChairGrey/meshes/OfficeChairGrey.obj",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/furniture/OfficeChairGrey/meshes/OfficeChairGrey.obj",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "Picking_Shelves",
+    "link_name": "base_link",
+    "visual_name": "base_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -4.29528,
+      -1.2817,
+      0.1,
+      -5.10395e-18,
+      -1.4058600000000006e-18,
+      -1.57744
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://picking_shelves/base_visual.glb",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/furniture/picking_shelves/base_visual.glb",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "Desk",
+    "link_name": "base_link",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.08683,
+      -3.38412,
+      0.1,
+      2.64696e-23,
+      -1.0575900000000037e-25,
+      -3.13759
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://OfficeDesk/meshes/desk.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/furniture/OfficeDesk/meshes/desk.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "Desk_0",
+    "link_name": "base_link",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -4.06704,
+      -3.3781,
+      0.1,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://OfficeDesk/meshes/desk.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/furniture/OfficeDesk/meshes/desk.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "Desk_1",
+    "link_name": "link",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -4.071229156662433,
+      3.703687405199135,
+      0.09999965669492672,
+      2.2191047682249093e-06,
+      -2.829321362735143e-06,
+      2.8744004810404582e-05
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Desk/meshes/desk.obj",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/furniture/Desk/meshes/desk.obj",
+    "scale": [
+      1.8,
+      1.8,
+      1.8
+    ]
+  },
+  {
+    "model_name": "MonitorAndKeyboard",
+    "link_name": "body",
+    "visual_name": "visual_monitor",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -4.320339381847918,
+      4.147968464018392,
+      1.0935478673677355,
+      -3.9192921814662605e-06,
+      3.4874390023451855e-06,
+      2.671576730517023
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://MonitorAndKeyboard/meshes/monitor.obj",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/furniture/MonitorAndKeyboard/meshes/monitor.obj",
+    "scale": [
+      0.2,
+      0.2,
+      0.2
+    ]
+  },
+  {
+    "model_name": "MonitorAndKeyboard",
+    "link_name": "body",
+    "visual_name": "visual_keyboard",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -4.320339381847918,
+      4.147968464018392,
+      1.0935478673677355,
+      -3.9192921814662605e-06,
+      3.4874390023451855e-06,
+      2.671576730517023
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      -0.27,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://MonitorAndKeyboard/meshes/keyboard.obj",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/furniture/MonitorAndKeyboard/meshes/keyboard.obj",
+    "scale": [
+      0.2,
+      0.2,
+      0.2
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "base",
+    "visual_name": "base_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/base.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/base.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "base",
+    "visual_name": "base_fixed_joint_lump__LF_HAA_visual_1",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.194935,
+      0.0676,
+      0.0,
+      2.61799,
+      0.0,
+      0.0
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "base",
+    "visual_name": "base_fixed_joint_lump__LH_HAA_visual_2",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      -0.194935,
+      0.0676,
+      0.0,
+      -2.61799,
+      0.0,
+      3.14159
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "base",
+    "visual_name": "base_fixed_joint_lump__RF_HAA_visual_3",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.194935,
+      -0.0676,
+      0.0,
+      -2.61799,
+      0.0,
+      0.0
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "base",
+    "visual_name": "base_fixed_joint_lump__RH_HAA_visual_4",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      -0.194935,
+      -0.0676,
+      0.0,
+      2.61799,
+      0.0,
+      3.14159
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "base",
+    "visual_name": "base_fixed_joint_lump__battery_visual_5",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/battery.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/battery.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "base",
+    "visual_name": "base_fixed_joint_lump__bottom_shell_visual_6",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/bottom_shell.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/bottom_shell.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "base",
+    "visual_name": "base_fixed_joint_lump__handle_visual_7",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/handle.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/handle.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "base",
+    "visual_name": "base_fixed_joint_lump__hatch_visual_8",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0754,
+      0.0,
+      0.04745,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hatch.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hatch.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "base",
+    "visual_name": "base_fixed_joint_lump__remote_visual_9",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/remote.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/remote.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "base",
+    "visual_name": "base_fixed_joint_lump__alphasense_mesh_visual_10",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      -0.2366,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/alphasense.stl",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/alphasense.stl",
+    "scale": [
+      0.00065,
+      0.00065,
+      0.00065
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "base",
+    "visual_name": "base_fixed_joint_lump__bpearl_front_visual_11",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.3055,
+      0.0,
+      0.02275,
+      -2.85388,
+      -0.5466600000000006,
+      -0.5175069999999995
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/rslidar_bpearl.stl",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/rslidar_bpearl.stl",
+    "scale": [
+      0.00065,
+      0.00065,
+      0.00065
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "base",
+    "visual_name": "base_fixed_joint_lump__bpearl_front_protection_bars_visual_12",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.26942175,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -3.14159
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/bpearl_protection_bars.stl",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/bpearl_protection_bars.stl",
+    "scale": [
+      0.00065,
+      0.00065,
+      0.00065
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "base",
+    "visual_name": "base_fixed_joint_lump__bpearl_rear_visual_13",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      -0.3055,
+      0.0,
+      0.02275,
+      -2.85388,
+      -0.5466599999999999,
+      2.62409
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/rslidar_bpearl.stl",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/rslidar_bpearl.stl",
+    "scale": [
+      0.00065,
+      0.00065,
+      0.00065
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "base",
+    "visual_name": "base_fixed_joint_lump__bpearl_rear_protection_bars_visual_14",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      -0.26942175,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/bpearl_protection_bars.stl",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/bpearl_protection_bars.stl",
+    "scale": [
+      0.00065,
+      0.00065,
+      0.00065
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "base",
+    "visual_name": "base_fixed_joint_lump__perception_head_cage_visual_15",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      -0.2366,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/perception_head.stl",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/perception_head.stl",
+    "scale": [
+      0.00065,
+      0.00065,
+      0.00065
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "base",
+    "visual_name": "base_fixed_joint_lump__lidar_visual_16",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      -0.2366,
+      0.0,
+      0.09243,
+      0.0,
+      0.0,
+      -1.5708
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/lidar.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/lidar.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "base",
+    "visual_name": "base_fixed_joint_lump__top_shell_visual_17",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/top_shell.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/top_shell.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "base",
+    "visual_name": "base_fixed_joint_lump__imu_link_visual_18",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.16172,
+      0.0054275,
+      0.033332,
+      0.0,
+      0.0,
+      1.5708
+    ],
+    "size": [
+      0.0156,
+      0.0156,
+      0.0065
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "LF_HIP",
+    "visual_name": "LF_HIP_fixed_joint_lump__LF_hip_fixed_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.19493500000000274,
+      0.06760000000000077,
+      1.3322676295501878e-15,
+      2.6179899999999985,
+      -3.0457417729510566e-17,
+      4.0487642673459135e-17
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      -2.61799,
+      0.0,
+      0.0
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hip_l.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hip_l.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "LF_HIP",
+    "visual_name": "LF_HIP_fixed_joint_lump__LF_HFE_visual_1",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.19493500000000274,
+      0.06760000000000077,
+      1.3322676295501878e-15,
+      2.6179899999999985,
+      -3.0457417729510566e-17,
+      4.0487642673459135e-17
+    ],
+    "visual_pose": [
+      0.038935,
+      -0.0471783,
+      -0.02723825,
+      -3.14159,
+      0.5235990000000001,
+      -1.570799999999999
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "LF_THIGH",
+    "visual_name": "LF_THIGH_fixed_joint_lump__LF_thigh_fixed_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.2338699999999978,
+      0.12207600000000118,
+      7.216449660063518e-16,
+      2.0918648468523783e-15,
+      -9.485960168501478e-17,
+      1.5708000000000002
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.5708
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/thigh.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/thigh.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "LF_THIGH",
+    "visual_name": "LF_THIGH_fixed_joint_lump__LF_KFE_visual_1",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.2338699999999978,
+      0.12207600000000118,
+      7.216449660063518e-16,
+      2.0918648468523783e-15,
+      -9.485960168501478e-17,
+      1.5708000000000002
+    ],
+    "visual_pose": [
+      0.065195,
+      0.0,
+      -0.18525,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "LF_SHANK",
+    "visual_name": "LF_SHANK_fixed_joint_lump__LF_shank_fixed_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.23387000000000313,
+      0.18727200000000033,
+      -0.18525000000000025,
+      4.325851734562564e-15,
+      -1.266915218820835e-16,
+      1.5707999999999998
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.5708
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/shank_l.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/shank_l.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "LF_SHANK",
+    "visual_name": "LF_SHANK_fixed_joint_lump__LF_FOOT_visual_1",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.23387000000000313,
+      0.18727200000000033,
+      -0.18525000000000025,
+      4.325851734562564e-15,
+      -1.266915218820835e-16,
+      1.5707999999999998
+    ],
+    "visual_pose": [
+      0.0084825,
+      -0.0571675,
+      -0.2196805,
+      0.0,
+      0.0,
+      -2.35619
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/foot.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/foot.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "LH_HIP",
+    "visual_name": "LH_HIP_fixed_joint_lump__LH_hip_fixed_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      -0.19493500000000008,
+      0.06759999999999944,
+      1.6653345369377348e-15,
+      -2.6179900000000007,
+      -1.7200288307704843e-15,
+      3.14159
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      2.61799,
+      0.0,
+      0.0
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hip_r.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hip_r.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "LH_HIP",
+    "visual_name": "LH_HIP_fixed_joint_lump__LH_HFE_visual_1",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      -0.19493500000000008,
+      0.06759999999999944,
+      1.6653345369377348e-15,
+      -2.6179900000000007,
+      -1.7200288307704843e-15,
+      3.14159
+    ],
+    "visual_pose": [
+      0.038935,
+      0.0471783,
+      -0.02723825,
+      -3.14159,
+      0.5235990000000001,
+      1.5708000000000004
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "LH_THIGH",
+    "visual_name": "LH_THIGH_fixed_joint_lump__LH_thigh_fixed_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      -0.23386999999999825,
+      0.12207699999999955,
+      -4.996003610813204e-16,
+      8.038584307645879e-16,
+      3.309455329974372e-16,
+      1.5708000000000022
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.5708
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/thigh.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/thigh.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "LH_THIGH",
+    "visual_name": "LH_THIGH_fixed_joint_lump__LH_KFE_visual_1",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      -0.23386999999999825,
+      0.12207699999999955,
+      -4.996003610813204e-16,
+      8.038584307645879e-16,
+      3.309455329974372e-16,
+      1.5708000000000022
+    ],
+    "visual_pose": [
+      0.065195,
+      0.0,
+      -0.18525,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "LH_SHANK",
+    "visual_name": "LH_SHANK_fixed_joint_lump__LH_shank_fixed_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      -0.2338700000000018,
+      0.18727200000000077,
+      -0.18524999999999864,
+      1.729202579768004e-15,
+      -1.1756605281130687e-16,
+      1.5708000000000046
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.5708
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/shank_r.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/shank_r.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "LH_SHANK",
+    "visual_name": "LH_SHANK_fixed_joint_lump__LH_FOOT_visual_1",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      -0.2338700000000018,
+      0.18727200000000077,
+      -0.18524999999999864,
+      1.729202579768004e-15,
+      -1.1756605281130687e-16,
+      1.5708000000000046
+    ],
+    "visual_pose": [
+      0.0084825,
+      0.0571675,
+      -0.2196805,
+      0.0,
+      0.0,
+      2.35619
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/foot.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/foot.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "RF_HIP",
+    "visual_name": "RF_HIP_fixed_joint_lump__RF_hip_fixed_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.19493499999999742,
+      -0.06759999999999877,
+      6.106226635438361e-16,
+      -2.617990000000001,
+      1.8844025719485615e-17,
+      8.047787138441452e-17
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      2.61799,
+      0.0,
+      0.0
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hip_r.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hip_r.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "RF_HIP",
+    "visual_name": "RF_HIP_fixed_joint_lump__RF_HFE_visual_1",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.19493499999999742,
+      -0.06759999999999877,
+      6.106226635438361e-16,
+      -2.617990000000001,
+      1.8844025719485615e-17,
+      8.047787138441452e-17
+    ],
+    "visual_pose": [
+      0.038935,
+      0.0471783,
+      -0.02723825,
+      3.14159,
+      0.5235990000000001,
+      1.570799999999999
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "RF_THIGH",
+    "visual_name": "RF_THIGH_fixed_joint_lump__RF_thigh_fixed_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.2338699999999978,
+      -0.1220759999999983,
+      6.106226635438361e-16,
+      7.002663875904519e-16,
+      3.7823362698493425e-16,
+      -1.570799999999999
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.5708
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/thigh.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/thigh.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "RF_THIGH",
+    "visual_name": "RF_THIGH_fixed_joint_lump__RF_KFE_visual_1",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.2338699999999978,
+      -0.1220759999999983,
+      6.106226635438361e-16,
+      7.002663875904519e-16,
+      3.7823362698493425e-16,
+      -1.570799999999999
+    ],
+    "visual_pose": [
+      0.065195,
+      0.0,
+      -0.18525,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "RF_SHANK",
+    "visual_name": "RF_SHANK_fixed_joint_lump__RF_shank_fixed_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.23387000000000135,
+      -0.18727199999999922,
+      -0.18524999999999858,
+      1.4716456891300759e-15,
+      -1.3659936597271126e-16,
+      -1.5707999999999982
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.5708
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/shank_r.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/shank_r.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "RF_SHANK",
+    "visual_name": "RF_SHANK_fixed_joint_lump__RF_FOOT_visual_1",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      0.23387000000000135,
+      -0.18727199999999922,
+      -0.18524999999999858,
+      1.4716456891300759e-15,
+      -1.3659936597271126e-16,
+      -1.5707999999999982
+    ],
+    "visual_pose": [
+      0.0084825,
+      0.0571675,
+      -0.2196805,
+      0.0,
+      0.0,
+      2.35619
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/foot.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/foot.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "RH_HIP",
+    "visual_name": "RH_HIP_fixed_joint_lump__RH_hip_fixed_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      -0.19493499999999875,
+      -0.06760000000000033,
+      7.216449660063518e-16,
+      2.61799,
+      -2.0795741998474375e-15,
+      3.14159
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      -2.61799,
+      0.0,
+      0.0
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hip_l.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hip_l.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "RH_HIP",
+    "visual_name": "RH_HIP_fixed_joint_lump__RH_HFE_visual_1",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      -0.19493499999999875,
+      -0.06760000000000033,
+      7.216449660063518e-16,
+      2.61799,
+      -2.0795741998474375e-15,
+      3.14159
+    ],
+    "visual_pose": [
+      0.038935,
+      -0.0471783,
+      -0.02723825,
+      3.14159,
+      0.5235990000000001,
+      -1.5708000000000004
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "RH_THIGH",
+    "visual_name": "RH_THIGH_fixed_joint_lump__RH_thigh_fixed_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      -0.23387000000000047,
+      -0.12207700000000044,
+      -6.661338147750939e-16,
+      4.997378760024551e-16,
+      4.2514964147338527e-16,
+      -1.5708000000000009
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.5708
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/thigh.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/thigh.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "RH_THIGH",
+    "visual_name": "RH_THIGH_fixed_joint_lump__RH_KFE_visual_1",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      -0.23387000000000047,
+      -0.12207700000000044,
+      -6.661338147750939e-16,
+      4.997378760024551e-16,
+      4.2514964147338527e-16,
+      -1.5708000000000009
+    ],
+    "visual_pose": [
+      0.065195,
+      0.0,
+      -0.18525,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "RH_SHANK",
+    "visual_name": "RH_SHANK_fixed_joint_lump__RH_shank_fixed_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      -0.23387000000000002,
+      -0.18727100000000085,
+      -0.18524999999999892,
+      1.174763985256913e-15,
+      -4.848105941526914e-17,
+      -1.5708000000000013
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.5708
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/shank_l.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/shank_l.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "cerberus_anymal_c_sensor_config_1",
+    "link_name": "RH_SHANK",
+    "visual_name": "RH_SHANK_fixed_joint_lump__RH_FOOT_visual_1",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      4.07523,
+      -1.77944,
+      0.509806,
+      -3.939559997943042e-11,
+      -0.0026453900000000053,
+      -0.016937300000000037
+    ],
+    "link_pose": [
+      -0.23387000000000002,
+      -0.18727100000000085,
+      -0.18524999999999892,
+      1.174763985256913e-15,
+      -4.848105941526914e-17,
+      -1.5708000000000013
+    ],
+    "visual_pose": [
+      0.0084825,
+      -0.0571675,
+      -0.2196805,
+      0.0,
+      0.0,
+      -2.35619
+    ],
+    "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/foot.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/foot.dae",
+    "scale": [
+      0.65,
+      0.65,
+      0.65
+    ]
+  },
+  {
+    "model_name": "TrashBin",
+    "link_name": "body",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      3.17828,
+      -4.39236,
+      0.1005,
+      0.0,
+      0.0,
+      -1.5495200000000002
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://TrashBin/meshes/TrashBin.obj",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/furniture/TrashBin/meshes/TrashBin.obj",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "TrashBin_0",
+    "link_name": "body",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -4.38009,
+      2.6331,
+      0.1005,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://TrashBin/meshes/TrashBin.obj",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/furniture/TrashBin/meshes/TrashBin.obj",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "TrashBin_1",
+    "link_name": "body",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -3.22789,
+      -4.39916,
+      0.1005,
+      0.0,
+      0.0,
+      -1.5661099999999997
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://TrashBin/meshes/TrashBin.obj",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/furniture/TrashBin/meshes/TrashBin.obj",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "Reflective table",
+    "link_name": "link",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.9119154227633895,
+      -0.8673930368219916,
+      0.09990492792228607,
+      0.00014002940883026796,
+      0.001628378286708397,
+      0.00018473108801356897
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      3.14159,
+      0.00159265,
+      3.14159
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Reflective table/meshes/Table.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/furniture/Reflective table/meshes/Table.dae",
+    "scale": [
+      0.4,
+      0.4,
+      0.4
+    ]
+  },
+  {
+    "model_name": "Reflective table_1",
+    "link_name": "link",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.1238332605304239,
+      -0.8670925245271722,
+      0.09897470779499733,
+      0.0013894958241688748,
+      0.0016041253588244492,
+      0.0004802116946150434
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      3.14159,
+      0.00159265,
+      3.14159
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Reflective table/meshes/Table.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/furniture/Reflective table/meshes/Table.dae",
+    "scale": [
+      0.4,
+      0.4,
+      0.4
+    ]
+  },
+  {
+    "model_name": "Reflective table_1_1",
+    "link_name": "link",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.12331123169121153,
+      0.728509898200505,
+      0.09995974845062705,
+      5.6497754173670825e-05,
+      0.0015755554740337148,
+      -0.0002602429278053071
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      3.14159,
+      0.00159265,
+      3.14159
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Reflective table/meshes/Table.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/furniture/Reflective table/meshes/Table.dae",
+    "scale": [
+      0.4,
+      0.4,
+      0.4
+    ]
+  },
+  {
+    "model_name": "Reflective table_1_2",
+    "link_name": "link",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.912366704933982,
+      0.7285646349831213,
+      0.09985735016855633,
+      0.0002105931807603984,
+      0.0016294753264521008,
+      4.036604608783316e-05
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      3.14159,
+      0.00159265,
+      3.14159
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Reflective table/meshes/Table.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/furniture/Reflective table/meshes/Table.dae",
+    "scale": [
+      0.4,
+      0.4,
+      0.4
+    ]
+  },
+  {
+    "model_name": "gasket_part",
+    "link_name": "link",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1373440325260163,
+      1.1866574287414553,
+      0.7929707169532777,
+      0.00021322500300580897,
+      3.684799954501448e-05,
+      3.734100076554319e-05
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://gasket_part/meshes/gasket.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/parts/gasket_part/meshes/gasket.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "cross_joint_part",
+    "link_name": "link",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.09591933339834213,
+      -1.1500073671340942,
+      0.7928642630577086,
+      0.00023876200503377039,
+      0.00013229900344347264,
+      0.00018129000237509407
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://cross_joint_part/meshes/cross_joint.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/parts/cross_joint_part/meshes/cross_joint.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "t_brace_part",
+    "link_name": "link",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.19188249111175543,
+      -0.5981432795524598,
+      0.7890004515647889,
+      0.00014269099761274762,
+      0.0175673998578516,
+      0.00019708000116052434
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://t_brace_part/meshes/t_brace.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/parts/t_brace_part/meshes/t_brace.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "disk_part",
+    "link_name": "link",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.14295276999473572,
+      0.7438242435455323,
+      0.7928544878959656,
+      0.0002132760134530474,
+      0.00019458200369874444,
+      3.700030055543191e-05
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://disk_part/meshes/disk.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/parts/disk_part/meshes/disk.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "piston_rod_part",
+    "link_name": "link",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.3424513339996337,
+      -1.5288020372390747,
+      0.7928095459938048,
+      0.00014236101405171625,
+      3.582000298916052e-05,
+      -0.0004018920206655185
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://piston_rod_part/meshes/piston_rod.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/parts/piston_rod_part/meshes/piston_rod.dae",
+    "scale": [
+      0.25,
+      0.25,
+      0.25
+    ]
+  },
+  {
+    "model_name": "gear_part",
+    "link_name": "link",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.036153450608253423,
+      -0.24461552500724792,
+      0.7931323051452638,
+      0.00014267700182931674,
+      3.4093999828695544e-05,
+      0.00018149401152184997
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://gear_part/meshes/gear.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/parts/gear_part/meshes/gear.dae",
+    "scale": [
+      0.25,
+      0.25,
+      0.25
+    ]
+  },
+  {
+    "model_name": "arm_part",
+    "link_name": "link",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1616949588060379,
+      0.2065746933221817,
+      0.7927626967430115,
+      2.849059713841987e-05,
+      -0.00021470000201831308,
+      1.6078900367957567
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://arm_part/meshes/arm.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/parts/arm_part/meshes/arm.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "x500",
+    "link_name": "base_link",
+    "visual_name": "base_link_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -3.979776981583522,
+      3.249516392401916,
+      1.3205464917461514,
+      3.1050069996108954e-06,
+      -2.902549493870595e-06,
+      -0.0004705350306687486
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.025,
+      0.0,
+      0.0,
+      -3.1415926531795866
+    ],
+    "uri": "model://x500/meshes/NXP-HGD-CF.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/UAVs/x500/meshes/NXP-HGD-CF.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "x500",
+    "link_name": "base_link",
+    "visual_name": "5010_motor_base_0",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -3.979776981583522,
+      3.249516392401916,
+      1.3205464917461514,
+      3.1050069996108954e-06,
+      -2.902549493870595e-06,
+      -0.0004705350306687486
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.174,
+      0.174,
+      0.032,
+      0.0,
+      0.0,
+      -0.45
+    ],
+    "uri": "model://x500/meshes/5010Base.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/UAVs/x500/meshes/5010Base.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "x500",
+    "link_name": "base_link",
+    "visual_name": "5010_motor_base_1",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -3.979776981583522,
+      3.249516392401916,
+      1.3205464917461514,
+      3.1050069996108954e-06,
+      -2.902549493870595e-06,
+      -0.0004705350306687486
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      -0.174,
+      0.174,
+      0.032,
+      0.0,
+      0.0,
+      -0.45
+    ],
+    "uri": "model://x500/meshes/5010Base.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/UAVs/x500/meshes/5010Base.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "x500",
+    "link_name": "base_link",
+    "visual_name": "5010_motor_base_2",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -3.979776981583522,
+      3.249516392401916,
+      1.3205464917461514,
+      3.1050069996108954e-06,
+      -2.902549493870595e-06,
+      -0.0004705350306687486
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.174,
+      -0.174,
+      0.032,
+      0.0,
+      0.0,
+      -0.45
+    ],
+    "uri": "model://x500/meshes/5010Base.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/UAVs/x500/meshes/5010Base.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "x500",
+    "link_name": "base_link",
+    "visual_name": "5010_motor_base_3",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -3.979776981583522,
+      3.249516392401916,
+      1.3205464917461514,
+      3.1050069996108954e-06,
+      -2.902549493870595e-06,
+      -0.0004705350306687486
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      -0.174,
+      -0.174,
+      0.032,
+      0.0,
+      0.0,
+      -0.45
+    ],
+    "uri": "model://x500/meshes/5010Base.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/UAVs/x500/meshes/5010Base.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "x500",
+    "link_name": "rotor_0",
+    "visual_name": "rotor_0_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -3.979776981583522,
+      3.249516392401916,
+      1.3205464917461514,
+      3.1050069996108954e-06,
+      -2.902549493870595e-06,
+      -0.0004705350306687486
+    ],
+    "link_pose": [
+      0.17400000000909444,
+      -0.1739999999909294,
+      0.06000000000000494,
+      1.724491665389822e-19,
+      -1.6071509256203464e-19,
+      -5.557078235074418e-16
+    ],
+    "visual_pose": [
+      -0.022,
+      -0.14638461538461536,
+      -0.016,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://x500/meshes/1345_prop_ccw.stl",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/UAVs/x500/meshes/1345_prop_ccw.stl",
+    "scale": [
+      0.8461538461538461,
+      0.8461538461538461,
+      0.8461538461538461
+    ]
+  },
+  {
+    "model_name": "x500",
+    "link_name": "rotor_0",
+    "visual_name": "rotor_0_visual_motor_bell",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -3.979776981583522,
+      3.249516392401916,
+      1.3205464917461514,
+      3.1050069996108954e-06,
+      -2.902549493870595e-06,
+      -0.0004705350306687486
+    ],
+    "link_pose": [
+      0.17400000000909444,
+      -0.1739999999909294,
+      0.06000000000000494,
+      1.724491665389822e-19,
+      -1.6071509256203464e-19,
+      -5.557078235074418e-16
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      -0.032,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://x500/meshes/5010Bell.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/UAVs/x500/meshes/5010Bell.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "x500",
+    "link_name": "rotor_1",
+    "visual_name": "rotor_1_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -3.979776981583522,
+      3.249516392401916,
+      1.3205464917461514,
+      3.1050069996108954e-06,
+      -2.902549493870595e-06,
+      -0.0004705350306687486
+    ],
+    "link_pose": [
+      -0.17400000000906113,
+      0.1739999999909716,
+      0.059999999999995834,
+      1.73305918858434e-19,
+      -1.6113840224050865e-19,
+      -5.490941902552803e-16
+    ],
+    "visual_pose": [
+      -0.022,
+      -0.14638461538461536,
+      -0.016,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://x500/meshes/1345_prop_ccw.stl",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/UAVs/x500/meshes/1345_prop_ccw.stl",
+    "scale": [
+      0.8461538461538461,
+      0.8461538461538461,
+      0.8461538461538461
+    ]
+  },
+  {
+    "model_name": "x500",
+    "link_name": "rotor_1",
+    "visual_name": "rotor_1_visual_motor_top",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -3.979776981583522,
+      3.249516392401916,
+      1.3205464917461514,
+      3.1050069996108954e-06,
+      -2.902549493870595e-06,
+      -0.0004705350306687486
+    ],
+    "link_pose": [
+      -0.17400000000906113,
+      0.1739999999909716,
+      0.059999999999995834,
+      1.73305918858434e-19,
+      -1.6113840224050865e-19,
+      -5.490941902552803e-16
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      -0.032,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://x500/meshes/5010Bell.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/UAVs/x500/meshes/5010Bell.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "x500",
+    "link_name": "rotor_2",
+    "visual_name": "rotor_2_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -3.979776981583522,
+      3.249516392401916,
+      1.3205464917461514,
+      3.1050069996108954e-06,
+      -2.902549493870595e-06,
+      -0.0004705350306687486
+    ],
+    "link_pose": [
+      0.1739999999909676,
+      0.174000000009098,
+      0.05999999999988437,
+      1.7245340583962154e-19,
+      -1.5986805961478036e-19,
+      -5.526720574244824e-16
+    ],
+    "visual_pose": [
+      -0.022,
+      -0.14638461538461536,
+      -0.016,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://x500/meshes/1345_prop_cw.stl",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/UAVs/x500/meshes/1345_prop_cw.stl",
+    "scale": [
+      0.8461538461538461,
+      0.8461538461538461,
+      0.8461538461538461
+    ]
+  },
+  {
+    "model_name": "x500",
+    "link_name": "rotor_2",
+    "visual_name": "rotor_2_visual_motor_top",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -3.979776981583522,
+      3.249516392401916,
+      1.3205464917461514,
+      3.1050069996108954e-06,
+      -2.902549493870595e-06,
+      -0.0004705350306687486
+    ],
+    "link_pose": [
+      0.1739999999909676,
+      0.174000000009098,
+      0.05999999999988437,
+      1.7245340583962154e-19,
+      -1.5986805961478036e-19,
+      -5.526720574244824e-16
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      -0.032,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://x500/meshes/5010Bell.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/UAVs/x500/meshes/5010Bell.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "x500",
+    "link_name": "rotor_3",
+    "visual_name": "rotor_3_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -3.979776981583522,
+      3.249516392401916,
+      1.3205464917461514,
+      3.1050069996108954e-06,
+      -2.902549493870595e-06,
+      -0.0004705350306687486
+    ],
+    "link_pose": [
+      -0.17399999999093252,
+      -0.17400000000905802,
+      0.060000000000116405,
+      1.724548534056935e-19,
+      -1.611386090356618e-19,
+      -5.51804695686494e-16
+    ],
+    "visual_pose": [
+      -0.022,
+      -0.14638461538461536,
+      -0.016,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://x500/meshes/1345_prop_cw.stl",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/UAVs/x500/meshes/1345_prop_cw.stl",
+    "scale": [
+      0.8461538461538461,
+      0.8461538461538461,
+      0.8461538461538461
+    ]
+  },
+  {
+    "model_name": "x500",
+    "link_name": "rotor_3",
+    "visual_name": "rotor_3_visual_motor_top",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -3.979776981583522,
+      3.249516392401916,
+      1.3205464917461514,
+      3.1050069996108954e-06,
+      -2.902549493870595e-06,
+      -0.0004705350306687486
+    ],
+    "link_pose": [
+      -0.17399999999093252,
+      -0.17400000000905802,
+      0.060000000000116405,
+      1.724548534056935e-19,
+      -1.611386090356618e-19,
+      -5.51804695686494e-16
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      -0.032,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://x500/meshes/5010Bell.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/UAVs/x500/meshes/5010Bell.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "person_standing",
+    "link_name": "link",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -1.67621,
+      -0.800149,
+      0.0824,
+      8.93086e-18,
+      4.962360000000008e-18,
+      1.6159
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.02,
+      0.04,
+      0.0,
+      0.0
+    ],
+    "uri": "model://person_standing/meshes/standing.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/humans/person_standing/meshes/standing.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "Sofa",
+    "link_name": "link",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.168246,
+      3.99959,
+      0.100461,
+      0.0,
+      0.0,
+      -1.5845199999999993
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.5708
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Sofa/meshes/Sofa.obj",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/furniture/Sofa/meshes/Sofa.obj",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "CoffeeTable",
+    "link_name": "body",
+    "visual_name": "visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.131354,
+      2.86205,
+      0.109816,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://coffeetable/meshes/CoffeeTable.obj",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/furniture/coffeetable/meshes/CoffeeTable.obj",
+    "scale": [
+      0.00817,
+      0.00817,
+      0.00817
+    ]
+  },
+  {
+    "model_name": "naoH25V40",
+    "link_name": "Torso",
+    "visual_name": "Torso_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1383604819473533,
+      2.814820387035968,
+      0.5331851006677866,
+      2.1294820947962982,
+      -1.5707939984914403,
+      -0.5752375008916608
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Algo/meshes/V40/Torso.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Algo/meshes/V40/Torso.dae",
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  },
+  {
+    "model_name": "naoH25V40",
+    "link_name": "Neck",
+    "visual_name": "Neck_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1383604819473533,
+      2.814820387035968,
+      0.5331851006677866,
+      2.1294820947962982,
+      -1.5707939984914403,
+      -0.5752375008916608
+    ],
+    "link_pose": [
+      -1.3322676295501878e-15,
+      2.220446049250313e-15,
+      0.12650000000000228,
+      4.980252905985651e-16,
+      2.255551757178573e-16,
+      -0.014075645696334089
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Algo/meshes/V40/HeadYaw.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Algo/meshes/V40/HeadYaw.dae",
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  },
+  {
+    "model_name": "naoH25V40",
+    "link_name": "Head",
+    "visual_name": "Head_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1383604819473533,
+      2.814820387035968,
+      0.5331851006677866,
+      2.1294820947962982,
+      -1.5707939984914403,
+      -0.5752375008916608
+    ],
+    "link_pose": [
+      -1.3322676295501878e-15,
+      2.220446049250313e-15,
+      0.12650000000000228,
+      -1.1785398291218298e-15,
+      -0.02912897782231505,
+      -0.014075645696334583
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Algo/meshes/V40/HeadPitch.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Algo/meshes/V40/HeadPitch.dae",
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  },
+  {
+    "model_name": "naoH25V40",
+    "link_name": "LPelvis",
+    "visual_name": "LPelvis_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1383604819473533,
+      2.814820387035968,
+      0.5331851006677866,
+      2.1294820947962982,
+      -1.5707939984914403,
+      -0.5752375008916608
+    ],
+    "link_pose": [
+      -1.2212453270876722e-15,
+      0.05000000000000182,
+      -0.08499999999999641,
+      -0.0028612248470452073,
+      -0.07550286799461,
+      0.07571900195090879
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Algo/meshes/V40/LHipYawPitch.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Algo/meshes/V40/LHipYawPitch.dae",
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  },
+  {
+    "model_name": "naoH25V40",
+    "link_name": "LHip",
+    "visual_name": "LHip_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1383604819473533,
+      2.814820387035968,
+      0.5331851006677866,
+      2.1294820947962982,
+      -1.5707939984914403,
+      -0.5752375008916608
+    ],
+    "link_pose": [
+      -1.2212453270876722e-15,
+      0.05000000000000182,
+      -0.08499999999999641,
+      0.12712639924687172,
+      -0.07550286799461114,
+      0.07571900195090828
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Algo/meshes/V40/LHipRoll.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Algo/meshes/V40/LHipRoll.dae",
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  },
+  {
+    "model_name": "naoH25V40",
+    "link_name": "LThigh",
+    "visual_name": "LThigh_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1383604819473533,
+      2.814820387035968,
+      0.5331851006677866,
+      2.1294820947962982,
+      -1.5707939984914403,
+      -0.5752375008916608
+    ],
+    "link_pose": [
+      -1.1102230246251565e-15,
+      0.050000000000002154,
+      -0.08499999999999641,
+      0.12695267102634597,
+      -0.05462897579282703,
+      0.07839077369037915
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Algo/meshes/V40/LHipPitch.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Algo/meshes/V40/LHipPitch.dae",
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  },
+  {
+    "model_name": "naoH25V40",
+    "link_name": "LTibia",
+    "visual_name": "LTibia_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1383604819473533,
+      2.814820387035968,
+      0.5331851006677866,
+      2.1294820947962982,
+      -1.5707939984914403,
+      -0.5752375008916608
+    ],
+    "link_pose": [
+      0.004408101374309137,
+      0.06304645914634222,
+      -0.18404725410639156,
+      0.1271261670074086,
+      -0.07547884474314086,
+      0.07572208126669266
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Algo/meshes/V40/LKneePitch.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Algo/meshes/V40/LKneePitch.dae",
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  },
+  {
+    "model_name": "naoH25V40",
+    "link_name": "LAnkle",
+    "visual_name": "LAnkle_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1383604819473533,
+      2.814820387035968,
+      0.5331851006677866,
+      2.1294820947962982,
+      -1.5707939984914403,
+      -0.5752375008916608
+    ],
+    "link_pose": [
+      0.011095898511747415,
+      0.07663741124408652,
+      -0.2858262764564077,
+      0.12731018713636114,
+      -0.09256118559846833,
+      0.07352938915179123
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Algo/meshes/V40/LAnklePitch.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Algo/meshes/V40/LAnklePitch.dae",
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  },
+  {
+    "model_name": "naoH25V40",
+    "link_name": "LSole",
+    "visual_name": "LSole_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1383604819473533,
+      2.814820387035968,
+      0.5331851006677866,
+      2.1294820947962982,
+      -1.5707939984914403,
+      -0.5752375008916608
+    ],
+    "link_pose": [
+      0.011095898511746416,
+      0.07663741124408718,
+      -0.2858262764564081,
+      0.11492543446477196,
+      -0.09256118559847525,
+      0.07352938915177148
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Algo/meshes/V40/LAnkleRoll.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Algo/meshes/V40/LAnkleRoll.dae",
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  },
+  {
+    "model_name": "naoH25V40",
+    "link_name": "LShoulder",
+    "visual_name": "LShoulder_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1383604819473533,
+      2.814820387035968,
+      0.5331851006677866,
+      2.1294820947962982,
+      -1.5707939984914403,
+      -0.5752375008916608
+    ],
+    "link_pose": [
+      -1.5543122344752192e-15,
+      0.09800000000000275,
+      0.10000000000000231,
+      -3.1415926535896617,
+      1.5684981409884333,
+      -3.1415926535896626
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Algo/meshes/V40/LShoulderPitch.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Algo/meshes/V40/LShoulderPitch.dae",
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  },
+  {
+    "model_name": "naoH25V40",
+    "link_name": "LBicep",
+    "visual_name": "LBicep_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1383604819473533,
+      2.814820387035968,
+      0.5331851006677866,
+      2.1294820947962982,
+      -1.5707939984914403,
+      -0.5752375008916608
+    ],
+    "link_pose": [
+      -1.3322676295501878e-15,
+      0.0980000000000022,
+      0.1000000000000032,
+      1.5770845050087383,
+      1.1966486604485544,
+      1.5766494958138133
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Algo/meshes/V40/LShoulderRoll.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Algo/meshes/V40/LShoulderRoll.dae",
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  },
+  {
+    "model_name": "naoH25V40",
+    "link_name": "LForeArm",
+    "visual_name": "LForeArm_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1383604819473533,
+      2.814820387035968,
+      0.5331851006677866,
+      2.1294820947962982,
+      -1.5707939984914403,
+      -0.5752375008916608
+    ],
+    "link_pose": [
+      -0.00021201712246976534,
+      0.15033699735045059,
+      0.007746036632140907,
+      1.576453802186251,
+      1.231554751905847,
+      1.5771897236415227
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Algo/meshes/V40/LElbowRoll.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Algo/meshes/V40/LElbowRoll.dae",
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  },
+  {
+    "model_name": "naoH25V40",
+    "link_name": "LWrist",
+    "visual_name": "LWrist_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1383604819473533,
+      2.814820387035968,
+      0.5331851006677866,
+      2.1294820947962982,
+      -1.5707939984914403,
+      -0.5752375008916608
+    ],
+    "link_pose": [
+      -0.00033105236338326627,
+      0.16895520952918663,
+      -0.04501522288541615,
+      1.5661895793208656,
+      1.231554751905847,
+      1.5771897236415207
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Algo/meshes/V40/LWristYaw.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Algo/meshes/V40/LWristYaw.dae",
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  },
+  {
+    "model_name": "naoH25V40",
+    "link_name": "RPelvis",
+    "visual_name": "RPelvis_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1383604819473533,
+      2.814820387035968,
+      0.5331851006677866,
+      2.1294820947962982,
+      -1.5707939984914403,
+      -0.5752375008916608
+    ],
+    "link_pose": [
+      -8.881784197001252e-16,
+      -0.04999999999999749,
+      -0.08499999999999819,
+      0.005444381742603516,
+      -0.10397192878705469,
+      -0.10453850772858791
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Algo/meshes/V40/RHipYawPitch.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Algo/meshes/V40/RHipYawPitch.dae",
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  },
+  {
+    "model_name": "naoH25V40",
+    "link_name": "RHip",
+    "visual_name": "RHip_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1383604819473533,
+      2.814820387035968,
+      0.5331851006677866,
+      2.1294820947962982,
+      -1.5707939984914403,
+      -0.5752375008916608
+    ],
+    "link_pose": [
+      -8.881784197001252e-16,
+      -0.04999999999999749,
+      -0.08499999999999686,
+      -0.028413160727774747,
+      -0.10397192878705037,
+      -0.10453850772859101
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Algo/meshes/V40/RHipRoll.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Algo/meshes/V40/RHipRoll.dae",
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  },
+  {
+    "model_name": "naoH25V40",
+    "link_name": "RThigh",
+    "visual_name": "RThigh_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1383604819473533,
+      2.814820387035968,
+      0.5331851006677866,
+      2.1294820947962982,
+      -1.5707939984914403,
+      -0.5752375008916608
+    ],
+    "link_pose": [
+      -8.881784197001252e-16,
+      -0.04999999999999749,
+      -0.08499999999999686,
+      -0.028322223421592334,
+      -0.0664591970798594,
+      -0.10560675668130606
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Algo/meshes/V40/RHipPitch.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Algo/meshes/V40/RHipPitch.dae",
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  },
+  {
+    "model_name": "naoH25V40",
+    "link_name": "RTibia",
+    "visual_name": "RTibia_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1383604819473533,
+      2.814820387035968,
+      0.5331851006677866,
+      2.1294820947962982,
+      -1.5707939984914403,
+      -0.5752375008916608
+    ],
+    "link_pose": [
+      0.006302875121912854,
+      -0.053515820723491814,
+      -0.18473922382812535,
+      -0.02831821783183025,
+      -0.06429949645598187,
+      -0.10566806721249228
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Algo/meshes/V40/RKneePitch.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Algo/meshes/V40/RKneePitch.dae",
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  },
+  {
+    "model_name": "naoH25V40",
+    "link_name": "RAnkle",
+    "visual_name": "RAnkle_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1383604819473533,
+      2.814820387035968,
+      0.5331851006677866,
+      2.1294820947962982,
+      -1.5707939984914403,
+      -0.5752375008916608
+    ],
+    "link_pose": [
+      0.012567922982471225,
+      -0.05711020843383774,
+      -0.28738541008115703,
+      -0.028335525036442565,
+      -0.07317191801374726,
+      -0.1054160778093246
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Algo/meshes/V40/RAnklePitch.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Algo/meshes/V40/RAnklePitch.dae",
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  },
+  {
+    "model_name": "naoH25V40",
+    "link_name": "RSole",
+    "visual_name": "RSole_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1383604819473533,
+      2.814820387035968,
+      0.5331851006677866,
+      2.1294820947962982,
+      -1.5707939984914403,
+      -0.5752375008916608
+    ],
+    "link_pose": [
+      0.012567922982474111,
+      -0.057110208433839404,
+      -0.2873854100811606,
+      -0.031874337415216704,
+      -0.07317191801369649,
+      -0.10541607780937366
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Algo/meshes/V40/RAnkleRoll.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Algo/meshes/V40/RAnkleRoll.dae",
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  },
+  {
+    "model_name": "naoH25V40",
+    "link_name": "RShoulder",
+    "visual_name": "RShoulder_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1383604819473533,
+      2.814820387035968,
+      0.5331851006677866,
+      2.1294820947962982,
+      -1.5707939984914403,
+      -0.5752375008916608
+    ],
+    "link_pose": [
+      -9.992007221626409e-16,
+      -0.09799999999999787,
+      0.10000000000000364,
+      -3.1415926535892162,
+      1.5691169033252355,
+      -3.1415926535892167
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Algo/meshes/V40/RShoulderPitch.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Algo/meshes/V40/RShoulderPitch.dae",
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  },
+  {
+    "model_name": "naoH25V40",
+    "link_name": "RBicep",
+    "visual_name": "RBicep_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1383604819473533,
+      2.814820387035968,
+      0.5331851006677866,
+      2.1294820947962982,
+      -1.5707939984914403,
+      -0.5752375008916608
+    ],
+    "link_pose": [
+      -1.1102230246251565e-15,
+      -0.0979999999999982,
+      0.1000000000000032,
+      -1.5739237189716044,
+      1.003913525814064,
+      -1.5734345317108962
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Algo/meshes/V40/RShoulderRoll.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Algo/meshes/V40/RShoulderRoll.dae",
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  },
+  {
+    "model_name": "naoH25V40",
+    "link_name": "RForeArm",
+    "visual_name": "RForeArm_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1383604819473533,
+      2.814820387035968,
+      0.5331851006677866,
+      2.1294820947962982,
+      -1.5707939984914403,
+      -0.5752375008916608
+    ],
+    "link_pose": [
+      -0.00013522858279957362,
+      -0.1670390380808361,
+      0.019479239111253932,
+      -1.5640502448630922,
+      1.0388193756961412,
+      -1.5729961127740995
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Algo/meshes/V40/RElbowRoll.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Algo/meshes/V40/RElbowRoll.dae",
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  },
+  {
+    "model_name": "naoH25V40",
+    "link_name": "RWrist",
+    "visual_name": "RWrist_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      -0.1383604819473533,
+      2.814820387035968,
+      0.5331851006677866,
+      2.1294820947962982,
+      -1.5707939984914403,
+      -0.5752375008916608
+    ],
+    "link_pose": [
+      -0.00019765839376095773,
+      -0.19541893996737392,
+      -0.02873880493274683,
+      -1.5612323502968588,
+      1.0388193756961412,
+      -1.5729961127741008
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Algo/meshes/V40/RWristYaw.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Algo/meshes/V40/RWristYaw.dae",
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "factory_floor::floor_link",
+    "visual_name": "floor_visual",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size": [
+      9.5,
+      9.5,
+      0.2
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "factory_floor::floor_link",
+    "visual_name": "floor_surface_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.1005,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://factory_shell/surfaces/tiled_plane_9p5m_8x.obj",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/factory_shell/surfaces/tiled_plane_9p5m_8x.obj",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "factory_ceiling::ceiling_link",
+    "visual_name": "ceiling_visual",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      2.96,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size": [
+      9.5,
+      9.5,
+      0.12
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "factory_ceiling::ceiling_link",
+    "visual_name": "ceiling_surface_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      2.96,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      -0.0605,
+      3.141592653589793,
+      0.0,
+      0.0
+    ],
+    "uri": "model://factory_shell/surfaces/tiled_plane_9p5m_8x.obj",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/factory_shell/surfaces/tiled_plane_9p5m_8x.obj",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "north_wall::north_wall_lower_link",
+    "visual_name": "north_wall_lower_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      0.0,
+      4.65,
+      0.55,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://factory_shell/meshes/north_wall_lower.obj",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/factory_shell/meshes/north_wall_lower.obj",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "north_wall::north_wall_upper_link",
+    "visual_name": "north_wall_upper_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      0.0,
+      4.65,
+      2.45,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://factory_shell/meshes/north_wall_upper.obj",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/factory_shell/meshes/north_wall_upper.obj",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "north_wall::north_wall_left_pier_link",
+    "visual_name": "north_wall_left_pier_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      -3.325,
+      4.65,
+      1.5,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://factory_shell/meshes/north_wall_left_pier.obj",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/factory_shell/meshes/north_wall_left_pier.obj",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "north_wall::north_wall_center_pier_link",
+    "visual_name": "north_wall_center_pier_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      0.0,
+      4.65,
+      1.5,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://factory_shell/meshes/north_wall_center_pier.obj",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/factory_shell/meshes/north_wall_center_pier.obj",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "north_wall::north_wall_right_pier_link",
+    "visual_name": "north_wall_right_pier_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      3.325,
+      4.65,
+      1.5,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://factory_shell/meshes/north_wall_right_pier.obj",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/factory_shell/meshes/north_wall_right_pier.obj",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "north_wall::north_window_left_link",
+    "visual_name": "north_window_left_glass_visual",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      -1.15,
+      4.65,
+      1.5,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size": [
+      1.42,
+      0.03,
+      0.92
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "north_wall::north_window_left_link",
+    "visual_name": "north_window_left_frame_top_visual",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      -1.15,
+      4.65,
+      1.5,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.47,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size": [
+      1.5,
+      0.06,
+      0.06
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "north_wall::north_window_left_link",
+    "visual_name": "north_window_left_frame_bottom_visual",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      -1.15,
+      4.65,
+      1.5,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      -0.47,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size": [
+      1.5,
+      0.06,
+      0.06
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "north_wall::north_window_left_link",
+    "visual_name": "north_window_left_frame_left_visual",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      -1.15,
+      4.65,
+      1.5,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      -0.72,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size": [
+      0.06,
+      0.06,
+      1.0
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "north_wall::north_window_left_link",
+    "visual_name": "north_window_left_frame_right_visual",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      -1.15,
+      4.65,
+      1.5,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.72,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size": [
+      0.06,
+      0.06,
+      1.0
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "north_wall::north_window_left_link",
+    "visual_name": "north_window_left_frame_center_visual",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      -1.15,
+      4.65,
+      1.5,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size": [
+      0.05,
+      0.05,
+      0.92
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "north_wall::north_window_left_link",
+    "visual_name": "north_window_left_frame_transom_visual",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      -1.15,
+      4.65,
+      1.5,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.1,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size": [
+      1.42,
+      0.05,
+      0.05
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "north_wall::north_window_right_link",
+    "visual_name": "north_window_right_glass_visual",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      1.15,
+      4.65,
+      1.5,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size": [
+      1.42,
+      0.03,
+      0.92
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "north_wall::north_window_right_link",
+    "visual_name": "north_window_right_frame_top_visual",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      1.15,
+      4.65,
+      1.5,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.47,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size": [
+      1.5,
+      0.06,
+      0.06
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "north_wall::north_window_right_link",
+    "visual_name": "north_window_right_frame_bottom_visual",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      1.15,
+      4.65,
+      1.5,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      -0.47,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size": [
+      1.5,
+      0.06,
+      0.06
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "north_wall::north_window_right_link",
+    "visual_name": "north_window_right_frame_left_visual",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      1.15,
+      4.65,
+      1.5,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      -0.72,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size": [
+      0.06,
+      0.06,
+      1.0
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "north_wall::north_window_right_link",
+    "visual_name": "north_window_right_frame_right_visual",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      1.15,
+      4.65,
+      1.5,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.72,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size": [
+      0.06,
+      0.06,
+      1.0
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "north_wall::north_window_right_link",
+    "visual_name": "north_window_right_frame_center_visual",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      1.15,
+      4.65,
+      1.5,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size": [
+      0.05,
+      0.05,
+      0.92
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "north_wall::north_window_right_link",
+    "visual_name": "north_window_right_frame_transom_visual",
+    "geometry_type": "box",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      1.15,
+      4.65,
+      1.5,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.1,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size": [
+      1.42,
+      0.05,
+      0.05
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "south_wall::south_wall_left_link",
+    "visual_name": "south_wall_left_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      -2.5625,
+      -4.65,
+      1.5,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://factory_shell/meshes/south_wall_left.obj",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/factory_shell/meshes/south_wall_left.obj",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "south_wall::south_wall_right_link",
+    "visual_name": "south_wall_right_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      2.5625,
+      -4.65,
+      1.5,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://factory_shell/meshes/south_wall_right.obj",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/factory_shell/meshes/south_wall_right.obj",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "south_wall::south_wall_overdoor_link",
+    "visual_name": "south_wall_overdoor_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      0.0,
+      -4.65,
+      2.44228,
+      0.0,
+      -0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://factory_shell/meshes/south_wall_overdoor.obj",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/factory_shell/meshes/south_wall_overdoor.obj",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "east_wall::east_wall_link",
+    "visual_name": "east_wall_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      4.65,
+      1.60971259132774e-15,
+      1.5,
+      0.0,
+      -0.0,
+      1.57080000000001
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://factory_shell/meshes/east_wall.obj",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/factory_shell/meshes/east_wall.obj",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "factory_shell",
+    "link_name": "west_wall::west_wall_link",
+    "visual_name": "west_wall_visual",
+    "geometry_type": "mesh",
+    "static": true,
+    "source_manifest": "static_manifest",
+    "model_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "link_pose": [
+      -4.65,
+      -1.60971259132774e-15,
+      1.5,
+      0.0,
+      -0.0,
+      1.57080000000001
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://factory_shell/meshes/west_wall.obj",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/factory_shell/meshes/west_wall.obj",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "ur5_rg2",
+    "link_name": "base_link",
+    "visual_name": "base_link_visual",
+    "geometry_type": "mesh",
+    "static": false,
+    "source_manifest": "dynamic_manifest",
+    "model_pose": [
+      0.496986,
+      -0.841066,
+      0.795,
+      0.0,
+      0.0,
+      -0.0401467
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://ur5_rg2/meshes/visual/ur5/base.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/ur5_rg2/meshes/visual/ur5/base.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "ur5_rg2",
+    "link_name": "shoulder_link",
+    "visual_name": "shoulder_link_visual",
+    "geometry_type": "mesh",
+    "static": false,
+    "source_manifest": "dynamic_manifest",
+    "model_pose": [
+      0.496986,
+      -0.841066,
+      0.795,
+      0.0,
+      0.0,
+      -0.0401467
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.08915900000000032,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://ur5_rg2/meshes/visual/ur5/shoulder.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/ur5_rg2/meshes/visual/ur5/shoulder.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "ur5_rg2",
+    "link_name": "upper_arm_link",
+    "visual_name": "upper_arm_link_visual",
+    "geometry_type": "mesh",
+    "static": false,
+    "source_manifest": "dynamic_manifest",
+    "model_pose": [
+      0.496986,
+      -0.841066,
+      0.795,
+      0.0,
+      0.0,
+      -0.0401467
+    ],
+    "link_pose": [
+      -1.1102230246251565e-16,
+      0.13584999999999992,
+      0.08915900000000032,
+      7.222237291452134e-35,
+      -8.891020000000009e-18,
+      -3.210652810152341e-52
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://ur5_rg2/meshes/visual/ur5/upperarm.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/ur5_rg2/meshes/visual/ur5/upperarm.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "ur5_rg2",
+    "link_name": "forearm_link",
+    "visual_name": "forearm_link_visual",
+    "geometry_type": "mesh",
+    "static": false,
+    "source_manifest": "dynamic_manifest",
+    "model_pose": [
+      0.496986,
+      -0.841066,
+      0.795,
+      0.0,
+      0.0,
+      -0.0401467
+    ],
+    "link_pose": [
+      -5.551115123125783e-16,
+      0.016149999999999998,
+      0.5141590000000001,
+      -1.3481509610710651e-33,
+      -5.851440000000002e-17,
+      3.944312229824838e-50
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://ur5_rg2/meshes/visual/ur5/forearm.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/ur5_rg2/meshes/visual/ur5/forearm.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "ur5_rg2",
+    "link_name": "wrist_1_link",
+    "visual_name": "wrist_1_link_visual",
+    "geometry_type": "mesh",
+    "static": false,
+    "source_manifest": "dynamic_manifest",
+    "model_pose": [
+      0.496986,
+      -0.841066,
+      0.795,
+      0.0,
+      0.0,
+      -0.0401467
+    ],
+    "link_pose": [
+      -2.220446049250313e-16,
+      0.016149999999999998,
+      0.9064090000000006,
+      7.703719777548943e-33,
+      -5.612720000000007e-16,
+      -2.1619411034922278e-48
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://ur5_rg2/meshes/visual/ur5/wrist1.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/ur5_rg2/meshes/visual/ur5/wrist1.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "ur5_rg2",
+    "link_name": "wrist_2_link",
+    "visual_name": "wrist_2_link_visual",
+    "geometry_type": "mesh",
+    "static": false,
+    "source_manifest": "dynamic_manifest",
+    "model_pose": [
+      0.496986,
+      -0.841066,
+      0.795,
+      0.0,
+      0.0,
+      -0.0401467
+    ],
+    "link_pose": [
+      -5.551115123125783e-16,
+      0.10914999999999975,
+      0.9064090000000006,
+      -4.622231866529366e-33,
+      -5.612720000000008e-16,
+      1.297164662095337e-48
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://ur5_rg2/meshes/visual/ur5/wrist2.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/ur5_rg2/meshes/visual/ur5/wrist2.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "ur5_rg2",
+    "link_name": "wrist_3_link",
+    "visual_name": "wrist_3_link_visual",
+    "geometry_type": "mesh",
+    "static": false,
+    "source_manifest": "dynamic_manifest",
+    "model_pose": [
+      0.496986,
+      -0.841066,
+      0.795,
+      0.0,
+      0.0,
+      -0.0401467
+    ],
+    "link_pose": [
+      -8.881784197001252e-16,
+      0.10914999999999964,
+      1.0010600000000003,
+      0.0,
+      -9.329790000000012e-16,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://ur5_rg2/meshes/visual/ur5/wrist3.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/ur5_rg2/meshes/visual/ur5/wrist3.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "ur5_rg2",
+    "link_name": "rg2_hand",
+    "visual_name": "rg2_hand_visual",
+    "geometry_type": "mesh",
+    "static": false,
+    "source_manifest": "dynamic_manifest",
+    "model_pose": [
+      0.496986,
+      -0.841066,
+      0.795,
+      0.0,
+      0.0,
+      -0.0401467
+    ],
+    "link_pose": [
+      -1.1102230246251565e-16,
+      0.19144999999999956,
+      1.0010600000000003,
+      1.5707999999999995,
+      7.771561172376096e-16,
+      1.5707999999999995
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://ur5_rg2/meshes/visual/rg2/hand.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/ur5_rg2/meshes/visual/rg2/hand.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "ur5_rg2",
+    "link_name": "rg2_leftfinger",
+    "visual_name": "rg2_leftfinger_visual",
+    "geometry_type": "mesh",
+    "static": false,
+    "source_manifest": "dynamic_manifest",
+    "model_pose": [
+      0.496986,
+      -0.841066,
+      0.795,
+      0.0,
+      0.0,
+      -0.0401467
+    ],
+    "link_pose": [
+      1.5795098562421117e-10,
+      0.2964500000000003,
+      1.018060000000001,
+      1.5708000000000015,
+      -1.5193402091995267e-13,
+      1.5708
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://ur5_rg2/meshes/visual/rg2/finger.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/ur5_rg2/meshes/visual/rg2/finger.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "ur5_rg2",
+    "link_name": "rg2_rightfinger",
+    "visual_name": "rg2_rightfinger_visual",
+    "geometry_type": "mesh",
+    "static": false,
+    "source_manifest": "dynamic_manifest",
+    "model_pose": [
+      0.496986,
+      -0.841066,
+      0.795,
+      0.0,
+      0.0,
+      -0.0401467
+    ],
+    "link_pose": [
+      2.1897728075259693e-10,
+      0.29644999999999977,
+      0.9840590000000004,
+      1.5708,
+      -7.538414337204813e-14,
+      1.5707999999999984
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      3.141592653589793,
+      0.0,
+      0.0
+    ],
+    "uri": "model://ur5_rg2/meshes/visual/rg2/finger.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/ur5_rg2/meshes/visual/rg2/finger.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "Panda",
+    "link_name": "panda_link0",
+    "visual_name": "panda_link0_visual",
+    "geometry_type": "mesh",
+    "static": false,
+    "source_manifest": "dynamic_manifest",
+    "model_pose": [
+      0.583825,
+      0.738624,
+      0.795,
+      -0.00537029,
+      0.008233400000000014,
+      3.13645
+    ],
+    "link_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Panda/meshes/visual/link0.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Panda/meshes/visual/link0.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "Panda",
+    "link_name": "panda_link1",
+    "visual_name": "panda_link1_visual",
+    "geometry_type": "mesh",
+    "static": false,
+    "source_manifest": "dynamic_manifest",
+    "model_pose": [
+      0.583825,
+      0.738624,
+      0.795,
+      -0.00537029,
+      0.008233400000000014,
+      3.13645
+    ],
+    "link_pose": [
+      -1.887379141862766e-15,
+      -7.771561172376096e-16,
+      0.33299999999999985,
+      -3.654071842184421e-18,
+      -1.3830322323188958e-17,
+      0.026652435995779343
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Panda/meshes/visual/link1.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Panda/meshes/visual/link1.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "Panda",
+    "link_name": "panda_link2",
+    "visual_name": "panda_link2_visual",
+    "geometry_type": "mesh",
+    "static": false,
+    "source_manifest": "dynamic_manifest",
+    "model_pose": [
+      0.583825,
+      0.738624,
+      0.795,
+      -0.00537029,
+      0.008233400000000014,
+      3.13645
+    ],
+    "link_pose": [
+      -1.6653345369377348e-15,
+      -1.1102230246251565e-15,
+      0.33299999999999985,
+      -1.5707963267948932,
+      -0.0005637496950773426,
+      0.026652435995779072
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Panda/meshes/visual/link2.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Panda/meshes/visual/link2.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "Panda",
+    "link_name": "panda_link3",
+    "visual_name": "panda_link3_visual",
+    "geometry_type": "mesh",
+    "static": false,
+    "source_manifest": "dynamic_manifest",
+    "model_pose": [
+      0.583825,
+      0.738624,
+      0.795,
+      -0.00537029,
+      0.008233400000000014,
+      3.13645
+    ],
+    "link_pose": [
+      -0.00017808162513355263,
+      -4.747433287044522e-06,
+      0.6489999497854334,
+      -2.51175985720043e-07,
+      -0.0005637496391221362,
+      0.02709798126084166
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Panda/meshes/visual/link3.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Panda/meshes/visual/link3.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "Panda",
+    "link_name": "panda_link4",
+    "visual_name": "panda_link4_visual",
+    "geometry_type": "mesh",
+    "static": false,
+    "source_manifest": "dynamic_manifest",
+    "model_pose": [
+      0.583825,
+      0.738624,
+      0.795,
+      -0.00537029,
+      0.008233400000000014,
+      3.13645
+    ],
+    "link_pose": [
+      0.0822916172240411,
+      0.0022305620771971846,
+      0.6490464591281994,
+      1.570796075015503,
+      0.06924942043582077,
+      0.027097963697595248
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Panda/meshes/visual/link4.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Panda/meshes/visual/link4.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "Panda",
+    "link_name": "panda_link5",
+    "visual_name": "panda_link5_visual",
+    "geometry_type": "mesh",
+    "static": false,
+    "source_manifest": "dynamic_manifest",
+    "model_pose": [
+      0.583825,
+      0.738624,
+      0.795,
+      -0.00537029,
+      0.008233400000000014,
+      3.13645
+    ],
+    "link_pose": [
+      0.026580338996291752,
+      0.0007206269776671714,
+      1.0378346065481328,
+      0.00812864701446807,
+      0.06877144414020363,
+      0.14484823528116794
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Panda/meshes/visual/link5.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Panda/meshes/visual/link5.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "Panda",
+    "link_name": "panda_link6",
+    "visual_name": "panda_link6_visual",
+    "geometry_type": "mesh",
+    "static": false,
+    "source_manifest": "dynamic_manifest",
+    "model_pose": [
+      0.583825,
+      0.738624,
+      0.795,
+      -0.00537029,
+      0.008233400000000014,
+      3.13645
+    ],
+    "link_pose": [
+      0.026580338996295638,
+      0.0007206269776693919,
+      1.0378346065481354,
+      1.5789279390861506,
+      0.07387631751271036,
+      0.14488984522498377
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Panda/meshes/visual/link6.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Panda/meshes/visual/link6.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "Panda",
+    "link_name": "panda_link7",
+    "visual_name": "panda_link7_visual",
+    "geometry_type": "mesh",
+    "static": false,
+    "source_manifest": "dynamic_manifest",
+    "model_pose": [
+      0.583825,
+      0.738624,
+      0.795,
+      -0.00537029,
+      0.008233400000000014,
+      3.13645
+    ],
+    "link_pose": [
+      0.11342074386344875,
+      0.013391712457975657,
+      1.0313394025280647,
+      -3.1334022373970254,
+      0.07386983291979045,
+      0.14568658228750747
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Panda/meshes/visual/link7.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Panda/meshes/visual/link7.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "Panda",
+    "link_name": "panda_hand",
+    "visual_name": "panda_hand_visual",
+    "geometry_type": "mesh",
+    "static": false,
+    "source_manifest": "dynamic_manifest",
+    "model_pose": [
+      0.583825,
+      0.738624,
+      0.795,
+      -0.00537029,
+      0.008233400000000014,
+      3.13645
+    ],
+    "link_pose": [
+      0.1054805527717666,
+      0.01311242695468362,
+      0.9246347851723281,
+      -3.0835355111309872,
+      0.046427405429649314,
+      0.9321304359514084
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Panda/meshes/visual/hand.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Panda/meshes/visual/hand.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "Panda",
+    "link_name": "panda_leftfinger",
+    "visual_name": "panda_leftfinger_visual",
+    "geometry_type": "mesh",
+    "static": false,
+    "source_manifest": "dynamic_manifest",
+    "model_pose": [
+      0.583825,
+      0.738624,
+      0.795,
+      -0.00537029,
+      0.008233400000000014,
+      3.13645
+    ],
+    "link_pose": [
+      0.10111608212231454,
+      0.012982961074063049,
+      0.8663982321057594,
+      -3.083535511130968,
+      0.04642740542962695,
+      0.9321304359516768
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uri": "model://Panda/meshes/visual/finger.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Panda/meshes/visual/finger.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "model_name": "Panda",
+    "link_name": "panda_rightfinger",
+    "visual_name": "panda_rightfinger_visual",
+    "geometry_type": "mesh",
+    "static": false,
+    "source_manifest": "dynamic_manifest",
+    "model_pose": [
+      0.583825,
+      0.738624,
+      0.795,
+      -0.00537029,
+      0.008233400000000014,
+      3.13645
+    ],
+    "link_pose": [
+      0.09861218324373017,
+      0.014852535120929433,
+      0.8665796609053867,
+      -3.083535511130968,
+      0.04642740542962695,
+      0.9321304359516768
+    ],
+    "visual_pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      3.141592653589793
+    ],
+    "uri": "model://Panda/meshes/visual/finger.dae",
+    "resolved_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Panda/meshes/visual/finger.dae",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  }
+]

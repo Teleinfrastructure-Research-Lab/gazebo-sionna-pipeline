@@ -1,0 +1,4688 @@
+<sdf version='1.12'>
+  <world name='small_factory_room'>
+    <plugin name='gz::sim::systems::Physics' filename='gz-sim-physics-system'/>
+    <plugin name='gz::sim::systems::Sensors' filename='gz-sim-sensors-system'>
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin name='gz::sim::systems::SceneBroadcaster' filename='gz-sim-scene-broadcaster-system'/>
+    <plugin name='gz::sim::systems::UserCommands' filename='gz-sim-user-commands-system'/>
+    <gravity>0 0 -9.8100000000000005</gravity>
+    <physics name='factory_physics' type='ode'>
+      <max_step_size>0.0040000000000000001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>250</real_time_update_rate>
+    </physics>
+    <scene>
+      <ambient>0.300000012 0.300000012 0.300000012 1</ambient>
+      <background>0.119999997 0.119999997 0.140000001 1</background>
+      <grid>false</grid>
+      <shadows>true</shadows>
+    </scene>
+    <magnetic_field>5.5644999999999998e-06 2.2875799999999999e-05 -4.2388400000000002e-05</magnetic_field>
+    <atmosphere type='adiabatic'/>
+    <joint name='ur5_rg2_world_joint' type='fixed'>
+      <parent>world</parent>
+      <child>ur5_rg2::base_link</child>
+    </joint>
+    <model name='factory_floor'>
+      <static>true</static>
+      <link name='floor_link'>
+        <pose>0 0 0 0 0 0</pose>
+        <collision name='floor_collision'>
+          <geometry>
+            <box>
+              <size>9.5 9.5 0.20000000000000001</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1.2</mu>
+                <mu2>1.2</mu2>
+              </ode>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='floor_visual'>
+          <geometry>
+            <box>
+              <size>9.5 9.5 0.20000000000000001</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.239999995 0.239999995 0.219999999 1</ambient>
+            <diffuse>0.379999995 0.379999995 0.349999994 1</diffuse>
+            <specular>0.119999997 0.119999997 0.100000001 1</specular>
+          </material>
+        </visual>
+        <visual name='floor_surface_visual'>
+          <pose>0 0 0.10050000000000001 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/surfaces/tiled_plane_9p5m_8x.obj</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.119999997 0.119999997 0.119999997 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/interior_tiles_1k/textures/interior_tiles_diff_1k.jpg</albedo_map>
+                <roughness_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/interior_tiles_1k/textures/interior_tiles_rough_1k.exr</roughness_map>
+                <metalness>0.0</metalness>
+                <ambient_occlusion_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/interior_tiles_1k/textures/interior_tiles_ao_1k.jpg</ambient_occlusion_map>
+                <normal_map type='tangent'>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/interior_tiles_1k/textures/interior_tiles_nor_gl_1k.exr</normal_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='factory_ceiling'>
+      <static>true</static>
+      <link name='ceiling_link'>
+        <pose>0 0 2.96 0 0 0</pose>
+        <collision name='ceiling_collision'>
+          <geometry>
+            <box>
+              <size>9.5 9.5 0.12</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='ceiling_visual'>
+          <geometry>
+            <box>
+              <size>9.5 9.5 0.12</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.579999983 0.579999983 0.560000002 1</ambient>
+            <diffuse>0.720000029 0.720000029 0.680000007 1</diffuse>
+            <specular>0.0299999993 0.0299999993 0.0299999993 1</specular>
+          </material>
+        </visual>
+        <visual name='ceiling_surface_visual'>
+          <pose>0 0 -0.060499999999999998 3.1415926535897931 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/surfaces/tiled_plane_9p5m_8x.obj</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.0500000007 0.0500000007 0.0500000007 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/ceiling_interior_1k/textures/ceiling_interior_diff_1k.jpg</albedo_map>
+                <roughness_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/ceiling_interior_1k/textures/ceiling_interior_rough_1k.exr</roughness_map>
+                <metalness>0.0</metalness>
+                <ambient_occlusion_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/ceiling_interior_1k/textures/ceiling_interior_ao_1k.jpg</ambient_occlusion_map>
+                <normal_map type='tangent'>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/ceiling_interior_1k/textures/ceiling_interior_nor_gl_1k.exr</normal_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='north_wall'>
+      <static>true</static>
+      <link name='north_wall_lower_link'>
+        <pose>0 4.6500000000000004 0.55000000000000004 0 0 0</pose>
+        <collision name='north_wall_lower_collision'>
+          <geometry>
+            <box>
+              <size>9.5 0.20000000000000001 0.90000000000000002</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='north_wall_lower_visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/meshes/north_wall_lower.obj</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.150000006 0.150000006 0.150000006 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_diff_1k.jpg</albedo_map>
+                <roughness_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_rough_1k.exr</roughness_map>
+                <metalness>0.0</metalness>
+                <ambient_occlusion_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_ao_1k.jpg</ambient_occlusion_map>
+                <normal_map type='tangent'>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_nor_gl_1k.exr</normal_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='north_wall_upper_link'>
+        <pose>0 4.6500000000000004 2.4500000000000002 0 0 0</pose>
+        <collision name='north_wall_upper_collision'>
+          <geometry>
+            <box>
+              <size>9.5 0.20000000000000001 0.90000000000000002</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='north_wall_upper_visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/meshes/north_wall_upper.obj</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.150000006 0.150000006 0.150000006 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_diff_1k.jpg</albedo_map>
+                <roughness_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_rough_1k.exr</roughness_map>
+                <metalness>0.0</metalness>
+                <ambient_occlusion_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_ao_1k.jpg</ambient_occlusion_map>
+                <normal_map type='tangent'>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_nor_gl_1k.exr</normal_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='north_wall_left_pier_link'>
+        <pose>-3.3250000000000002 4.6500000000000004 1.5 0 0 0</pose>
+        <collision name='north_wall_left_pier_collision'>
+          <geometry>
+            <box>
+              <size>2.8500000000000001 0.20000000000000001 1</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='north_wall_left_pier_visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/meshes/north_wall_left_pier.obj</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.150000006 0.150000006 0.150000006 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_diff_1k.jpg</albedo_map>
+                <roughness_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_rough_1k.exr</roughness_map>
+                <metalness>0.0</metalness>
+                <ambient_occlusion_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_ao_1k.jpg</ambient_occlusion_map>
+                <normal_map type='tangent'>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_nor_gl_1k.exr</normal_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='north_wall_center_pier_link'>
+        <pose>0 4.6500000000000004 1.5 0 0 0</pose>
+        <collision name='north_wall_center_pier_collision'>
+          <geometry>
+            <box>
+              <size>0.80000000000000004 0.20000000000000001 1</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='north_wall_center_pier_visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/meshes/north_wall_center_pier.obj</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.150000006 0.150000006 0.150000006 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_diff_1k.jpg</albedo_map>
+                <roughness_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_rough_1k.exr</roughness_map>
+                <metalness>0.0</metalness>
+                <ambient_occlusion_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_ao_1k.jpg</ambient_occlusion_map>
+                <normal_map type='tangent'>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_nor_gl_1k.exr</normal_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='north_wall_right_pier_link'>
+        <pose>3.3250000000000002 4.6500000000000004 1.5 0 0 0</pose>
+        <collision name='north_wall_right_pier_collision'>
+          <geometry>
+            <box>
+              <size>2.8500000000000001 0.20000000000000001 1</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='north_wall_right_pier_visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/meshes/north_wall_right_pier.obj</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.150000006 0.150000006 0.150000006 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_diff_1k.jpg</albedo_map>
+                <roughness_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_rough_1k.exr</roughness_map>
+                <metalness>0.0</metalness>
+                <ambient_occlusion_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_ao_1k.jpg</ambient_occlusion_map>
+                <normal_map type='tangent'>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_nor_gl_1k.exr</normal_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='north_window_left_link'>
+        <pose>-1.1499999999999999 4.6500000000000004 1.5 0 0 0</pose>
+        <collision name='north_window_left_glass_collision'>
+          <geometry>
+            <box>
+              <size>1.4199999999999999 0.029999999999999999 0.92000000000000004</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='north_window_left_glass_visual'>
+          <geometry>
+            <box>
+              <size>1.4199999999999999 0.029999999999999999 0.92000000000000004</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.620000005 0.75 0.819999993 0.300000012</ambient>
+            <diffuse>0.74000001 0.860000014 0.920000017 0.300000012</diffuse>
+            <specular>0.219999999 0.219999999 0.219999999 1</specular>
+          </material>
+          <transparency>0.59999999999999998</transparency>
+        </visual>
+        <visual name='north_window_left_frame_top_visual'>
+          <pose>0 0 0.46999999999999997 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.5 0.059999999999999998 0.059999999999999998</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.200000003 0.219999999 1</ambient>
+            <diffuse>0.280000001 0.300000012 0.319999993 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <visual name='north_window_left_frame_bottom_visual'>
+          <pose>0 0 -0.46999999999999997 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.5 0.059999999999999998 0.059999999999999998</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.200000003 0.219999999 1</ambient>
+            <diffuse>0.280000001 0.300000012 0.319999993 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <visual name='north_window_left_frame_left_visual'>
+          <pose>-0.71999999999999997 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.059999999999999998 0.059999999999999998 1</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.200000003 0.219999999 1</ambient>
+            <diffuse>0.280000001 0.300000012 0.319999993 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <visual name='north_window_left_frame_right_visual'>
+          <pose>0.71999999999999997 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.059999999999999998 0.059999999999999998 1</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.200000003 0.219999999 1</ambient>
+            <diffuse>0.280000001 0.300000012 0.319999993 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <visual name='north_window_left_frame_center_visual'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.050000000000000003 0.050000000000000003 0.92000000000000004</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.200000003 0.219999999 1</ambient>
+            <diffuse>0.280000001 0.300000012 0.319999993 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <visual name='north_window_left_frame_transom_visual'>
+          <pose>0 0 0.10000000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.4199999999999999 0.050000000000000003 0.050000000000000003</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.200000003 0.219999999 1</ambient>
+            <diffuse>0.280000001 0.300000012 0.319999993 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='north_window_right_link'>
+        <pose>1.1499999999999999 4.6500000000000004 1.5 0 0 0</pose>
+        <collision name='north_window_right_glass_collision'>
+          <geometry>
+            <box>
+              <size>1.4199999999999999 0.029999999999999999 0.92000000000000004</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='north_window_right_glass_visual'>
+          <geometry>
+            <box>
+              <size>1.4199999999999999 0.029999999999999999 0.92000000000000004</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.620000005 0.75 0.819999993 0.300000012</ambient>
+            <diffuse>0.74000001 0.860000014 0.920000017 0.300000012</diffuse>
+            <specular>0.219999999 0.219999999 0.219999999 1</specular>
+          </material>
+          <transparency>0.59999999999999998</transparency>
+        </visual>
+        <visual name='north_window_right_frame_top_visual'>
+          <pose>0 0 0.46999999999999997 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.5 0.059999999999999998 0.059999999999999998</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.200000003 0.219999999 1</ambient>
+            <diffuse>0.280000001 0.300000012 0.319999993 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <visual name='north_window_right_frame_bottom_visual'>
+          <pose>0 0 -0.46999999999999997 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.5 0.059999999999999998 0.059999999999999998</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.200000003 0.219999999 1</ambient>
+            <diffuse>0.280000001 0.300000012 0.319999993 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <visual name='north_window_right_frame_left_visual'>
+          <pose>-0.71999999999999997 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.059999999999999998 0.059999999999999998 1</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.200000003 0.219999999 1</ambient>
+            <diffuse>0.280000001 0.300000012 0.319999993 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <visual name='north_window_right_frame_right_visual'>
+          <pose>0.71999999999999997 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.059999999999999998 0.059999999999999998 1</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.200000003 0.219999999 1</ambient>
+            <diffuse>0.280000001 0.300000012 0.319999993 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <visual name='north_window_right_frame_center_visual'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.050000000000000003 0.050000000000000003 0.92000000000000004</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.200000003 0.219999999 1</ambient>
+            <diffuse>0.280000001 0.300000012 0.319999993 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <visual name='north_window_right_frame_transom_visual'>
+          <pose>0 0 0.10000000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.4199999999999999 0.050000000000000003 0.050000000000000003</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.200000003 0.219999999 1</ambient>
+            <diffuse>0.280000001 0.300000012 0.319999993 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='south_wall'>
+      <static>true</static>
+      <link name='south_wall_left_link'>
+        <pose>-2.5625 -4.6500000000000004 1.5 0 0 0</pose>
+        <collision name='south_wall_left_collision'>
+          <geometry>
+            <box>
+              <size>4.375 0.20000000000000001 2.7999999999999998</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='south_wall_left_visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/meshes/south_wall_left.obj</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.150000006 0.150000006 0.150000006 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_diff_1k.jpg</albedo_map>
+                <roughness_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_rough_1k.exr</roughness_map>
+                <metalness>0.0</metalness>
+                <ambient_occlusion_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_ao_1k.jpg</ambient_occlusion_map>
+                <normal_map type='tangent'>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_nor_gl_1k.exr</normal_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='south_wall_right_link'>
+        <pose>2.5625 -4.6500000000000004 1.5 0 0 0</pose>
+        <collision name='south_wall_right_collision'>
+          <geometry>
+            <box>
+              <size>4.375 0.20000000000000001 2.7999999999999998</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='south_wall_right_visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/meshes/south_wall_right.obj</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.150000006 0.150000006 0.150000006 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_diff_1k.jpg</albedo_map>
+                <roughness_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_rough_1k.exr</roughness_map>
+                <metalness>0.0</metalness>
+                <ambient_occlusion_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_ao_1k.jpg</ambient_occlusion_map>
+                <normal_map type='tangent'>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_nor_gl_1k.exr</normal_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='south_wall_overdoor_link'>
+        <pose>0 -4.6500000000000004 2.4422750000000004 0 0 0</pose>
+        <collision name='south_wall_overdoor_collision'>
+          <geometry>
+            <box>
+              <size>0.90000000000000002 0.20000000000000001 0.91544999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='south_wall_overdoor_visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/meshes/south_wall_overdoor.obj</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.150000006 0.150000006 0.150000006 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_diff_1k.jpg</albedo_map>
+                <roughness_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_rough_1k.exr</roughness_map>
+                <metalness>0.0</metalness>
+                <ambient_occlusion_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_ao_1k.jpg</ambient_occlusion_map>
+                <normal_map type='tangent'>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_nor_gl_1k.exr</normal_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='east_wall'>
+      <static>true</static>
+      <link name='east_wall_link'>
+        <pose>4.6500000000000004 0 1.5 0 0 1.5708</pose>
+        <collision name='east_wall_collision'>
+          <geometry>
+            <box>
+              <size>9.5 0.20000000000000001 2.7999999999999998</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='east_wall_visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/meshes/east_wall.obj</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.150000006 0.150000006 0.150000006 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_diff_1k.jpg</albedo_map>
+                <roughness_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_rough_1k.exr</roughness_map>
+                <metalness>0.0</metalness>
+                <ambient_occlusion_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_ao_1k.jpg</ambient_occlusion_map>
+                <normal_map type='tangent'>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_nor_gl_1k.exr</normal_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 -5.2391424532061103e-14 -8.8817841970012523e-16 0 0 1.1435297153639112e-14</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='west_wall'>
+      <static>true</static>
+      <link name='west_wall_link'>
+        <pose>-4.6500000000000004 0 1.5 0 0 1.5708</pose>
+        <collision name='west_wall_collision'>
+          <geometry>
+            <box>
+              <size>9.5 0.20000000000000001 2.7999999999999998</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='west_wall_visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/meshes/west_wall.obj</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.150000006 0.150000006 0.150000006 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_diff_1k.jpg</albedo_map>
+                <roughness_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_rough_1k.exr</roughness_map>
+                <metalness>0.0</metalness>
+                <ambient_occlusion_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_ao_1k.jpg</ambient_occlusion_map>
+                <normal_map type='tangent'>file:///home/nearteh/Documents/Gazebo World/my_world/models/Walls/textures/plastered_wall_02_1k/textures/plastered_wall_02_nor_gl_1k.exr</normal_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 5.2391424532061103e-14 -8.8817841970012523e-16 0 0 1.1435297153639112e-14</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='factory_door'>
+      <link name='body'>
+        <pose>0 0 0 0 0 0</pose>
+        <visual name='visual'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/OrangeDoors/meshes/door.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/OrangeDoors/meshes/door.obj</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>3.7144620267228437e-11 -4.6499999999998467 0.089640625662747733 3.9270731908501215e-13 -2.3590683214868194e-10 -4.4973963961682648e-13</pose>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='lamp_fixture_01'>
+      <static>true</static>
+      <link name='lamp_fixture_01_link'>
+        <pose>-2.5 -2 2.8599999999999999 0 0 0</pose>
+        <visual name='lamp_fixture_01_housing'>
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <box>
+              <size>1.2 0.34999999999999998 0.080000000000000002</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.180000007 0.180000007 1</ambient>
+            <diffuse>0.280000001 0.280000001 0.280000001 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <visual name='lamp_fixture_01_diffuser'>
+          <cast_shadows>false</cast_shadows>
+          <pose>0 0 -0.040000000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.0800000000000001 0.23999999999999999 0.029999999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.920000017 0.920000017 0.860000014 1</ambient>
+            <diffuse>0.980000019 0.980000019 0.899999976 1</diffuse>
+            <specular>0.140000001 0.140000001 0.140000001 1</specular>
+            <emissive>0.150000006 0.150000006 0.119999997 1</emissive>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='lamp_fixture_02'>
+      <static>true</static>
+      <link name='lamp_fixture_02_link'>
+        <pose>2.5 -2 2.8599999999999999 0 0 0</pose>
+        <visual name='lamp_fixture_02_housing'>
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <box>
+              <size>1.2 0.34999999999999998 0.080000000000000002</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.180000007 0.180000007 1</ambient>
+            <diffuse>0.280000001 0.280000001 0.280000001 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <visual name='lamp_fixture_02_diffuser'>
+          <cast_shadows>false</cast_shadows>
+          <pose>0 0 -0.040000000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.0800000000000001 0.23999999999999999 0.029999999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.920000017 0.920000017 0.860000014 1</ambient>
+            <diffuse>0.980000019 0.980000019 0.899999976 1</diffuse>
+            <specular>0.140000001 0.140000001 0.140000001 1</specular>
+            <emissive>0.150000006 0.150000006 0.119999997 1</emissive>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='lamp_fixture_03'>
+      <static>true</static>
+      <link name='lamp_fixture_03_link'>
+        <pose>-2.5 2 2.8599999999999999 0 0 0</pose>
+        <visual name='lamp_fixture_03_housing'>
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <box>
+              <size>1.2 0.34999999999999998 0.080000000000000002</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.180000007 0.180000007 1</ambient>
+            <diffuse>0.280000001 0.280000001 0.280000001 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <visual name='lamp_fixture_03_diffuser'>
+          <cast_shadows>false</cast_shadows>
+          <pose>0 0 -0.040000000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.0800000000000001 0.23999999999999999 0.029999999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.920000017 0.920000017 0.860000014 1</ambient>
+            <diffuse>0.980000019 0.980000019 0.899999976 1</diffuse>
+            <specular>0.140000001 0.140000001 0.140000001 1</specular>
+            <emissive>0.150000006 0.150000006 0.119999997 1</emissive>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='lamp_fixture_04'>
+      <static>true</static>
+      <link name='lamp_fixture_04_link'>
+        <pose>2.5 2 2.8599999999999999 0 0 0</pose>
+        <visual name='lamp_fixture_04_housing'>
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <box>
+              <size>1.2 0.34999999999999998 0.080000000000000002</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.180000007 0.180000007 0.180000007 1</ambient>
+            <diffuse>0.280000001 0.280000001 0.280000001 1</diffuse>
+            <specular>0.0799999982 0.0799999982 0.0799999982 1</specular>
+          </material>
+        </visual>
+        <visual name='lamp_fixture_04_diffuser'>
+          <cast_shadows>false</cast_shadows>
+          <pose>0 0 -0.040000000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.0800000000000001 0.23999999999999999 0.029999999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.920000017 0.920000017 0.860000014 1</ambient>
+            <diffuse>0.980000019 0.980000019 0.899999976 1</diffuse>
+            <specular>0.140000001 0.140000001 0.140000001 1</specular>
+            <emissive>0.150000006 0.150000006 0.119999997 1</emissive>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='aws_robomaker_warehouse_ClutteringC_01'>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/aws_robomaker_warehouse_ClutteringC_01/meshes/aws_robomaker_warehouse_ClutteringC_01_collision.DAE</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.59999999999999998</mu>
+                <mu2>0.59999999999999998</mu2>
+                <fdir1>0 0 0</fdir1>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+              </ode>
+              <torsional>
+                <coefficient>1</coefficient>
+                <patch_radius>0</patch_radius>
+                <surface_radius>0</surface_radius>
+                <use_patch_radius>true</use_patch_radius>
+                <ode>
+                  <slip>0</slip>
+                </ode>
+              </torsional>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/aws_robomaker_warehouse_ClutteringC_01/meshes/aws_robomaker_warehouse_ClutteringC_01_visual.DAE</uri>
+            </mesh>
+          </geometry>
+          <meta>
+            <layer>1</layer>
+          </meta>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <static>true</static>
+      <pose>3.6437599658966064 3.498347282409668 0.070000000000000007 0 0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='OfficeChairBlue'>
+      <static>true</static>
+      <link name='body'>
+        <pose>0 0 0 0 0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/OfficeChairBlue/meshes/OfficeChairBlue.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/OfficeChairBlue/meshes/OfficeChairBlue_Col.obj</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>3.5722000598907471 -3.4549100399017334 0.10000000000000001 0 0 1.6421199486179159</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='OfficeChairBlack'>
+      <static>true</static>
+      <link name='body'>
+        <pose>0 0 0 0 0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/OfficeChairBlack/meshes/OfficeChairBlack.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/OfficeChairBlack/meshes/OfficeChairBlack_Col.obj</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-3.3328800201416016 3.7125101089477539 0.10000000000000001 0 0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='OfficeChairGrey'>
+      <static>true</static>
+      <link name='body'>
+        <pose>0 0 0 0 0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/OfficeChairGrey/meshes/OfficeChairGrey.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/OfficeChairGrey/meshes/OfficeChairGrey_Col.obj</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-3.6384499073028564 -3.1747000217437744 0.10000000000000001 0 0 -1.5493700608718317</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='Picking_Shelves'>
+      <link name='base_link'>
+        <visual name='base_visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/.gz/fuel/fuel.gazebosim.org/openrobotics/models/picking_shelves/1/base_visual.glb</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='pickingshelvesshort_collider_box'>
+          <pose>0 0 0.063500000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='pickingshelvesshort005_collider_box'>
+          <pose>0 0 0.36830000000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='pickingshelvesshort010_collider_box'>
+          <pose>0 0 0.67310000000000003 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='pickingshelvesshort015_collider_box'>
+          <pose>0 0 0.97789999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='pickingshelvesshort020_collider_box'>
+          <pose>0 0 1.2827 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='pickingshelvesshort025_collider_box'>
+          <pose>0 0 1.5874999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='pickingshelvesshort030_collider_box'>
+          <pose>0 0 1.8923000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='pickingshelvesshort035_collider_box'>
+          <pose>-0.43101299999999998 -0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='pickingshelvesshort036_collider_box'>
+          <pose>-0.43101299999999998 0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='pickingshelvesshort037_collider_box'>
+          <pose>0.43101299999999998 -0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='pickingshelvesshort038_collider_box'>
+          <pose>0.43101299999999998 0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <pose>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-4.2952799797058105 -1.2817000150680542 0.10000000000000001 -5.1000499169176379e-18 -1.4154002193035895e-18 -1.5774401160251101</pose>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='Desk'>
+      <static>true</static>
+      <link name='base_link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/OfficeDesk/meshes/desk.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/OfficeDesk/materials/textures/Desk_Albedo.png</albedo_map>
+                <normal_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/OfficeDesk/materials/textures/Desk_Normal.png</normal_map>
+                <roughness_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/OfficeDesk/materials/textures/Desk_Roughness.png</roughness_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <collision name='Box001'>
+          <pose>0 0 0.75020799999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.83250000000000002 2.2497699999999998 0.033645799999999997</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box002'>
+          <pose>0.33117400000000002 -1.05803 0.37249300000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.035624999999999997 0.035624999999999997 0.74498699999999995</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box003'>
+          <pose>0.33117400000000002 1.05803 0.37249300000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.035624999999999997 0.035624999999999997 0.74498699999999995</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box004'>
+          <pose>-0.33117400000000002 1.05803 0.37249300000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.035624999999999997 0.035624999999999997 0.74498699999999995</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box005'>
+          <pose>-0.33117400000000002 -1.05803 0.37249300000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.035624999999999997 0.035624999999999997 0.74498699999999995</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box006'>
+          <pose>0.00034496199999999998 -1.05803 0.48521199999999998 3.1415926535897931 1.5707926536359933 3.1415926535897931</pose>
+          <geometry>
+            <box>
+              <size>0.035624999999999997 0.035624999999999997 0.66303800000000002</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box007'>
+          <pose>0.00034496199999999998 1.05803 0.48521199999999998 3.1415926535897931 1.5707926536359933 3.1415926535897931</pose>
+          <geometry>
+            <box>
+              <size>0.035624999999999997 0.035624999999999997 0.66303800000000002</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box008'>
+          <pose>0 -0.00048696999999999998 0.48521199999999998 1.5707926536057677 1.5707926536662187 3.1415926535897931</pose>
+          <geometry>
+            <box>
+              <size>0.035624999999999997 0.035624999999999997 2.1150899999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box009'>
+          <pose>0.33117400000000002 -0.00062632599999999997 0.71506099999999995 -1.5708 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.035624999999999997 0.035624999999999997 2.1148099999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box010'>
+          <pose>-0.33117400000000002 -0.00062632599999999997 0.71506099999999995 -1.5708 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.035624999999999997 0.035624999999999997 2.1148099999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box011'>
+          <pose>0.072697700000000004 -0.102337 0.76849800000000001 0 0.087266500000000219 0</pose>
+          <geometry>
+            <box>
+              <size>0.12987699999999999 0.44719100000000001 0.0501799</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box012'>
+          <pose>-0.22245200000000001 -0.060558899999999999 0.97900500000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.029517600000000001 0.63758000000000004 0.47018799999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box013'>
+          <pose>0.098994499999999999 0.27699600000000002 0.78273899999999996 0 0 -0.17453299999999999</pose>
+          <geometry>
+            <box>
+              <size>0.116594 0.057079600000000001 0.036896999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <pose>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>4.0868268013000488 -3.3841216564178467 0.10000049999999996 2.6469601075321629e-23 -1.0575899937830161e-25 -3.1375900000995918</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='Desk_0'>
+      <static>true</static>
+      <link name='base_link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/OfficeDesk/meshes/desk.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/OfficeDesk/materials/textures/Desk_Albedo.png</albedo_map>
+                <normal_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/OfficeDesk/materials/textures/Desk_Normal.png</normal_map>
+                <roughness_map>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/OfficeDesk/materials/textures/Desk_Roughness.png</roughness_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <collision name='Box001'>
+          <pose>0 0 0.75020799999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.83250000000000002 2.2497699999999998 0.033645799999999997</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box002'>
+          <pose>0.33117400000000002 -1.05803 0.37249300000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.035624999999999997 0.035624999999999997 0.74498699999999995</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box003'>
+          <pose>0.33117400000000002 1.05803 0.37249300000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.035624999999999997 0.035624999999999997 0.74498699999999995</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box004'>
+          <pose>-0.33117400000000002 1.05803 0.37249300000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.035624999999999997 0.035624999999999997 0.74498699999999995</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box005'>
+          <pose>-0.33117400000000002 -1.05803 0.37249300000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.035624999999999997 0.035624999999999997 0.74498699999999995</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box006'>
+          <pose>0.00034496199999999998 -1.05803 0.48521199999999998 3.1415926535897931 1.5707926536359933 3.1415926535897931</pose>
+          <geometry>
+            <box>
+              <size>0.035624999999999997 0.035624999999999997 0.66303800000000002</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box007'>
+          <pose>0.00034496199999999998 1.05803 0.48521199999999998 3.1415926535897931 1.5707926536359933 3.1415926535897931</pose>
+          <geometry>
+            <box>
+              <size>0.035624999999999997 0.035624999999999997 0.66303800000000002</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box008'>
+          <pose>0 -0.00048696999999999998 0.48521199999999998 1.5707926536057677 1.5707926536662187 3.1415926535897931</pose>
+          <geometry>
+            <box>
+              <size>0.035624999999999997 0.035624999999999997 2.1150899999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box009'>
+          <pose>0.33117400000000002 -0.00062632599999999997 0.71506099999999995 -1.5708 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.035624999999999997 0.035624999999999997 2.1148099999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box010'>
+          <pose>-0.33117400000000002 -0.00062632599999999997 0.71506099999999995 -1.5708 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.035624999999999997 0.035624999999999997 2.1148099999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box011'>
+          <pose>0.072697700000000004 -0.102337 0.76849800000000001 0 0.087266500000000219 0</pose>
+          <geometry>
+            <box>
+              <size>0.12987699999999999 0.44719100000000001 0.0501799</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box012'>
+          <pose>-0.22245200000000001 -0.060558899999999999 0.97900500000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.029517600000000001 0.63758000000000004 0.47018799999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box013'>
+          <pose>0.098994499999999999 0.27699600000000002 0.78273899999999996 0 0 -0.17453299999999999</pose>
+          <geometry>
+            <box>
+              <size>0.116594 0.057079600000000001 0.036896999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <pose>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-4.067039966583252 -3.3780999183654785 0.10000049999999996 0 0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='Desk_1'>
+      <link name='link'>
+        <pose>0 0 0 0 0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/Desk/meshes/desk.obj</uri>
+              <scale>1.8 1.8 1.8</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/Desk/meshes/desk.obj</uri>
+              <scale>1.8 1.8 1.8</scale>
+            </mesh>
+          </geometry>
+        </collision>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-4.0712423324584961 3.7036926746368404 0.10000000000000001 -2.4336600377219347e-05 -0.003860060107932853 1.1793500362051728e-05</pose>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='MonitorAndKeyboard'>
+      <link name='body'>
+        <pose>0 0 0 0 0 0</pose>
+        <visual name='visual_monitor'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/MonitorAndKeyboard/meshes/monitor.obj</uri>
+              <scale>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale>
+            </mesh>
+          </geometry>
+          <pose>0 0 0 0 0 0</pose>
+        </visual>
+        <collision name='collision_monitor'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/MonitorAndKeyboard/meshes/monitor.obj</uri>
+              <scale>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale>
+            </mesh>
+          </geometry>
+          <pose>0 0 0 0 0 0</pose>
+        </collision>
+        <visual name='visual_keyboard'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/MonitorAndKeyboard/meshes/keyboard.obj</uri>
+              <scale>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale>
+            </mesh>
+          </geometry>
+          <pose>-0.27000000000000002 0 0 0 0 0</pose>
+        </visual>
+        <collision name='collision_keyboard'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/MonitorAndKeyboard/meshes/keyboard.obj</uri>
+              <scale>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale>
+            </mesh>
+          </geometry>
+          <pose>-0.27000000000000002 0 0 0 0 0</pose>
+        </collision>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-4.3245687484741211 4.1498947143554679 1.0935478000000001 -0.0017597800108087511 0.003507370106616095 2.6651600086166303</pose>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='cerberus_anymal_c_sensor_config_1'>
+      <link name='base'>
+        <pose>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>-0.014319500000000001 -0.0001053 0.0059903999999999999 0 0 0</pose>
+          <mass>29.238320000000002</mass>
+          <inertia>
+            <ixx>0.23686699999999999</ixx>
+            <ixy>0.0084672399999999991</ixy>
+            <ixz>0.085436399999999996</ixz>
+            <iyy>2.0684900000000002</iyy>
+            <iyz>-0.00025339900000000002</iyz>
+            <izz>2.0900599999999998</izz>
+          </inertia>
+        </inertial>
+        <collision name='base_collision'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.377 0.090999999999999998 0.11700000000000001</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='base_collision_1'>
+          <pose>0.141375 0.045499999999999999 0 3.1415926535897931 1.5707926536359933 3.1415926535897931</pose>
+          <geometry>
+            <cylinder>
+              <length>0.09425</length>
+              <radius>0.058500000000000003</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='base_collision_2'>
+          <pose>-0.141375 0.045499999999999999 0 3.1415926535897931 1.5707926536359933 3.1415926535897931</pose>
+          <geometry>
+            <cylinder>
+              <length>0.09425</length>
+              <radius>0.058500000000000003</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='base_collision_3'>
+          <pose>0.141375 -0.045499999999999999 0 3.1415926535897931 1.5707926536359933 3.1415926535897931</pose>
+          <geometry>
+            <cylinder>
+              <length>0.09425</length>
+              <radius>0.058500000000000003</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='base_collision_4'>
+          <pose>-0.141375 -0.045499999999999999 0 3.1415926535897931 1.5707926536359933 3.1415926535897931</pose>
+          <geometry>
+            <cylinder>
+              <length>0.09425</length>
+              <radius>0.058500000000000003</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='base_fixed_joint_lump__alphasense_mesh_collision_5'>
+          <pose>-0.22723869999999999 0 0.15275 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.083199999999999996 0.10725 0.063700000000000007</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='base_fixed_joint_lump__bpearl_front_collision_6'>
+          <pose>0.32600554999999998 0 -0.0065344499999999998 -2.8538800000000002 -0.54666000000000059 -0.5175069999999995</pose>
+          <geometry>
+            <box>
+              <size>0.065000000000000002 0.065000000000000002 0.071499999999999994</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='base_fixed_joint_lump__bpearl_front_protection_bars_collision_collision_7'>
+          <pose>0.28526940000000001 0 -0.050348999999999998 3.1415899999999999 0.89360900000000032 3.1415899999999999</pose>
+          <geometry>
+            <box>
+              <size>0.0195 0.0117 0.065000000000000002</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='base_fixed_joint_lump__bpearl_front_protection_bars_collision_collision_8'>
+          <pose>0.32952399999999998 0 -0.077287599999999998 9.9999999999998153e-07 1.5254200000000113 1.0000000000000025e-06</pose>
+          <geometry>
+            <box>
+              <size>0.0195 0.011050000000000001 0.044200000000000003</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='base_fixed_joint_lump__bpearl_front_protection_bars_collision_collision_9'>
+          <pose>0.36399219999999999 -0.044813600000000002 0.0047729499999999998 -2.6827800000000002 -0.12584400000000012 -0.83529000000000009</pose>
+          <geometry>
+            <box>
+              <size>0.0195 0.0032499999999999999 0.065000000000000002</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='base_fixed_joint_lump__bpearl_front_protection_bars_collision_collision_10'>
+          <pose>0.3802565 -0.02888015 -0.041764450000000002 -2.6117699999999999 0.51677600000000001 -0.49169200000000002</pose>
+          <geometry>
+            <box>
+              <size>0.0195 0.0104 0.044200000000000003</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='base_fixed_joint_lump__bpearl_front_protection_bars_collision_collision_11'>
+          <pose>0.3620292 0.046720049999999999 0.0033982000000000001 2.6630099999999999 -0.10312700000000005 0.88044300000000086</pose>
+          <geometry>
+            <box>
+              <size>0.0195 0.0032499999999999999 0.065000000000000002</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='base_fixed_joint_lump__bpearl_front_protection_bars_collision_collision_12'>
+          <pose>0.37899094999999999 0.030108650000000001 -0.042650399999999998 2.58142 0.53132100000000038 0.51940000000000053</pose>
+          <geometry>
+            <box>
+              <size>0.0195 0.0104 0.044200000000000003</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='base_fixed_joint_lump__bpearl_rear_collision_13'>
+          <pose>-0.32600554999999998 0 -0.0065344499999999998 -2.8538800000000002 -0.54665999999999992 2.6240899999999998</pose>
+          <geometry>
+            <box>
+              <size>0.065000000000000002 0.065000000000000002 0.071499999999999994</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='base_fixed_joint_lump__bpearl_rear_protection_bars_collision_collision_14'>
+          <pose>-0.28526940000000001 0 -0.050348999999999998 3.1415899999999999 0.89360900000000032 0</pose>
+          <geometry>
+            <box>
+              <size>0.0195 0.0117 0.065000000000000002</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='base_fixed_joint_lump__bpearl_rear_protection_bars_collision_collision_15'>
+          <pose>-0.32952399999999998 0 -0.077287599999999998 1.0000000000000645e-06 1.5254199999999991 -3.1415899999999999</pose>
+          <geometry>
+            <box>
+              <size>0.0195 0.011050000000000001 0.044200000000000003</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='base_fixed_joint_lump__bpearl_rear_protection_bars_collision_collision_16'>
+          <pose>-0.36766080000000001 0.040637350000000003 0.0073417500000000002 -2.72553 -0.16847300000000004 2.39838</pose>
+          <geometry>
+            <box>
+              <size>0.0195 0.0032499999999999999 0.065000000000000002</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='base_fixed_joint_lump__bpearl_rear_protection_bars_collision_collision_17'>
+          <pose>-0.38262055 0.0261885 -0.040108900000000003 -2.6730800000000001 0.48991699999999999 2.7061199999999999</pose>
+          <geometry>
+            <box>
+              <size>0.0195 0.0104 0.044200000000000003</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='base_fixed_joint_lump__bpearl_rear_protection_bars_collision_collision_18'>
+          <pose>-0.35998625000000001 -0.048498449999999999 0.0019681999999999998 2.6443300000000001 -0.079551999999999956 -2.2165499999999998</pose>
+          <geometry>
+            <box>
+              <size>0.0195 0.0032499999999999999 0.065000000000000002</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='base_fixed_joint_lump__bpearl_rear_protection_bars_collision_collision_19'>
+          <pose>-0.37767469999999997 -0.0312546 -0.043572100000000002 2.5512899999999998 0.54658400000000007 -2.59477</pose>
+          <geometry>
+            <box>
+              <size>0.0195 0.0104 0.044200000000000003</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='base_fixed_joint_lump__perception_head_cage_collision_20'>
+          <pose>-0.23137205 0 0.10491 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.091981499999999994 0.14003599999999999 0.11491999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='base_fixed_joint_lump__imu_link_collision_21'>
+          <pose>0.16172 0.0054275 0.033332000000000001 0 0 1.5708</pose>
+          <geometry>
+            <box>
+              <size>0.015599999999999999 0.015599999999999999 0.0064999999999999997</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='base_visual'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/base.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='base_fixed_joint_lump__LF_HAA_visual_1'>
+          <pose>0.194935 0.067599999999999993 0 2.6179899999999998 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='base_fixed_joint_lump__LH_HAA_visual_2'>
+          <pose>-0.194935 0.067599999999999993 0 -2.6179899999999998 0 3.1415899999999999</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='base_fixed_joint_lump__RF_HAA_visual_3'>
+          <pose>0.194935 -0.067599999999999993 0 -2.6179899999999998 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='base_fixed_joint_lump__RH_HAA_visual_4'>
+          <pose>-0.194935 -0.067599999999999993 0 2.6179899999999998 0 3.1415899999999999</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='base_fixed_joint_lump__battery_visual_5'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/battery.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='base_fixed_joint_lump__bottom_shell_visual_6'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/bottom_shell.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='base_fixed_joint_lump__handle_visual_7'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/handle.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='base_fixed_joint_lump__hatch_visual_8'>
+          <pose>0.075399999999999995 0 0.047449999999999999 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hatch.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='base_fixed_joint_lump__remote_visual_9'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/remote.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='base_fixed_joint_lump__alphasense_mesh_visual_10'>
+          <pose>-0.2366 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.00064999999999999997 0.00064999999999999997 0.00064999999999999997</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/alphasense.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.5 0.5 0.5 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        <visual name='base_fixed_joint_lump__bpearl_front_visual_11'>
+          <pose>0.30549999999999999 0 0.022749999999999999 -2.8538800000000002 -0.54666000000000059 -0.5175069999999995</pose>
+          <geometry>
+            <mesh>
+              <scale>0.00064999999999999997 0.00064999999999999997 0.00064999999999999997</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/rslidar_bpearl.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.5 0.5 0.5 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        <visual name='base_fixed_joint_lump__bpearl_front_protection_bars_visual_12'>
+          <pose>0.26942175000000002 0 0 0 0 -3.1415899999999999</pose>
+          <geometry>
+            <mesh>
+              <scale>0.00064999999999999997 0.00064999999999999997 0.00064999999999999997</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/bpearl_protection_bars.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.5 0.5 0.5 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        <visual name='base_fixed_joint_lump__bpearl_rear_visual_13'>
+          <pose>-0.30549999999999999 0 0.022749999999999999 -2.8538800000000002 -0.54665999999999992 2.6240899999999998</pose>
+          <geometry>
+            <mesh>
+              <scale>0.00064999999999999997 0.00064999999999999997 0.00064999999999999997</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/rslidar_bpearl.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.5 0.5 0.5 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        <visual name='base_fixed_joint_lump__bpearl_rear_protection_bars_visual_14'>
+          <pose>-0.26942175000000002 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.00064999999999999997 0.00064999999999999997 0.00064999999999999997</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/bpearl_protection_bars.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.5 0.5 0.5 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        <visual name='base_fixed_joint_lump__perception_head_cage_visual_15'>
+          <pose>-0.2366 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.00064999999999999997 0.00064999999999999997 0.00064999999999999997</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/perception_head.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.5 0.5 0.5 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        <visual name='base_fixed_joint_lump__lidar_visual_16'>
+          <pose>-0.2366 0 0.092429999999999998 0 0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/lidar.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='base_fixed_joint_lump__top_shell_visual_17'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/top_shell.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='base_fixed_joint_lump__imu_link_visual_18'>
+          <pose>0.16172 0.0054275 0.033332000000000001 0 0 1.5708</pose>
+          <geometry>
+            <box>
+              <size>0.015599999999999999 0.015599999999999999 0.0064999999999999997</size>
+            </box>
+          </geometry>
+        </visual>
+        <sensor name='imu_sensor' type='imu'>
+          <pose>0.249 0.0080000000000000002 0.045999999999999999 0 0 1.571</pose>
+          <frame_id></frame_id>
+          <topic>__default__</topic>
+          <update_rate>400</update_rate>
+          <enable_metrics>false</enable_metrics>
+          <imu>
+            <orientation_reference_frame>
+              <localization>CUSTOM</localization>
+              <custom_rpy>0 0 0</custom_rpy>
+              <grav_dir_x>1 0 0</grav_dir_x>
+            </orientation_reference_frame>
+            <angular_velocity>
+              <x>
+                <noise type='gaussian'>
+                  <mean>0</mean>
+                  <stddev>0.0089999999999999993</stddev>
+                  <bias_mean>0.00075000000000000002</bias_mean>
+                  <bias_stddev>0.0050000000000000001</bias_stddev>
+                  <dynamic_bias_stddev>2.0000000000000002e-05</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>400</dynamic_bias_correlation_time>
+                  <precision>0.00025000000000000001</precision>
+                </noise>
+              </x>
+              <y>
+                <noise type='gaussian'>
+                  <mean>0</mean>
+                  <stddev>0.0089999999999999993</stddev>
+                  <bias_mean>0.00075000000000000002</bias_mean>
+                  <bias_stddev>0.0050000000000000001</bias_stddev>
+                  <dynamic_bias_stddev>2.0000000000000002e-05</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>400</dynamic_bias_correlation_time>
+                  <precision>0.00025000000000000001</precision>
+                </noise>
+              </y>
+              <z>
+                <noise type='gaussian'>
+                  <mean>0</mean>
+                  <stddev>0.0089999999999999993</stddev>
+                  <bias_mean>0.00075000000000000002</bias_mean>
+                  <bias_stddev>0.0050000000000000001</bias_stddev>
+                  <dynamic_bias_stddev>2.0000000000000002e-05</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>400</dynamic_bias_correlation_time>
+                  <precision>0.00025000000000000001</precision>
+                </noise>
+              </z>
+            </angular_velocity>
+            <linear_acceleration>
+              <x>
+                <noise type='gaussian'>
+                  <mean>0</mean>
+                  <stddev>0.021000000000000001</stddev>
+                  <bias_mean>0.050000000000000003</bias_mean>
+                  <bias_stddev>0.0074999999999999997</bias_stddev>
+                  <dynamic_bias_stddev>0.00037500000000000001</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>175</dynamic_bias_correlation_time>
+                  <precision>0.0050000000000000001</precision>
+                </noise>
+              </x>
+              <y>
+                <noise type='gaussian'>
+                  <mean>0</mean>
+                  <stddev>0.021000000000000001</stddev>
+                  <bias_mean>0.050000000000000003</bias_mean>
+                  <bias_stddev>0.0074999999999999997</bias_stddev>
+                  <dynamic_bias_stddev>0.00037500000000000001</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>175</dynamic_bias_correlation_time>
+                  <precision>0.0050000000000000001</precision>
+                </noise>
+              </y>
+              <z>
+                <noise type='gaussian'>
+                  <mean>0</mean>
+                  <stddev>0.021000000000000001</stddev>
+                  <bias_mean>0.050000000000000003</bias_mean>
+                  <bias_stddev>0.0074999999999999997</bias_stddev>
+                  <dynamic_bias_stddev>0.00037500000000000001</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>175</dynamic_bias_correlation_time>
+                  <precision>0.0050000000000000001</precision>
+                </noise>
+              </z>
+            </linear_acceleration>
+            <enable_orientation>true</enable_orientation>
+          </imu>
+        </sensor>
+        <sensor name='perception_head_imu_sensor' type='imu'>
+          <pose>-0.32700000000000001 -0.0050000000000000001 0.20599999999999999 0 0 -1.571</pose>
+          <frame_id></frame_id>
+          <topic>__default__</topic>
+          <update_rate>200</update_rate>
+          <enable_metrics>false</enable_metrics>
+          <imu>
+            <orientation_reference_frame>
+              <localization>CUSTOM</localization>
+              <custom_rpy>0 0 0</custom_rpy>
+              <grav_dir_x>1 0 0</grav_dir_x>
+            </orientation_reference_frame>
+            <angular_velocity>
+              <x>
+                <noise type='gaussian'>
+                  <mean>0</mean>
+                  <stddev>0.0089999999999999993</stddev>
+                  <bias_mean>0.00075000000000000002</bias_mean>
+                  <bias_stddev>0.0050000000000000001</bias_stddev>
+                  <dynamic_bias_stddev>2.0000000000000002e-05</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>400</dynamic_bias_correlation_time>
+                  <precision>0.00025000000000000001</precision>
+                </noise>
+              </x>
+              <y>
+                <noise type='gaussian'>
+                  <mean>0</mean>
+                  <stddev>0.0089999999999999993</stddev>
+                  <bias_mean>0.00075000000000000002</bias_mean>
+                  <bias_stddev>0.0050000000000000001</bias_stddev>
+                  <dynamic_bias_stddev>2.0000000000000002e-05</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>400</dynamic_bias_correlation_time>
+                  <precision>0.00025000000000000001</precision>
+                </noise>
+              </y>
+              <z>
+                <noise type='gaussian'>
+                  <mean>0</mean>
+                  <stddev>0.0089999999999999993</stddev>
+                  <bias_mean>0.00075000000000000002</bias_mean>
+                  <bias_stddev>0.0050000000000000001</bias_stddev>
+                  <dynamic_bias_stddev>2.0000000000000002e-05</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>400</dynamic_bias_correlation_time>
+                  <precision>0.00025000000000000001</precision>
+                </noise>
+              </z>
+            </angular_velocity>
+            <linear_acceleration>
+              <x>
+                <noise type='gaussian'>
+                  <mean>0</mean>
+                  <stddev>0.021000000000000001</stddev>
+                  <bias_mean>0.050000000000000003</bias_mean>
+                  <bias_stddev>0.0074999999999999997</bias_stddev>
+                  <dynamic_bias_stddev>0.00037500000000000001</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>175</dynamic_bias_correlation_time>
+                  <precision>0.0050000000000000001</precision>
+                </noise>
+              </x>
+              <y>
+                <noise type='gaussian'>
+                  <mean>0</mean>
+                  <stddev>0.021000000000000001</stddev>
+                  <bias_mean>0.050000000000000003</bias_mean>
+                  <bias_stddev>0.0074999999999999997</bias_stddev>
+                  <dynamic_bias_stddev>0.00037500000000000001</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>175</dynamic_bias_correlation_time>
+                  <precision>0.0050000000000000001</precision>
+                </noise>
+              </y>
+              <z>
+                <noise type='gaussian'>
+                  <mean>0</mean>
+                  <stddev>0.021000000000000001</stddev>
+                  <bias_mean>0.050000000000000003</bias_mean>
+                  <bias_stddev>0.0074999999999999997</bias_stddev>
+                  <dynamic_bias_stddev>0.00037500000000000001</dynamic_bias_stddev>
+                  <dynamic_bias_correlation_time>175</dynamic_bias_correlation_time>
+                  <precision>0.0050000000000000001</precision>
+                </noise>
+              </z>
+            </linear_acceleration>
+            <enable_orientation>true</enable_orientation>
+          </imu>
+        </sensor>
+        <sensor name='front_laser' type='gpu_lidar'>
+          <pose>-0.36399999999999999 0 0.14199999999999999 0 0 -1.571</pose>
+          <frame_id></frame_id>
+          <topic>__default__</topic>
+          <update_rate>10</update_rate>
+          <enable_metrics>false</enable_metrics>
+          <lidar>
+            <scan>
+              <horizontal>
+                <samples>1800</samples>
+                <resolution>1</resolution>
+                <min_angle>-3.1415899999999999</min_angle>
+                <max_angle>3.1415899999999999</max_angle>
+              </horizontal>
+              <vertical>
+                <samples>16</samples>
+                <min_angle>-0.261799</min_angle>
+                <max_angle>0.261799</max_angle>
+                <resolution>1</resolution>
+              </vertical>
+            </scan>
+            <range>
+              <min>0.050000000000000003</min>
+              <max>100</max>
+              <resolution>0.01</resolution>
+            </range>
+            <noise>
+              <type>gaussian</type>
+              <mean>0</mean>
+              <stddev>0.01</stddev>
+            </noise>
+            <visibility_mask>4294967295</visibility_mask>
+          </lidar>
+        </sensor>
+        <sensor name='front_bpearl' type='gpu_lidar'>
+          <pose>0.52400000000000002 0 -0.042000000000000003 -2.5760000000000001 0.24500000000000013 -1.9360000000000002</pose>
+          <frame_id></frame_id>
+          <topic>__default__</topic>
+          <update_rate>10</update_rate>
+          <enable_metrics>false</enable_metrics>
+          <lidar>
+            <scan>
+              <horizontal>
+                <samples>440</samples>
+                <resolution>1</resolution>
+                <min_angle>-3.1415899999999999</min_angle>
+                <max_angle>3.1415899999999999</max_angle>
+              </horizontal>
+              <vertical>
+                <samples>32</samples>
+                <min_angle>0.040360739</min_angle>
+                <max_angle>1.5620696810000001</max_angle>
+                <resolution>1</resolution>
+              </vertical>
+            </scan>
+            <range>
+              <min>0.29999999999999999</min>
+              <max>31</max>
+              <resolution>0.001</resolution>
+            </range>
+            <noise>
+              <type>gaussian</type>
+              <mean>0</mean>
+              <stddev>0.0080000000000000002</stddev>
+            </noise>
+            <visibility_mask>4294967295</visibility_mask>
+          </lidar>
+        </sensor>
+        <sensor name='rear_bpearl' type='gpu_lidar'>
+          <pose>-0.52400000000000002 0 -0.042000000000000003 -2.5760000000000001 0.24499999999999994 1.2060000000000002</pose>
+          <frame_id></frame_id>
+          <topic>__default__</topic>
+          <update_rate>10</update_rate>
+          <enable_metrics>false</enable_metrics>
+          <lidar>
+            <scan>
+              <horizontal>
+                <samples>440</samples>
+                <resolution>1</resolution>
+                <min_angle>-3.1415899999999999</min_angle>
+                <max_angle>3.1415899999999999</max_angle>
+              </horizontal>
+              <vertical>
+                <samples>32</samples>
+                <min_angle>0.040360739</min_angle>
+                <max_angle>1.5620696810000001</max_angle>
+                <resolution>1</resolution>
+              </vertical>
+            </scan>
+            <range>
+              <min>0.29999999999999999</min>
+              <max>31</max>
+              <resolution>0.001</resolution>
+            </range>
+            <noise>
+              <type>gaussian</type>
+              <mean>0</mean>
+              <stddev>0.0080000000000000002</stddev>
+            </noise>
+            <visibility_mask>4294967295</visibility_mask>
+          </lidar>
+        </sensor>
+        <sensor name='camera_0' type='camera'>
+          <pose>-0.40000000000000002 -0.050000000000000003 0.22900000000000001 -0.0060000000000000001 0.010999999999999999 3.133</pose>
+          <frame_id></frame_id>
+          <topic>__default__</topic>
+          <update_rate>20</update_rate>
+          <enable_metrics>false</enable_metrics>
+          <camera name='__default__'>
+            <pose>0 0 0 0 0 0</pose>
+            <horizontal_fov>2.1991100000000001</horizontal_fov>
+            <image>
+              <width>720</width>
+              <height>540</height>
+              <format>RGB_INT8</format>
+              <anti_aliasing>4</anti_aliasing>
+            </image>
+            <camera_info_topic>__default__</camera_info_topic>
+            <trigger_topic></trigger_topic>
+            <triggered>false</triggered>
+            <clip>
+              <near>0.02</near>
+              <far>100</far>
+            </clip>
+            <save enabled='false'>
+              <path>__default__</path>
+            </save>
+            <visibility_mask>4294967295</visibility_mask>
+            <noise>
+              <type>none</type>
+              <mean>0</mean>
+              <stddev>0</stddev>
+            </noise>
+            <distortion>
+              <k1>0</k1>
+              <k2>0</k2>
+              <k3>0</k3>
+              <p1>0</p1>
+              <p2>0</p2>
+              <center>0.5 0.5</center>
+            </distortion>
+            <lens>
+              <type>stereographic</type>
+              <scale_to_hfov>true</scale_to_hfov>
+              <cutoff_angle>1.5707963267948966</cutoff_angle>
+              <env_texture_size>256</env_texture_size>
+            </lens>
+          </camera>
+        </sensor>
+        <sensor name='camera_1' type='camera'>
+          <pose>-0.40000000000000002 0.049000000000000002 0.22900000000000001 -0.005999999999999981 4.0657581468206416e-20 3.1389999999999998</pose>
+          <frame_id></frame_id>
+          <topic>__default__</topic>
+          <update_rate>20</update_rate>
+          <enable_metrics>false</enable_metrics>
+          <camera name='__default__'>
+            <pose>0 0 0 0 0 0</pose>
+            <horizontal_fov>2.1991100000000001</horizontal_fov>
+            <image>
+              <width>728</width>
+              <height>544</height>
+              <format>RGB_INT8</format>
+              <anti_aliasing>4</anti_aliasing>
+            </image>
+            <camera_info_topic>__default__</camera_info_topic>
+            <trigger_topic></trigger_topic>
+            <triggered>false</triggered>
+            <clip>
+              <near>0.02</near>
+              <far>100</far>
+            </clip>
+            <save enabled='false'>
+              <path>__default__</path>
+            </save>
+            <visibility_mask>4294967295</visibility_mask>
+            <noise>
+              <type>none</type>
+              <mean>0</mean>
+              <stddev>0</stddev>
+            </noise>
+            <distortion>
+              <k1>0</k1>
+              <k2>0</k2>
+              <k3>0</k3>
+              <p1>0</p1>
+              <p2>0</p2>
+              <center>0.5 0.5</center>
+            </distortion>
+            <lens>
+              <type>stereographic</type>
+              <scale_to_hfov>true</scale_to_hfov>
+              <cutoff_angle>1.5707963267948966</cutoff_angle>
+              <env_texture_size>256</env_texture_size>
+            </lens>
+          </camera>
+        </sensor>
+        <sensor name='camera_2' type='camera'>
+          <pose>-0.379 -0.050000000000000003 0.26500000000000001 3.1325900000000022 -1.5695900000000893 3.1375899999999981</pose>
+          <frame_id></frame_id>
+          <topic>__default__</topic>
+          <update_rate>20</update_rate>
+          <enable_metrics>false</enable_metrics>
+          <camera name='__default__'>
+            <pose>0 0 0 0 0 0</pose>
+            <horizontal_fov>2.1991100000000001</horizontal_fov>
+            <image>
+              <width>720</width>
+              <height>540</height>
+              <format>RGB_INT8</format>
+              <anti_aliasing>4</anti_aliasing>
+            </image>
+            <camera_info_topic>__default__</camera_info_topic>
+            <trigger_topic></trigger_topic>
+            <triggered>false</triggered>
+            <clip>
+              <near>0.02</near>
+              <far>100</far>
+            </clip>
+            <save enabled='false'>
+              <path>__default__</path>
+            </save>
+            <visibility_mask>4294967295</visibility_mask>
+            <noise>
+              <type>none</type>
+              <mean>0</mean>
+              <stddev>0</stddev>
+            </noise>
+            <distortion>
+              <k1>0</k1>
+              <k2>0</k2>
+              <k3>0</k3>
+              <p1>0</p1>
+              <p2>0</p2>
+              <center>0.5 0.5</center>
+            </distortion>
+            <lens>
+              <type>stereographic</type>
+              <scale_to_hfov>true</scale_to_hfov>
+              <cutoff_angle>1.5707963267948966</cutoff_angle>
+              <env_texture_size>256</env_texture_size>
+            </lens>
+          </camera>
+        </sensor>
+        <sensor name='camera_3' type='camera'>
+          <pose>-0.34799999999999998 -0.072999999999999995 0.23699999999999999 0.0040000000000000513 -0.17200000000000076 -1.575</pose>
+          <frame_id></frame_id>
+          <topic>__default__</topic>
+          <update_rate>20</update_rate>
+          <enable_metrics>false</enable_metrics>
+          <camera name='__default__'>
+            <pose>0 0 0 0 0 0</pose>
+            <horizontal_fov>2.1991100000000001</horizontal_fov>
+            <image>
+              <width>720</width>
+              <height>540</height>
+              <format>RGB_INT8</format>
+              <anti_aliasing>4</anti_aliasing>
+            </image>
+            <camera_info_topic>__default__</camera_info_topic>
+            <trigger_topic></trigger_topic>
+            <triggered>false</triggered>
+            <clip>
+              <near>0.02</near>
+              <far>100</far>
+            </clip>
+            <save enabled='false'>
+              <path>__default__</path>
+            </save>
+            <visibility_mask>4294967295</visibility_mask>
+            <noise>
+              <type>none</type>
+              <mean>0</mean>
+              <stddev>0</stddev>
+            </noise>
+            <distortion>
+              <k1>0</k1>
+              <k2>0</k2>
+              <k3>0</k3>
+              <p1>0</p1>
+              <p2>0</p2>
+              <center>0.5 0.5</center>
+            </distortion>
+            <lens>
+              <type>stereographic</type>
+              <scale_to_hfov>true</scale_to_hfov>
+              <cutoff_angle>1.5707963267948966</cutoff_angle>
+              <env_texture_size>256</env_texture_size>
+            </lens>
+          </camera>
+        </sensor>
+        <sensor name='camera_4' type='camera'>
+          <pose>-0.39900000000000002 0 0.22800000000000001 -0.0089999999999999993 -0.0020000000000000096 3.1360000000000001</pose>
+          <frame_id></frame_id>
+          <topic>__default__</topic>
+          <update_rate>20</update_rate>
+          <enable_metrics>false</enable_metrics>
+          <camera name='__default__'>
+            <pose>0 0 0 0 0 0</pose>
+            <horizontal_fov>2.1991100000000001</horizontal_fov>
+            <image>
+              <width>720</width>
+              <height>540</height>
+              <format>RGB_INT8</format>
+              <anti_aliasing>4</anti_aliasing>
+            </image>
+            <camera_info_topic>__default__</camera_info_topic>
+            <trigger_topic></trigger_topic>
+            <triggered>false</triggered>
+            <clip>
+              <near>0.02</near>
+              <far>100</far>
+            </clip>
+            <save enabled='false'>
+              <path>__default__</path>
+            </save>
+            <visibility_mask>4294967295</visibility_mask>
+            <noise>
+              <type>none</type>
+              <mean>0</mean>
+              <stddev>0</stddev>
+            </noise>
+            <distortion>
+              <k1>0</k1>
+              <k2>0</k2>
+              <k3>0</k3>
+              <p1>0</p1>
+              <p2>0</p2>
+              <center>0.5 0.5</center>
+            </distortion>
+            <lens>
+              <type>stereographic</type>
+              <scale_to_hfov>true</scale_to_hfov>
+              <cutoff_angle>1.5707963267948966</cutoff_angle>
+              <env_texture_size>256</env_texture_size>
+            </lens>
+          </camera>
+        </sensor>
+        <sensor name='camera_5' type='camera'>
+          <pose>-0.34699999999999998 0.071999999999999995 0.23599999999999999 -0.01199999999999999 -0.17100000000000001 1.569</pose>
+          <frame_id></frame_id>
+          <topic>__default__</topic>
+          <update_rate>20</update_rate>
+          <enable_metrics>false</enable_metrics>
+          <camera name='__default__'>
+            <pose>0 0 0 0 0 0</pose>
+            <horizontal_fov>2.1991100000000001</horizontal_fov>
+            <image>
+              <width>720</width>
+              <height>540</height>
+              <format>RGB_INT8</format>
+              <anti_aliasing>4</anti_aliasing>
+            </image>
+            <camera_info_topic>__default__</camera_info_topic>
+            <trigger_topic></trigger_topic>
+            <triggered>false</triggered>
+            <clip>
+              <near>0.02</near>
+              <far>100</far>
+            </clip>
+            <save enabled='false'>
+              <path>__default__</path>
+            </save>
+            <visibility_mask>4294967295</visibility_mask>
+            <noise>
+              <type>none</type>
+              <mean>0</mean>
+              <stddev>0</stddev>
+            </noise>
+            <distortion>
+              <k1>0</k1>
+              <k2>0</k2>
+              <k3>0</k3>
+              <p1>0</p1>
+              <p2>0</p2>
+              <center>0.5 0.5</center>
+            </distortion>
+            <lens>
+              <type>stereographic</type>
+              <scale_to_hfov>true</scale_to_hfov>
+              <cutoff_angle>1.5707963267948966</cutoff_angle>
+              <env_texture_size>256</env_texture_size>
+            </lens>
+          </camera>
+        </sensor>
+        <sensor name='camera_6' type='camera'>
+          <pose>-0.379 0.050000000000000003 0.26500000000000001 3.1325900000000022 -1.5695900000000893 3.1375899999999981</pose>
+          <frame_id></frame_id>
+          <topic>__default__</topic>
+          <update_rate>20</update_rate>
+          <enable_metrics>false</enable_metrics>
+          <camera name='__default__'>
+            <pose>0 0 0 0 0 0</pose>
+            <horizontal_fov>2.1991100000000001</horizontal_fov>
+            <image>
+              <width>720</width>
+              <height>540</height>
+              <format>RGB_INT8</format>
+              <anti_aliasing>4</anti_aliasing>
+            </image>
+            <camera_info_topic>__default__</camera_info_topic>
+            <trigger_topic></trigger_topic>
+            <triggered>false</triggered>
+            <clip>
+              <near>0.02</near>
+              <far>100</far>
+            </clip>
+            <save enabled='false'>
+              <path>__default__</path>
+            </save>
+            <visibility_mask>4294967295</visibility_mask>
+            <noise>
+              <type>none</type>
+              <mean>0</mean>
+              <stddev>0</stddev>
+            </noise>
+            <distortion>
+              <k1>0</k1>
+              <k2>0</k2>
+              <k3>0</k3>
+              <p1>0</p1>
+              <p2>0</p2>
+              <center>0.5 0.5</center>
+            </distortion>
+            <lens>
+              <type>stereographic</type>
+              <scale_to_hfov>true</scale_to_hfov>
+              <cutoff_angle>1.5707963267948966</cutoff_angle>
+              <env_texture_size>256</env_texture_size>
+            </lens>
+          </camera>
+        </sensor>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='LF_HIP'>
+        <pose>0.19493500000001251 0.067599999999996996 1.27675647831893e-15 2.6179899999999998 -1.8251270368830465e-17 1.5665964050276267e-17</pose>
+        <inertial>
+          <pose>0.036829649999999998 -0.0099410999999999996 -0.0053937000000000004 0 0 0</pose>
+          <mass>2.7810000000000001</mass>
+          <inertia>
+            <ixx>0.0032955300000000001</ixx>
+            <ixy>-1.03882e-05</ixy>
+            <ixz>0.000107062</ixz>
+            <iyy>0.0050443500000000004</iyy>
+            <iyz>-0.000319492</iyz>
+            <izz>0.0057269</izz>
+          </inertia>
+        </inertial>
+        <collision name='LF_HIP_fixed_joint_lump__LF_HFE_collision'>
+          <pose>0.038934999999999997 -0.0077739999999999997 -0.0044882500000000001 -3.1415899999999999 -1.0472000000000004 -1.5708000000000002</pose>
+          <geometry>
+            <cylinder>
+              <length>0.090999999999999998</length>
+              <radius>0.032500000000000001</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='LF_HIP_fixed_joint_lump__LF_hip_fixed_visual'>
+          <pose>0 0 0 -2.6179899999999998 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hip_l.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='LF_HIP_fixed_joint_lump__LF_HFE_visual_1'>
+          <pose>0.038934999999999997 -0.047178299999999999 -0.027238249999999999 -3.1415899999999999 0.52359900000000015 -1.5707999999999991</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <enable_wind>false</enable_wind>
+      </link>
+      <joint name='LF_HAA' type='revolute'>
+        <child>LF_HIP</child>
+        <parent>base</parent>
+        <axis>
+          <xyz>1 4.1407493804325564e-33 5.0074178554068132e-33</xyz>
+          <limit>
+            <lower>-0.71999999999999997</lower>
+            <upper>0.48999999999999999</upper>
+            <effort>80</effort>
+            <velocity>7.5</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+        <pose>0 -4.5796699765787707e-16 -1.457167719820518e-16 -2.1382117680737575e-50 -3.081487911019578e-33 1.540743955509789e-33</pose>
+      </joint>
+      <link name='LF_THIGH'>
+        <pose>0.23386999999999958 0.12207649999999792 2.7755575615628914e-16 2.8170527427031768e-15 -9.2664011593359281e-17 1.5708000000000004</pose>
+        <inertial>
+          <pose>0.020029749999999999 2.9899999999999998e-05 -0.15970239999999999 0 0 0</pose>
+          <mass>3.0710000000000002</mass>
+          <inertia>
+            <ixx>0.029563800000000001</ixx>
+            <ixy>4.4291900000000002e-05</ixy>
+            <ixz>0.0041424299999999999</ixz>
+            <iyy>0.029904</iyy>
+            <iyz>9.4480000000000003e-05</iyz>
+            <izz>0.0048610800000000003</izz>
+          </inertia>
+        </inertial>
+        <collision name='LF_THIGH_fixed_joint_lump__LF_thigh_fixed_collision'>
+          <pose>0.025999999999999999 0 0 1.5708 5.5511151231257827e-17 -1.5708</pose>
+          <geometry>
+            <cylinder>
+              <length>0.051999999999999998</length>
+              <radius>0.042250000000000003</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='LF_THIGH_fixed_joint_lump__LF_thigh_fixed_collision_1'>
+          <pose>0.0195 0 -0.091854099999999994 0 0 -1.5708</pose>
+          <geometry>
+            <box>
+              <size>0.048750000000000002 0.039 0.18370755</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='LF_THIGH_fixed_joint_lump__LF_KFE_collision_2'>
+          <pose>0.019695000000000001 0 -0.18525 3.1415926535897931 1.5707926536359933 3.1415926535897931</pose>
+          <geometry>
+            <cylinder>
+              <length>0.090999999999999998</length>
+              <radius>0.032500000000000001</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='LF_THIGH_fixed_joint_lump__LF_thigh_fixed_visual'>
+          <pose>0 0 0 0 0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/thigh.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='LF_THIGH_fixed_joint_lump__LF_KFE_visual_1'>
+          <pose>0.065195000000000003 0 -0.18525 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <enable_wind>false</enable_wind>
+      </link>
+      <joint name='LF_HFE' type='revolute'>
+        <child>LF_THIGH</child>
+        <parent>LF_HIP</parent>
+        <axis>
+          <xyz>1 -1.0540080197793377e-63 2.0954117794933126e-31</xyz>
+          <limit>
+            <lower>-9.4247800000000002</lower>
+            <upper>9.4247800000000002</upper>
+            <effort>80</effort>
+            <velocity>7.5</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+        <pose>1.6653345369377348e-16 -2.7755575615628914e-17 0 3.944304526105059e-31 -1.9721522630525295e-31 -3.8893845486632136e-62</pose>
+      </joint>
+      <link name='LF_SHANK'>
+        <pose>0.23387000000000047 0.18727150000000137 -0.18524999999998992 5.7567881848200061e-15 -1.5270743106608412e-16 1.5708000000000004</pose>
+        <inertial>
+          <pose>0.0035503000000000002 -0.039814450000000001 -0.052429000000000003 0 0 0</pose>
+          <mass>0.58842000000000005</mass>
+          <inertia>
+            <ixx>0.010161099999999999</ixx>
+            <ixy>-5.35713e-05</ixy>
+            <ixz>-2.2660400000000001e-05</ixz>
+            <iyy>0.0088103799999999996</iyy>
+            <iyz>-0.00181935</iyz>
+            <izz>0.00154978</izz>
+          </inertia>
+        </inertial>
+        <collision name='LF_SHANK_fixed_joint_lump__LF_shank_fixed_collision'>
+          <pose>0.012999999999999999 0 0 1.5708 5.5511151231257827e-17 -1.5708</pose>
+          <geometry>
+            <cylinder>
+              <length>0.025999999999999999</length>
+              <radius>0.039</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='LF_SHANK_fixed_joint_lump__LF_shank_fixed_collision_1'>
+          <pose>0.012999999999999999 -0.037374350000000001 0 1.5708 5.5511151231257827e-17 -1.5708</pose>
+          <geometry>
+            <box>
+              <size>0.074748700000000001 0.043874999999999997 0.025999999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='LF_SHANK_fixed_joint_lump__LF_FOOT_collision_2'>
+          <pose>0.0084825000000000005 -0.057167500000000003 -0.10984025 0 0 -1.5708</pose>
+          <geometry>
+            <cylinder>
+              <length>0.1836276</length>
+              <radius>0.011375</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='LF_SHANK_fixed_joint_lump__LF_FOOT_collision_3'>
+          <pose>0.0084825000000000005 -0.057167500000000003 -0.2050555 0 0 -1.5708</pose>
+          <geometry>
+            <sphere>
+              <radius>0.0195</radius>
+            </sphere>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='LF_SHANK_fixed_joint_lump__LF_shank_fixed_visual'>
+          <pose>0 0 0 0 0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/shank_l.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='LF_SHANK_fixed_joint_lump__LF_FOOT_visual_1'>
+          <pose>0.0084825000000000005 -0.057167500000000003 -0.2196805 0 0 -2.3561899999999998</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/foot.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <enable_wind>false</enable_wind>
+      </link>
+      <joint name='LF_KFE' type='revolute'>
+        <child>LF_SHANK</child>
+        <parent>LF_THIGH</parent>
+        <axis>
+          <xyz>1 0 -3.944304526105059e-31</xyz>
+          <limit>
+            <lower>-9.4247800000000002</lower>
+            <upper>9.4247800000000002</upper>
+            <effort>80</effort>
+            <velocity>7.5</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+        <pose>1.3877787807814457e-16 1.6653345369377348e-16 -2.2204460492503131e-16 3.944304526105059e-31 -3.944304526105059e-31 -7.7787690973264271e-62</pose>
+      </joint>
+      <link name='LH_HIP'>
+        <pose>-0.19493499999999475 0.067599999999998328 9.4368957093138306e-16 -2.6179900000000003 -1.3895067279938444e-15 3.1415899999999999</pose>
+        <inertial>
+          <pose>0.036895949999999997 0.0099410999999999996 -0.0053937000000000004 0 0 0</pose>
+          <mass>2.7810000000000001</mass>
+          <inertia>
+            <ixx>0.0032955300000000001</ixx>
+            <ixy>-1.1005299999999999e-05</ixy>
+            <ixz>-0.000109121</ixz>
+            <iyy>0.00504617</iyy>
+            <iyz>0.000319492</iyz>
+            <izz>0.0057287199999999996</izz>
+          </inertia>
+        </inertial>
+        <collision name='LH_HIP_fixed_joint_lump__LH_HFE_collision'>
+          <pose>0.038934999999999997 0.0077739999999999997 -0.0044882500000000001 -3.1415899999999999 -1.0472000000000008 1.5707999999999969</pose>
+          <geometry>
+            <cylinder>
+              <length>0.090999999999999998</length>
+              <radius>0.032500000000000001</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='LH_HIP_fixed_joint_lump__LH_hip_fixed_visual'>
+          <pose>0 0 0 2.6179899999999998 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hip_r.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='LH_HIP_fixed_joint_lump__LH_HFE_visual_1'>
+          <pose>0.038934999999999997 0.047178299999999999 -0.027238249999999999 -3.1415899999999999 0.52359900000000015 1.5708000000000004</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <enable_wind>false</enable_wind>
+      </link>
+      <joint name='LH_HAA' type='revolute'>
+        <child>LH_HIP</child>
+        <parent>base</parent>
+        <axis>
+          <xyz>-1 -5.558653716356346e-22 -3.1763735522036263e-22</xyz>
+          <limit>
+            <lower>-0.71999999999999997</lower>
+            <upper>0.48999999999999999</upper>
+            <effort>80</effort>
+            <velocity>7.5</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+        <pose>0 -3.4694469519536142e-17 0 -2.8025969286496341e-45 -2.1175823681357508e-22 2.6469779601696886e-23</pose>
+      </joint>
+      <link name='LH_THIGH'>
+        <pose>-0.23386999999999958 0.12207650000000037 -1.6653345369377348e-16 6.2732847081465632e-16 3.4604400582524264e-16 1.5707999999999993</pose>
+        <inertial>
+          <pose>0.020029749999999999 2.9899999999999998e-05 -0.15970239999999999 0 0 0</pose>
+          <mass>3.0710000000000002</mass>
+          <inertia>
+            <ixx>0.029563800000000001</ixx>
+            <ixy>4.43959e-05</ixy>
+            <ixz>0.0041424299999999999</ixz>
+            <iyy>0.029904</iyy>
+            <iyz>0.000114794</iyz>
+            <izz>0.0048610800000000003</izz>
+          </inertia>
+        </inertial>
+        <collision name='LH_THIGH_fixed_joint_lump__LH_thigh_fixed_collision'>
+          <pose>0.025999999999999999 0 0 1.5708 5.5511151231257827e-17 -1.5708</pose>
+          <geometry>
+            <cylinder>
+              <length>0.051999999999999998</length>
+              <radius>0.042250000000000003</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='LH_THIGH_fixed_joint_lump__LH_thigh_fixed_collision_1'>
+          <pose>0.0195 0 -0.091854099999999994 0 0 -1.5708</pose>
+          <geometry>
+            <box>
+              <size>0.048750000000000002 0.039 0.18370755</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='LH_THIGH_fixed_joint_lump__LH_KFE_collision_2'>
+          <pose>0.019695000000000001 0 -0.18525 3.1415926535897931 1.5707926536359933 3.1415926535897931</pose>
+          <geometry>
+            <cylinder>
+              <length>0.090999999999999998</length>
+              <radius>0.032500000000000001</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='LH_THIGH_fixed_joint_lump__LH_thigh_fixed_visual'>
+          <pose>0 0 0 0 0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/thigh.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='LH_THIGH_fixed_joint_lump__LH_KFE_visual_1'>
+          <pose>0.065195000000000003 0 -0.18525 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <enable_wind>false</enable_wind>
+      </link>
+      <joint name='LH_HFE' type='revolute'>
+        <child>LH_THIGH</child>
+        <parent>LH_HIP</parent>
+        <axis>
+          <xyz>1 2.4308653429145085e-63 3.6977854932234928e-32</xyz>
+          <limit>
+            <lower>-9.4247800000000002</lower>
+            <upper>9.4247800000000002</upper>
+            <effort>80</effort>
+            <velocity>7.5</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+        <pose>1.6653345369377348e-16 1.3877787807814457e-16 -9.8607613152626476e-32 1.9721522630525295e-31 2.2186712959340957e-31 2.1877788086230576e-62</pose>
+      </joint>
+      <link name='LH_SHANK'>
+        <pose>-0.23387000000000002 0.1872715000000007 -0.18524999999999842 1.3578701132814161e-15 -8.8157282243300947e-17 1.5707999999999966</pose>
+        <inertial>
+          <pose>0.0035503000000000002 0.039814450000000001 -0.052429000000000003 0 0 0</pose>
+          <mass>0.58842000000000005</mass>
+          <inertia>
+            <ixx>0.010161099999999999</ixx>
+            <ixy>5.35713e-05</ixy>
+            <ixz>-2.2660400000000001e-05</ixz>
+            <iyy>0.0088103799999999996</iyy>
+            <iyz>0.00181935</iyz>
+            <izz>0.00154978</izz>
+          </inertia>
+        </inertial>
+        <collision name='LH_SHANK_fixed_joint_lump__LH_shank_fixed_collision'>
+          <pose>0.012999999999999999 0 0 1.5708 5.5511151231257827e-17 -1.5708</pose>
+          <geometry>
+            <cylinder>
+              <length>0.025999999999999999</length>
+              <radius>0.039</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='LH_SHANK_fixed_joint_lump__LH_shank_fixed_collision_1'>
+          <pose>0.012999999999999999 0.037374350000000001 0 1.5708 5.5511151231257827e-17 -1.5708</pose>
+          <geometry>
+            <box>
+              <size>0.074748700000000001 0.043874999999999997 0.025999999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='LH_SHANK_fixed_joint_lump__LH_FOOT_collision_2'>
+          <pose>0.0084825000000000005 0.057167500000000003 -0.10984025 0 0 -1.5708</pose>
+          <geometry>
+            <cylinder>
+              <length>0.1836276</length>
+              <radius>0.011375</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='LH_SHANK_fixed_joint_lump__LH_FOOT_collision_3'>
+          <pose>0.0084825000000000005 0.057167500000000003 -0.2050555 0 0 -1.5708</pose>
+          <geometry>
+            <sphere>
+              <radius>0.0195</radius>
+            </sphere>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='LH_SHANK_fixed_joint_lump__LH_shank_fixed_visual'>
+          <pose>0 0 0 0 0 1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/shank_r.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='LH_SHANK_fixed_joint_lump__LH_FOOT_visual_1'>
+          <pose>0.0084825000000000005 0.057167500000000003 -0.2196805 0 0 2.3561899999999998</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/foot.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <enable_wind>false</enable_wind>
+      </link>
+      <joint name='LH_KFE' type='revolute'>
+        <child>LH_SHANK</child>
+        <parent>LH_THIGH</parent>
+        <axis>
+          <xyz>1 -2.4308653429145085e-62 2.9582283945787943e-31</xyz>
+          <limit>
+            <lower>-9.4247800000000002</lower>
+            <upper>9.4247800000000002</upper>
+            <effort>80</effort>
+            <velocity>7.5</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+        <pose>5.5511151231257827e-17 2.4980018054066022e-16 -1.1102230246251565e-16 2.9582283945787943e-31 -9.8607613152626476e-32 -1.4585192057487051e-62</pose>
+      </joint>
+      <link name='RF_HIP'>
+        <pose>0.19493500000000186 -0.067599999999997884 4.9960036108132044e-16 -2.6179900000000003 1.9561514833691946e-17 8.7853798813654389e-17</pose>
+        <inertial>
+          <pose>0.036895949999999997 0.0099410999999999996 -0.0053937000000000004 0 0 0</pose>
+          <mass>2.7810000000000001</mass>
+          <inertia>
+            <ixx>0.0032955300000000001</ixx>
+            <ixy>-1.1005299999999999e-05</ixy>
+            <ixz>-0.000109121</ixz>
+            <iyy>0.00504617</iyy>
+            <iyz>0.000319492</iyz>
+            <izz>0.0057287199999999996</izz>
+          </inertia>
+        </inertial>
+        <collision name='RF_HIP_fixed_joint_lump__RF_HFE_collision'>
+          <pose>0.038934999999999997 0.0077739999999999997 -0.0044882500000000001 3.1415899999999999 -1.0472000000000004 1.5708000000000002</pose>
+          <geometry>
+            <cylinder>
+              <length>0.090999999999999998</length>
+              <radius>0.032500000000000001</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='RF_HIP_fixed_joint_lump__RF_hip_fixed_visual'>
+          <pose>0 0 0 2.6179899999999998 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hip_r.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='RF_HIP_fixed_joint_lump__RF_HFE_visual_1'>
+          <pose>0.038934999999999997 0.047178299999999999 -0.027238249999999999 3.1415899999999999 0.52359900000000015 1.5707999999999991</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <enable_wind>false</enable_wind>
+      </link>
+      <joint name='RF_HAA' type='revolute'>
+        <child>RF_HIP</child>
+        <parent>base</parent>
+        <axis>
+          <xyz>1 -5.8740863303810694e-33 -4.2370458776519189e-33</xyz>
+          <limit>
+            <lower>-0.48999999999999999</lower>
+            <upper>0.71999999999999997</upper>
+            <effort>80</effort>
+            <velocity>7.5</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+        <pose>-2.2204460492503131e-16 1.8735013540549517e-16 -3.4694469519536142e-17 -3.4211388289180104e-49 6.1629758220391547e-33 -3.0814879110195774e-33</pose>
+      </joint>
+      <link name='RF_THIGH'>
+        <pose>0.23386999999999247 -0.12207649999999814 2.7755575615628914e-16 5.1567228278232774e-16 3.5213375908177811e-16 -1.5707999999999969</pose>
+        <inertial>
+          <pose>0.020029749999999999 2.9899999999999998e-05 -0.15970239999999999 0 0 0</pose>
+          <mass>3.0710000000000002</mass>
+          <inertia>
+            <ixx>0.029563800000000001</ixx>
+            <ixy>4.43959e-05</ixy>
+            <ixz>0.0041424299999999999</ixz>
+            <iyy>0.029904</iyy>
+            <iyz>0.000114794</iyz>
+            <izz>0.0048610800000000003</izz>
+          </inertia>
+        </inertial>
+        <collision name='RF_THIGH_fixed_joint_lump__RF_thigh_fixed_collision'>
+          <pose>0.025999999999999999 0 0 1.5708 -5.5511151231257827e-17 1.5708</pose>
+          <geometry>
+            <cylinder>
+              <length>0.051999999999999998</length>
+              <radius>0.042250000000000003</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='RF_THIGH_fixed_joint_lump__RF_thigh_fixed_collision_1'>
+          <pose>0.0195 0 -0.091854099999999994 0 0 1.5708</pose>
+          <geometry>
+            <box>
+              <size>0.048750000000000002 0.039 0.18370755</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='RF_THIGH_fixed_joint_lump__RF_KFE_collision_2'>
+          <pose>0.019695000000000001 0 -0.18525 3.1415926535897931 1.5707926536359933 3.1415926535897931</pose>
+          <geometry>
+            <cylinder>
+              <length>0.090999999999999998</length>
+              <radius>0.032500000000000001</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='RF_THIGH_fixed_joint_lump__RF_thigh_fixed_visual'>
+          <pose>0 0 0 0 0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/thigh.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='RF_THIGH_fixed_joint_lump__RF_KFE_visual_1'>
+          <pose>0.065195000000000003 0 -0.18525 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <enable_wind>false</enable_wind>
+      </link>
+      <joint name='RF_HFE' type='revolute'>
+        <child>RF_THIGH</child>
+        <parent>RF_HIP</parent>
+        <axis>
+          <xyz>-1 -9.7234613716580339e-63 9.8607613152626476e-32</xyz>
+          <limit>
+            <lower>-9.4247800000000002</lower>
+            <upper>9.4247800000000002</upper>
+            <effort>80</effort>
+            <velocity>7.5</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+        <pose>0 4.9960036108132044e-16 -1.9721522630525295e-31 6.9025329206838533e-31 9.8607613152626476e-32 3.4032114800803119e-62</pose>
+      </joint>
+      <link name='RF_SHANK'>
+        <pose>0.23387000000000935 -0.18727150000000048 -0.18525000000000441 1.081724421274132e-15 -1.581332715236925e-16 -1.5707999999999929</pose>
+        <inertial>
+          <pose>0.0035503000000000002 0.039814450000000001 -0.052429000000000003 0 0 0</pose>
+          <mass>0.58842000000000005</mass>
+          <inertia>
+            <ixx>0.010161099999999999</ixx>
+            <ixy>5.35713e-05</ixy>
+            <ixz>-2.2660400000000001e-05</ixz>
+            <iyy>0.0088103799999999996</iyy>
+            <iyz>0.00181935</iyz>
+            <izz>0.00154978</izz>
+          </inertia>
+        </inertial>
+        <collision name='RF_SHANK_fixed_joint_lump__RF_shank_fixed_collision'>
+          <pose>0.012999999999999999 0 0 1.5708 -5.5511151231257827e-17 1.5708</pose>
+          <geometry>
+            <cylinder>
+              <length>0.025999999999999999</length>
+              <radius>0.039</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='RF_SHANK_fixed_joint_lump__RF_shank_fixed_collision_1'>
+          <pose>0.012999999999999999 0.037374350000000001 0 1.5708 -5.5511151231257827e-17 1.5708</pose>
+          <geometry>
+            <box>
+              <size>0.074748700000000001 0.043874999999999997 0.025999999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='RF_SHANK_fixed_joint_lump__RF_FOOT_collision_2'>
+          <pose>0.0084825000000000005 0.057167500000000003 -0.10984025 0 0 1.5708</pose>
+          <geometry>
+            <cylinder>
+              <length>0.1836276</length>
+              <radius>0.011375</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='RF_SHANK_fixed_joint_lump__RF_FOOT_collision_3'>
+          <pose>0.0084825000000000005 0.057167500000000003 -0.2050555 0 0 1.5708</pose>
+          <geometry>
+            <sphere>
+              <radius>0.0195</radius>
+            </sphere>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='RF_SHANK_fixed_joint_lump__RF_shank_fixed_visual'>
+          <pose>0 0 0 0 0 1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/shank_r.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='RF_SHANK_fixed_joint_lump__RF_FOOT_visual_1'>
+          <pose>0.0084825000000000005 0.057167500000000003 -0.2196805 0 0 2.3561899999999998</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/foot.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <enable_wind>false</enable_wind>
+      </link>
+      <joint name='RF_KFE' type='revolute'>
+        <child>RF_SHANK</child>
+        <parent>RF_THIGH</parent>
+        <axis>
+          <xyz>-1 0 4.9303806576313238e-31</xyz>
+          <limit>
+            <lower>-9.4247800000000002</lower>
+            <upper>9.4247800000000002</upper>
+            <effort>80</effort>
+            <velocity>7.5</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+        <pose>-2.7755575615628914e-17 1.1102230246251565e-16 -1.3877787807814457e-16 0 5.9164567891575885e-31 0</pose>
+      </joint>
+      <link name='RH_HIP'>
+        <pose>-0.19493499999999564 -0.067599999999999882 4.9960036108132044e-16 2.6179899999999994 -2.394178224204564e-15 3.1415899999999999</pose>
+        <inertial>
+          <pose>0.036829649999999998 -0.0099410999999999996 -0.0053937000000000004 0 0 0</pose>
+          <mass>2.7810000000000001</mass>
+          <inertia>
+            <ixx>0.0032955300000000001</ixx>
+            <ixy>-1.03882e-05</ixy>
+            <ixz>0.000107062</ixz>
+            <iyy>0.0050443500000000004</iyy>
+            <iyz>-0.000319492</iyz>
+            <izz>0.0057269</izz>
+          </inertia>
+        </inertial>
+        <collision name='RH_HIP_fixed_joint_lump__RH_HFE_collision'>
+          <pose>0.038934999999999997 -0.0077739999999999997 -0.0044882500000000001 3.1415899999999999 -1.0472000000000008 -1.5707999999999969</pose>
+          <geometry>
+            <cylinder>
+              <length>0.090999999999999998</length>
+              <radius>0.032500000000000001</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='RH_HIP_fixed_joint_lump__RH_hip_fixed_visual'>
+          <pose>0 0 0 -2.6179899999999998 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hip_l.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='RH_HIP_fixed_joint_lump__RH_HFE_visual_1'>
+          <pose>0.038934999999999997 -0.047178299999999999 -0.027238249999999999 3.1415899999999999 0.52359900000000015 -1.5708000000000004</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <enable_wind>false</enable_wind>
+      </link>
+      <joint name='RH_HAA' type='revolute'>
+        <child>RH_HIP</child>
+        <parent>base</parent>
+        <axis>
+          <xyz>-1 -2.6469779601696886e-22 -1.0587911840678754e-22</xyz>
+          <limit>
+            <lower>-0.48999999999999999</lower>
+            <upper>0.71999999999999997</upper>
+            <effort>80</effort>
+            <velocity>7.5</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+        <pose>0 -6.9388939039072284e-18 6.9388939039072284e-18 0 0 -1.5881867761018131e-22</pose>
+      </joint>
+      <link name='RH_THIGH'>
+        <pose>-0.23386999999999869 -0.12207650000000347 -7.2164496600635175e-16 1.8378815345140979e-15 3.3725126245799156e-16 -1.5707999999999984</pose>
+        <inertial>
+          <pose>0.020029749999999999 2.9899999999999998e-05 -0.15970239999999999 0 0 0</pose>
+          <mass>3.0710000000000002</mass>
+          <inertia>
+            <ixx>0.029563800000000001</ixx>
+            <ixy>4.4291900000000002e-05</ixy>
+            <ixz>0.0041424299999999999</ixz>
+            <iyy>0.029904</iyy>
+            <iyz>9.4480000000000003e-05</iyz>
+            <izz>0.0048610800000000003</izz>
+          </inertia>
+        </inertial>
+        <collision name='RH_THIGH_fixed_joint_lump__RH_thigh_fixed_collision'>
+          <pose>0.025999999999999999 0 0 1.5708 -5.5511151231257827e-17 1.5708</pose>
+          <geometry>
+            <cylinder>
+              <length>0.051999999999999998</length>
+              <radius>0.042250000000000003</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='RH_THIGH_fixed_joint_lump__RH_thigh_fixed_collision_1'>
+          <pose>0.0195 0 -0.091854099999999994 0 0 1.5708</pose>
+          <geometry>
+            <box>
+              <size>0.048750000000000002 0.039 0.18370755</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='RH_THIGH_fixed_joint_lump__RH_KFE_collision_2'>
+          <pose>0.019695000000000001 0 -0.18525 3.1415926535897931 1.5707926536359933 3.1415926535897931</pose>
+          <geometry>
+            <cylinder>
+              <length>0.090999999999999998</length>
+              <radius>0.032500000000000001</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='RH_THIGH_fixed_joint_lump__RH_thigh_fixed_visual'>
+          <pose>0 0 0 0 0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/thigh.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='RH_THIGH_fixed_joint_lump__RH_KFE_visual_1'>
+          <pose>0.065195000000000003 0 -0.18525 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <enable_wind>false</enable_wind>
+      </link>
+      <joint name='RH_HFE' type='revolute'>
+        <child>RH_THIGH</child>
+        <parent>RH_HIP</parent>
+        <axis>
+          <xyz>-1 -1.9446922743316068e-62 -1.4791141972893971e-31</xyz>
+          <limit>
+            <lower>-9.4247800000000002</lower>
+            <upper>9.4247800000000002</upper>
+            <effort>80</effort>
+            <velocity>7.5</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+        <pose>-1.3877787807814457e-17 0 -2.9582283945787943e-31 -1.9721522630525295e-31 -4.9303806576313238e-31 4.861730685829017e-62</pose>
+      </joint>
+      <link name='RH_SHANK'>
+        <pose>-0.23386999999999469 -0.1872714999999987 -0.18525000000000003 3.8308977479759876e-15 -4.5165225681576586e-17 -1.5707999999999953</pose>
+        <inertial>
+          <pose>0.0035503000000000002 -0.039814450000000001 -0.052429000000000003 0 0 0</pose>
+          <mass>0.58842000000000005</mass>
+          <inertia>
+            <ixx>0.010161099999999999</ixx>
+            <ixy>-5.35713e-05</ixy>
+            <ixz>-2.2660400000000001e-05</ixz>
+            <iyy>0.0088103799999999996</iyy>
+            <iyz>-0.00181935</iyz>
+            <izz>0.00154978</izz>
+          </inertia>
+        </inertial>
+        <collision name='RH_SHANK_fixed_joint_lump__RH_shank_fixed_collision'>
+          <pose>0.012999999999999999 0 0 1.5708 -5.5511151231257827e-17 1.5708</pose>
+          <geometry>
+            <cylinder>
+              <length>0.025999999999999999</length>
+              <radius>0.039</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='RH_SHANK_fixed_joint_lump__RH_shank_fixed_collision_1'>
+          <pose>0.012999999999999999 -0.037374350000000001 0 1.5708 -5.5511151231257827e-17 1.5708</pose>
+          <geometry>
+            <box>
+              <size>0.074748700000000001 0.043874999999999997 0.025999999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='RH_SHANK_fixed_joint_lump__RH_FOOT_collision_2'>
+          <pose>0.0084825000000000005 -0.057167500000000003 -0.10984025 0 0 1.5708</pose>
+          <geometry>
+            <cylinder>
+              <length>0.1836276</length>
+              <radius>0.011375</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='RH_SHANK_fixed_joint_lump__RH_FOOT_collision_3'>
+          <pose>0.0084825000000000005 -0.057167500000000003 -0.2050555 0 0 1.5708</pose>
+          <geometry>
+            <sphere>
+              <radius>0.0195</radius>
+            </sphere>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='RH_SHANK_fixed_joint_lump__RH_shank_fixed_visual'>
+          <pose>0 0 0 0 0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/shank_l.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='RH_SHANK_fixed_joint_lump__RH_FOOT_visual_1'>
+          <pose>0.0084825000000000005 -0.057167500000000003 -0.2196805 0 0 -2.3561899999999998</pose>
+          <geometry>
+            <mesh>
+              <scale>0.65000000000000002 0.65000000000000002 0.65000000000000002</scale>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/foot.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <enable_wind>false</enable_wind>
+      </link>
+      <joint name='RH_KFE' type='revolute'>
+        <child>RH_SHANK</child>
+        <parent>RH_THIGH</parent>
+        <axis>
+          <xyz>-1 0 -8.6281661508548166e-32</xyz>
+          <limit>
+            <lower>-9.4247800000000002</lower>
+            <upper>9.4247800000000002</upper>
+            <effort>80</effort>
+            <velocity>7.5</velocity>
+            <stiffness>100000000</stiffness>
+            <dissipation>1</dissipation>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0</damping>
+            <friction>0</friction>
+          </dynamics>
+        </axis>
+        <pose>-2.2204460492503131e-16 -1.3877787807814457e-16 -1.9428902930940239e-16 0 -1.9721522630525295e-31 0</pose>
+      </joint>
+      <pose>4.0752301216125488 -1.7794400453567505 0.50980550000000269 -3.9395560906945597e-11 -0.0026453860435995975 -0.016937299611027634</pose>
+      <static>true</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='TrashBin'>
+      <static>true</static>
+      <link name='body'>
+        <pose>0 0 0 0 0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/TrashBin/meshes/TrashBin.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/TrashBin/meshes/TrashBin.obj</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>3.1782801151275635 -4.3923602104187012 0.10050000000000001 0 0 -1.5495200279102519</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='TrashBin_0'>
+      <static>true</static>
+      <link name='body'>
+        <pose>0 0 0 0 0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/TrashBin/meshes/TrashBin.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/TrashBin/meshes/TrashBin.obj</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-4.3800902366638184 2.6331000328063965 0.10050000000000001 0 0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='TrashBin_1'>
+      <static>true</static>
+      <link name='body'>
+        <pose>0 0 0 0 0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/TrashBin/meshes/TrashBin.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/TrashBin/meshes/TrashBin.obj</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-3.2278876304626465 -4.3991575241088867 0.10050000000000001 0 0 -1.5661100143669451</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <include>
+      <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/Reflective table</uri>
+      <name>Reflective table</name>
+      <pose>-0.91191202402114868 -0.86726748943328857 0.10011656451452347 0 2.1684043449710089e-19 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/Reflective table</uri>
+      <name>Reflective table_1</name>
+      <pose>0.12350142002105718 -0.86726701259613037 0.10011656451452347 0 2.1684043449710089e-19 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/Reflective table</uri>
+      <name>Reflective table_1_1</name>
+      <pose>0.12350100278854372 0.72496598958969116 0.10011656451452347 0 2.1684043449710089e-19 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/Reflective table</uri>
+      <name>Reflective table_1_2</name>
+      <pose>-0.91191202402114868 0.72496551275253296 0.10011656451452347 0 2.1684043449710089e-19 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/parts/gasket_part</uri>
+      <name>gasket_part</name>
+      <pose>-0.33472198247909546 1.1831799745559692 0.79000000000000004 0 0 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/parts/cross_joint_part</uri>
+      <name>cross_joint_part</name>
+      <pose>-0.25068742036819458 -1.1499999761581421 0.79000002145767212 0 0 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/parts/t_brace_part</uri>
+      <name>t_brace_part</name>
+      <pose>-0.44999998807907104 -0.59805554151535034 0.79000000000000004 0 0 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/parts/disk_part</uri>
+      <name>disk_part</name>
+      <pose>-0.28538200259208679 0.74032068252563477 0.79000000000000004 0 0 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/parts/piston_rod_part</uri>
+      <name>piston_rod_part</name>
+      <pose>-0.28574424982070923 -1.528939962387085 0.79000002145767212 0 0 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/parts/gear_part</uri>
+      <name>gear_part</name>
+      <pose>-0.29335674643516541 -0.24461700022220612 0.79000002145767212 0 0 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/parts/arm_part</uri>
+      <name>arm_part</name>
+      <pose>-0.2782113254070282 0.32999598979949951 0.79000002145767212 0 0 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/ur5_rg2</uri>
+      <name>ur5_rg2</name>
+      <pose>0.49698600172996521 -0.84106600284576416 0.79500000000000004 0 0 -0.040146707411792014</pose>
+    </include>
+    <include>
+      <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/robots/Panda</uri>
+      <name>Panda</name>
+      <pose>0.58382499217987061 0.7386239767074585 0.79500000000000004 -0.005370287629302686 0.0082333986266032097 3.1364490086353269</pose>
+    </include>
+    <include>
+      <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/UAVs/x500</uri>
+      <name>x500</name>
+      <pose>-3.9837100505828857 3.2492396831512451 1.3205 0 0 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/humans/person_standing</uri>
+      <name>person_standing</name>
+      <pose>-1.6762112379074099 -0.80014926195144664 0.10057999938726425 0 0 1.6159000326274207</pose>
+    </include>
+    <include>
+      <uri>file:///home/nearteh/Documents/Gazebo World/my_world/models/furniture/Sofa</uri>
+      <name>Sofa</name>
+      <static>true</static>
+      <pose>-0.16824600100517273 3.9995899200439453 0.10046099871397018 0 0 -1.5845171729141896</pose>
+    </include>
+    <include>
+      <uri>file:///home/nearteh/.gz/fuel/fuel.gazebosim.org/openrobotics/models/coffeetable/2</uri>
+      <name>CoffeeTable</name>
+      <static>true</static>
+      <pose>-0.13135400414466858 2.8620500564575195 0.10981617867946625 0 0 0</pose>
+    </include>
+    <light name='ceiling_light_01' type='point'>
+      <pose>-2.5 -2 2.7999999999999998 0 0 0</pose>
+      <cast_shadows>false</cast_shadows>
+      <intensity>1</intensity>
+      <direction>0 0 -1</direction>
+      <diffuse>0.899999976 0.899999976 0.879999995 1</diffuse>
+      <specular>0.100000001 0.100000001 0.100000001 1</specular>
+      <attenuation>
+        <range>12</range>
+        <linear>0.029999999329447746</linear>
+        <constant>0.5</constant>
+        <quadratic>0.0020000000949949026</quadratic>
+      </attenuation>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
+    </light>
+    <light name='ceiling_light_02' type='point'>
+      <pose>2.5 -2 2.7999999999999998 0 0 0</pose>
+      <cast_shadows>false</cast_shadows>
+      <intensity>1</intensity>
+      <direction>0 0 -1</direction>
+      <diffuse>0.899999976 0.899999976 0.879999995 1</diffuse>
+      <specular>0.100000001 0.100000001 0.100000001 1</specular>
+      <attenuation>
+        <range>12</range>
+        <linear>0.029999999329447746</linear>
+        <constant>0.5</constant>
+        <quadratic>0.0020000000949949026</quadratic>
+      </attenuation>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
+    </light>
+    <light name='ceiling_light_03' type='point'>
+      <pose>-2.5 2 2.7999999999999998 0 0 0</pose>
+      <cast_shadows>false</cast_shadows>
+      <intensity>1</intensity>
+      <direction>0 0 -1</direction>
+      <diffuse>0.899999976 0.899999976 0.879999995 1</diffuse>
+      <specular>0.100000001 0.100000001 0.100000001 1</specular>
+      <attenuation>
+        <range>12</range>
+        <linear>0.029999999329447746</linear>
+        <constant>0.5</constant>
+        <quadratic>0.0020000000949949026</quadratic>
+      </attenuation>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
+    </light>
+    <light name='ceiling_light_04' type='point'>
+      <pose>2.5 2 2.7999999999999998 0 0 0</pose>
+      <cast_shadows>false</cast_shadows>
+      <intensity>1</intensity>
+      <direction>0 0 -1</direction>
+      <diffuse>0.899999976 0.899999976 0.879999995 1</diffuse>
+      <specular>0.100000001 0.100000001 0.100000001 1</specular>
+      <attenuation>
+        <range>12</range>
+        <linear>0.029999999329447746</linear>
+        <constant>0.5</constant>
+        <quadratic>0.0020000000949949026</quadratic>
+      </attenuation>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
+    </light>
+  </world>
+</sdf>

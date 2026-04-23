@@ -1,0 +1,197 @@
+<scene version="3.0.0">
+    <bsdf type="itu-radio-material" id="mat-frame0_cardboard">
+        <string name="type" value="chipboard" />
+        <float name="thickness" value="0.1" />
+        <float name="scattering_coefficient" value="0" />
+        <float name="xpd_coefficient" value="0" />
+    </bsdf>
+    <bsdf type="itu-radio-material" id="mat-frame0_ceiling_board">
+        <string name="type" value="ceiling_board" />
+        <float name="thickness" value="0.1" />
+        <float name="scattering_coefficient" value="0" />
+        <float name="xpd_coefficient" value="0" />
+    </bsdf>
+    <bsdf type="itu-radio-material" id="mat-frame0_chipboard">
+        <string name="type" value="chipboard" />
+        <float name="thickness" value="0.1" />
+        <float name="scattering_coefficient" value="0" />
+        <float name="xpd_coefficient" value="0" />
+    </bsdf>
+    <bsdf type="itu-radio-material" id="mat-frame0_glass">
+        <string name="type" value="glass" />
+        <float name="thickness" value="0.1" />
+        <float name="scattering_coefficient" value="0" />
+        <float name="xpd_coefficient" value="0" />
+    </bsdf>
+    <bsdf type="radio-material" id="mat-frame0_human_skin">
+        <float name="relative_permittivity" value="16.73" />
+        <float name="conductivity" value="20.1043" />
+        <float name="thickness" value="0.003" />
+        <float name="scattering_coefficient" value="0" />
+        <float name="xpd_coefficient" value="0" />
+    </bsdf>
+    <bsdf type="itu-radio-material" id="mat-frame0_metal">
+        <string name="type" value="metal" />
+        <float name="thickness" value="0.1" />
+        <float name="scattering_coefficient" value="0" />
+        <float name="xpd_coefficient" value="0" />
+    </bsdf>
+    <bsdf type="itu-radio-material" id="mat-frame0_panel_wall">
+        <string name="type" value="plasterboard" />
+        <float name="thickness" value="0.1" />
+        <float name="scattering_coefficient" value="0" />
+        <float name="xpd_coefficient" value="0" />
+    </bsdf>
+    <bsdf type="itu-radio-material" id="mat-frame0_plastic">
+        <string name="type" value="plasterboard" />
+        <float name="thickness" value="0.1" />
+        <float name="scattering_coefficient" value="0" />
+        <float name="xpd_coefficient" value="0" />
+    </bsdf>
+    <bsdf type="itu-radio-material" id="mat-frame0_textile">
+        <string name="type" value="wood" />
+        <float name="thickness" value="0.1" />
+        <float name="scattering_coefficient" value="0" />
+        <float name="xpd_coefficient" value="0" />
+    </bsdf>
+    <bsdf type="itu-radio-material" id="mat-frame0_vinyl_tile">
+        <string name="type" value="concrete" />
+        <float name="thickness" value="0.1" />
+        <float name="scattering_coefficient" value="0" />
+        <float name="xpd_coefficient" value="0" />
+    </bsdf>
+    <bsdf type="itu-radio-material" id="mat-frame0_wood">
+        <string name="type" value="wood" />
+        <float name="thickness" value="0.1" />
+        <float name="scattering_coefficient" value="0" />
+        <float name="xpd_coefficient" value="0" />
+    </bsdf>
+    <shape type="ply" id="shape_static_merged_material_cardboard">
+        <string name="filename" value="../../static_scene/export/merged_by_material/cardboard.ply" />
+        <ref name="bsdf" id="mat-frame0_cardboard" />
+    </shape>
+    <shape type="ply" id="shape_static_merged_material_ceiling_board">
+        <string name="filename" value="../../static_scene/export/merged_by_material/ceiling_board.ply" />
+        <ref name="bsdf" id="mat-frame0_ceiling_board" />
+    </shape>
+    <shape type="ply" id="shape_static_merged_material_chipboard">
+        <string name="filename" value="../../static_scene/export/merged_by_material/chipboard.ply" />
+        <ref name="bsdf" id="mat-frame0_chipboard" />
+    </shape>
+    <shape type="ply" id="shape_static_merged_material_glass">
+        <string name="filename" value="../../static_scene/export/merged_by_material/glass.ply" />
+        <ref name="bsdf" id="mat-frame0_glass" />
+    </shape>
+    <shape type="ply" id="shape_static_merged_material_human_skin">
+        <string name="filename" value="../../static_scene/export/merged_by_material/human_skin.ply" />
+        <ref name="bsdf" id="mat-frame0_human_skin" />
+    </shape>
+    <shape type="ply" id="shape_static_merged_material_metal">
+        <string name="filename" value="../../static_scene/export/merged_by_material/metal.ply" />
+        <ref name="bsdf" id="mat-frame0_metal" />
+    </shape>
+    <shape type="ply" id="shape_static_merged_material_panel_wall">
+        <string name="filename" value="../../static_scene/export/merged_by_material/panel_wall.ply" />
+        <ref name="bsdf" id="mat-frame0_panel_wall" />
+    </shape>
+    <shape type="ply" id="shape_static_merged_material_plastic">
+        <string name="filename" value="../../static_scene/export/merged_by_material/plastic.ply" />
+        <ref name="bsdf" id="mat-frame0_plastic" />
+    </shape>
+    <shape type="ply" id="shape_static_merged_material_textile">
+        <string name="filename" value="../../static_scene/export/merged_by_material/textile.ply" />
+        <ref name="bsdf" id="mat-frame0_textile" />
+    </shape>
+    <shape type="ply" id="shape_static_merged_material_vinyl_tile">
+        <string name="filename" value="../../static_scene/export/merged_by_material/vinyl_tile.ply" />
+        <ref name="bsdf" id="mat-frame0_vinyl_tile" />
+    </shape>
+    <shape type="ply" id="shape_static_merged_material_wood">
+        <string name="filename" value="../../static_scene/export/merged_by_material/wood.ply" />
+        <ref name="bsdf" id="mat-frame0_wood" />
+    </shape>
+    <shape type="ply" id="shape_panda_panda_link0_panda_link0_visual">
+        <string name="filename" value="../../dynamic_scene/frame_000/raw_visual_meshes/Panda__panda_link0__panda_link0_visual.ply" />
+        <ref name="bsdf" id="mat-frame0_metal" />
+    </shape>
+    <shape type="ply" id="shape_panda_panda_link1_panda_link1_visual">
+        <string name="filename" value="../../dynamic_scene/frame_000/raw_visual_meshes/Panda__panda_link1__panda_link1_visual.ply" />
+        <ref name="bsdf" id="mat-frame0_metal" />
+    </shape>
+    <shape type="ply" id="shape_panda_panda_link2_panda_link2_visual">
+        <string name="filename" value="../../dynamic_scene/frame_000/raw_visual_meshes/Panda__panda_link2__panda_link2_visual.ply" />
+        <ref name="bsdf" id="mat-frame0_metal" />
+    </shape>
+    <shape type="ply" id="shape_panda_panda_link3_panda_link3_visual">
+        <string name="filename" value="../../dynamic_scene/frame_000/raw_visual_meshes/Panda__panda_link3__panda_link3_visual.ply" />
+        <ref name="bsdf" id="mat-frame0_metal" />
+    </shape>
+    <shape type="ply" id="shape_panda_panda_link4_panda_link4_visual">
+        <string name="filename" value="../../dynamic_scene/frame_000/raw_visual_meshes/Panda__panda_link4__panda_link4_visual.ply" />
+        <ref name="bsdf" id="mat-frame0_metal" />
+    </shape>
+    <shape type="ply" id="shape_panda_panda_link5_panda_link5_visual">
+        <string name="filename" value="../../dynamic_scene/frame_000/raw_visual_meshes/Panda__panda_link5__panda_link5_visual.ply" />
+        <ref name="bsdf" id="mat-frame0_metal" />
+    </shape>
+    <shape type="ply" id="shape_panda_panda_link6_panda_link6_visual">
+        <string name="filename" value="../../dynamic_scene/frame_000/raw_visual_meshes/Panda__panda_link6__panda_link6_visual.ply" />
+        <ref name="bsdf" id="mat-frame0_metal" />
+    </shape>
+    <shape type="ply" id="shape_panda_panda_link7_panda_link7_visual">
+        <string name="filename" value="../../dynamic_scene/frame_000/raw_visual_meshes/Panda__panda_link7__panda_link7_visual.ply" />
+        <ref name="bsdf" id="mat-frame0_metal" />
+    </shape>
+    <shape type="ply" id="shape_panda_panda_hand_panda_hand_visual">
+        <string name="filename" value="../../dynamic_scene/frame_000/raw_visual_meshes/Panda__panda_hand__panda_hand_visual.ply" />
+        <ref name="bsdf" id="mat-frame0_metal" />
+    </shape>
+    <shape type="ply" id="shape_panda_panda_leftfinger_panda_leftfinger_visual">
+        <string name="filename" value="../../dynamic_scene/frame_000/raw_visual_meshes/Panda__panda_leftfinger__panda_leftfinger_visual.ply" />
+        <ref name="bsdf" id="mat-frame0_metal" />
+    </shape>
+    <shape type="ply" id="shape_panda_panda_rightfinger_panda_rightfinger_visual">
+        <string name="filename" value="../../dynamic_scene/frame_000/raw_visual_meshes/Panda__panda_rightfinger__panda_rightfinger_visual.ply" />
+        <ref name="bsdf" id="mat-frame0_metal" />
+    </shape>
+    <shape type="ply" id="shape_ur5_rg2_base_link_base_link_visual">
+        <string name="filename" value="../../dynamic_scene/frame_000/raw_visual_meshes/ur5_rg2__base_link__base_link_visual.ply" />
+        <ref name="bsdf" id="mat-frame0_metal" />
+    </shape>
+    <shape type="ply" id="shape_ur5_rg2_shoulder_link_shoulder_link_visual">
+        <string name="filename" value="../../dynamic_scene/frame_000/raw_visual_meshes/ur5_rg2__shoulder_link__shoulder_link_visual.ply" />
+        <ref name="bsdf" id="mat-frame0_metal" />
+    </shape>
+    <shape type="ply" id="shape_ur5_rg2_upper_arm_link_upper_arm_link_visual">
+        <string name="filename" value="../../dynamic_scene/frame_000/raw_visual_meshes/ur5_rg2__upper_arm_link__upper_arm_link_visual.ply" />
+        <ref name="bsdf" id="mat-frame0_metal" />
+    </shape>
+    <shape type="ply" id="shape_ur5_rg2_forearm_link_forearm_link_visual">
+        <string name="filename" value="../../dynamic_scene/frame_000/raw_visual_meshes/ur5_rg2__forearm_link__forearm_link_visual.ply" />
+        <ref name="bsdf" id="mat-frame0_metal" />
+    </shape>
+    <shape type="ply" id="shape_ur5_rg2_wrist_1_link_wrist_1_link_visual">
+        <string name="filename" value="../../dynamic_scene/frame_000/raw_visual_meshes/ur5_rg2__wrist_1_link__wrist_1_link_visual.ply" />
+        <ref name="bsdf" id="mat-frame0_metal" />
+    </shape>
+    <shape type="ply" id="shape_ur5_rg2_wrist_2_link_wrist_2_link_visual">
+        <string name="filename" value="../../dynamic_scene/frame_000/raw_visual_meshes/ur5_rg2__wrist_2_link__wrist_2_link_visual.ply" />
+        <ref name="bsdf" id="mat-frame0_metal" />
+    </shape>
+    <shape type="ply" id="shape_ur5_rg2_wrist_3_link_wrist_3_link_visual">
+        <string name="filename" value="../../dynamic_scene/frame_000/raw_visual_meshes/ur5_rg2__wrist_3_link__wrist_3_link_visual.ply" />
+        <ref name="bsdf" id="mat-frame0_metal" />
+    </shape>
+    <shape type="ply" id="shape_ur5_rg2_rg2_hand_rg2_hand_visual">
+        <string name="filename" value="../../dynamic_scene/frame_000/raw_visual_meshes/ur5_rg2__rg2_hand__rg2_hand_visual.ply" />
+        <ref name="bsdf" id="mat-frame0_metal" />
+    </shape>
+    <shape type="ply" id="shape_ur5_rg2_rg2_leftfinger_rg2_leftfinger_visual">
+        <string name="filename" value="../../dynamic_scene/frame_000/raw_visual_meshes/ur5_rg2__rg2_leftfinger__rg2_leftfinger_visual.ply" />
+        <ref name="bsdf" id="mat-frame0_metal" />
+    </shape>
+    <shape type="ply" id="shape_ur5_rg2_rg2_rightfinger_rg2_rightfinger_visual">
+        <string name="filename" value="../../dynamic_scene/frame_000/raw_visual_meshes/ur5_rg2__rg2_rightfinger__rg2_rightfinger_visual.ply" />
+        <ref name="bsdf" id="mat-frame0_metal" />
+    </shape>
+</scene>

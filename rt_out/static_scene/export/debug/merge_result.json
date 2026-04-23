@@ -1,0 +1,251 @@
+{
+  "ok": true,
+  "summary": {
+    "material_groups_requested": 11,
+    "material_groups_exported": 11,
+    "exported_individual_meshes": 0
+  },
+  "groups": [
+    {
+      "material_class": "cardboard",
+      "entry_count": 1,
+      "merged_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/static_scene/export/merged_by_material/cardboard.ply",
+      "vertex_count": 216,
+      "triangle_count": 336,
+      "entry_ids": [
+        "aws_robomaker_warehouse_clutteringc_01_link_visual"
+      ]
+    },
+    {
+      "material_class": "ceiling_board",
+      "entry_count": 1,
+      "merged_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/static_scene/export/merged_by_material/ceiling_board.ply",
+      "vertex_count": 8,
+      "triangle_count": 12,
+      "entry_ids": [
+        "factory_shell_factory_ceiling_ceiling_link_ceiling_visual"
+      ]
+    },
+    {
+      "material_class": "chipboard",
+      "entry_count": 5,
+      "merged_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/static_scene/export/merged_by_material/chipboard.ply",
+      "vertex_count": 1180,
+      "triangle_count": 2104,
+      "entry_ids": [
+        "coffeetable_body_visual",
+        "reflective_table_1_1_link_visual",
+        "reflective_table_1_2_link_visual",
+        "reflective_table_1_link_visual",
+        "reflective_table_link_visual"
+      ]
+    },
+    {
+      "material_class": "glass",
+      "entry_count": 2,
+      "merged_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/static_scene/export/merged_by_material/glass.ply",
+      "vertex_count": 16,
+      "triangle_count": 24,
+      "entry_ids": [
+        "factory_shell_north_wall_north_window_left_link_north_window_left_glass_visual",
+        "factory_shell_north_wall_north_window_right_link_north_window_right_glass_visual"
+      ]
+    },
+    {
+      "material_class": "human_skin",
+      "entry_count": 1,
+      "merged_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/static_scene/export/merged_by_material/human_skin.ply",
+      "vertex_count": 18698,
+      "triangle_count": 35246,
+      "entry_ids": [
+        "person_standing_link_visual"
+      ]
+    },
+    {
+      "material_class": "metal",
+      "entry_count": 68,
+      "merged_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/static_scene/export/merged_by_material/metal.ply",
+      "vertex_count": 202907,
+      "triangle_count": 381870,
+      "entry_ids": [
+        "arm_part_link_visual",
+        "cerberus_anymal_c_sensor_config_1_base_base_fixed_joint_lump_alphasense_mesh_visual_10",
+        "cerberus_anymal_c_sensor_config_1_base_base_fixed_joint_lump_battery_visual_5",
+        "cerberus_anymal_c_sensor_config_1_base_base_fixed_joint_lump_bottom_shell_visual_6",
+        "cerberus_anymal_c_sensor_config_1_base_base_fixed_joint_lump_bpearl_front_protection_bars_visual_12",
+        "cerberus_anymal_c_sensor_config_1_base_base_fixed_joint_lump_bpearl_front_visual_11",
+        "cerberus_anymal_c_sensor_config_1_base_base_fixed_joint_lump_bpearl_rear_protection_bars_visual_14",
+        "cerberus_anymal_c_sensor_config_1_base_base_fixed_joint_lump_bpearl_rear_visual_13",
+        "cerberus_anymal_c_sensor_config_1_base_base_fixed_joint_lump_handle_visual_7",
+        "cerberus_anymal_c_sensor_config_1_base_base_fixed_joint_lump_hatch_visual_8",
+        "cerberus_anymal_c_sensor_config_1_base_base_fixed_joint_lump_imu_link_visual_18",
+        "cerberus_anymal_c_sensor_config_1_base_base_fixed_joint_lump_lf_haa_visual_1",
+        "cerberus_anymal_c_sensor_config_1_base_base_fixed_joint_lump_lh_haa_visual_2",
+        "cerberus_anymal_c_sensor_config_1_base_base_fixed_joint_lump_lidar_visual_16",
+        "cerberus_anymal_c_sensor_config_1_base_base_fixed_joint_lump_perception_head_cage_visual_15",
+        "cerberus_anymal_c_sensor_config_1_base_base_fixed_joint_lump_remote_visual_9",
+        "cerberus_anymal_c_sensor_config_1_base_base_fixed_joint_lump_rf_haa_visual_3",
+        "cerberus_anymal_c_sensor_config_1_base_base_fixed_joint_lump_rh_haa_visual_4",
+        "cerberus_anymal_c_sensor_config_1_base_base_fixed_joint_lump_top_shell_visual_17",
+        "cerberus_anymal_c_sensor_config_1_base_base_visual",
+        "cerberus_anymal_c_sensor_config_1_lf_hip_lf_hip_fixed_joint_lump_lf_hfe_visual_1",
+        "cerberus_anymal_c_sensor_config_1_lf_hip_lf_hip_fixed_joint_lump_lf_hip_fixed_visual",
+        "cerberus_anymal_c_sensor_config_1_lf_shank_lf_shank_fixed_joint_lump_lf_foot_visual_1",
+        "cerberus_anymal_c_sensor_config_1_lf_shank_lf_shank_fixed_joint_lump_lf_shank_fixed_visual",
+        "cerberus_anymal_c_sensor_config_1_lf_thigh_lf_thigh_fixed_joint_lump_lf_kfe_visual_1",
+        "cerberus_anymal_c_sensor_config_1_lf_thigh_lf_thigh_fixed_joint_lump_lf_thigh_fixed_visual",
+        "cerberus_anymal_c_sensor_config_1_lh_hip_lh_hip_fixed_joint_lump_lh_hfe_visual_1",
+        "cerberus_anymal_c_sensor_config_1_lh_hip_lh_hip_fixed_joint_lump_lh_hip_fixed_visual",
+        "cerberus_anymal_c_sensor_config_1_lh_shank_lh_shank_fixed_joint_lump_lh_foot_visual_1",
+        "cerberus_anymal_c_sensor_config_1_lh_shank_lh_shank_fixed_joint_lump_lh_shank_fixed_visual",
+        "cerberus_anymal_c_sensor_config_1_lh_thigh_lh_thigh_fixed_joint_lump_lh_kfe_visual_1",
+        "cerberus_anymal_c_sensor_config_1_lh_thigh_lh_thigh_fixed_joint_lump_lh_thigh_fixed_visual",
+        "cerberus_anymal_c_sensor_config_1_rf_hip_rf_hip_fixed_joint_lump_rf_hfe_visual_1",
+        "cerberus_anymal_c_sensor_config_1_rf_hip_rf_hip_fixed_joint_lump_rf_hip_fixed_visual",
+        "cerberus_anymal_c_sensor_config_1_rf_shank_rf_shank_fixed_joint_lump_rf_foot_visual_1",
+        "cerberus_anymal_c_sensor_config_1_rf_shank_rf_shank_fixed_joint_lump_rf_shank_fixed_visual",
+        "cerberus_anymal_c_sensor_config_1_rf_thigh_rf_thigh_fixed_joint_lump_rf_kfe_visual_1",
+        "cerberus_anymal_c_sensor_config_1_rf_thigh_rf_thigh_fixed_joint_lump_rf_thigh_fixed_visual",
+        "cerberus_anymal_c_sensor_config_1_rh_hip_rh_hip_fixed_joint_lump_rh_hfe_visual_1",
+        "cerberus_anymal_c_sensor_config_1_rh_hip_rh_hip_fixed_joint_lump_rh_hip_fixed_visual",
+        "cerberus_anymal_c_sensor_config_1_rh_shank_rh_shank_fixed_joint_lump_rh_foot_visual_1",
+        "cerberus_anymal_c_sensor_config_1_rh_shank_rh_shank_fixed_joint_lump_rh_shank_fixed_visual",
+        "cerberus_anymal_c_sensor_config_1_rh_thigh_rh_thigh_fixed_joint_lump_rh_kfe_visual_1",
+        "cerberus_anymal_c_sensor_config_1_rh_thigh_rh_thigh_fixed_joint_lump_rh_thigh_fixed_visual",
+        "cross_joint_part_link_visual",
+        "disk_part_link_visual",
+        "gasket_part_link_visual",
+        "gear_part_link_visual",
+        "lamp_fixture_01_lamp_fixture_01_link_lamp_fixture_01_housing",
+        "lamp_fixture_02_lamp_fixture_02_link_lamp_fixture_02_housing",
+        "lamp_fixture_03_lamp_fixture_03_link_lamp_fixture_03_housing",
+        "lamp_fixture_04_lamp_fixture_04_link_lamp_fixture_04_housing",
+        "picking_shelves_base_link_base_visual",
+        "piston_rod_part_link_visual",
+        "t_brace_part_link_visual",
+        "x500_base_link_5010_motor_base_0",
+        "x500_base_link_5010_motor_base_1",
+        "x500_base_link_5010_motor_base_2",
+        "x500_base_link_5010_motor_base_3",
+        "x500_base_link_base_link_visual",
+        "x500_rotor_0_rotor_0_visual",
+        "x500_rotor_0_rotor_0_visual_motor_bell",
+        "x500_rotor_1_rotor_1_visual",
+        "x500_rotor_1_rotor_1_visual_motor_top",
+        "x500_rotor_2_rotor_2_visual",
+        "x500_rotor_2_rotor_2_visual_motor_top",
+        "x500_rotor_3_rotor_3_visual",
+        "x500_rotor_3_rotor_3_visual_motor_top"
+      ]
+    },
+    {
+      "material_class": "panel_wall",
+      "entry_count": 10,
+      "merged_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/static_scene/export/merged_by_material/panel_wall.ply",
+      "vertex_count": 240,
+      "triangle_count": 120,
+      "entry_ids": [
+        "factory_shell_east_wall_east_wall_link_east_wall_visual",
+        "factory_shell_north_wall_north_wall_center_pier_link_north_wall_center_pier_visual",
+        "factory_shell_north_wall_north_wall_left_pier_link_north_wall_left_pier_visual",
+        "factory_shell_north_wall_north_wall_lower_link_north_wall_lower_visual",
+        "factory_shell_north_wall_north_wall_right_pier_link_north_wall_right_pier_visual",
+        "factory_shell_north_wall_north_wall_upper_link_north_wall_upper_visual",
+        "factory_shell_south_wall_south_wall_left_link_south_wall_left_visual",
+        "factory_shell_south_wall_south_wall_overdoor_link_south_wall_overdoor_visual",
+        "factory_shell_south_wall_south_wall_right_link_south_wall_right_visual",
+        "factory_shell_west_wall_west_wall_link_west_wall_visual"
+      ]
+    },
+    {
+      "material_class": "plastic",
+      "entry_count": 32,
+      "merged_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/static_scene/export/merged_by_material/plastic.ply",
+      "vertex_count": 43406,
+      "triangle_count": 58797,
+      "entry_ids": [
+        "lamp_fixture_01_lamp_fixture_01_link_lamp_fixture_01_diffuser",
+        "lamp_fixture_02_lamp_fixture_02_link_lamp_fixture_02_diffuser",
+        "lamp_fixture_03_lamp_fixture_03_link_lamp_fixture_03_diffuser",
+        "lamp_fixture_04_lamp_fixture_04_link_lamp_fixture_04_diffuser",
+        "monitorandkeyboard_body_visual_keyboard",
+        "monitorandkeyboard_body_visual_monitor",
+        "naoh25v40_head_head_visual",
+        "naoh25v40_lankle_lankle_visual",
+        "naoh25v40_lbicep_lbicep_visual",
+        "naoh25v40_lforearm_lforearm_visual",
+        "naoh25v40_lhip_lhip_visual",
+        "naoh25v40_lpelvis_lpelvis_visual",
+        "naoh25v40_lshoulder_lshoulder_visual",
+        "naoh25v40_lsole_lsole_visual",
+        "naoh25v40_lthigh_lthigh_visual",
+        "naoh25v40_ltibia_ltibia_visual",
+        "naoh25v40_lwrist_lwrist_visual",
+        "naoh25v40_neck_neck_visual",
+        "naoh25v40_rankle_rankle_visual",
+        "naoh25v40_rbicep_rbicep_visual",
+        "naoh25v40_rforearm_rforearm_visual",
+        "naoh25v40_rhip_rhip_visual",
+        "naoh25v40_rpelvis_rpelvis_visual",
+        "naoh25v40_rshoulder_rshoulder_visual",
+        "naoh25v40_rsole_rsole_visual",
+        "naoh25v40_rthigh_rthigh_visual",
+        "naoh25v40_rtibia_rtibia_visual",
+        "naoh25v40_rwrist_rwrist_visual",
+        "naoh25v40_torso_torso_visual",
+        "trashbin_0_body_visual",
+        "trashbin_1_body_visual",
+        "trashbin_body_visual"
+      ]
+    },
+    {
+      "material_class": "textile",
+      "entry_count": 4,
+      "merged_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/static_scene/export/merged_by_material/textile.ply",
+      "vertex_count": 1256,
+      "triangle_count": 2043,
+      "entry_ids": [
+        "officechairblack_body_visual",
+        "officechairblue_body_visual",
+        "officechairgrey_body_visual",
+        "sofa_link_visual"
+      ]
+    },
+    {
+      "material_class": "vinyl_tile",
+      "entry_count": 1,
+      "merged_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/static_scene/export/merged_by_material/vinyl_tile.ply",
+      "vertex_count": 8,
+      "triangle_count": 12,
+      "entry_ids": [
+        "factory_shell_factory_floor_floor_link_floor_visual"
+      ]
+    },
+    {
+      "material_class": "wood",
+      "entry_count": 16,
+      "merged_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/static_scene/export/merged_by_material/wood.ply",
+      "vertex_count": 10748,
+      "triangle_count": 18642,
+      "entry_ids": [
+        "desk_0_base_link_visual",
+        "desk_1_link_visual",
+        "desk_base_link_visual",
+        "factory_door_body_visual",
+        "factory_shell_north_wall_north_window_left_link_north_window_left_frame_bottom_visual",
+        "factory_shell_north_wall_north_window_left_link_north_window_left_frame_center_visual",
+        "factory_shell_north_wall_north_window_left_link_north_window_left_frame_left_visual",
+        "factory_shell_north_wall_north_window_left_link_north_window_left_frame_right_visual",
+        "factory_shell_north_wall_north_window_left_link_north_window_left_frame_top_visual",
+        "factory_shell_north_wall_north_window_left_link_north_window_left_frame_transom_visual",
+        "factory_shell_north_wall_north_window_right_link_north_window_right_frame_bottom_visual",
+        "factory_shell_north_wall_north_window_right_link_north_window_right_frame_center_visual",
+        "factory_shell_north_wall_north_window_right_link_north_window_right_frame_left_visual",
+        "factory_shell_north_wall_north_window_right_link_north_window_right_frame_right_visual",
+        "factory_shell_north_wall_north_window_right_link_north_window_right_frame_top_visual",
+        "factory_shell_north_wall_north_window_right_link_north_window_right_frame_transom_visual"
+      ]
+    }
+  ],
+  "errors": []
+}

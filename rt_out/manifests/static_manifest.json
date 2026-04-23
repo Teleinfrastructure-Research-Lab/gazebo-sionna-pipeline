@@ -1,0 +1,1751 @@
+[
+  {
+    "model": "factory_door",
+    "model_pose": "2.3139306066671253e-10 -4.6499999999988484 0.089636419305638468 -1.2517544308155565e-10 -9.1933309007378666e-10 -5.2950876090058433e-10",
+    "static": true,
+    "links": [
+      {
+        "link": "body",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://OrangeDoors/meshes/door.obj",
+            "scale": "1 1 1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "lamp_fixture_01",
+    "model_pose": "0 0 0 0 0 0",
+    "static": true,
+    "links": [
+      {
+        "link": "lamp_fixture_01_link",
+        "link_pose": "-2.5 -2 2.8599999999999999 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "lamp_fixture_01_housing",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "box",
+            "size": "1.2 0.34999999999999998 0.080000000000000002"
+          },
+          {
+            "visual_name": "lamp_fixture_01_diffuser",
+            "visual_pose": "0 0 -0.040000000000000001 0 0 0",
+            "geometry_type": "box",
+            "size": "1.0800000000000001 0.23999999999999999 0.029999999999999999"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "lamp_fixture_02",
+    "model_pose": "0 0 0 0 0 0",
+    "static": true,
+    "links": [
+      {
+        "link": "lamp_fixture_02_link",
+        "link_pose": "2.5 -2 2.8599999999999999 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "lamp_fixture_02_housing",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "box",
+            "size": "1.2 0.34999999999999998 0.080000000000000002"
+          },
+          {
+            "visual_name": "lamp_fixture_02_diffuser",
+            "visual_pose": "0 0 -0.040000000000000001 0 0 0",
+            "geometry_type": "box",
+            "size": "1.0800000000000001 0.23999999999999999 0.029999999999999999"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "lamp_fixture_03",
+    "model_pose": "0 0 0 0 0 0",
+    "static": true,
+    "links": [
+      {
+        "link": "lamp_fixture_03_link",
+        "link_pose": "-2.5 2 2.8599999999999999 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "lamp_fixture_03_housing",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "box",
+            "size": "1.2 0.34999999999999998 0.080000000000000002"
+          },
+          {
+            "visual_name": "lamp_fixture_03_diffuser",
+            "visual_pose": "0 0 -0.040000000000000001 0 0 0",
+            "geometry_type": "box",
+            "size": "1.0800000000000001 0.23999999999999999 0.029999999999999999"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "lamp_fixture_04",
+    "model_pose": "0 0 0 0 0 0",
+    "static": true,
+    "links": [
+      {
+        "link": "lamp_fixture_04_link",
+        "link_pose": "2.5 2 2.8599999999999999 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "lamp_fixture_04_housing",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "box",
+            "size": "1.2 0.34999999999999998 0.080000000000000002"
+          },
+          {
+            "visual_name": "lamp_fixture_04_diffuser",
+            "visual_pose": "0 0 -0.040000000000000001 0 0 0",
+            "geometry_type": "box",
+            "size": "1.0800000000000001 0.23999999999999999 0.029999999999999999"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "aws_robomaker_warehouse_ClutteringC_01",
+    "model_pose": "3.6437599999999999 3.4983499999999998 0.070000000000000007 0 0 0",
+    "static": true,
+    "links": [
+      {
+        "link": "link",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://aws_robomaker_warehouse_ClutteringC_01/meshes/aws_robomaker_warehouse_ClutteringC_01_visual.DAE",
+            "scale": "1 1 1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "OfficeChairBlue",
+    "model_pose": "3.5722 -3.4549099999999999 0.10000000000000001 0 0 1.6421200000000002",
+    "static": true,
+    "links": [
+      {
+        "link": "body",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://OfficeChairBlue/meshes/OfficeChairBlue.obj",
+            "scale": "1 1 1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "OfficeChairBlack",
+    "model_pose": "-3.3328799999999998 3.71251 0.10000000000000001 0 0 0",
+    "static": true,
+    "links": [
+      {
+        "link": "body",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://OfficeChairBlack/meshes/OfficeChairBlack.obj",
+            "scale": "1 1 1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "OfficeChairGrey",
+    "model_pose": "-3.6384500000000002 -3.1747000000000001 0.10000000000000001 0 0 -1.5493700000000004",
+    "static": true,
+    "links": [
+      {
+        "link": "body",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://OfficeChairGrey/meshes/OfficeChairGrey.obj",
+            "scale": "1 1 1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "Picking_Shelves",
+    "model_pose": "-4.29528 -1.2817000000000001 0.10000000000000001 -5.1039499999999997e-18 -1.4058600000000006e-18 -1.57744",
+    "static": true,
+    "links": [
+      {
+        "link": "base_link",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "base_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://picking_shelves/base_visual.glb",
+            "scale": "1 1 1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "Desk",
+    "model_pose": "4.08683 -3.3841199999999998 0.10000000000000001 2.6469600000000001e-23 -1.0575900000000037e-25 -3.1375899999999999",
+    "static": true,
+    "links": [
+      {
+        "link": "base_link",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://OfficeDesk/meshes/desk.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "Desk_0",
+    "model_pose": "-4.0670400000000004 -3.3780999999999999 0.10000000000000001 0 0 0",
+    "static": true,
+    "links": [
+      {
+        "link": "base_link",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://OfficeDesk/meshes/desk.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "Desk_1",
+    "model_pose": "-4.071229156662433 3.7036874051991351 0.09999965669492672 2.2191047682249093e-06 -2.8293213627351428e-06 2.8744004810404582e-05",
+    "static": true,
+    "links": [
+      {
+        "link": "link",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Desk/meshes/desk.obj",
+            "scale": "1.8 1.8 1.8"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "MonitorAndKeyboard",
+    "model_pose": "-4.3203393818479183 4.1479684640183923 1.0935478673677355 -3.9192921814662605e-06 3.4874390023451855e-06 2.6715767305170228",
+    "static": true,
+    "links": [
+      {
+        "link": "body",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "visual_monitor",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://MonitorAndKeyboard/meshes/monitor.obj",
+            "scale": "0.20000000000000001 0.20000000000000001 0.20000000000000001"
+          },
+          {
+            "visual_name": "visual_keyboard",
+            "visual_pose": "-0.27000000000000002 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://MonitorAndKeyboard/meshes/keyboard.obj",
+            "scale": "0.20000000000000001 0.20000000000000001 0.20000000000000001"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "cerberus_anymal_c_sensor_config_1",
+    "model_pose": "4.0752300000000004 -1.7794399999999999 0.50980599999999998 -3.9395599979430423e-11 -0.0026453900000000053 -0.016937300000000037",
+    "static": true,
+    "links": [
+      {
+        "link": "base",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "base_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/base.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          },
+          {
+            "visual_name": "base_fixed_joint_lump__LF_HAA_visual_1",
+            "visual_pose": "0.194935 0.067599999999999993 0 2.6179899999999998 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          },
+          {
+            "visual_name": "base_fixed_joint_lump__LH_HAA_visual_2",
+            "visual_pose": "-0.194935 0.067599999999999993 0 -2.6179899999999998 0 3.1415899999999999",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          },
+          {
+            "visual_name": "base_fixed_joint_lump__RF_HAA_visual_3",
+            "visual_pose": "0.194935 -0.067599999999999993 0 -2.6179899999999998 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          },
+          {
+            "visual_name": "base_fixed_joint_lump__RH_HAA_visual_4",
+            "visual_pose": "-0.194935 -0.067599999999999993 0 2.6179899999999998 0 3.1415899999999999",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          },
+          {
+            "visual_name": "base_fixed_joint_lump__battery_visual_5",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/battery.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          },
+          {
+            "visual_name": "base_fixed_joint_lump__bottom_shell_visual_6",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/bottom_shell.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          },
+          {
+            "visual_name": "base_fixed_joint_lump__handle_visual_7",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/handle.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          },
+          {
+            "visual_name": "base_fixed_joint_lump__hatch_visual_8",
+            "visual_pose": "0.075399999999999995 0 0.047449999999999999 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hatch.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          },
+          {
+            "visual_name": "base_fixed_joint_lump__remote_visual_9",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/remote.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          },
+          {
+            "visual_name": "base_fixed_joint_lump__alphasense_mesh_visual_10",
+            "visual_pose": "-0.2366 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/alphasense.stl",
+            "scale": "0.00064999999999999997 0.00064999999999999997 0.00064999999999999997"
+          },
+          {
+            "visual_name": "base_fixed_joint_lump__bpearl_front_visual_11",
+            "visual_pose": "0.30549999999999999 0 0.022749999999999999 -2.8538800000000002 -0.54666000000000059 -0.5175069999999995",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/rslidar_bpearl.stl",
+            "scale": "0.00064999999999999997 0.00064999999999999997 0.00064999999999999997"
+          },
+          {
+            "visual_name": "base_fixed_joint_lump__bpearl_front_protection_bars_visual_12",
+            "visual_pose": "0.26942175000000002 0 0 0 0 -3.1415899999999999",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/bpearl_protection_bars.stl",
+            "scale": "0.00064999999999999997 0.00064999999999999997 0.00064999999999999997"
+          },
+          {
+            "visual_name": "base_fixed_joint_lump__bpearl_rear_visual_13",
+            "visual_pose": "-0.30549999999999999 0 0.022749999999999999 -2.8538800000000002 -0.54665999999999992 2.6240899999999998",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/rslidar_bpearl.stl",
+            "scale": "0.00064999999999999997 0.00064999999999999997 0.00064999999999999997"
+          },
+          {
+            "visual_name": "base_fixed_joint_lump__bpearl_rear_protection_bars_visual_14",
+            "visual_pose": "-0.26942175000000002 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/bpearl_protection_bars.stl",
+            "scale": "0.00064999999999999997 0.00064999999999999997 0.00064999999999999997"
+          },
+          {
+            "visual_name": "base_fixed_joint_lump__perception_head_cage_visual_15",
+            "visual_pose": "-0.2366 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/perception_head.stl",
+            "scale": "0.00064999999999999997 0.00064999999999999997 0.00064999999999999997"
+          },
+          {
+            "visual_name": "base_fixed_joint_lump__lidar_visual_16",
+            "visual_pose": "-0.2366 0 0.092429999999999998 0 0 -1.5708",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/lidar.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          },
+          {
+            "visual_name": "base_fixed_joint_lump__top_shell_visual_17",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/top_shell.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          },
+          {
+            "visual_name": "base_fixed_joint_lump__imu_link_visual_18",
+            "visual_pose": "0.16172 0.0054275 0.033332000000000001 0 0 1.5708",
+            "geometry_type": "box",
+            "size": "0.015599999999999999 0.015599999999999999 0.0064999999999999997"
+          }
+        ]
+      },
+      {
+        "link": "LF_HIP",
+        "link_pose": "0.19493500000000274 0.067600000000000771 1.3322676295501878e-15 2.6179899999999985 -3.0457417729510566e-17 4.0487642673459135e-17",
+        "visuals": [
+          {
+            "visual_name": "LF_HIP_fixed_joint_lump__LF_hip_fixed_visual",
+            "visual_pose": "0 0 0 -2.6179899999999998 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hip_l.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          },
+          {
+            "visual_name": "LF_HIP_fixed_joint_lump__LF_HFE_visual_1",
+            "visual_pose": "0.038934999999999997 -0.047178299999999999 -0.027238249999999999 -3.1415899999999999 0.52359900000000015 -1.5707999999999991",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          }
+        ]
+      },
+      {
+        "link": "LF_THIGH",
+        "link_pose": "0.2338699999999978 0.12207600000000118 7.2164496600635175e-16 2.0918648468523783e-15 -9.4859601685014782e-17 1.5708000000000002",
+        "visuals": [
+          {
+            "visual_name": "LF_THIGH_fixed_joint_lump__LF_thigh_fixed_visual",
+            "visual_pose": "0 0 0 0 0 -1.5708",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/thigh.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          },
+          {
+            "visual_name": "LF_THIGH_fixed_joint_lump__LF_KFE_visual_1",
+            "visual_pose": "0.065195000000000003 0 -0.18525 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          }
+        ]
+      },
+      {
+        "link": "LF_SHANK",
+        "link_pose": "0.23387000000000313 0.18727200000000033 -0.18525000000000025 4.3258517345625644e-15 -1.2669152188208349e-16 1.5707999999999998",
+        "visuals": [
+          {
+            "visual_name": "LF_SHANK_fixed_joint_lump__LF_shank_fixed_visual",
+            "visual_pose": "0 0 0 0 0 -1.5708",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/shank_l.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          },
+          {
+            "visual_name": "LF_SHANK_fixed_joint_lump__LF_FOOT_visual_1",
+            "visual_pose": "0.0084825000000000005 -0.057167500000000003 -0.2196805 0 0 -2.3561899999999998",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/foot.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          }
+        ]
+      },
+      {
+        "link": "LH_HIP",
+        "link_pose": "-0.19493500000000008 0.067599999999999438 1.6653345369377348e-15 -2.6179900000000007 -1.7200288307704843e-15 3.1415899999999999",
+        "visuals": [
+          {
+            "visual_name": "LH_HIP_fixed_joint_lump__LH_hip_fixed_visual",
+            "visual_pose": "0 0 0 2.6179899999999998 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hip_r.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          },
+          {
+            "visual_name": "LH_HIP_fixed_joint_lump__LH_HFE_visual_1",
+            "visual_pose": "0.038934999999999997 0.047178299999999999 -0.027238249999999999 -3.1415899999999999 0.52359900000000015 1.5708000000000004",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          }
+        ]
+      },
+      {
+        "link": "LH_THIGH",
+        "link_pose": "-0.23386999999999825 0.12207699999999955 -4.9960036108132044e-16 8.0385843076458795e-16 3.309455329974372e-16 1.5708000000000022",
+        "visuals": [
+          {
+            "visual_name": "LH_THIGH_fixed_joint_lump__LH_thigh_fixed_visual",
+            "visual_pose": "0 0 0 0 0 -1.5708",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/thigh.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          },
+          {
+            "visual_name": "LH_THIGH_fixed_joint_lump__LH_KFE_visual_1",
+            "visual_pose": "0.065195000000000003 0 -0.18525 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          }
+        ]
+      },
+      {
+        "link": "LH_SHANK",
+        "link_pose": "-0.2338700000000018 0.18727200000000077 -0.18524999999999864 1.729202579768004e-15 -1.1756605281130687e-16 1.5708000000000046",
+        "visuals": [
+          {
+            "visual_name": "LH_SHANK_fixed_joint_lump__LH_shank_fixed_visual",
+            "visual_pose": "0 0 0 0 0 1.5708",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/shank_r.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          },
+          {
+            "visual_name": "LH_SHANK_fixed_joint_lump__LH_FOOT_visual_1",
+            "visual_pose": "0.0084825000000000005 0.057167500000000003 -0.2196805 0 0 2.3561899999999998",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/foot.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          }
+        ]
+      },
+      {
+        "link": "RF_HIP",
+        "link_pose": "0.19493499999999742 -0.067599999999998772 6.106226635438361e-16 -2.6179900000000011 1.8844025719485615e-17 8.0477871384414519e-17",
+        "visuals": [
+          {
+            "visual_name": "RF_HIP_fixed_joint_lump__RF_hip_fixed_visual",
+            "visual_pose": "0 0 0 2.6179899999999998 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hip_r.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          },
+          {
+            "visual_name": "RF_HIP_fixed_joint_lump__RF_HFE_visual_1",
+            "visual_pose": "0.038934999999999997 0.047178299999999999 -0.027238249999999999 3.1415899999999999 0.52359900000000015 1.5707999999999991",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          }
+        ]
+      },
+      {
+        "link": "RF_THIGH",
+        "link_pose": "0.2338699999999978 -0.1220759999999983 6.106226635438361e-16 7.0026638759045187e-16 3.7823362698493425e-16 -1.5707999999999991",
+        "visuals": [
+          {
+            "visual_name": "RF_THIGH_fixed_joint_lump__RF_thigh_fixed_visual",
+            "visual_pose": "0 0 0 0 0 -1.5708",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/thigh.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          },
+          {
+            "visual_name": "RF_THIGH_fixed_joint_lump__RF_KFE_visual_1",
+            "visual_pose": "0.065195000000000003 0 -0.18525 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          }
+        ]
+      },
+      {
+        "link": "RF_SHANK",
+        "link_pose": "0.23387000000000135 -0.18727199999999922 -0.18524999999999858 1.4716456891300759e-15 -1.3659936597271126e-16 -1.5707999999999982",
+        "visuals": [
+          {
+            "visual_name": "RF_SHANK_fixed_joint_lump__RF_shank_fixed_visual",
+            "visual_pose": "0 0 0 0 0 1.5708",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/shank_r.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          },
+          {
+            "visual_name": "RF_SHANK_fixed_joint_lump__RF_FOOT_visual_1",
+            "visual_pose": "0.0084825000000000005 0.057167500000000003 -0.2196805 0 0 2.3561899999999998",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/foot.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          }
+        ]
+      },
+      {
+        "link": "RH_HIP",
+        "link_pose": "-0.19493499999999875 -0.067600000000000326 7.2164496600635175e-16 2.6179899999999998 -2.0795741998474375e-15 3.1415899999999999",
+        "visuals": [
+          {
+            "visual_name": "RH_HIP_fixed_joint_lump__RH_hip_fixed_visual",
+            "visual_pose": "0 0 0 -2.6179899999999998 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hip_l.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          },
+          {
+            "visual_name": "RH_HIP_fixed_joint_lump__RH_HFE_visual_1",
+            "visual_pose": "0.038934999999999997 -0.047178299999999999 -0.027238249999999999 3.1415899999999999 0.52359900000000015 -1.5708000000000004",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          }
+        ]
+      },
+      {
+        "link": "RH_THIGH",
+        "link_pose": "-0.23387000000000047 -0.12207700000000044 -6.6613381477509392e-16 4.9973787600245505e-16 4.2514964147338527e-16 -1.5708000000000009",
+        "visuals": [
+          {
+            "visual_name": "RH_THIGH_fixed_joint_lump__RH_thigh_fixed_visual",
+            "visual_pose": "0 0 0 0 0 -1.5708",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/thigh.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          },
+          {
+            "visual_name": "RH_THIGH_fixed_joint_lump__RH_KFE_visual_1",
+            "visual_pose": "0.065195000000000003 0 -0.18525 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          }
+        ]
+      },
+      {
+        "link": "RH_SHANK",
+        "link_pose": "-0.23387000000000002 -0.18727100000000085 -0.18524999999999892 1.1747639852569129e-15 -4.8481059415269138e-17 -1.5708000000000013",
+        "visuals": [
+          {
+            "visual_name": "RH_SHANK_fixed_joint_lump__RH_shank_fixed_visual",
+            "visual_pose": "0 0 0 0 0 -1.5708",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/shank_l.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          },
+          {
+            "visual_name": "RH_SHANK_fixed_joint_lump__RH_FOOT_visual_1",
+            "visual_pose": "0.0084825000000000005 -0.057167500000000003 -0.2196805 0 0 -2.3561899999999998",
+            "geometry_type": "mesh",
+            "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/foot.dae",
+            "scale": "0.65000000000000002 0.65000000000000002 0.65000000000000002"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "TrashBin",
+    "model_pose": "3.17828 -4.39236 0.10050000000000001 0 0 -1.5495200000000002",
+    "static": true,
+    "links": [
+      {
+        "link": "body",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://TrashBin/meshes/TrashBin.obj",
+            "scale": "1 1 1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "TrashBin_0",
+    "model_pose": "-4.38009 2.6331000000000002 0.10050000000000001 0 0 0",
+    "static": true,
+    "links": [
+      {
+        "link": "body",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://TrashBin/meshes/TrashBin.obj",
+            "scale": "1 1 1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "TrashBin_1",
+    "model_pose": "-3.2278899999999999 -4.3991600000000002 0.10050000000000001 0 0 -1.5661099999999997",
+    "static": true,
+    "links": [
+      {
+        "link": "body",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://TrashBin/meshes/TrashBin.obj",
+            "scale": "1 1 1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "Reflective table",
+    "model_pose": "-0.91191542276338955 -0.86739303682199165 0.099904927922286071 0.00014002940883026796 0.001628378286708397 0.00018473108801356897",
+    "static": true,
+    "links": [
+      {
+        "link": "link",
+        "link_pose": "0 0 0 3.1415899999999999 0.0015926499999999999 3.1415899999999999",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Reflective table/meshes/Table.dae",
+            "scale": "0.40000000000000002 0.40000000000000002 0.40000000000000002"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "Reflective table_1",
+    "model_pose": "0.1238332605304239 -0.86709252452717223 0.098974707794997327 0.0013894958241688748 0.0016041253588244492 0.00048021169461504341",
+    "static": true,
+    "links": [
+      {
+        "link": "link",
+        "link_pose": "0 0 0 3.1415899999999999 0.0015926499999999999 3.1415899999999999",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Reflective table/meshes/Table.dae",
+            "scale": "0.40000000000000002 0.40000000000000002 0.40000000000000002"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "Reflective table_1_1",
+    "model_pose": "0.12331123169121153 0.72850989820050505 0.099959748450627051 5.6497754173670825e-05 0.0015755554740337148 -0.00026024292780530708",
+    "static": true,
+    "links": [
+      {
+        "link": "link",
+        "link_pose": "0 0 0 3.1415899999999999 0.0015926499999999999 3.1415899999999999",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Reflective table/meshes/Table.dae",
+            "scale": "0.40000000000000002 0.40000000000000002 0.40000000000000002"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "Reflective table_1_2",
+    "model_pose": "-0.91236670493398198 0.7285646349831213 0.099857350168556333 0.0002105931807603984 0.0016294753264521008 4.0366046087833161e-05",
+    "static": true,
+    "links": [
+      {
+        "link": "link",
+        "link_pose": "0 0 0 3.1415899999999999 0.0015926499999999999 3.1415899999999999",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Reflective table/meshes/Table.dae",
+            "scale": "0.40000000000000002 0.40000000000000002 0.40000000000000002"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "gasket_part",
+    "model_pose": "-0.13734403252601629 1.1866574287414553 0.7929707169532777 0.00021322500300580897 3.6847999545014481e-05 3.7341000765543188e-05",
+    "static": true,
+    "links": [
+      {
+        "link": "link",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://gasket_part/meshes/gasket.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "cross_joint_part",
+    "model_pose": "0.095919333398342133 -1.1500073671340942 0.79286426305770863 0.00023876200503377039 0.00013229900344347264 0.00018129000237509407",
+    "static": true,
+    "links": [
+      {
+        "link": "link",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://cross_joint_part/meshes/cross_joint.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "t_brace_part",
+    "model_pose": "-0.19188249111175543 -0.59814327955245983 0.78900045156478893 0.00014269099761274762 0.0175673998578516 0.00019708000116052434",
+    "static": true,
+    "links": [
+      {
+        "link": "link",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://t_brace_part/meshes/t_brace.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "disk_part",
+    "model_pose": "-0.14295276999473572 0.74382424354553234 0.79285448789596558 0.00021327601345304739 0.00019458200369874444 3.7000300555431913e-05",
+    "static": true,
+    "links": [
+      {
+        "link": "link",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://disk_part/meshes/disk.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "piston_rod_part",
+    "model_pose": "0.34245133399963368 -1.5288020372390747 0.79280954599380482 0.00014236101405171625 3.582000298916052e-05 -0.0004018920206655185",
+    "static": true,
+    "links": [
+      {
+        "link": "link",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://piston_rod_part/meshes/piston_rod.dae",
+            "scale": "0.25 0.25 0.25"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "gear_part",
+    "model_pose": "-0.036153450608253423 -0.24461552500724792 0.79313230514526378 0.00014267700182931674 3.4093999828695544e-05 0.00018149401152184997",
+    "static": true,
+    "links": [
+      {
+        "link": "link",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://gear_part/meshes/gear.dae",
+            "scale": "0.25 0.25 0.25"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "arm_part",
+    "model_pose": "-0.1616949588060379 0.2065746933221817 0.79276269674301147 2.8490597138419871e-05 -0.00021470000201831308 1.6078900367957567",
+    "static": true,
+    "links": [
+      {
+        "link": "link",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://arm_part/meshes/arm.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "x500",
+    "model_pose": "-3.9797769815835222 3.2495163924019161 1.3205464917461514 3.1050069996108954e-06 -2.9025494938705949e-06 -0.00047053503066874858",
+    "static": true,
+    "links": [
+      {
+        "link": "base_link",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "base_link_visual",
+            "visual_pose": "0 0 0.025000000000000001 0 0 -3.1415926531795866",
+            "geometry_type": "mesh",
+            "uri": "model://x500/meshes/NXP-HGD-CF.dae",
+            "scale": "1 1 1"
+          },
+          {
+            "visual_name": "5010_motor_base_0",
+            "visual_pose": "0.17399999999999999 0.17399999999999999 0.032000000000000001 0 0 -0.45000000000000001",
+            "geometry_type": "mesh",
+            "uri": "model://x500/meshes/5010Base.dae",
+            "scale": "1 1 1"
+          },
+          {
+            "visual_name": "5010_motor_base_1",
+            "visual_pose": "-0.17399999999999999 0.17399999999999999 0.032000000000000001 0 0 -0.45000000000000001",
+            "geometry_type": "mesh",
+            "uri": "model://x500/meshes/5010Base.dae",
+            "scale": "1 1 1"
+          },
+          {
+            "visual_name": "5010_motor_base_2",
+            "visual_pose": "0.17399999999999999 -0.17399999999999999 0.032000000000000001 0 0 -0.45000000000000001",
+            "geometry_type": "mesh",
+            "uri": "model://x500/meshes/5010Base.dae",
+            "scale": "1 1 1"
+          },
+          {
+            "visual_name": "5010_motor_base_3",
+            "visual_pose": "-0.17399999999999999 -0.17399999999999999 0.032000000000000001 0 0 -0.45000000000000001",
+            "geometry_type": "mesh",
+            "uri": "model://x500/meshes/5010Base.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "rotor_0",
+        "link_pose": "0.17400000000909444 -0.17399999999092941 0.060000000000004938 1.7244916653898221e-19 -1.6071509256203464e-19 -5.5570782350744185e-16",
+        "visuals": [
+          {
+            "visual_name": "rotor_0_visual",
+            "visual_pose": "-0.021999999999999999 -0.14638461538461536 -0.016 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://x500/meshes/1345_prop_ccw.stl",
+            "scale": "0.84615384615384615 0.84615384615384615 0.84615384615384615"
+          },
+          {
+            "visual_name": "rotor_0_visual_motor_bell",
+            "visual_pose": "0 0 -0.032000000000000001 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://x500/meshes/5010Bell.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "rotor_1",
+        "link_pose": "-0.17400000000906113 0.1739999999909716 0.059999999999995834 1.7330591885843401e-19 -1.6113840224050865e-19 -5.4909419025528027e-16",
+        "visuals": [
+          {
+            "visual_name": "rotor_1_visual",
+            "visual_pose": "-0.021999999999999999 -0.14638461538461536 -0.016 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://x500/meshes/1345_prop_ccw.stl",
+            "scale": "0.84615384615384615 0.84615384615384615 0.84615384615384615"
+          },
+          {
+            "visual_name": "rotor_1_visual_motor_top",
+            "visual_pose": "0 0 -0.032000000000000001 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://x500/meshes/5010Bell.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "rotor_2",
+        "link_pose": "0.1739999999909676 0.17400000000909799 0.059999999999884368 1.7245340583962154e-19 -1.5986805961478036e-19 -5.5267205742448243e-16",
+        "visuals": [
+          {
+            "visual_name": "rotor_2_visual",
+            "visual_pose": "-0.021999999999999999 -0.14638461538461536 -0.016 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://x500/meshes/1345_prop_cw.stl",
+            "scale": "0.84615384615384615 0.84615384615384615 0.84615384615384615"
+          },
+          {
+            "visual_name": "rotor_2_visual_motor_top",
+            "visual_pose": "0 0 -0.032000000000000001 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://x500/meshes/5010Bell.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "rotor_3",
+        "link_pose": "-0.17399999999093252 -0.17400000000905802 0.060000000000116405 1.7245485340569351e-19 -1.6113860903566179e-19 -5.5180469568649403e-16",
+        "visuals": [
+          {
+            "visual_name": "rotor_3_visual",
+            "visual_pose": "-0.021999999999999999 -0.14638461538461536 -0.016 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://x500/meshes/1345_prop_cw.stl",
+            "scale": "0.84615384615384615 0.84615384615384615 0.84615384615384615"
+          },
+          {
+            "visual_name": "rotor_3_visual_motor_top",
+            "visual_pose": "0 0 -0.032000000000000001 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://x500/meshes/5010Bell.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "person_standing",
+    "model_pose": "-1.67621 -0.800149 0.082400000000000001 8.9308600000000003e-18 4.9623600000000079e-18 1.6158999999999999",
+    "static": true,
+    "links": [
+      {
+        "link": "link",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0.02 0.040000000000000001 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://person_standing/meshes/standing.dae",
+            "scale": "1 1 1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "Sofa",
+    "model_pose": "-0.16824600000000001 3.99959 0.10046099999999999 0 0 -1.5845199999999993",
+    "static": true,
+    "links": [
+      {
+        "link": "link",
+        "link_pose": "0 0 0 0 0 1.5708",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Sofa/meshes/Sofa.obj",
+            "scale": "1 1 1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "CoffeeTable",
+    "model_pose": "-0.131354 2.86205 0.109816 0 0 0",
+    "static": true,
+    "links": [
+      {
+        "link": "body",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://coffeetable/meshes/CoffeeTable.obj",
+            "scale": "0.0081700000000000002 0.0081700000000000002 0.0081700000000000002"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "naoH25V40",
+    "model_pose": "-0.13836048194735329 2.8148203870359678 0.53318510066778657 2.1294820947962982 -1.5707939984914403 -0.57523750089166081",
+    "static": true,
+    "links": [
+      {
+        "link": "Torso",
+        "link_pose": "0 0 0 0 0 0",
+        "visuals": [
+          {
+            "visual_name": "Torso_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Algo/meshes/V40/Torso.dae",
+            "scale": "0.10000000000000001 0.10000000000000001 0.10000000000000001"
+          }
+        ]
+      },
+      {
+        "link": "Neck",
+        "link_pose": "-1.3322676295501878e-15 2.2204460492503131e-15 0.12650000000000228 4.9802529059856506e-16 2.255551757178573e-16 -0.014075645696334089",
+        "visuals": [
+          {
+            "visual_name": "Neck_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Algo/meshes/V40/HeadYaw.dae",
+            "scale": "0.10000000000000001 0.10000000000000001 0.10000000000000001"
+          }
+        ]
+      },
+      {
+        "link": "Head",
+        "link_pose": "-1.3322676295501878e-15 2.2204460492503131e-15 0.12650000000000228 -1.1785398291218298e-15 -0.02912897782231505 -0.014075645696334583",
+        "visuals": [
+          {
+            "visual_name": "Head_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Algo/meshes/V40/HeadPitch.dae",
+            "scale": "0.10000000000000001 0.10000000000000001 0.10000000000000001"
+          }
+        ]
+      },
+      {
+        "link": "LPelvis",
+        "link_pose": "-1.2212453270876722e-15 0.050000000000001821 -0.084999999999996412 -0.0028612248470452073 -0.075502867994610007 0.07571900195090879",
+        "visuals": [
+          {
+            "visual_name": "LPelvis_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Algo/meshes/V40/LHipYawPitch.dae",
+            "scale": "0.10000000000000001 0.10000000000000001 0.10000000000000001"
+          }
+        ]
+      },
+      {
+        "link": "LHip",
+        "link_pose": "-1.2212453270876722e-15 0.050000000000001821 -0.084999999999996412 0.12712639924687172 -0.075502867994611145 0.075719001950908277",
+        "visuals": [
+          {
+            "visual_name": "LHip_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Algo/meshes/V40/LHipRoll.dae",
+            "scale": "0.10000000000000001 0.10000000000000001 0.10000000000000001"
+          }
+        ]
+      },
+      {
+        "link": "LThigh",
+        "link_pose": "-1.1102230246251565e-15 0.050000000000002154 -0.084999999999996412 0.12695267102634597 -0.054628975792827029 0.078390773690379154",
+        "visuals": [
+          {
+            "visual_name": "LThigh_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Algo/meshes/V40/LHipPitch.dae",
+            "scale": "0.10000000000000001 0.10000000000000001 0.10000000000000001"
+          }
+        ]
+      },
+      {
+        "link": "LTibia",
+        "link_pose": "0.0044081013743091368 0.063046459146342215 -0.18404725410639156 0.12712616700740861 -0.075478844743140858 0.075722081266692665",
+        "visuals": [
+          {
+            "visual_name": "LTibia_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Algo/meshes/V40/LKneePitch.dae",
+            "scale": "0.10000000000000001 0.10000000000000001 0.10000000000000001"
+          }
+        ]
+      },
+      {
+        "link": "LAnkle",
+        "link_pose": "0.011095898511747415 0.076637411244086517 -0.28582627645640768 0.12731018713636114 -0.092561185598468335 0.073529389151791233",
+        "visuals": [
+          {
+            "visual_name": "LAnkle_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Algo/meshes/V40/LAnklePitch.dae",
+            "scale": "0.10000000000000001 0.10000000000000001 0.10000000000000001"
+          }
+        ]
+      },
+      {
+        "link": "LSole",
+        "link_pose": "0.011095898511746416 0.076637411244087184 -0.28582627645640812 0.11492543446477196 -0.092561185598475246 0.073529389151771485",
+        "visuals": [
+          {
+            "visual_name": "LSole_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Algo/meshes/V40/LAnkleRoll.dae",
+            "scale": "0.10000000000000001 0.10000000000000001 0.10000000000000001"
+          }
+        ]
+      },
+      {
+        "link": "LShoulder",
+        "link_pose": "-1.5543122344752192e-15 0.098000000000002752 0.10000000000000231 -3.1415926535896617 1.5684981409884333 -3.1415926535896626",
+        "visuals": [
+          {
+            "visual_name": "LShoulder_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Algo/meshes/V40/LShoulderPitch.dae",
+            "scale": "0.10000000000000001 0.10000000000000001 0.10000000000000001"
+          }
+        ]
+      },
+      {
+        "link": "LBicep",
+        "link_pose": "-1.3322676295501878e-15 0.098000000000002196 0.1000000000000032 1.5770845050087383 1.1966486604485544 1.5766494958138133",
+        "visuals": [
+          {
+            "visual_name": "LBicep_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Algo/meshes/V40/LShoulderRoll.dae",
+            "scale": "0.10000000000000001 0.10000000000000001 0.10000000000000001"
+          }
+        ]
+      },
+      {
+        "link": "LElbow",
+        "link_pose": "-0.00021201712247020943 0.15033699735045103 0.0077460366321400187 1.5759475012886663 1.1966486604485547 1.5766494958138126",
+        "visuals": []
+      },
+      {
+        "link": "LForeArm",
+        "link_pose": "-0.00021201712246976534 0.15033699735045059 0.0077460366321409069 1.5764538021862511 1.231554751905847 1.5771897236415227",
+        "visuals": [
+          {
+            "visual_name": "LForeArm_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Algo/meshes/V40/LElbowRoll.dae",
+            "scale": "0.10000000000000001 0.10000000000000001 0.10000000000000001"
+          }
+        ]
+      },
+      {
+        "link": "LWrist",
+        "link_pose": "-0.00033105236338326627 0.16895520952918663 -0.045015222885416151 1.5661895793208656 1.231554751905847 1.5771897236415207",
+        "visuals": [
+          {
+            "visual_name": "LWrist_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Algo/meshes/V40/LWristYaw.dae",
+            "scale": "0.10000000000000001 0.10000000000000001 0.10000000000000001"
+          }
+        ]
+      },
+      {
+        "link": "RPelvis",
+        "link_pose": "-8.8817841970012523e-16 -0.049999999999997491 -0.084999999999998188 0.0054443817426035159 -0.10397192878705469 -0.10453850772858791",
+        "visuals": [
+          {
+            "visual_name": "RPelvis_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Algo/meshes/V40/RHipYawPitch.dae",
+            "scale": "0.10000000000000001 0.10000000000000001 0.10000000000000001"
+          }
+        ]
+      },
+      {
+        "link": "RHip",
+        "link_pose": "-8.8817841970012523e-16 -0.049999999999997491 -0.084999999999996856 -0.028413160727774747 -0.10397192878705037 -0.10453850772859101",
+        "visuals": [
+          {
+            "visual_name": "RHip_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Algo/meshes/V40/RHipRoll.dae",
+            "scale": "0.10000000000000001 0.10000000000000001 0.10000000000000001"
+          }
+        ]
+      },
+      {
+        "link": "RThigh",
+        "link_pose": "-8.8817841970012523e-16 -0.049999999999997491 -0.084999999999996856 -0.028322223421592334 -0.066459197079859395 -0.10560675668130606",
+        "visuals": [
+          {
+            "visual_name": "RThigh_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Algo/meshes/V40/RHipPitch.dae",
+            "scale": "0.10000000000000001 0.10000000000000001 0.10000000000000001"
+          }
+        ]
+      },
+      {
+        "link": "RTibia",
+        "link_pose": "0.0063028751219128543 -0.053515820723491814 -0.18473922382812535 -0.02831821783183025 -0.064299496455981875 -0.10566806721249228",
+        "visuals": [
+          {
+            "visual_name": "RTibia_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Algo/meshes/V40/RKneePitch.dae",
+            "scale": "0.10000000000000001 0.10000000000000001 0.10000000000000001"
+          }
+        ]
+      },
+      {
+        "link": "RAnkle",
+        "link_pose": "0.012567922982471225 -0.057110208433837739 -0.28738541008115703 -0.028335525036442565 -0.073171918013747256 -0.1054160778093246",
+        "visuals": [
+          {
+            "visual_name": "RAnkle_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Algo/meshes/V40/RAnklePitch.dae",
+            "scale": "0.10000000000000001 0.10000000000000001 0.10000000000000001"
+          }
+        ]
+      },
+      {
+        "link": "RSole",
+        "link_pose": "0.012567922982474111 -0.057110208433839404 -0.28738541008116059 -0.031874337415216704 -0.073171918013696491 -0.10541607780937366",
+        "visuals": [
+          {
+            "visual_name": "RSole_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Algo/meshes/V40/RAnkleRoll.dae",
+            "scale": "0.10000000000000001 0.10000000000000001 0.10000000000000001"
+          }
+        ]
+      },
+      {
+        "link": "RShoulder",
+        "link_pose": "-9.9920072216264089e-16 -0.097999999999997867 0.10000000000000364 -3.1415926535892162 1.5691169033252355 -3.1415926535892167",
+        "visuals": [
+          {
+            "visual_name": "RShoulder_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Algo/meshes/V40/RShoulderPitch.dae",
+            "scale": "0.10000000000000001 0.10000000000000001 0.10000000000000001"
+          }
+        ]
+      },
+      {
+        "link": "RBicep",
+        "link_pose": "-1.1102230246251565e-15 -0.0979999999999982 0.1000000000000032 -1.5739237189716044 1.0039135258140639 -1.5734345317108962",
+        "visuals": [
+          {
+            "visual_name": "RBicep_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Algo/meshes/V40/RShoulderRoll.dae",
+            "scale": "0.10000000000000001 0.10000000000000001 0.10000000000000001"
+          }
+        ]
+      },
+      {
+        "link": "RElbow",
+        "link_pose": "-0.00013522858279979566 -0.16703903808083553 0.019479239111254376 -1.5644241952979057 1.0039135258140641 -1.5734345317108971",
+        "visuals": []
+      },
+      {
+        "link": "RForeArm",
+        "link_pose": "-0.00013522858279957362 -0.16703903808083609 0.019479239111253932 -1.5640502448630922 1.0388193756961412 -1.5729961127740995",
+        "visuals": [
+          {
+            "visual_name": "RForeArm_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Algo/meshes/V40/RElbowRoll.dae",
+            "scale": "0.10000000000000001 0.10000000000000001 0.10000000000000001"
+          }
+        ]
+      },
+      {
+        "link": "RWrist",
+        "link_pose": "-0.00019765839376095773 -0.19541893996737392 -0.028738804932746831 -1.5612323502968588 1.0388193756961412 -1.5729961127741008",
+        "visuals": [
+          {
+            "visual_name": "RWrist_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://Algo/meshes/V40/RWristYaw.dae",
+            "scale": "0.10000000000000001 0.10000000000000001 0.10000000000000001"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "factory_shell",
+    "model_pose": "0 0 0 0 0 0",
+    "static": true,
+    "source_type": "include",
+    "source_uri": "model://factory_shell",
+    "links": [
+      {
+        "link": "factory_floor::floor_link",
+        "link_pose": "0 0 0 0 -0 0",
+        "visuals": [
+          {
+            "visual_name": "floor_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "box",
+            "size": "9.5 9.5 0.20000000000000001"
+          },
+          {
+            "visual_name": "floor_surface_visual",
+            "visual_pose": "0 0 0.10050000000000001 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://factory_shell/surfaces/tiled_plane_9p5m_8x.obj",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "factory_ceiling::ceiling_link",
+        "link_pose": "0 0 2.96 0 -0 0",
+        "visuals": [
+          {
+            "visual_name": "ceiling_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "box",
+            "size": "9.5 9.5 0.12"
+          },
+          {
+            "visual_name": "ceiling_surface_visual",
+            "visual_pose": "0 0 -0.060499999999999998 3.1415926535897931 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://factory_shell/surfaces/tiled_plane_9p5m_8x.obj",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "north_wall::north_wall_lower_link",
+        "link_pose": "0 4.65 0.55 0 -0 0",
+        "visuals": [
+          {
+            "visual_name": "north_wall_lower_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://factory_shell/meshes/north_wall_lower.obj",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "north_wall::north_wall_upper_link",
+        "link_pose": "0 4.65 2.45 0 -0 0",
+        "visuals": [
+          {
+            "visual_name": "north_wall_upper_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://factory_shell/meshes/north_wall_upper.obj",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "north_wall::north_wall_left_pier_link",
+        "link_pose": "-3.325 4.65 1.5 0 -0 0",
+        "visuals": [
+          {
+            "visual_name": "north_wall_left_pier_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://factory_shell/meshes/north_wall_left_pier.obj",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "north_wall::north_wall_center_pier_link",
+        "link_pose": "0 4.65 1.5 0 -0 0",
+        "visuals": [
+          {
+            "visual_name": "north_wall_center_pier_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://factory_shell/meshes/north_wall_center_pier.obj",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "north_wall::north_wall_right_pier_link",
+        "link_pose": "3.325 4.65 1.5 0 -0 0",
+        "visuals": [
+          {
+            "visual_name": "north_wall_right_pier_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://factory_shell/meshes/north_wall_right_pier.obj",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "north_wall::north_window_left_link",
+        "link_pose": "-1.15 4.65 1.5 0 -0 0",
+        "visuals": [
+          {
+            "visual_name": "north_window_left_glass_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "box",
+            "size": "1.4199999999999999 0.029999999999999999 0.92000000000000004"
+          },
+          {
+            "visual_name": "north_window_left_frame_top_visual",
+            "visual_pose": "0 0 0.46999999999999997 0 0 0",
+            "geometry_type": "box",
+            "size": "1.5 0.059999999999999998 0.059999999999999998"
+          },
+          {
+            "visual_name": "north_window_left_frame_bottom_visual",
+            "visual_pose": "0 0 -0.46999999999999997 0 0 0",
+            "geometry_type": "box",
+            "size": "1.5 0.059999999999999998 0.059999999999999998"
+          },
+          {
+            "visual_name": "north_window_left_frame_left_visual",
+            "visual_pose": "-0.71999999999999997 0 0 0 0 0",
+            "geometry_type": "box",
+            "size": "0.059999999999999998 0.059999999999999998 1"
+          },
+          {
+            "visual_name": "north_window_left_frame_right_visual",
+            "visual_pose": "0.71999999999999997 0 0 0 0 0",
+            "geometry_type": "box",
+            "size": "0.059999999999999998 0.059999999999999998 1"
+          },
+          {
+            "visual_name": "north_window_left_frame_center_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "box",
+            "size": "0.050000000000000003 0.050000000000000003 0.92000000000000004"
+          },
+          {
+            "visual_name": "north_window_left_frame_transom_visual",
+            "visual_pose": "0 0 0.10000000000000001 0 0 0",
+            "geometry_type": "box",
+            "size": "1.4199999999999999 0.050000000000000003 0.050000000000000003"
+          }
+        ]
+      },
+      {
+        "link": "north_wall::north_window_right_link",
+        "link_pose": "1.15 4.65 1.5 0 -0 0",
+        "visuals": [
+          {
+            "visual_name": "north_window_right_glass_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "box",
+            "size": "1.4199999999999999 0.029999999999999999 0.92000000000000004"
+          },
+          {
+            "visual_name": "north_window_right_frame_top_visual",
+            "visual_pose": "0 0 0.46999999999999997 0 0 0",
+            "geometry_type": "box",
+            "size": "1.5 0.059999999999999998 0.059999999999999998"
+          },
+          {
+            "visual_name": "north_window_right_frame_bottom_visual",
+            "visual_pose": "0 0 -0.46999999999999997 0 0 0",
+            "geometry_type": "box",
+            "size": "1.5 0.059999999999999998 0.059999999999999998"
+          },
+          {
+            "visual_name": "north_window_right_frame_left_visual",
+            "visual_pose": "-0.71999999999999997 0 0 0 0 0",
+            "geometry_type": "box",
+            "size": "0.059999999999999998 0.059999999999999998 1"
+          },
+          {
+            "visual_name": "north_window_right_frame_right_visual",
+            "visual_pose": "0.71999999999999997 0 0 0 0 0",
+            "geometry_type": "box",
+            "size": "0.059999999999999998 0.059999999999999998 1"
+          },
+          {
+            "visual_name": "north_window_right_frame_center_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "box",
+            "size": "0.050000000000000003 0.050000000000000003 0.92000000000000004"
+          },
+          {
+            "visual_name": "north_window_right_frame_transom_visual",
+            "visual_pose": "0 0 0.10000000000000001 0 0 0",
+            "geometry_type": "box",
+            "size": "1.4199999999999999 0.050000000000000003 0.050000000000000003"
+          }
+        ]
+      },
+      {
+        "link": "south_wall::south_wall_left_link",
+        "link_pose": "-2.5625 -4.65 1.5 0 -0 0",
+        "visuals": [
+          {
+            "visual_name": "south_wall_left_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://factory_shell/meshes/south_wall_left.obj",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "south_wall::south_wall_right_link",
+        "link_pose": "2.5625 -4.65 1.5 0 -0 0",
+        "visuals": [
+          {
+            "visual_name": "south_wall_right_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://factory_shell/meshes/south_wall_right.obj",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "south_wall::south_wall_overdoor_link",
+        "link_pose": "0 -4.65 2.44228 0 -0 0",
+        "visuals": [
+          {
+            "visual_name": "south_wall_overdoor_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://factory_shell/meshes/south_wall_overdoor.obj",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "east_wall::east_wall_link",
+        "link_pose": "4.65 1.60971259132774e-15 1.5 0 -0 1.57080000000001",
+        "visuals": [
+          {
+            "visual_name": "east_wall_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://factory_shell/meshes/east_wall.obj",
+            "scale": "1 1 1"
+          }
+        ]
+      },
+      {
+        "link": "west_wall::west_wall_link",
+        "link_pose": "-4.65 -1.60971259132774e-15 1.5 0 -0 1.57080000000001",
+        "visuals": [
+          {
+            "visual_name": "west_wall_visual",
+            "visual_pose": "0 0 0 0 0 0",
+            "geometry_type": "mesh",
+            "uri": "model://factory_shell/meshes/west_wall.obj",
+            "scale": "1 1 1"
+          }
+        ]
+      }
+    ]
+  }
+]

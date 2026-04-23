@@ -1,0 +1,41 @@
+{
+  "summary": {
+    "static_manifest_models": 35,
+    "dynamic_manifest_models": 2,
+    "total_links": 111,
+    "total_visuals": 164,
+    "geometry_counts": {
+      "mesh": 139,
+      "box": 25,
+      "cylinder": 0,
+      "sphere": 0
+    },
+    "error_count": 0,
+    "warning_count": 0,
+    "info_count": 4
+  },
+  "errors": [],
+  "warnings": [],
+  "info": [
+    {
+      "manifest": "static_manifest",
+      "location": "entries[33].links[11].visuals",
+      "message": "Link has no visuals"
+    },
+    {
+      "manifest": "static_manifest",
+      "location": "entries[33].links[22].visuals",
+      "message": "Link has no visuals"
+    },
+    {
+      "manifest": "dynamic_manifest",
+      "location": "entries[0].links[10].visuals",
+      "message": "Link has no visuals"
+    },
+    {
+      "manifest": "dynamic_manifest",
+      "location": "entries[1].links[11].visuals",
+      "message": "Link has no visuals"
+    }
+  ]
+}

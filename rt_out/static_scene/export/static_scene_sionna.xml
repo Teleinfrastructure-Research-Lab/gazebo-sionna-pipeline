@@ -1,0 +1,113 @@
+<scene version="3.0.0">
+    <bsdf type="itu-radio-material" id="mat-cardboard">
+        <string name="type" value="chipboard" />
+        <float name="thickness" value="0.1" />
+        <float name="scattering_coefficient" value="0" />
+        <float name="xpd_coefficient" value="0" />
+    </bsdf>
+    <bsdf type="itu-radio-material" id="mat-ceiling_board">
+        <string name="type" value="ceiling_board" />
+        <float name="thickness" value="0.1" />
+        <float name="scattering_coefficient" value="0" />
+        <float name="xpd_coefficient" value="0" />
+    </bsdf>
+    <bsdf type="itu-radio-material" id="mat-chipboard">
+        <string name="type" value="chipboard" />
+        <float name="thickness" value="0.1" />
+        <float name="scattering_coefficient" value="0" />
+        <float name="xpd_coefficient" value="0" />
+    </bsdf>
+    <bsdf type="itu-radio-material" id="mat-glass">
+        <string name="type" value="glass" />
+        <float name="thickness" value="0.1" />
+        <float name="scattering_coefficient" value="0" />
+        <float name="xpd_coefficient" value="0" />
+    </bsdf>
+    <bsdf type="radio-material" id="mat-human_skin">
+        <float name="relative_permittivity" value="16.73" />
+        <float name="conductivity" value="20.1043" />
+        <float name="thickness" value="0.003" />
+        <float name="scattering_coefficient" value="0" />
+        <float name="xpd_coefficient" value="0" />
+    </bsdf>
+    <bsdf type="itu-radio-material" id="mat-metal">
+        <string name="type" value="metal" />
+        <float name="thickness" value="0.1" />
+        <float name="scattering_coefficient" value="0" />
+        <float name="xpd_coefficient" value="0" />
+    </bsdf>
+    <bsdf type="itu-radio-material" id="mat-panel_wall">
+        <string name="type" value="plasterboard" />
+        <float name="thickness" value="0.1" />
+        <float name="scattering_coefficient" value="0" />
+        <float name="xpd_coefficient" value="0" />
+    </bsdf>
+    <bsdf type="itu-radio-material" id="mat-plastic">
+        <string name="type" value="plasterboard" />
+        <float name="thickness" value="0.1" />
+        <float name="scattering_coefficient" value="0" />
+        <float name="xpd_coefficient" value="0" />
+    </bsdf>
+    <bsdf type="itu-radio-material" id="mat-textile">
+        <string name="type" value="wood" />
+        <float name="thickness" value="0.1" />
+        <float name="scattering_coefficient" value="0" />
+        <float name="xpd_coefficient" value="0" />
+    </bsdf>
+    <bsdf type="itu-radio-material" id="mat-vinyl_tile">
+        <string name="type" value="concrete" />
+        <float name="thickness" value="0.1" />
+        <float name="scattering_coefficient" value="0" />
+        <float name="xpd_coefficient" value="0" />
+    </bsdf>
+    <bsdf type="itu-radio-material" id="mat-wood">
+        <string name="type" value="wood" />
+        <float name="thickness" value="0.1" />
+        <float name="scattering_coefficient" value="0" />
+        <float name="xpd_coefficient" value="0" />
+    </bsdf>
+    <shape type="ply" id="merged_cardboard">
+        <string name="filename" value="merged_by_material/cardboard.ply" />
+        <ref name="bsdf" id="mat-cardboard" />
+    </shape>
+    <shape type="ply" id="merged_ceiling_board">
+        <string name="filename" value="merged_by_material/ceiling_board.ply" />
+        <ref name="bsdf" id="mat-ceiling_board" />
+    </shape>
+    <shape type="ply" id="merged_chipboard">
+        <string name="filename" value="merged_by_material/chipboard.ply" />
+        <ref name="bsdf" id="mat-chipboard" />
+    </shape>
+    <shape type="ply" id="merged_glass">
+        <string name="filename" value="merged_by_material/glass.ply" />
+        <ref name="bsdf" id="mat-glass" />
+    </shape>
+    <shape type="ply" id="merged_human_skin">
+        <string name="filename" value="merged_by_material/human_skin.ply" />
+        <ref name="bsdf" id="mat-human_skin" />
+    </shape>
+    <shape type="ply" id="merged_metal">
+        <string name="filename" value="merged_by_material/metal.ply" />
+        <ref name="bsdf" id="mat-metal" />
+    </shape>
+    <shape type="ply" id="merged_panel_wall">
+        <string name="filename" value="merged_by_material/panel_wall.ply" />
+        <ref name="bsdf" id="mat-panel_wall" />
+    </shape>
+    <shape type="ply" id="merged_plastic">
+        <string name="filename" value="merged_by_material/plastic.ply" />
+        <ref name="bsdf" id="mat-plastic" />
+    </shape>
+    <shape type="ply" id="merged_textile">
+        <string name="filename" value="merged_by_material/textile.ply" />
+        <ref name="bsdf" id="mat-textile" />
+    </shape>
+    <shape type="ply" id="merged_vinyl_tile">
+        <string name="filename" value="merged_by_material/vinyl_tile.ply" />
+        <ref name="bsdf" id="mat-vinyl_tile" />
+    </shape>
+    <shape type="ply" id="merged_wood">
+        <string name="filename" value="merged_by_material/wood.ply" />
+        <ref name="bsdf" id="mat-wood" />
+    </shape>
+</scene>

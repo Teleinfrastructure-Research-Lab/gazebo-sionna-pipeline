@@ -1,0 +1,71 @@
+{
+  "metadata": {
+    "description": "Semantic RT material mapping for Sionna XML emission.",
+    "carrier_frequency_hz": 28000000000.0,
+    "frequency_note": "The RT sanity scripts explicitly set scene.frequency from this config; this overrides Sionna 1.2.2's default 3.5 GHz scene frequency.",
+    "human_skin_source": "NICT Database of Dielectric Properties for Electromagnetic Modeling of Human Body, Skin-Epidermis + dermis measurement row at exactly 28 GHz.",
+    "human_skin_thickness_note": "3 mm provisional skin-slab thickness for the standing-person surface proxy; dielectric properties are tied to the 28 GHz row."
+  },
+  "materials": {
+    "panel_wall": {
+      "model": "itu",
+      "itu_type": "plasterboard",
+      "thickness": 0.1
+    },
+    "ceiling_board": {
+      "model": "itu",
+      "itu_type": "ceiling_board",
+      "thickness": 0.1
+    },
+    "vinyl_tile": {
+      "model": "itu",
+      "itu_type": "concrete",
+      "thickness": 0.1
+    },
+    "wood": {
+      "model": "itu",
+      "itu_type": "wood",
+      "thickness": 0.1
+    },
+    "chipboard": {
+      "model": "itu",
+      "itu_type": "chipboard",
+      "thickness": 0.1
+    },
+    "plastic": {
+      "model": "itu",
+      "itu_type": "plasterboard",
+      "thickness": 0.1
+    },
+    "metal": {
+      "model": "itu",
+      "itu_type": "metal",
+      "thickness": 0.1
+    },
+    "glass": {
+      "model": "itu",
+      "itu_type": "glass",
+      "thickness": 0.1
+    },
+    "cardboard": {
+      "model": "itu",
+      "itu_type": "chipboard",
+      "thickness": 0.1
+    },
+    "textile": {
+      "model": "itu",
+      "itu_type": "wood",
+      "thickness": 0.1
+    },
+    "human_skin": {
+      "model": "custom",
+      "relative_permittivity": 16.73005,
+      "conductivity": 20.10434,
+      "thickness": 0.003,
+      "scattering_coefficient": 0.0,
+      "xpd_coefficient": 0.0,
+      "frequency_hz": 28000000000.0,
+      "source_loss_factor": 12.90662
+    }
+  }
+}

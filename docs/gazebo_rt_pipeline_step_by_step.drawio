@@ -1,0 +1,157 @@
+<mxfile host="app.diagrams.net" agent="OpenAI">
+  <diagram id="pipeline" name="Pipeline">
+    <mxGraphModel dx="1809" dy="983" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="1250" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=20;" value="&lt;div&gt;Gazebo → Mitsuba / Sionna RT Pipeline&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="1060" x="20" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="lane1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;opacity=20;" value="" vertex="1">
+          <mxGeometry height="1100" width="250" x="20" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="laneh1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;" value="Gazebo / Scene Side" vertex="1">
+          <mxGeometry height="34" width="250" x="20" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="lane2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;opacity=20;" value="" vertex="1">
+          <mxGeometry height="1100" width="250" x="290" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="laneh2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;" value="Static RT Pipeline" vertex="1">
+          <mxGeometry height="34" width="250" x="290" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="lane3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;opacity=20;" value="" vertex="1">
+          <mxGeometry height="1100" width="250" x="560" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="laneh3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;" value="Dynamic RT Pipeline" vertex="1">
+          <mxGeometry height="34" width="250" x="560" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="lane4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;opacity=20;" value="" vertex="1">
+          <mxGeometry height="1100" width="250" x="830" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="laneh4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;" value="Evaluation / Outputs" vertex="1">
+          <mxGeometry height="34" width="250" x="830" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;align=center;verticalAlign=middle;spacing=4;" value="1. Create / update Gazebo world&#xa;(myworld_rt.sdf + models/)" vertex="1">
+          <mxGeometry height="110" width="220" x="35" y="105" as="geometry" />
+        </mxCell>
+        <mxCell id="s2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;align=center;verticalAlign=middle;spacing=4;" value="2. Launch Gazebo&#xa;(run_myworld_rt.sh)" vertex="1">
+          <mxGeometry height="110" width="220" x="35" y="243" as="geometry" />
+        </mxCell>
+        <mxCell id="5OnYazEDgPFOwH_ezWX6-9" edge="1" parent="1" source="s3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="s12">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="145" y="1110" />
+              <mxPoint x="540" y="1110" />
+              <mxPoint x="540" y="298" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;align=center;verticalAlign=middle;spacing=4;" value="3. Record motion logs for moving models&#xa;(run_all.sh / run_panda.sh / run_ur5.sh)&#xa;Produces panda_pose.log + ur5_pose.log" vertex="1">
+          <mxGeometry height="110" width="220" x="35" y="382" as="geometry" />
+        </mxCell>
+        <mxCell id="s4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;align=center;verticalAlign=middle;spacing=4;" value="4. Extract scene manifests&#xa;00_extract_scene_manifests.py" vertex="1">
+          <mxGeometry height="110" width="220" x="305" y="105" as="geometry" />
+        </mxCell>
+        <mxCell id="s5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;align=center;verticalAlign=middle;spacing=4;" value="5. Validate manifests&#xa;01_validate_scene_manifests.py" vertex="1">
+          <mxGeometry height="110" width="220" x="305" y="243" as="geometry" />
+        </mxCell>
+        <mxCell id="s6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;align=center;verticalAlign=middle;spacing=4;" value="6. Build geometry registry&lt;br&gt;&lt;div&gt;02_build_scene_geometry...&lt;/div&gt;&lt;div&gt;..._registry.py&lt;/div&gt;" vertex="1">
+          <mxGeometry height="110" width="220" x="305" y="382" as="geometry" />
+        </mxCell>
+        <mxCell id="s7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;align=center;verticalAlign=middle;spacing=4;" value="7. Build static scene registry&#xa;03_build_static_scene_registry.py&#xa;(+ material_map.json)" vertex="1">
+          <mxGeometry height="110" width="220" x="305" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="s8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;align=center;verticalAlign=middle;spacing=4;" value="8. Merge static scene by material&lt;br&gt;&lt;div&gt;20_merge_static_scene...&lt;/div&gt;&lt;div&gt;..._by_material.py&lt;/div&gt;(+ 21 worker)" vertex="1">
+          <mxGeometry height="110" width="220" x="305" y="658" as="geometry" />
+        </mxCell>
+        <mxCell id="s9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;align=center;verticalAlign=middle;spacing=4;" value="9. Build static XMLs&#xa;22 Mitsuba + 23 Sionna" vertex="1">
+          <mxGeometry height="110" width="220" x="305" y="797" as="geometry" />
+        </mxCell>
+        <mxCell id="5OnYazEDgPFOwH_ezWX6-7" edge="1" parent="1" source="s10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="s14">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="415" y="1070" />
+              <mxPoint x="560" y="1070" />
+              <mxPoint x="560" y="575" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;align=center;verticalAlign=middle;spacing=4;" value="10. Static sanity check&#xa;24_run_sionna_rt_sanity.py" vertex="1">
+          <mxGeometry height="110" width="220" x="305" y="935" as="geometry" />
+        </mxCell>
+        <mxCell id="s11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=13;align=center;verticalAlign=middle;spacing=4;" value="11. Build prototype dynamic frames&lt;br&gt;&lt;div&gt;30_build_prototype_dynamic_...&lt;/div&gt;&lt;div&gt;...frames.py&lt;/div&gt;(reads pose logs)" vertex="1">
+          <mxGeometry height="110" width="220" x="575" y="105" as="geometry" />
+        </mxCell>
+        <mxCell id="s12" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=13;align=center;verticalAlign=middle;spacing=4;" value="12. Join dynamic visuals&lt;br&gt;31_build_prototype_dynamic_...&lt;br&gt;...visual_frames.py" vertex="1">
+          <mxGeometry height="110" width="220" x="575" y="243" as="geometry" />
+        </mxCell>
+        <mxCell id="s13" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=13;align=center;verticalAlign=middle;spacing=4;" value="13. Export dynamic frame meshes&lt;br&gt;&lt;div&gt;32_export_dynamic_...&lt;/div&gt;&lt;div&gt;...frame_meshes.py&lt;/div&gt;(frame_000 / 001 / 002)" vertex="1">
+          <mxGeometry height="110" width="220" x="575" y="382" as="geometry" />
+        </mxCell>
+        <mxCell id="s14" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=13;align=center;verticalAlign=middle;spacing=4;" value="14. Compose static + dynamic frame scene&lt;br&gt;&lt;div&gt;33_compose_prototype...&lt;/div&gt;&lt;div&gt;..._frame_scene.py&lt;/div&gt;" vertex="1">
+          <mxGeometry height="110" width="220" x="575" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="5OnYazEDgPFOwH_ezWX6-4" edge="1" parent="1" source="s15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=13;" target="s16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s15" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=13;align=center;verticalAlign=middle;spacing=4;" value="15. Build frame Sionna XML&lt;br&gt;&lt;div&gt;34_build_prototype_frame_...&lt;/div&gt;&lt;div&gt;...sionna_xml.py&lt;/div&gt;" vertex="1">
+          <mxGeometry height="110" width="220" x="575" y="658" as="geometry" />
+        </mxCell>
+        <mxCell id="s16" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=13;align=center;verticalAlign=middle;spacing=4;" value="16. 3-frame single-RX sanity&lt;br&gt;&lt;div&gt;35_run_prototype_three_frame...&lt;/div&gt;&lt;div&gt;..._rt_sanity.py&lt;/div&gt;→ three_frame_rt_summary.csv" vertex="1">
+          <mxGeometry height="110" width="220" x="845" y="105" as="geometry" />
+        </mxCell>
+        <mxCell id="s17" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=13;align=center;verticalAlign=middle;spacing=4;" value="17. 3-frame × 3-RX evaluation&lt;br&gt;&lt;div&gt;36_run_three_frame_three...&lt;/div&gt;&lt;div&gt;..._rx_rt_sanity.py&lt;/div&gt;&lt;div&gt;→ three_frame_three_rx_...&lt;/div&gt;&lt;div&gt;...rt_summary.csv&lt;/div&gt;" vertex="1">
+          <mxGeometry height="110" width="220" x="845" y="243" as="geometry" />
+        </mxCell>
+        <mxCell id="s18" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=13;align=center;verticalAlign=middle;spacing=4;" value="Outputs to keep&#xa;• manifests&#xa;• merged static scene&#xa;• frame-specific composed scenes&#xa;• Sionna XMLs&#xa;• RT CSV summaries" vertex="1">
+          <mxGeometry height="110" width="220" x="845" y="382" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="s1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.5;fontSize=13;" target="s2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="s2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.5;fontSize=13;" target="s3" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="s1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.5;fontSize=13;" target="s4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="s4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.5;fontSize=13;" target="s5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="s5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.5;fontSize=13;" target="s6" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="s6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.5;fontSize=13;" target="s7" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="s7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.5;fontSize=13;" target="s8" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="s8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.5;fontSize=13;" target="s9" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="s9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.5;fontSize=13;" target="s10" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="s11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.5;fontSize=13;" target="s12" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="s12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.5;fontSize=13;" target="s13" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="s13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.5;fontSize=13;" target="s14" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="s14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.5;fontSize=13;" target="s15" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e17" edge="1" parent="1" source="s16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.5;fontSize=13;" target="s17" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e18" edge="1" parent="1" source="s17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.5;fontSize=13;" target="s18" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

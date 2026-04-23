@@ -1,0 +1,34 @@
+{
+  "prototype_frames": [
+    {
+      "frame_id": 0,
+      "source_sample_index": 0
+    },
+    {
+      "frame_id": 1,
+      "source_sample_index": 25570
+    },
+    {
+      "frame_id": 2,
+      "source_sample_index": 51140
+    }
+  ],
+  "dynamic_models": {
+    "Panda": {
+      "pose_log": "rt_out/poses/panda/panda_pose.log",
+      "expected_link_count": 12,
+      "non_renderable_links": [
+        "panda_link8"
+      ],
+      "forced_material": "metal"
+    },
+    "ur5_rg2": {
+      "pose_log": "rt_out/poses/ur5/ur5_pose.log",
+      "expected_link_count": 11,
+      "non_renderable_links": [
+        "tool0"
+      ],
+      "forced_material": "metal"
+    }
+  }
+}

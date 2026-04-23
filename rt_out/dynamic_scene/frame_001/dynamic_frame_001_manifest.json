@@ -1,0 +1,2287 @@
+{
+  "generated_by": "32_export_dynamic_frame_meshes.py",
+  "source_visual_frames_file": "rt_out/dynamic_frames/dynamic_visual_frames.json",
+  "frame_id": 1,
+  "source_sample_index": 25570,
+  "output_mesh_dir": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_001/raw_visual_meshes",
+  "converted_mesh_cache_dir": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/converted_mesh_cache",
+  "exported_visuals": [
+    {
+      "id": "Panda__panda_link0__panda_link0_visual",
+      "model_name": "Panda",
+      "link_name": "panda_link0",
+      "visual_name": "panda_link0_visual",
+      "source_sample_index": 25570,
+      "frame_id": 1,
+      "source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Panda/meshes/visual/link0.dae",
+      "cached_source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/converted_mesh_cache/link0__f546f74a174b.ply",
+      "exported_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_001/raw_visual_meshes/Panda__panda_link0__panda_link0_visual.ply",
+      "geometry_type": "mesh",
+      "link_to_world": [
+        [
+          -0.9999528827880602,
+          -0.005098342316433359,
+          -0.00826069666990977,
+          0.583825
+        ],
+        [
+          0.005142456616361954,
+          -0.9999725841857651,
+          -0.005327852925102576,
+          0.738624
+        ],
+        [
+          -0.008233306978160633,
+          -0.005370082165773058,
+          0.9999516862697598,
+          0.795
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "visual_pose_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "scale_xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "final_transform": [
+        [
+          -0.9999528827880602,
+          -0.005098342316433359,
+          -0.00826069666990977,
+          0.583825
+        ],
+        [
+          0.005142456616361954,
+          -0.9999725841857651,
+          -0.005327852925102576,
+          0.738624
+        ],
+        [
+          -0.008233306978160633,
+          -0.005370082165773058,
+          0.9999516862697598,
+          0.795
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "export_success": true,
+      "mesh_vertex_count": 10502,
+      "mesh_face_count": 20483,
+      "bounds_min": [
+        0.512271523475647,
+        0.64405357837677,
+        0.7944921255111694
+      ],
+      "bounds_max": [
+        0.7379031777381897,
+        0.8332173228263855,
+        0.9355340003967285
+      ]
+    },
+    {
+      "id": "Panda__panda_link1__panda_link1_visual",
+      "model_name": "Panda",
+      "link_name": "panda_link1",
+      "visual_name": "panda_link1_visual",
+      "source_sample_index": 25570,
+      "frame_id": 1,
+      "source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Panda/meshes/visual/link1.dae",
+      "cached_source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/converted_mesh_cache/link1__ea0c640d4d8f.ply",
+      "exported_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_001/raw_visual_meshes/Panda__panda_link1__panda_link1_visual.ply",
+      "geometry_type": "mesh",
+      "link_to_world": [
+        [
+          -0.17822985701086927,
+          -0.9839542057232201,
+          -0.00826069666990975,
+          0.5810741880089222
+        ],
+        [
+          0.9839816574699054,
+          -0.1781901000223812,
+          -0.005327852925102572,
+          0.7368498249759413
+        ],
+        [
+          0.0037703889272636677,
+          -0.009077956466129898,
+          0.9999516862697598,
+          1.1279839115278296
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "visual_pose_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "scale_xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "final_transform": [
+        [
+          -0.17822985701086927,
+          -0.9839542057232201,
+          -0.00826069666990975,
+          0.5810741880089222
+        ],
+        [
+          0.9839816574699054,
+          -0.1781901000223812,
+          -0.005327852925102572,
+          0.7368498249759413
+        ],
+        [
+          0.0037703889272636677,
+          -0.009077956466129898,
+          0.9999516862697598,
+          1.1279839115278296
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "export_success": true,
+      "mesh_vertex_count": 6260,
+      "mesh_face_count": 12516,
+      "bounds_min": [
+        0.5271359086036682,
+        0.6824633479118347,
+        0.9354524612426758
+      ],
+      "bounds_max": [
+        0.7093614339828491,
+        0.8021825551986694,
+        1.1835594177246094
+      ]
+    },
+    {
+      "id": "Panda__panda_link2__panda_link2_visual",
+      "model_name": "Panda",
+      "link_name": "panda_link2",
+      "visual_name": "panda_link2_visual",
+      "source_sample_index": 25570,
+      "frame_id": 1,
+      "source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Panda/meshes/visual/link2.dae",
+      "cached_source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/converted_mesh_cache/link2__5d93723130e9.ply",
+      "exported_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_001/raw_visual_meshes/Panda__panda_link2__panda_link2_visual.ply",
+      "geometry_type": "mesh",
+      "link_to_world": [
+        [
+          -0.1352531287075476,
+          0.11636456597438453,
+          -0.9839542057232198,
+          0.5810741880089225
+        ],
+        [
+          0.7781086524192502,
+          -0.6023248403347745,
+          -0.17819010002238164,
+          0.7368498249759418
+        ],
+        [
+          -0.6133950735090049,
+          -0.7897240495902864,
+          -0.009077956466127031,
+          1.1279839115278296
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "visual_pose_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "scale_xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "final_transform": [
+        [
+          -0.1352531287075476,
+          0.11636456597438453,
+          -0.9839542057232198,
+          0.5810741880089225
+        ],
+        [
+          0.7781086524192502,
+          -0.6023248403347745,
+          -0.17819010002238164,
+          0.7368498249759418
+        ],
+        [
+          -0.6133950735090049,
+          -0.7897240495902864,
+          -0.009077956466127031,
+          1.1279839115278296
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "export_success": true,
+      "mesh_vertex_count": 6360,
+      "mesh_face_count": 12716,
+      "bounds_min": [
+        0.452795147895813,
+        0.6712493896484375,
+        1.07241690158844
+      ],
+      "bounds_max": [
+        0.620903491973877,
+        0.8976067900657654,
+        1.3149223327636719
+      ]
+    },
+    {
+      "id": "Panda__panda_link3__panda_link3_visual",
+      "model_name": "Panda",
+      "link_name": "panda_link3",
+      "visual_name": "panda_link3_visual",
+      "source_sample_index": 25570,
+      "frame_id": 1,
+      "source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Panda/meshes/visual/link3.dae",
+      "cached_source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/converted_mesh_cache/link3__ef51e5f0eb8d.ply",
+      "exported_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_001/raw_visual_meshes/Panda__panda_link3__panda_link3_visual.ply",
+      "geometry_type": "mesh",
+      "link_to_world": [
+        [
+          -0.43450514561110926,
+          -0.8931206896176245,
+          -0.11636456597438727,
+          0.5443029851610163
+        ],
+        [
+          0.684128324671798,
+          -0.4113067250817191,
+          0.6023248403347731,
+          0.9271844745217298
+        ],
+        [
+          -0.5858103053200993,
+          0.18210494688363033,
+          0.7897240495902872,
+          1.3775367111983605
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "visual_pose_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "scale_xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "final_transform": [
+        [
+          -0.43450514561110926,
+          -0.8931206896176245,
+          -0.11636456597438727,
+          0.5443029851610163
+        ],
+        [
+          0.684128324671798,
+          -0.4113067250817191,
+          0.6023248403347731,
+          0.9271844745217298
+        ],
+        [
+          -0.5858103053200993,
+          0.18210494688363033,
+          0.7897240495902872,
+          1.3775367111983605
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "export_success": true,
+      "mesh_vertex_count": 7233,
+      "mesh_face_count": 14233,
+      "bounds_min": [
+        0.4018469452857971,
+        0.8104360699653625,
+        1.2482340335845947
+      ],
+      "bounds_max": [
+        0.6129903197288513,
+        1.0335564613342285,
+        1.3927805423736572
+      ]
+    },
+    {
+      "id": "Panda__panda_link4__panda_link4_visual",
+      "model_name": "Panda",
+      "link_name": "panda_link4",
+      "visual_name": "panda_link4_visual",
+      "source_sample_index": 25570,
+      "frame_id": 1,
+      "source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Panda/meshes/visual/link4.dae",
+      "cached_source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/converted_mesh_cache/link4__776fcec5db35.ply",
+      "exported_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_001/raw_visual_meshes/Panda__panda_link4__panda_link4_visual.ply",
+      "geometry_type": "mesh",
+      "link_to_world": [
+        [
+          0.17735065715667686,
+          -0.41337897646472815,
+          0.8931206896176286,
+          0.5084563106480993
+        ],
+        [
+          -0.6940331965536585,
+          0.590884675705906,
+          0.4113067250817048,
+          0.9836250613071548
+        ],
+        [
+          -0.697756882078282,
+          -0.6928009251097318,
+          -0.18210494688364265,
+          1.3292073610094537
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "visual_pose_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "scale_xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "final_transform": [
+        [
+          0.17735065715667686,
+          -0.41337897646472815,
+          0.8931206896176286,
+          0.5084563106480993
+        ],
+        [
+          -0.6940331965536585,
+          0.590884675705906,
+          0.4113067250817048,
+          0.9836250613071548
+        ],
+        [
+          -0.697756882078282,
+          -0.6928009251097318,
+          -0.18210494688364265,
+          1.3292073610094537
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "export_success": true,
+      "mesh_vertex_count": 7424,
+      "mesh_face_count": 14621,
+      "bounds_min": [
+        0.3924793303012848,
+        0.933704137802124,
+        1.2612009048461914
+      ],
+      "bounds_max": [
+        0.6150755882263184,
+        1.158517599105835,
+        1.395616054534912
+      ]
+    },
+    {
+      "id": "Panda__panda_link5__panda_link5_visual",
+      "model_name": "Panda",
+      "link_name": "panda_link5",
+      "visual_name": "panda_link5_visual",
+      "source_sample_index": 25570,
+      "frame_id": 1,
+      "source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Panda/meshes/visual/link5.dae",
+      "cached_source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/converted_mesh_cache/link5__672389131df2.ply",
+      "exported_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_001/raw_visual_meshes/Panda__panda_link5__panda_link5_visual.ply",
+      "geometry_type": "mesh",
+      "link_to_world": [
+        [
+          0.48867163949382464,
+          -0.7683214500268623,
+          -0.41337897646474164,
+          0.33508735447021604
+        ],
+        [
+          -0.4980368371102058,
+          -0.634676775136133,
+          0.5908846757058948,
+          1.267782515493893
+        ],
+        [
+          -0.7163514065287233,
+          -0.08287062526262222,
+          -0.6928009251097333,
+          1.1207367485387811
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "visual_pose_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "scale_xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "final_transform": [
+        [
+          0.48867163949382464,
+          -0.7683214500268623,
+          -0.41337897646474164,
+          0.33508735447021604
+        ],
+        [
+          -0.4980368371102058,
+          -0.634676775136133,
+          0.5908846757058948,
+          1.267782515493893
+        ],
+        [
+          -0.7163514065287233,
+          -0.08287062526262222,
+          -0.6928009251097333,
+          1.1207367485387811
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "export_success": true,
+      "mesh_vertex_count": 9501,
+      "mesh_face_count": 18327,
+      "bounds_min": [
+        0.22002530097961426,
+        1.0703587532043457,
+        1.0609502792358398
+      ],
+      "bounds_max": [
+        0.4922378659248352,
+        1.2947885990142822,
+        1.339837670326233
+      ]
+    },
+    {
+      "id": "Panda__panda_link6__panda_link6_visual",
+      "model_name": "Panda",
+      "link_name": "panda_link6",
+      "visual_name": "panda_link6_visual",
+      "source_sample_index": 25570,
+      "frame_id": 1,
+      "source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Panda/meshes/visual/link6.dae",
+      "cached_source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/converted_mesh_cache/link6__73a37edda8fb.ply",
+      "exported_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_001/raw_visual_meshes/Panda__panda_link6__panda_link6_visual.ply",
+      "geometry_type": "mesh",
+      "link_to_world": [
+        [
+          -0.6177867122236657,
+          -0.16739691642460344,
+          0.7683214500268803,
+          0.33508735447021476
+        ],
+        [
+          0.7691992266812516,
+          0.07428284307830568,
+          0.6346767751361067,
+          1.267782515493893
+        ],
+        [
+          -0.16331603679013867,
+          0.9830871434393487,
+          0.08287062526265809,
+          1.1207367485387767
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "visual_pose_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "scale_xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "final_transform": [
+        [
+          -0.6177867122236657,
+          -0.16739691642460344,
+          0.7683214500268803,
+          0.33508735447021476
+        ],
+        [
+          0.7691992266812516,
+          0.07428284307830568,
+          0.6346767751361067,
+          1.267782515493893
+        ],
+        [
+          -0.16331603679013867,
+          0.9830871434393487,
+          0.08287062526265809,
+          1.1207367485387767
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "export_success": true,
+      "mesh_vertex_count": 11818,
+      "mesh_face_count": 21620,
+      "bounds_min": [
+        0.23239776492118835,
+        1.221412181854248,
+        1.047969102859497
+      ],
+      "bounds_max": [
+        0.3904026746749878,
+        1.3807262182235718,
+        1.1913028955459595
+      ]
+    },
+    {
+      "id": "Panda__panda_link7__panda_link7_visual",
+      "model_name": "Panda",
+      "link_name": "panda_link7",
+      "visual_name": "panda_link7_visual",
+      "source_sample_index": 25570,
+      "frame_id": 1,
+      "source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Panda/meshes/visual/link7.dae",
+      "cached_source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/converted_mesh_cache/link7__aee05cae4af6.ply",
+      "exported_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_001/raw_visual_meshes/Panda__panda_link7__panda_link7_visual.ply",
+      "geometry_type": "mesh",
+      "link_to_world": [
+        [
+          0.00016197515753201843,
+          0.9858895709639931,
+          0.1673969164246518,
+          0.2807221237945258
+        ],
+        [
+          0.9971595083256295,
+          0.012448862598390882,
+          -0.07428284307829651,
+          1.3354720474418493
+        ],
+        [
+          -0.07531858150441224,
+          0.16693345885244185,
+          -0.9830871434393408,
+          1.1063649373012368
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "visual_pose_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "scale_xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "final_transform": [
+        [
+          0.00016197515753201843,
+          0.9858895709639931,
+          0.1673969164246518,
+          0.2807221237945258
+        ],
+        [
+          0.9971595083256295,
+          0.012448862598390882,
+          -0.07428284307829651,
+          1.3354720474418493
+        ],
+        [
+          -0.07531858150441224,
+          0.16693345885244185,
+          -0.9830871434393408,
+          1.1063649373012368
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "export_success": true,
+      "mesh_vertex_count": 6369,
+      "mesh_face_count": 12082,
+      "bounds_min": [
+        0.24607792496681213,
+        1.284468173980713,
+        0.995787501335144
+      ],
+      "bounds_max": [
+        0.3756480813026428,
+        1.4107940196990967,
+        1.0632636547088623
+      ]
+    },
+    {
+      "id": "Panda__panda_hand__panda_hand_visual",
+      "model_name": "Panda",
+      "link_name": "panda_hand",
+      "visual_name": "panda_hand_visual",
+      "source_sample_index": 25570,
+      "frame_id": 1,
+      "source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Panda/meshes/visual/hand.dae",
+      "cached_source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/converted_mesh_cache/hand__1c6d9c8a8e0a.ply",
+      "exported_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_001/raw_visual_meshes/Panda__panda_hand__panda_hand_visual.ply",
+      "geometry_type": "mesh",
+      "link_to_world": [
+        [
+          -0.6970146673976391,
+          0.6972437348618334,
+          0.16739691642464546,
+          0.2986335938519638
+        ],
+        [
+          0.6962955751001314,
+          0.7139009254232562,
+          -0.07428284307830607,
+          1.327523783232469
+        ],
+        [
+          -0.17129806049262747,
+          0.06478150103031058,
+          -0.9830871434393418,
+          1.0011746129532373
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "visual_pose_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "scale_xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "final_transform": [
+        [
+          -0.6970146673976391,
+          0.6972437348618334,
+          0.16739691642464546,
+          0.2986335938519638
+        ],
+        [
+          0.6962955751001314,
+          0.7139009254232562,
+          -0.07428284307830607,
+          1.327523783232469
+        ],
+        [
+          -0.17129806049262747,
+          0.06478150103031058,
+          -0.9830871434393418,
+          1.0011746129532373
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "export_success": true,
+      "mesh_vertex_count": 3687,
+      "mesh_face_count": 7078,
+      "bounds_min": [
+        0.22319459915161133,
+        1.2414711713790894,
+        0.9283153414726257
+      ],
+      "bounds_max": [
+        0.3887326121330261,
+        1.409275770187378,
+        1.0238090753555298
+      ]
+    },
+    {
+      "id": "Panda__panda_leftfinger__panda_leftfinger_visual",
+      "model_name": "Panda",
+      "link_name": "panda_leftfinger",
+      "visual_name": "panda_leftfinger_visual",
+      "source_sample_index": 25570,
+      "frame_id": 1,
+      "source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Panda/meshes/visual/finger.dae",
+      "cached_source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/converted_mesh_cache/finger__21c9650fa439.ply",
+      "exported_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_001/raw_visual_meshes/Panda__panda_leftfinger__panda_leftfinger_visual.ply",
+      "geometry_type": "mesh",
+      "link_to_world": [
+        [
+          -0.697014667397849,
+          0.697243734861623,
+          0.16739691642464755,
+          0.32709699109352636
+        ],
+        [
+          0.6962955750999158,
+          0.713900925423466,
+          -0.07428284307830639,
+          1.3423195259302774
+        ],
+        [
+          -0.1712980604926487,
+          0.06478150103026016,
+          -0.9830871434393411,
+          0.9454985874156121
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "visual_pose_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "scale_xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "final_transform": [
+        [
+          -0.697014667397849,
+          0.697243734861623,
+          0.16739691642464755,
+          0.32709699109352636
+        ],
+        [
+          0.6962955750999158,
+          0.713900925423466,
+          -0.07428284307830639,
+          1.3423195259302774
+        ],
+        [
+          -0.1712980604926487,
+          0.06478150103026016,
+          -0.9830871434393411,
+          0.9454985874156121
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "export_success": true,
+      "mesh_vertex_count": 318,
+      "mesh_face_count": 624,
+      "bounds_min": [
+        0.3216564953327179,
+        1.3325387239456177,
+        0.8918594121932983
+      ],
+      "bounds_max": [
+        0.3551347851753235,
+        1.36830472946167,
+        0.9488213062286377
+      ]
+    },
+    {
+      "id": "Panda__panda_rightfinger__panda_rightfinger_visual",
+      "model_name": "Panda",
+      "link_name": "panda_rightfinger",
+      "visual_name": "panda_rightfinger_visual",
+      "source_sample_index": 25570,
+      "frame_id": 1,
+      "source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/Panda/meshes/visual/finger.dae",
+      "cached_source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/converted_mesh_cache/finger__21c9650fa439.ply",
+      "exported_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_001/raw_visual_meshes/Panda__panda_rightfinger__panda_rightfinger_visual.ply",
+      "geometry_type": "mesh",
+      "link_to_world": [
+        [
+          -0.697014667397849,
+          0.697243734861623,
+          0.16739691642464755,
+          0.28151033771313344
+        ],
+        [
+          0.6962955750999158,
+          0.713900925423466,
+          -0.07428284307830639,
+          1.2956438049334238
+        ],
+        [
+          -0.1712980604926487,
+          0.06478150103026016,
+          -0.9830871434393411,
+          0.941263093161206
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "visual_pose_matrix": [
+        [
+          -1.0,
+          -1.2246467991473532e-16,
+          0.0,
+          0.0
+        ],
+        [
+          1.2246467991473532e-16,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "scale_xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "final_transform": [
+        [
+          0.6970146673978491,
+          -0.6972437348616229,
+          0.16739691642464755,
+          0.28151033771313344
+        ],
+        [
+          -0.6962955750999157,
+          -0.7139009254234661,
+          -0.07428284307830639,
+          1.2956438049334238
+        ],
+        [
+          0.1712980604926487,
+          -0.06478150103026013,
+          -0.9830871434393411,
+          0.941263093161206
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "export_success": true,
+      "mesh_vertex_count": 318,
+      "mesh_face_count": 624,
+      "bounds_min": [
+        0.2559548020362854,
+        1.2689601182937622,
+        0.8865236639976501
+      ],
+      "bounds_max": [
+        0.29598504304885864,
+        1.301049828529358,
+        0.942726194858551
+      ]
+    },
+    {
+      "id": "ur5_rg2__base_link__base_link_visual",
+      "model_name": "ur5_rg2",
+      "link_name": "base_link",
+      "visual_name": "base_link_visual",
+      "source_sample_index": 25570,
+      "frame_id": 1,
+      "source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/ur5_rg2/meshes/visual/ur5/base.dae",
+      "cached_source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/converted_mesh_cache/base__b5d2a4bee46e.ply",
+      "exported_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_001/raw_visual_meshes/ur5_rg2__base_link__base_link_visual.ply",
+      "geometry_type": "mesh",
+      "link_to_world": [
+        [
+          0.9991942294738361,
+          0.04013591641145253,
+          0.0,
+          0.496986
+        ],
+        [
+          -0.04013591641145253,
+          0.9991942294738361,
+          0.0,
+          -0.841066
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.795
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "visual_pose_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "scale_xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "final_transform": [
+        [
+          0.9991942294738361,
+          0.04013591641145253,
+          0.0,
+          0.496986
+        ],
+        [
+          -0.04013591641145253,
+          0.9991942294738361,
+          0.0,
+          -0.841066
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.795
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "export_success": true,
+      "mesh_vertex_count": 1907,
+      "mesh_face_count": 1932,
+      "bounds_min": [
+        0.423501193523407,
+        -0.9511840343475342,
+        0.7920000553131104
+      ],
+      "bounds_max": [
+        0.5704708695411682,
+        -0.7675812244415283,
+        0.8159998059272766
+      ]
+    },
+    {
+      "id": "ur5_rg2__shoulder_link__shoulder_link_visual",
+      "model_name": "ur5_rg2",
+      "link_name": "shoulder_link",
+      "visual_name": "shoulder_link_visual",
+      "source_sample_index": 25570,
+      "frame_id": 1,
+      "source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/ur5_rg2/meshes/visual/ur5/shoulder.dae",
+      "cached_source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/converted_mesh_cache/shoulder__aa10997d3fe9.ply",
+      "exported_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_001/raw_visual_meshes/ur5_rg2__shoulder_link__shoulder_link_visual.ply",
+      "geometry_type": "mesh",
+      "link_to_world": [
+        [
+          0.6343817765728963,
+          -0.7730198972550552,
+          0.0,
+          0.496986
+        ],
+        [
+          0.7730198972550552,
+          0.6343817765728963,
+          0.0,
+          -0.841066
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.8841590000000005
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "visual_pose_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "scale_xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "final_transform": [
+        [
+          0.6343817765728963,
+          -0.7730198972550552,
+          0.0,
+          0.496986
+        ],
+        [
+          0.7730198972550552,
+          0.6343817765728963,
+          0.0,
+          -0.841066
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.8841590000000005
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "export_success": true,
+      "mesh_vertex_count": 9359,
+      "mesh_face_count": 13492,
+      "bounds_min": [
+        0.40569430589675903,
+        -0.9005614519119263,
+        0.8189588785171509
+      ],
+      "bounds_max": [
+        0.5564854741096497,
+        -0.7515072822570801,
+        0.9526697993278503
+      ]
+    },
+    {
+      "id": "ur5_rg2__upper_arm_link__upper_arm_link_visual",
+      "model_name": "ur5_rg2",
+      "link_name": "upper_arm_link",
+      "visual_name": "upper_arm_link_visual",
+      "source_sample_index": 25570,
+      "frame_id": 1,
+      "source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/ur5_rg2/meshes/visual/ur5/upperarm.dae",
+      "cached_source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/converted_mesh_cache/upperarm__1713e9807815.ply",
+      "exported_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_001/raw_visual_meshes/ur5_rg2__upper_arm_link__upper_arm_link_visual.ply",
+      "geometry_type": "mesh",
+      "link_to_world": [
+        [
+          0.6094637972069797,
+          -0.7730198972550552,
+          -0.1760514650374533,
+          0.3919712469579007
+        ],
+        [
+          0.7426563298251969,
+          0.6343817765728963,
+          -0.21452584301846817,
+          -0.7548852356525723
+        ],
+        [
+          0.27751658628741105,
+          5.551115123125783e-17,
+          0.960720846206317,
+          0.8841590000000005
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "visual_pose_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "scale_xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "final_transform": [
+        [
+          0.6094637972069797,
+          -0.7730198972550552,
+          -0.1760514650374533,
+          0.3919712469579007
+        ],
+        [
+          0.7426563298251969,
+          0.6343817765728963,
+          -0.21452584301846817,
+          -0.7548852356525723
+        ],
+        [
+          0.27751658628741105,
+          5.551115123125783e-17,
+          0.960720846206317,
+          0.8841590000000005
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "export_success": true,
+      "mesh_vertex_count": 17800,
+      "mesh_face_count": 29436,
+      "bounds_min": [
+        0.23918592929840088,
+        -0.9321767687797546,
+        0.8246601223945618
+      ],
+      "bounds_max": [
+        0.4791015088558197,
+        -0.6775112152099609,
+        1.3519642353057861
+      ]
+    },
+    {
+      "id": "ur5_rg2__forearm_link__forearm_link_visual",
+      "model_name": "ur5_rg2",
+      "link_name": "forearm_link",
+      "visual_name": "forearm_link_visual",
+      "source_sample_index": 25570,
+      "frame_id": 1,
+      "source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/ur5_rg2/meshes/visual/ur5/forearm.dae",
+      "cached_source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/converted_mesh_cache/forearm__9335b8036ae7.ply",
+      "exported_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_001/raw_visual_meshes/ur5_rg2__forearm_link__forearm_link_visual.ply",
+      "geometry_type": "mesh",
+      "link_to_world": [
+        [
+          -0.26578712711507463,
+          -0.773018551290571,
+          -0.5760204184059295,
+          0.4096796843138903
+        ],
+        [
+          -0.32387098173043294,
+          0.6343834166816052,
+          -0.7019011809594985,
+          -0.9219940323542266
+        ],
+        [
+          0.9080004351611737,
+          -1.1102230246251565e-16,
+          -0.41896922291156335,
+          1.2924653596377
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "visual_pose_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "scale_xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "final_transform": [
+        [
+          -0.26578712711507463,
+          -0.773018551290571,
+          -0.5760204184059295,
+          0.4096796843138903
+        ],
+        [
+          -0.32387098173043294,
+          0.6343834166816052,
+          -0.7019011809594985,
+          -0.9219940323542266
+        ],
+        [
+          0.9080004351611737,
+          -1.1102230246251565e-16,
+          -0.41896922291156335,
+          1.2924653596377
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "export_success": true,
+      "mesh_vertex_count": 13157,
+      "mesh_face_count": 21028,
+      "bounds_min": [
+        0.12321266531944275,
+        -1.2556040287017822,
+        1.089308261871338
+      ],
+      "bounds_max": [
+        0.43835946917533875,
+        -0.8426203727722168,
+        1.3504196405410767
+      ]
+    },
+    {
+      "id": "ur5_rg2__wrist_1_link__wrist_1_link_visual",
+      "model_name": "ur5_rg2",
+      "link_name": "wrist_1_link",
+      "visual_name": "wrist_1_link_visual",
+      "source_sample_index": 25570,
+      "frame_id": 1,
+      "source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/ur5_rg2/meshes/visual/ur5/wrist1.dae",
+      "cached_source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/converted_mesh_cache/wrist1__a915c88864db.ply",
+      "exported_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_001/raw_visual_meshes/ur5_rg2__wrist_1_link__wrist_1_link_visual.ply",
+      "geometry_type": "mesh",
+      "link_to_world": [
+        [
+          -0.17886915047672514,
+          -0.773018551290676,
+          -0.6086445155985553,
+          0.18373563285861771
+        ],
+        [
+          -0.2179583638793896,
+          0.6343834166814774,
+          -0.7416547931851818,
+          -1.1973148221730692
+        ],
+        [
+          0.9594269011356492,
+          2.7755575615628914e-16,
+          -0.2819574815060699,
+          1.128124826580549
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "visual_pose_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "scale_xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "final_transform": [
+        [
+          -0.17886915047672514,
+          -0.773018551290676,
+          -0.6086445155985553,
+          0.18373563285861771
+        ],
+        [
+          -0.2179583638793896,
+          0.6343834166814774,
+          -0.7416547931851818,
+          -1.1973148221730692
+        ],
+        [
+          0.9594269011356492,
+          2.7755575615628914e-16,
+          -0.2819574815060699,
+          1.128124826580549
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "export_success": true,
+      "mesh_vertex_count": 8086,
+      "mesh_face_count": 14074,
+      "bounds_min": [
+        0.05326730012893677,
+        -1.1986314058303833,
+        1.0788496732711792
+      ],
+      "bounds_max": [
+        0.1726660281419754,
+        -1.0776678323745728,
+        1.1771053075790405
+      ]
+    },
+    {
+      "id": "ur5_rg2__wrist_2_link__wrist_2_link_visual",
+      "model_name": "ur5_rg2",
+      "link_name": "wrist_2_link",
+      "visual_name": "wrist_2_link_visual",
+      "source_sample_index": 25570,
+      "frame_id": 1,
+      "source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/ur5_rg2/meshes/visual/ur5/wrist2.dae",
+      "cached_source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/converted_mesh_cache/wrist2__284d2220e638.ply",
+      "exported_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_001/raw_visual_meshes/ur5_rg2__wrist_2_link__wrist_2_link_visual.ply",
+      "geometry_type": "mesh",
+      "link_to_world": [
+        [
+          -0.7824003563624982,
+          0.13191646345076408,
+          -0.6086441727598153,
+          0.11184510741432936
+        ],
+        [
+          0.6200810364692128,
+          0.2558286450487768,
+          -0.7416543754227938,
+          -1.138316920926337
+        ],
+        [
+          0.05787219172541702,
+          -0.9576793571144522,
+          -0.28195932043780103,
+          1.1281241439220953
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "visual_pose_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "scale_xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "final_transform": [
+        [
+          -0.7824003563624982,
+          0.13191646345076408,
+          -0.6086441727598153,
+          0.11184510741432936
+        ],
+        [
+          0.6200810364692128,
+          0.2558286450487768,
+          -0.7416543754227938,
+          -1.138316920926337
+        ],
+        [
+          0.05787219172541702,
+          -0.9576793571144522,
+          -0.28195932043780103,
+          1.1281241439220953
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "export_success": true,
+      "mesh_vertex_count": 8082,
+      "mesh_face_count": 14074,
+      "bounds_min": [
+        0.011501707136631012,
+        -1.2556726932525635,
+        1.0451819896697998
+      ],
+      "bounds_max": [
+        0.11164223402738571,
+        -1.1496514081954956,
+        1.1650151014328003
+      ]
+    },
+    {
+      "id": "ur5_rg2__wrist_3_link__wrist_3_link_visual",
+      "model_name": "ur5_rg2",
+      "link_name": "wrist_3_link",
+      "visual_name": "wrist_3_link_visual",
+      "source_sample_index": 25570,
+      "frame_id": 1,
+      "source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/ur5_rg2/meshes/visual/ur5/wrist3.dae",
+      "cached_source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/converted_mesh_cache/wrist3__31cf6c3158de.ply",
+      "exported_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_001/raw_visual_meshes/ur5_rg2__wrist_3_link__wrist_3_link_visual.ply",
+      "geometry_type": "mesh",
+      "link_to_world": [
+        [
+          -0.7792835851899141,
+          0.13191646345076408,
+          -0.6126296928195675,
+          0.05423632781844069
+        ],
+        [
+          0.623858436064237,
+          0.25582864504877656,
+          -0.7384797601315771,
+          -1.20851524921448
+        ],
+        [
+          0.059310585944152006,
+          -0.9576793571144522,
+          -0.28166026228740737,
+          1.1014364122833369
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "visual_pose_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "scale_xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "final_transform": [
+        [
+          -0.7792835851899141,
+          0.13191646345076408,
+          -0.6126296928195675,
+          0.05423632781844069
+        ],
+        [
+          0.623858436064237,
+          0.25582864504877656,
+          -0.7384797601315771,
+          -1.20851524921448
+        ],
+        [
+          0.059310585944152006,
+          -0.9576793571144522,
+          -0.28166026228740737,
+          1.1014364122833369
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "export_success": true,
+      "mesh_vertex_count": 1669,
+      "mesh_face_count": 1658,
+      "bounds_min": [
+        0.023371482267975807,
+        -1.2326499223709106,
+        1.0140209197998047
+      ],
+      "bounds_max": [
+        0.1012146845459938,
+        -1.1531312465667725,
+        1.0669018030166626
+      ]
+    },
+    {
+      "id": "ur5_rg2__rg2_hand__rg2_hand_visual",
+      "model_name": "ur5_rg2",
+      "link_name": "rg2_hand",
+      "visual_name": "rg2_hand_visual",
+      "source_sample_index": 25570,
+      "frame_id": 1,
+      "source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/ur5_rg2/meshes/visual/rg2/hand.dae",
+      "cached_source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/converted_mesh_cache/hand__ac07ba59f6df.ply",
+      "exported_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_001/raw_visual_meshes/ur5_rg2__rg2_hand__rg2_hand_visual.ply",
+      "geometry_type": "mesh",
+      "link_to_world": [
+        [
+          0.1319197923625843,
+          -0.6126325205892252,
+          -0.7792807986210782,
+          0.06509311447429433
+        ],
+        [
+          0.2558262189806613,
+          -0.7384774260715967,
+          0.6238621938094412,
+          -1.187460534373805
+        ],
+        [
+          -0.9576795466465136,
+          -0.2816602313056684,
+          0.05930767265511261,
+          1.0226193174911677
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "visual_pose_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "scale_xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "final_transform": [
+        [
+          0.1319197923625843,
+          -0.6126325205892252,
+          -0.7792807986210782,
+          0.06509311447429433
+        ],
+        [
+          0.2558262189806613,
+          -0.7384774260715967,
+          0.6238621938094412,
+          -1.187460534373805
+        ],
+        [
+          -0.9576795466465136,
+          -0.2816602313056684,
+          0.05930767265511261,
+          1.0226193174911677
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "export_success": true,
+      "mesh_vertex_count": 3006,
+      "mesh_face_count": 5997,
+      "bounds_min": [
+        0.03486798331141472,
+        -1.2168382406234741,
+        0.8968669176101685
+      ],
+      "bounds_max": [
+        0.11033578217029572,
+        -1.127506136894226,
+        1.030389428138733
+      ]
+    },
+    {
+      "id": "ur5_rg2__rg2_leftfinger__rg2_leftfinger_visual",
+      "model_name": "ur5_rg2",
+      "link_name": "rg2_leftfinger",
+      "visual_name": "rg2_leftfinger_visual",
+      "source_sample_index": 25570,
+      "frame_id": 1,
+      "source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/ur5_rg2/meshes/visual/rg2/finger.dae",
+      "cached_source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/converted_mesh_cache/finger__e708985cf0ea.ply",
+      "exported_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_001/raw_visual_meshes/ur5_rg2__rg2_leftfinger__rg2_leftfinger_visual.ply",
+      "geometry_type": "mesh",
+      "link_to_world": [
+        [
+          -0.46586676829627843,
+          -0.41915348452689544,
+          -0.7792807649404315,
+          0.06852976029481482
+        ],
+        [
+          -0.513413938694163,
+          -0.5892384958174886,
+          0.6238622625237805,
+          -1.1731526933105059
+        ],
+        [
+          -0.7206762669546767,
+          0.6907303029806249,
+          0.05930739239391691,
+          0.9172747056963786
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "visual_pose_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "scale_xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "final_transform": [
+        [
+          -0.46586676829627843,
+          -0.41915348452689544,
+          -0.7792807649404315,
+          0.06852976029481482
+        ],
+        [
+          -0.513413938694163,
+          -0.5892384958174886,
+          0.6238622625237805,
+          -1.1731526933105059
+        ],
+        [
+          -0.7206762669546767,
+          0.6907303029806249,
+          0.05930739239391691,
+          0.9172747056963786
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "export_success": true,
+      "mesh_vertex_count": 1633,
+      "mesh_face_count": 3266,
+      "bounds_min": [
+        0.01821126416325569,
+        -1.2263327836990356,
+        0.8284463882446289
+      ],
+      "bounds_max": [
+        0.08524876087903976,
+        -1.1559967994689941,
+        0.9326459169387817
+      ]
+    },
+    {
+      "id": "ur5_rg2__rg2_rightfinger__rg2_rightfinger_visual",
+      "model_name": "ur5_rg2",
+      "link_name": "rg2_rightfinger",
+      "visual_name": "rg2_rightfinger_visual",
+      "source_sample_index": 25570,
+      "frame_id": 1,
+      "source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/models/robots/ur5_rg2/meshes/visual/rg2/finger.dae",
+      "cached_source_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/converted_mesh_cache/finger__e708985cf0ea.ply",
+      "exported_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_001/raw_visual_meshes/ur5_rg2__rg2_rightfinger__rg2_rightfinger_visual.ply",
+      "geometry_type": "mesh",
+      "link_to_world": [
+        [
+          0.5599558914958215,
+          -0.2813731267900578,
+          -0.7792807986210787,
+          0.08935970876046187
+        ],
+        [
+          0.735681473480368,
+          -0.26375885333582044,
+          0.6238621938094409,
+          -1.1480436469505997
+        ],
+        [
+          -0.38108026602918527,
+          -0.9226377570896174,
+          0.05930767265511294,
+          0.9268514972767722
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "visual_pose_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          -1.2246467991473532e-16,
+          0.0
+        ],
+        [
+          -0.0,
+          1.2246467991473532e-16,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "scale_xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "final_transform": [
+        [
+          0.5599558914958215,
+          0.2813731267900577,
+          0.7792807986210787,
+          0.08935970876046187
+        ],
+        [
+          0.735681473480368,
+          0.2637588533358205,
+          -0.6238621938094409,
+          -1.1480436469505997
+        ],
+        [
+          -0.38108026602918527,
+          0.9226377570896174,
+          -0.05930767265511283,
+          0.9268514972767722
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "export_success": true,
+      "mesh_vertex_count": 1633,
+      "mesh_face_count": 3266,
+      "bounds_min": [
+        0.0723801776766777,
+        -1.1658412218093872,
+        0.8706717491149902
+      ],
+      "bounds_max": [
+        0.15038952231407166,
+        -1.0695886611938477,
+        0.9422280192375183
+      ]
+    }
+  ],
+  "validation": {
+    "frame_id": 1,
+    "source_sample_index": 25570,
+    "expected_renderable_visuals": 21,
+    "exported_renderable_visuals": 21,
+    "failed_exports": 0,
+    "actual_ply_file_count": 21,
+    "warnings": []
+  }
+}

@@ -1,0 +1,4 @@
+frame_id,source_sample_index,xml_path,num_paths,tau_min,tau_max,sanity_ok,error_message
+0,0,/home/telilab4090/Documents/Gazebo World/my_world/rt_out/composed_scene/frame_000/frame_000_sionna.xml,17,9.627239450082925e-09,6.429269205909804e-08,True,
+1,25570,/home/telilab4090/Documents/Gazebo World/my_world/rt_out/composed_scene/frame_001/frame_001_sionna.xml,15,9.627239450082925e-09,5.5222738382099124e-08,True,
+2,51140,/home/telilab4090/Documents/Gazebo World/my_world/rt_out/composed_scene/frame_002/frame_002_sionna.xml,17,9.627239450082925e-09,6.429269205909804e-08,True,
