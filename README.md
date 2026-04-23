@@ -34,4 +34,4 @@ Start here depending on what you need:
 - **Step-by-step execution guide:** `docs/step_by_step_guide.md`
 - **Configs and world-specific parts:** `docs/configs_and_world_specific_parts.md`
 - **Script-by-script reference:** `docs/script_reference.md`
-- **Miscellaneous and historical notes:** `docs/misc_and_legacy.md` :contentReference[oaicite:9]{index=9} :contentReference[oaicite:10]{index=10} :contentReference[oaicite:11]{index=11}
+- **Miscellaneous and historical notes:** `docs/misc_and_legacy.md`
