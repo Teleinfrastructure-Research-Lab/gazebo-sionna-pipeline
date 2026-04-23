@@ -1,8 +1,8 @@
 # Gazebo to Sionna Pipeline
 
-Gazebo-to-Sionna RT pipeline for synthetic wireless and 3D-scene research. This repository converts a Gazebo-defined robotic lab world into ray-tracing-ready scene representations for Mitsuba and Sionna RT. It extracts static and dynamic scene manifests, prepares geometry for radio simulation, builds static and frame-specific XML scenes, and runs sanity evaluations for a prototype Panda/UR5 environment. :contentReference[oaicite:0]{index=0} :contentReference[oaicite:1]{index=1}
+Gazebo-to-Sionna RT pipeline for synthetic wireless and 3D-scene research. This repository converts a Gazebo-defined robotic lab world into ray-tracing-ready scene representations for Mitsuba and Sionna RT. It extracts static and dynamic scene manifests, prepares geometry for radio simulation, builds static and frame-specific XML scenes, and runs sanity evaluations for a prototype Panda/UR5 environment.
 
-The project is organized around two connected sides. The **Gazebo side** contains the world files, model assets, plugins, and motion/logging helpers used to define and simulate the scene. The **RT side** lives under `rt_out/` and contains the preprocessing, mesh preparation, manifest generation, XML export, and evaluation pipeline used to translate that scene into Mitsuba/Sionna inputs. :contentReference[oaicite:2]{index=2} :contentReference[oaicite:3]{index=3}
+The project is organized around two connected sides. The **Gazebo side** contains the world files, model assets, plugins, and motion/logging helpers used to define and simulate the scene. The **RT side** lives under `rt_out/` and contains the preprocessing, mesh preparation, manifest generation, XML export, and evaluation pipeline used to translate that scene into Mitsuba/Sionna inputs.
 
 The current validated pipeline supports:
 - rigid non-actor Gazebo scene content
@@ -10,7 +10,7 @@ The current validated pipeline supports:
 - dynamic prototype motion for **Panda** and **ur5_rg2**
 - exactly **3 prototype frames**
 - an explicit **28 GHz** RT baseline
-- single-RX and 3-frame × 3-RX sanity evaluation flows :contentReference[oaicite:4]{index=4}
+- single-RX and 3-frame × 3-RX sanity evaluation flows 
 
 At a high level, the workflow is:
 1. create or update the Gazebo world and models
@@ -21,9 +21,9 @@ At a high level, the workflow is:
 6. generate Mitsuba and Sionna XML scenes
 7. build dynamic prototype frames and per-frame transformed meshes
 8. compose static + dynamic frame scenes
-9. run RT sanity checks and export CSV summaries :contentReference[oaicite:5]{index=5}
+9. run RT sanity checks and export CSV summaries 
 
-This repository is currently best understood as a **validated prototype pipeline**, not yet a fully generalized Gazebo-to-RT system. The active flow is still scoped to the current lab world, the configured Panda/UR5 dynamic prototype, prepared static converted meshes, and selected frame/sample definitions. Gazebo actors are present in the world files but are not yet integrated into the active RT path. :contentReference[oaicite:6]{index=6} :contentReference[oaicite:7]{index=7} :contentReference[oaicite:8]{index=8}
+This repository is currently best understood as a **validated prototype pipeline**, not yet a fully generalized Gazebo-to-RT system. The active flow is still scoped to the current lab world, the configured Panda/UR5 dynamic prototype, prepared static converted meshes, and selected frame/sample definitions. Gazebo actors are present in the world files but are not yet integrated into the active RT path.
 
 ## Repository guide
 
