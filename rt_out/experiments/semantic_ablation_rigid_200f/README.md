@@ -1,6 +1,6 @@
 # semantic_ablation_rigid_200f
 
-This experiment uses oracle simulator object annotations, not predicted 3D segmentation.
+This experiment uses simulated object annotations, not predicted 3D segmentation.
 
 Dynamic scope: Panda + ur5_rg2 rigid motion.
 
