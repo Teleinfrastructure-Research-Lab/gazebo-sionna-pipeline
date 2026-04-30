@@ -23,6 +23,7 @@ Actors exist in the world files, but they are **not** part of the active RT pipe
 - Configs and world-specific parts: [`docs/configs_and_world_specific_parts.md`](./docs/configs_and_world_specific_parts.md)
 - Step-by-step runbook: [`docs/step_by_step_guide.md`](./docs/step_by_step_guide.md)
 - Script reference: [`docs/script_reference.md`](./docs/script_reference.md)
+- Semantic ablation 200f guide: [`docs/semantic_ablation_200f_pipeline.md`](./docs/semantic_ablation_200f_pipeline.md)
 - Misc/tooling/history notes: [`docs/misc_and_legacy.md`](./docs/misc_and_legacy.md)
 
 ## Repo Layout At A Glance
@@ -56,6 +57,14 @@ Dynamic prototype side:
 6. [`34_build_prototype_frame_sionna_xml.py`](./rt_out/scripts/34_build_prototype_frame_sionna_xml.py)
 7. [`35_run_prototype_three_frame_rt_sanity.py`](./rt_out/scripts/35_run_prototype_three_frame_rt_sanity.py)
 8. [`36_run_three_frame_three_rx_rt_sanity.py`](./rt_out/scripts/36_run_three_frame_three_rx_rt_sanity.py)
+
+Experiment-local extension side:
+
+1. experiment config / sampled-frame branch under [`rt_out/experiments/`](./rt_out/experiments)
+2. [`exp_sample_frames.py`](./rt_out/scripts/exp_sample_frames.py)
+3. experiment-local batch wrappers for dynamic meshes, composition, XML, and RT
+4. RT label and feature-table builders
+5. [`exp_run_semantic_ablation.py`](./rt_out/scripts/exp_run_semantic_ablation.py) for raw/compact/wide classical baselines
 
 ## Output Branch Note
 
@@ -110,6 +119,10 @@ python3 rt_out/scripts/36_run_three_frame_three_rx_rt_sanity.py
 `35` and `36` call the frame composition / frame XML stages internally, so you do not need to run `32` / `33` / `34` separately for the standard sanity path.
 
 The RT sanity steps expect the Sionna/Mitsuba environment used by the project today, typically through `COLLABPAPER_PYTHON` or the standard `collabpaper` conda environment.
+
+For the larger experiment-local branch `semantic_ablation_rigid_200f`, use the
+dedicated guide instead of extending the 3-frame commands by hand:
+[`docs/semantic_ablation_200f_pipeline.md`](./docs/semantic_ablation_200f_pipeline.md).
 
 ## Blender Inspection Note
 

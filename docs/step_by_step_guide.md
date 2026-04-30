@@ -15,6 +15,10 @@ If you are adapting the repo to a different world or prototype, also check [`doc
 
 For detailed per-script notes, see [`docs/script_reference.md`](./script_reference.md).
 
+This guide covers the **validated 00-36 core pipeline**. For the larger
+experiment-local branch `semantic_ablation_rigid_200f`, use the dedicated guide:
+[`docs/semantic_ablation_200f_pipeline.md`](./semantic_ablation_200f_pipeline.md).
+
 ## 1. Before You Run Anything
 
 ### Where to run from
@@ -47,6 +51,7 @@ export BLENDER="${BLENDER:-blender}"
 - The shelf orientation correction is already integrated into the normal static merge path.
 - Older notes may still mention `_fixed` artifacts, but current reruns should normally use the unsuffixed outputs.
 - The current static side assumes the needed converted static meshes already exist under [`rt_out/static_scene/converted_meshes/`](../rt_out/static_scene/converted_meshes). If you add new static assets in formats such as `DAE`, `GLB`, or `STL`, you may need to refresh those converted meshes with the Blender helpers before the static merge is fully ready.
+- Heavy generated outputs such as experiment-local dynamic meshes, per-frame XMLs, RT CSVs, feature tables, and result tables should stay ignored rather than being committed by default.
 
 ## 2. Scene / World Editing Side
 
@@ -562,3 +567,20 @@ bash rt_out/scripts/run_all.sh
 - Dynamic support is still prototype-scoped to the configured Panda/UR5 workflow.
 - The pipeline is validated for the current rigid non-actor workflow, but it is **not yet** a fully general Gazebo scene pipeline.
 - The static side still relies on prepared converted meshes under [`rt_out/static_scene/converted_meshes/`](../rt_out/static_scene/converted_meshes) for some asset formats.
+
+## 11. Experiment-local extension
+
+The repository also contains a larger experiment-local branch,
+`semantic_ablation_rigid_200f`, which reuses the validated 00-36 flow and then
+adds:
+
+- sampled-frame wrappers
+- experiment-local batch RT over 6 RX sites
+- RT-derived labels
+- object-aware feature tables
+- raw occupancy baselines
+- compact/raw/wide classical ablation runs
+
+Use [`docs/semantic_ablation_200f_pipeline.md`](./semantic_ablation_200f_pipeline.md)
+for that branch rather than mixing its commands into the 3-frame sanity flow by
+hand.

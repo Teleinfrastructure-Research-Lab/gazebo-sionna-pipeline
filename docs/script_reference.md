@@ -5,6 +5,7 @@ This file documents the current script set as it exists in the repository today.
 Status labels used here:
 
 - **active**: part of the current validated pipeline
+- **experiment**: experiment-local wrappers layered on top of the validated pipeline
 - **helper**: directly supports the pipeline, including operational/data-generation helpers
 - **misc**: useful project tooling, launch helpers, or experiments, but not part of the main RT chain
 - **legacy/historical**: kept for reference or history, not part of the active path
@@ -28,6 +29,20 @@ Status labels used here:
 | `34_build_prototype_frame_sionna_xml.py` | active | Frame Sionna XML |
 | `35_run_prototype_three_frame_rt_sanity.py` | active | 3-frame single-RX sanity |
 | `36_run_three_frame_three_rx_rt_sanity.py` | active | 3-frame x 3-RX sanity |
+
+## Experiment-Local Scripts Overview
+
+| Script | Status | Stage |
+| --- | --- | --- |
+| `exp_sample_frames.py` | experiment | sampled-frame selection |
+| `exp_export_dynamic_meshes_batch.py` | experiment | batch dynamic mesh export |
+| `exp_compose_frame_manifests_batch.py` | experiment | batch static+dynamic composition |
+| `exp_build_sionna_xml_batch.py` | experiment | batch frame XML generation |
+| `exp_run_rt_multi_rx_batch.py` | experiment | batch multi-RX RT evaluation |
+| `exp_build_rt_labels.py` | experiment | frame-to-frame label generation |
+| `exp_build_object_features.py` | experiment | object-aware feature table build |
+| `exp_build_raw_occupancy_features.py` | experiment | raw occupancy baseline build |
+| `exp_run_semantic_ablation.py` | experiment | classical-model ablation evaluation |
 
 ## Helper / Support Scripts Overview
 
@@ -55,6 +70,8 @@ Status labels used here:
 | `run_myworld_rt.sh` | misc | Launch Gazebo on `myworld_rt.sdf` |
 | `rt_out/scripts/sionna_test.py` | misc | Exploratory multi-RX static RT test script |
 | `scripts/generate_wall_uv_meshes.py` | misc | World/asset authoring helper for UV-aware wall meshes |
+| `rt_out/scripts/actor_spike_export_actor_walking.py` | misc | Offline actor-mesh export spike |
+| `rt_out/scripts/actor_spike_blender_sample_actor.py` | misc | Blender actor sampling helper |
 
 ---
 
@@ -454,6 +471,103 @@ For Blender-based visual inspection:
 - **Notes / gotchas:**
   - This script now targets the unsuffixed main branch by default
   - Uses the approved TX/RX site config from [`prototype_radio_sites.json`](../rt_out/config/prototype_radio_sites.json)
+
+---
+
+## Experiment-Local Scripts
+
+These scripts are not part of the minimal validated 3-frame sanity chain, but
+they are part of the current repository and are used by the
+`semantic_ablation_rigid_200f` branch documented in
+[`docs/semantic_ablation_200f_pipeline.md`](./semantic_ablation_200f_pipeline.md).
+
+### `exp_sample_frames.py`
+
+- **Location:** [`rt_out/scripts/exp_sample_frames.py`](../rt_out/scripts/exp_sample_frames.py)
+- **Status:** experiment
+- **Purpose:** finds the common valid Panda/UR5 pose-sample range and builds a monotonic sampled-frame list for an experiment branch
+- **Inputs:** experiment config, pose logs, dynamic prototype config
+- **Outputs:** `rt_out/experiments/<experiment_name>/frames/sampled_frames.json`
+- **Important CLI arguments:** `--config`
+- **Notes:** uses source-sample index rather than timestamps because pose logs can contain duplicate timestamps
+
+### `exp_export_dynamic_meshes_batch.py`
+
+- **Location:** [`rt_out/scripts/exp_export_dynamic_meshes_batch.py`](../rt_out/scripts/exp_export_dynamic_meshes_batch.py)
+- **Status:** experiment
+- **Purpose:** loops over sampled frames and reuses `32_export_dynamic_frame_meshes.py` unchanged
+- **Inputs:** experiment config, `dynamic_visual_frames.json`, Blender
+- **Outputs:** `frames/dynamic_meshes/` plus `dynamic_mesh_index.csv`
+- **Important CLI arguments:** `--config`, `--no-progress`, `--progress-every`
+- **Notes:** fail-fast by default; designed to keep heavy mesh generation out of Git
+
+### `exp_compose_frame_manifests_batch.py`
+
+- **Location:** [`rt_out/scripts/exp_compose_frame_manifests_batch.py`](../rt_out/scripts/exp_compose_frame_manifests_batch.py)
+- **Status:** experiment
+- **Purpose:** batch wrapper around `33_compose_prototype_frame_scene.py`
+- **Inputs:** experiment config, `dynamic_mesh_index.csv`, frozen static merged manifest
+- **Outputs:** `frames/composed_manifests/` plus `composed_manifest_index.csv`
+- **Important CLI arguments:** `--config`, `--no-progress`, `--progress-every`
+
+### `exp_build_sionna_xml_batch.py`
+
+- **Location:** [`rt_out/scripts/exp_build_sionna_xml_batch.py`](../rt_out/scripts/exp_build_sionna_xml_batch.py)
+- **Status:** experiment
+- **Purpose:** batch wrapper around `34_build_prototype_frame_sionna_xml.py`
+- **Inputs:** experiment config, `composed_manifest_index.csv`
+- **Outputs:** `sionna_xml/` plus `sionna_xml_index.csv`
+- **Important CLI arguments:** `--config`, `--no-progress`, `--progress-every`
+
+### `exp_run_rt_multi_rx_batch.py`
+
+- **Location:** [`rt_out/scripts/exp_run_rt_multi_rx_batch.py`](../rt_out/scripts/exp_run_rt_multi_rx_batch.py)
+- **Status:** experiment
+- **Purpose:** runs one RT solve per XML/RX pair by calling `24_run_sionna_rt_sanity.py`, then adds helper-derived path/delay/gain summaries
+- **Inputs:** experiment config, `sionna_xml_index.csv`
+- **Outputs:** `rt_results/rt_100frames_multi_rx.csv`
+- **Important CLI arguments:** `--config`, `--continue-on-error`, `--max-frames`, `--max-rows`, `--no-progress`, `--progress-every`
+- **Notes:** keeps the historical `rt_100frames_multi_rx.csv` filename even for 200-frame experiments; uses `--tx=<...>` / `--rx=<...>` argument passing for negative coordinates
+
+### `exp_build_rt_labels.py`
+
+- **Location:** [`rt_out/scripts/exp_build_rt_labels.py`](../rt_out/scripts/exp_build_rt_labels.py)
+- **Status:** experiment
+- **Purpose:** converts per-frame RT rows into per-RX frame-to-frame labels such as `y_path_change` and `y_adaptation_trigger_1db`
+- **Inputs:** experiment config, `rt_100frames_multi_rx.csv`
+- **Outputs:** `rt_100frames_multi_rx_labeled.csv`, `rt_label_summary.csv`
+- **Important CLI arguments:** `--config`, `--eta-tau`, `--allow-failed`
+- **Notes:** `rx_power_dbm` is derived from `tx_power_dbm + path_gain_db`; the resulting RT columns are targets/metadata for later learning, not proactive input features
+
+### `exp_build_object_features.py`
+
+- **Location:** [`rt_out/scripts/exp_build_object_features.py`](../rt_out/scripts/exp_build_object_features.py)
+- **Status:** experiment
+- **Purpose:** joins labeled RT rows with object-aware geometry/material/semantic descriptors
+- **Inputs:** experiment config, composed-manifest index, labeled RT CSV
+- **Outputs:** `features/object_features_rt_labels.csv`
+- **Important CLI arguments:** `--config`
+- **Notes:** intended to approximate descriptors from object masks/instances rather than raw occupancy alone
+
+### `exp_build_raw_occupancy_features.py`
+
+- **Location:** [`rt_out/scripts/exp_build_raw_occupancy_features.py`](../rt_out/scripts/exp_build_raw_occupancy_features.py)
+- **Status:** experiment
+- **Purpose:** builds a class-agnostic raw-geometry baseline from sampled mesh vertices
+- **Inputs:** experiment config, `object_features_rt_labels.csv`, composed manifests and referenced meshes
+- **Outputs:** `features/raw_occupancy_features_rt_labels.csv`
+- **Important CLI arguments:** `--config`
+- **Notes:** uses no semantic/material/object identity as model inputs; approximates raw 3D / occupancy-style wireless baselines
+
+### `exp_run_semantic_ablation.py`
+
+- **Location:** [`rt_out/scripts/exp_run_semantic_ablation.py`](../rt_out/scripts/exp_run_semantic_ablation.py)
+- **Status:** experiment
+- **Purpose:** evaluates grouped frame-level classical baselines on `wide`, `compact`, or `raw` feature tables
+- **Inputs:** experiment config, feature table chosen by `--feature-mode`
+- **Outputs:** experiment-local result CSVs under `features/`
+- **Important CLI arguments:** `--config`, `--target`, `--rx-filter`, `--feature-mode`, `--models`
+- **Notes:** supports `logistic`, `rf`, `svm`, optional `mlp`; uses grouped splits by `frame_id`; this is a feasibility classifier, not a beamforming/resource-allocation implementation
 
 ---
 

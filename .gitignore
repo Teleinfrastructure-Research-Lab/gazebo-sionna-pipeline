@@ -5,9 +5,26 @@ env/
 trash/
 rt_out/temp/
 
+# Experiment branches mix a few intentionally tracked source/config files with a
+# large amount of generated geometry, XML, RT, and ML output. Keep the top-level
+# ignore broad so new experiment outputs stay out of Git by default unless a
+# specific config/README is force-added intentionally.
+rt_out/experiments
+
+# Redundant explicit rules keep the heavy experiment artifacts ignored even if
+# individual subpaths are force-added later for configs or docs.
+rt_out/experiments/*/frames/dynamic_meshes/
+rt_out/experiments/*/frames/composed_manifests/
+rt_out/experiments/*/sionna_xml/frame_*_sionna.xml
+rt_out/experiments/*/rt_results/*.csv
+rt_out/experiments/*/features/*.csv
+
+docs/gazebo_rt_pipeline_step_by_step.drawio
 rt_out/poses/panda/panda_pose.log
 rt_out/poses/ur5/ur5_pose.log
+rt_out/poses/**/*.log
 models/furniture/Reflective table/materials/textures/DepotEnvMap.dds
+*.blend1
 
 .codex/
 .vscode/

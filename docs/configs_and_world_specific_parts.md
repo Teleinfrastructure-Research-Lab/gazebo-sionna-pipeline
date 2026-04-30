@@ -99,6 +99,33 @@ These are the clearest user-editable control points.
   - XML generation fails if a used material class is not mapped
   - RT sanity can run with the wrong frequency/material regime
 
+### `rt_out/experiments/<experiment_name>/configs/experiment_config.json`
+
+- **Path pattern:** `rt_out/experiments/*/configs/experiment_config.json`
+- **What it controls:**
+  - experiment name and output root
+  - number of sampled frames
+  - dynamic model list
+  - TX position
+  - RX list
+  - material and semantic groups of interest
+  - optional `tx_power_dbm`
+- **Current example:**
+  - [`rt_out/experiments/semantic_ablation_rigid_200f/configs/experiment_config.json`](../rt_out/experiments/semantic_ablation_rigid_200f/configs/experiment_config.json)
+- **When to change it:**
+  - creating a new experiment branch
+  - changing experiment-local TX/RX placements
+  - changing frame count or output root
+- **Downstream stages:**
+  - `exp_sample_frames.py`
+  - experiment-local batch wrappers
+  - RT label / feature builders
+  - semantic ablation evaluation
+- **What breaks if inconsistent:**
+  - experiment wrappers point at the wrong tree
+  - RT rows no longer match the intended RX set
+  - downstream row-count assumptions fail
+
 ### `rt_out/materials/material_map.json`
 
 - **Path:** [`rt_out/materials/material_map.json`](../rt_out/materials/material_map.json)
@@ -249,6 +276,12 @@ These are not config files, but they still encode important assumptions.
     - TX: `(-0.3, -3.8, 1.3)`
     - RX: `(2.5, -3.1, 1.3)`
   - these are effectively config-like defaults even though they live in code
+
+- [`rt_out/scripts/exp_run_rt_multi_rx_batch.py`](../rt_out/scripts/exp_run_rt_multi_rx_batch.py)
+  - keeps the historical output filename `rt_100frames_multi_rx.csv` even for
+    `semantic_ablation_rigid_200f`
+  - this is a compatibility naming wart rather than a scientific assumption,
+    but it matters for downstream scripts and docs
 
 ### Environment-discovery assumptions
 

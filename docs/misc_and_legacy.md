@@ -76,6 +76,27 @@ This file covers scripts and folders that are part of the project, but are not p
 
 ## 4. Historical / Non-Active Content
 
+### `rt_out/scripts/actor_spike_export_actor_walking.py`
+
+- **Path:** [`rt_out/scripts/actor_spike_export_actor_walking.py`](../rt_out/scripts/actor_spike_export_actor_walking.py)
+- **Status:** experimental spike
+- **Purpose:** exports offline posed actor meshes for the `actor_walking` spike
+- **Why it matters:** it demonstrates that offline posed human export works, but it is still separate from the validated rigid Panda/UR5 RT path
+
+### `rt_out/scripts/actor_spike_blender_sample_actor.py`
+
+- **Path:** [`rt_out/scripts/actor_spike_blender_sample_actor.py`](../rt_out/scripts/actor_spike_blender_sample_actor.py)
+- **Status:** experimental spike helper
+- **Purpose:** Blender-side actor sampling helper used by the actor export spike
+- **Why it matters:** it belongs to the actor-specific path, not the active rigid dynamic prototype chain
+
+### `rt_out/actor_spike/actor_walking/actor_walking_spike_report.md`
+
+- **Path:** [`rt_out/actor_spike/actor_walking/actor_walking_spike_report.md`](../rt_out/actor_spike/actor_walking/actor_walking_spike_report.md)
+- **Status:** spike report
+- **Purpose:** records the actor export experiment status and caveats
+- **Why it matters:** it is the current reference for why actor support remains separate from the validated Panda/UR5 path
+
 ### `backup world/`
 
 - **Path:** [`backup world/`](../backup%20world)

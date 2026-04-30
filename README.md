@@ -11,6 +11,8 @@ The current validated pipeline supports:
 - exactly **3 prototype frames**
 - an explicit **28 GHz** RT baseline
 - single-RX and 3-frame × 3-RX sanity evaluation flows 
+- experiment-local sampled-frame wrappers for semantic ablation branches such as
+  `semantic_ablation_rigid_200f`
 
 At a high level, the workflow is:
 1. create or update the Gazebo world and models
@@ -34,4 +36,14 @@ Start here depending on what you need:
 - **Step-by-step execution guide:** `docs/step_by_step_guide.md`
 - **Configs and world-specific parts:** `docs/configs_and_world_specific_parts.md`
 - **Script-by-script reference:** `docs/script_reference.md`
+- **Semantic ablation 200f experiment guide:** `docs/semantic_ablation_200f_pipeline.md`
 - **Miscellaneous and historical notes:** `docs/misc_and_legacy.md`
+
+## Semantic ablation branch
+
+The repository now also contains an experiment-local branch named
+`semantic_ablation_rigid_200f`. It reuses the frozen static baseline and the
+validated Panda/UR5 rigid dynamic path, then scales the workflow to 200 sampled
+frames, 6 RX locations, RT-derived supervision labels, object-aware feature
+tables, and a raw occupancy baseline. For the exact commands, naming quirks,
+and current scope limitations, see `docs/semantic_ablation_200f_pipeline.md`.

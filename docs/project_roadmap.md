@@ -16,6 +16,11 @@ The active, validated pipeline in this repository currently covers:
 - single-RX and 3-frame x 3-RX sanity evaluation
 - shelf-orientation correction integrated into the normal static merge path
 
+The repository also contains an experiment-local extension,
+`semantic_ablation_rigid_200f`, which reuses that validated core path and then
+adds sampled-frame batching, 6 RX positions, RT-derived labels, object-aware
+feature tables, and a raw occupancy baseline.
+
 Out of scope for the active pipeline:
 
 - Gazebo actors
@@ -173,6 +178,21 @@ The active scripts currently default to the unsuffixed branch as the main output
 - multi-RX summary: [`rt_out/composed_scene/three_frame_three_rx_rt_summary.csv`](../rt_out/composed_scene/three_frame_three_rx_rt_summary.csv)
 
 Important detail: the shelf-orientation correction is implemented in the merge worker code itself, so corrected geometry is part of the normal merge path now. Earlier notes or historical comparisons may still mention `_fixed` artifacts from that transition stage.
+
+### Experiment-local branch
+
+- root: [`rt_out/experiments/semantic_ablation_rigid_200f/`](../rt_out/experiments/semantic_ablation_rigid_200f)
+- guide: [`docs/semantic_ablation_200f_pipeline.md`](./semantic_ablation_200f_pipeline.md)
+- primary outputs:
+  - sampled-frame lists
+  - experiment-local dynamic mesh indexes
+  - experiment-local Sionna XML indexes
+  - multi-RX RT CSVs
+  - label tables
+  - object-aware and raw occupancy feature tables
+
+These experiment outputs are generated working artifacts and should normally
+remain ignored rather than being committed.
 
 ## 7. Important Current Constraints
 
