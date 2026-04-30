@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 
+"""Export posed dynamic robot meshes for one frame through Blender.
+
+Given a dynamic visual-frame description, this script imports the source robot
+visual meshes, applies the baked world transforms for the chosen sample, writes
+frame-local mesh assets, and emits a dynamic-frame manifest for composition.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -40,6 +47,7 @@ class DynamicGeometryExportError(RuntimeError):
 class ExportConfig:
     frame_id: int
     source_sample_index: int
+    visual_frames_path: Path
     output_root: Path
     frame_output_root: Path
     raw_mesh_dir: Path
@@ -77,18 +85,57 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         default=DEFAULT_DYNAMIC_OUTPUT_ROOT,
         help="Base directory for frame_XXX dynamic exports",
     )
+    parser.add_argument(
+        "--visual-frames-json",
+        type=Path,
+        default=None,
+        help="Optional visual-frame metadata JSON path. Defaults to the validated prototype file.",
+    )
     parser.add_argument("--blender-worker", action="store_true", help=argparse.SUPPRESS)
     return parser.parse_args(argv)
 
 
+def resolve_source_sample_from_visual_frames(path: Path, frame_id: int) -> int:
+    # When exporting experiment-local frames, recover the source sample index
+    # from the visual-frame metadata instead of assuming the 3-frame prototype map.
+    data = load_json(path)
+    if not isinstance(data, dict):
+        raise DynamicGeometryExportError("dynamic_visual_frames.json root must be an object")
+    frames = data.get("frames")
+    if not isinstance(frames, list):
+        raise DynamicGeometryExportError("dynamic_visual_frames.json must contain frames list")
+    for candidate in frames:
+        if isinstance(candidate, dict) and candidate.get("frame_id") == frame_id:
+            source_sample_index = candidate.get("source_sample_index")
+            if isinstance(source_sample_index, bool) or not isinstance(source_sample_index, int):
+                raise DynamicGeometryExportError(
+                    f"Frame {frame_id} has invalid source_sample_index={source_sample_index!r}"
+                )
+            return source_sample_index
+    raise DynamicGeometryExportError(f"Missing frame_id {frame_id} in dynamic_visual_frames.json")
+
+
 def build_config(args: argparse.Namespace) -> ExportConfig:
-    expected_source_sample_index = default_source_sample_index(args.frame_id)
+    # Centralize all derived paths for one frame export so the outer Python
+    # driver and the inner Blender worker share the same layout.
+    visual_frames_path = (
+        DYNAMIC_VISUAL_FRAMES_PATH
+        if args.visual_frames_json is None
+        else args.visual_frames_json.expanduser().resolve()
+    )
+    if args.visual_frames_json is None:
+        expected_source_sample_index = default_source_sample_index(args.frame_id)
+    else:
+        expected_source_sample_index = resolve_source_sample_from_visual_frames(
+            visual_frames_path,
+            args.frame_id,
+        )
     source_sample_index = (
         expected_source_sample_index
         if args.source_sample_index is None
         else int(args.source_sample_index)
     )
-    if source_sample_index != expected_source_sample_index:
+    if args.source_sample_index is None and source_sample_index != expected_source_sample_index:
         raise DynamicGeometryExportError(
             f"frame_id={args.frame_id} must use source_sample_index="
             f"{expected_source_sample_index}, got {source_sample_index}"
@@ -103,6 +150,7 @@ def build_config(args: argparse.Namespace) -> ExportConfig:
     return ExportConfig(
         frame_id=args.frame_id,
         source_sample_index=source_sample_index,
+        visual_frames_path=visual_frames_path,
         output_root=output_root,
         frame_output_root=frame_output_root,
         raw_mesh_dir=raw_mesh_dir,
@@ -134,6 +182,8 @@ def script_args() -> list[str]:
 
 
 def safe_filename(value: str) -> str:
+    # Frame-local mesh filenames are derived from visual ids, so sanitize them
+    # once for stable filesystem-safe output names.
     chars = []
     for ch in value:
         chars.append(ch if ch.isalnum() or ch in {"_", "-", "."} else "_")
@@ -183,6 +233,8 @@ def scale_matrix(scale_xyz: list[float]) -> list[list[float]]:
 
 
 def validate_frame_visuals(data: dict[str, Any], config: ExportConfig) -> list[dict[str, Any]]:
+    # Validate the per-frame visual metadata before launching Blender so a bad
+    # input file fails fast and does not waste a longer export job.
     frames = data.get("frames")
     if not isinstance(frames, list):
         raise DynamicGeometryExportError("dynamic_visual_frames.json must contain frames list")
@@ -219,6 +271,8 @@ def validate_frame_visuals(data: dict[str, Any], config: ExportConfig) -> list[d
     validated: list[dict[str, Any]] = []
 
     for index, visual in enumerate(visuals):
+        # Reconstruct the final rigid transform here from the validated metadata:
+        # model_to_world * logged_link_pose * visual_pose * scale.
         if not isinstance(visual, dict):
             raise DynamicGeometryExportError(f"renderable_visuals[{index}] is not an object")
 
@@ -274,11 +328,15 @@ def validate_frame_visuals(data: dict[str, Any], config: ExportConfig) -> list[d
 
 
 def cache_path_for_source(source_path: Path) -> Path:
+    # Reuse one converted PLY cache per source asset so repeated frame exports do
+    # not keep re-importing and re-cleaning the same robot mesh.
     digest = hashlib.sha1(str(source_path).encode("utf-8")).hexdigest()[:12]
     return CACHE_DIR / f"{safe_filename(source_path.stem)}__{digest}.ply"
 
 
 def blender_executable() -> Path:
+    # The dynamic export path relies on Blender for every frame, so probe the
+    # known install locations once and fail loudly if none work.
     env_path = os.environ.get("BLENDER")
     candidates = []
     if env_path:
@@ -303,15 +361,26 @@ def blender_executable() -> Path:
 
 
 def run_driver(config: ExportConfig) -> int:
-    data = load_json(DYNAMIC_VISUAL_FRAMES_PATH)
+    # The outer driver validates the metadata, then relaunches this same script
+    # under Blender so the heavy mesh work happens in the correct environment.
+    data = load_json(config.visual_frames_path)
     if not isinstance(data, dict):
         raise DynamicGeometryExportError("dynamic_visual_frames.json root must be an object")
     validate_frame_visuals(data, config)
 
     blender = blender_executable()
+    env = os.environ.copy()
+    # Expose the scripts directory on PYTHONPATH so the Blender-launched worker
+    # can still import shared helpers from this repository.
+    script_dir = str(Path(__file__).resolve().parent)
+    current_pythonpath = env.get("PYTHONPATH", "")
+    env["PYTHONPATH"] = (
+        f"{script_dir}:{current_pythonpath}" if current_pythonpath else script_dir
+    )
     command = [
         str(blender),
         "--background",
+        "--python-use-system-env",
         "--python",
         str(Path(__file__).resolve()),
         "--",
@@ -323,9 +392,12 @@ def run_driver(config: ExportConfig) -> int:
         "--output-root",
         str(config.output_root),
     ]
+    if config.visual_frames_path != DYNAMIC_VISUAL_FRAMES_PATH:
+        command.extend(["--visual-frames-json", str(config.visual_frames_path)])
     result = subprocess.run(
         command,
         cwd=str(PROJECT_ROOT),
+        env=env,
         text=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -363,10 +435,13 @@ def run_blender_worker(config: ExportConfig) -> int:
     from mathutils import Matrix
 
     def ensure_object_mode() -> None:
+        # Blender operators used below require OBJECT mode for deterministic behavior.
         if bpy.context.mode != "OBJECT":
             bpy.ops.object.mode_set(mode="OBJECT")
 
     def clear_scene() -> None:
+        # Export each visual from a clean scene so imported meshes never leak
+        # between visuals inside the same frame export.
         ensure_object_mode()
         bpy.ops.object.select_all(action="SELECT")
         bpy.ops.object.delete(use_global=False)
@@ -378,6 +453,7 @@ def run_blender_worker(config: ExportConfig) -> int:
             )
 
     def select_only(objects: list[Any]) -> None:
+        # Helper to keep selection-driven operators deterministic.
         ensure_object_mode()
         bpy.ops.object.select_all(action="DESELECT")
         for obj in objects:
@@ -385,6 +461,8 @@ def run_blender_worker(config: ExportConfig) -> int:
         bpy.context.view_layer.objects.active = objects[0] if objects else None
 
     def detach_keep_world(obj: Any) -> None:
+        # Imported meshes may arrive parented. Detach while preserving world pose
+        # before baking the final transform into the mesh.
         matrix = obj.matrix_world.copy()
         obj.parent = None
         obj.matrix_world = matrix
@@ -393,6 +471,8 @@ def run_blender_worker(config: ExportConfig) -> int:
         return Matrix(parse_matrix44(value, "matrix"))
 
     def import_mesh(filepath: Path) -> list[Any]:
+        # Support the robot visual mesh formats already present in the models/
+        # tree so the rigid Panda/UR5 export path stays format-agnostic.
         before = {obj.as_pointer() for obj in bpy.data.objects}
         ext = filepath.suffix.lower()
 
@@ -431,6 +511,8 @@ def run_blender_worker(config: ExportConfig) -> int:
         return imported
 
     def triangulate_object(obj: Any) -> None:
+        # Triangulate before export so downstream RT tools always see a stable
+        # triangle mesh representation.
         if obj.type != "MESH":
             return
         select_only([obj])
@@ -447,6 +529,8 @@ def run_blender_worker(config: ExportConfig) -> int:
         bpy.ops.object.mode_set(mode="OBJECT")
 
     def apply_transform(obj: Any, transform: Matrix) -> None:
+        # Bake the precomputed world transform into each imported visual mesh so
+        # the dynamic manifest can later treat it as world-space geometry.
         detach_keep_world(obj)
         obj.matrix_world = transform @ obj.matrix_world
         bpy.context.view_layer.update()
@@ -492,6 +576,8 @@ def run_blender_worker(config: ExportConfig) -> int:
         raise DynamicGeometryExportError("Blender PLY exporter is not available")
 
     def bake_source_cache(source_path: Path, cache_path: Path) -> None:
+        # Convert each source asset into a cleaned cached PLY once, then reuse it
+        # across all frames that reference the same robot visual.
         if cache_path.exists() and cache_path.stat().st_size > 0:
             return
 
@@ -516,6 +602,8 @@ def run_blender_worker(config: ExportConfig) -> int:
             raise DynamicGeometryExportError(f"Failed to write source cache: {cache_path}")
 
     def mesh_stats(objects: list[Any]) -> dict[str, Any]:
+        # Record simple geometry diagnostics so later stages can verify the
+        # exported mesh is finite and non-empty.
         vertices = []
         vertex_count = 0
         face_count = 0
@@ -545,6 +633,8 @@ def run_blender_worker(config: ExportConfig) -> int:
         }
 
     def export_visual(visual: dict[str, Any]) -> dict[str, Any]:
+        # Export one renderable visual for the chosen frame by importing the
+        # cached source mesh, applying the frame transform, and writing a PLY.
         visual_id = visual["id"]
         source_path = Path(visual["resolved_source_path"]).resolve()
         cache_path = cache_path_for_source(source_path)
@@ -585,7 +675,9 @@ def run_blender_worker(config: ExportConfig) -> int:
             **stats,
         }
 
-    data = load_json(DYNAMIC_VISUAL_FRAMES_PATH)
+    # Re-read and validate the frame metadata inside Blender so the worker uses
+    # the same trusted inputs as the outer driver.
+    data = load_json(config.visual_frames_path)
     if not isinstance(data, dict):
         raise DynamicGeometryExportError("dynamic_visual_frames.json root must be an object")
     visuals = validate_frame_visuals(data, config)
@@ -595,6 +687,8 @@ def run_blender_worker(config: ExportConfig) -> int:
     for stale_path in config.raw_mesh_dir.glob("*.ply"):
         stale_path.unlink()
 
+    # Export visuals one by one so any failure can be reported with the original
+    # visual id and source asset.
     exported = [export_visual(visual) for visual in visuals]
 
     actual_files = sorted(config.raw_mesh_dir.glob("*.ply"))
@@ -607,9 +701,15 @@ def run_blender_worker(config: ExportConfig) -> int:
         if not path.exists() or path.stat().st_size <= 0:
             raise DynamicGeometryExportError(f"Missing or empty exported mesh: {path}")
 
+    # Emit a frame-local dynamic manifest that later composition and XML stages
+    # can consume without reopening Blender.
     manifest = {
         "generated_by": Path(__file__).name,
-        "source_visual_frames_file": "rt_out/dynamic_frames/dynamic_visual_frames.json",
+        "source_visual_frames_file": (
+            "rt_out/dynamic_frames/dynamic_visual_frames.json"
+            if config.visual_frames_path == DYNAMIC_VISUAL_FRAMES_PATH
+            else str(config.visual_frames_path)
+        ),
         "frame_id": config.frame_id,
         "source_sample_index": config.source_sample_index,
         "output_mesh_dir": str(config.raw_mesh_dir),

@@ -1,7 +1,15 @@
 #!/usr/bin/env python3
 
+"""Resolve renderable robot visuals for each sampled dynamic frame.
+
+The pose-frame JSON from the previous stage only tells us where robot links are.
+This script matches those links to the configured visual assets and records the
+per-visual transforms needed by the mesh-export stage.
+"""
+
 from __future__ import annotations
 
+import argparse
 import json
 import math
 from pathlib import Path
@@ -36,6 +44,31 @@ class DynamicVisualFrameError(RuntimeError):
     pass
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Build per-frame renderable visual metadata for validated dynamic frames."
+    )
+    parser.add_argument(
+        "--frames-json",
+        type=Path,
+        default=None,
+        help="Optional frame selection JSON with frame_id/source_sample records.",
+    )
+    parser.add_argument(
+        "--dynamic-frames",
+        type=Path,
+        default=FRAMES_PATH,
+        help="Input dynamic frame records JSON. Defaults to the validated prototype output.",
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=OUTPUT_PATH,
+        help="Output visual-frame metadata JSON path.",
+    )
+    return parser.parse_args()
+
+
 def load_json(path: Path) -> Any:
     try:
         with path.open("r", encoding="utf-8") as handle:
@@ -44,6 +77,66 @@ def load_json(path: Path) -> Any:
         raise DynamicVisualFrameError(f"Missing input file: {path}") from exc
     except json.JSONDecodeError as exc:
         raise DynamicVisualFrameError(f"Invalid JSON in {path}: {exc}") from exc
+
+
+def require_non_negative_int(value: Any, label: str) -> int:
+    if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+        raise DynamicVisualFrameError(f"{label} must be a non-negative integer")
+    return value
+
+
+def load_expected_frames(path: Path | None) -> list[dict[str, int]]:
+    # Default to the validated 3-frame prototype selection, but also allow a
+    # larger experiment frame list with the same frame_id/source_sample schema.
+    if path is None:
+        return [
+            {
+                "frame_id": int(frame["frame_id"]),
+                "source_sample_index": int(frame["source_sample_index"]),
+            }
+            for frame in PROTOTYPE_CONFIG["prototype_frames"]
+        ]
+
+    raw = load_json(path.expanduser().resolve())
+    if isinstance(raw, dict):
+        raw_frames = raw.get("frames")
+    else:
+        raw_frames = raw
+
+    if not isinstance(raw_frames, list) or not raw_frames:
+        raise DynamicVisualFrameError("Custom frames JSON must be a non-empty list or an object with frames list")
+
+    frames: list[dict[str, int]] = []
+    seen_frame_ids: set[int] = set()
+    seen_source_samples: set[int] = set()
+    previous_source_sample: int | None = None
+    for index, item in enumerate(raw_frames):
+        if not isinstance(item, dict):
+            raise DynamicVisualFrameError(f"frames[{index}] must be an object")
+        frame_id = require_non_negative_int(item.get("frame_id"), f"frames[{index}].frame_id")
+        source_value = item.get("source_sample_index", item.get("source_sample"))
+        source_sample_index = require_non_negative_int(
+            source_value,
+            f"frames[{index}].source_sample",
+        )
+        if frame_id in seen_frame_ids:
+            raise DynamicVisualFrameError(f"Duplicate frame_id in custom frames JSON: {frame_id}")
+        if source_sample_index in seen_source_samples:
+            raise DynamicVisualFrameError(
+                f"Duplicate source_sample in custom frames JSON: {source_sample_index}"
+            )
+        if previous_source_sample is not None and source_sample_index <= previous_source_sample:
+            raise DynamicVisualFrameError("Custom source_sample values must be strictly increasing")
+        seen_frame_ids.add(frame_id)
+        seen_source_samples.add(source_sample_index)
+        previous_source_sample = source_sample_index
+        frames.append(
+            {
+                "frame_id": frame_id,
+                "source_sample_index": source_sample_index,
+            }
+        )
+    return frames
 
 
 def parse_float_sequence(value: Any, expected_length: int, label: str) -> list[float]:
@@ -74,6 +167,8 @@ def parse_scale3(value: Any, label: str) -> list[float]:
 
 
 def pose6_to_matrix(pose: list[float]) -> list[list[float]]:
+    # Visual poses from the manifest live inside the link frame, so convert them
+    # once here for later transform chaining.
     x, y, z, roll, pitch, yaw = pose
 
     cr, sr = math.cos(roll), math.sin(roll)
@@ -93,6 +188,8 @@ def slug_id(model_name: str, link_name: str, visual_name: str) -> str:
 
 
 def build_model_index() -> dict[str, Path]:
+    # Resolve model:// URIs for dynamic robot visuals by finding a unique model
+    # directory for each name under models/.
     candidates: dict[str, set[Path]] = {}
     for marker_name in ("model.config", "model.sdf"):
         for marker in MODELS_ROOT.rglob(marker_name):
@@ -109,6 +206,8 @@ def build_model_index() -> dict[str, Path]:
 
 
 def resolve_geometry_uri(uri: str, model_index: dict[str, Path]) -> Path:
+    # Normalize the source mesh URI now so the later Blender export stage can
+    # import each robot visual directly from a resolved filesystem path.
     if not isinstance(uri, str) or not uri.strip():
         raise DynamicVisualFrameError("Mesh geometry URI must be a non-empty string")
 
@@ -140,6 +239,8 @@ def resolve_geometry_uri(uri: str, model_index: dict[str, Path]) -> Path:
 
 
 def validate_matrix44(value: Any, label: str) -> list[list[float]]:
+    # Later stages treat link_to_world and visual_pose_matrix as trusted 4x4
+    # transforms, so validate the matrix shape before passing it downstream.
     if not isinstance(value, list) or len(value) != 4:
         raise DynamicVisualFrameError(f"{label} must be a 4x4 matrix")
 
@@ -154,41 +255,51 @@ def validate_matrix44(value: Any, label: str) -> list[list[float]]:
     return matrix
 
 
-def load_trusted_frames() -> dict[str, Any]:
-    data = load_json(FRAMES_PATH)
+def load_trusted_frames(path: Path, expected_frames: list[dict[str, int]]) -> dict[str, Any]:
+    # The output of script 30 is treated as a trusted intermediate artifact. Re-
+    # validate the frame order here before attaching per-visual metadata.
+    data = load_json(path)
     if not isinstance(data, dict):
         raise DynamicVisualFrameError("prototype_frames.json root must be an object")
 
     frames = data.get("frames")
     if not isinstance(frames, list):
         raise DynamicVisualFrameError("prototype_frames.json must contain frames list")
-    if len(frames) != len(EXPECTED_FRAME_IDS):
+    # Preserve the exact frame count and sample ordering because later steps
+    # assume a one-to-one correspondence between selected samples and output frames.
+    if len(frames) != len(expected_frames):
         raise DynamicVisualFrameError(
-            f"Expected {len(EXPECTED_FRAME_IDS)} prototype frames, got {len(frames)}"
+            f"Expected {len(expected_frames)} dynamic frames, got {len(frames)}"
         )
 
     source_indices = data.get("source_sample_indices")
-    if source_indices != EXPECTED_SAMPLE_INDICES:
+    expected_sample_indices = [frame["source_sample_index"] for frame in expected_frames]
+    # The explicit source_sample_indices array is an extra guard against frame
+    # reordering or accidental edits in the trusted intermediate artifact.
+    if source_indices != expected_sample_indices:
         raise DynamicVisualFrameError(
             f"Unexpected source_sample_indices: {source_indices!r}"
         )
 
     actual_frame_ids = [frame.get("frame_id") for frame in frames if isinstance(frame, dict)]
-    if actual_frame_ids != EXPECTED_FRAME_IDS:
+    expected_frame_ids = [frame["frame_id"] for frame in expected_frames]
+    if actual_frame_ids != expected_frame_ids:
         raise DynamicVisualFrameError(
-            f"Expected frame ids {EXPECTED_FRAME_IDS}, got {actual_frame_ids}"
+            f"Expected frame ids {expected_frame_ids}, got {actual_frame_ids}"
         )
 
     actual_sample_indices = [frame.get("source_sample_index") for frame in frames if isinstance(frame, dict)]
-    if actual_sample_indices != EXPECTED_SAMPLE_INDICES:
+    if actual_sample_indices != expected_sample_indices:
         raise DynamicVisualFrameError(
-            f"Expected frame sample indices {EXPECTED_SAMPLE_INDICES}, got {actual_sample_indices}"
+            f"Expected frame sample indices {expected_sample_indices}, got {actual_sample_indices}"
         )
 
     return data
 
 
 def load_dynamic_visual_index() -> dict[str, dict[str, Any]]:
+    # Build a reusable index of which visuals belong to each validated Panda/UR5
+    # link so later frame iteration does not need to re-scan the manifest.
     manifest = load_json(DYNAMIC_MANIFEST_PATH)
     if not isinstance(manifest, list):
         raise DynamicVisualFrameError("dynamic_manifest.json root must be a list")
@@ -223,6 +334,8 @@ def load_dynamic_visual_index() -> dict[str, dict[str, Any]]:
         visuals_by_link: dict[str, list[dict[str, Any]]] = {}
 
         for link_entry in links:
+            # Preserve manifest link order so link poses from the trusted frame
+            # JSON can be matched back to the correct visual assets.
             if not isinstance(link_entry, dict):
                 raise DynamicVisualFrameError(f"{model_name}.links contains a non-object")
 
@@ -237,6 +350,8 @@ def load_dynamic_visual_index() -> dict[str, dict[str, Any]]:
                 raise DynamicVisualFrameError(f"{model_name}.{link_name}.visuals must be a list")
 
             link_order.append(link_name)
+            # Links with empty visual lists are still important to track because
+            # the pose logs include them even though they never produce meshes.
             if visuals:
                 renderable_links.append(link_name)
             else:
@@ -245,6 +360,8 @@ def load_dynamic_visual_index() -> dict[str, dict[str, Any]]:
             visual_records: list[dict[str, Any]] = []
             seen_visual_names: set[str] = set()
             for visual in visuals:
+                # Keep one metadata record per renderable visual so the next
+                # export stage can operate at mesh/visual granularity.
                 if not isinstance(visual, dict):
                     raise DynamicVisualFrameError(
                         f"{model_name}.{link_name}.visuals contains a non-object"
@@ -268,6 +385,8 @@ def load_dynamic_visual_index() -> dict[str, dict[str, Any]]:
                     )
                 geometry_type = geometry_type.lower()
 
+                # Preserve the visual-local pose and scale exactly as declared in
+                # the manifest so the later export stage can reconstruct the full chain.
                 visual_pose6 = parse_pose6(
                     visual.get("visual_pose", "0 0 0 0 0 0"),
                     f"{model_name}.{link_name}.{visual_name}.visual_pose",
@@ -283,6 +402,8 @@ def load_dynamic_visual_index() -> dict[str, dict[str, Any]]:
                 primitive_parameters: dict[str, Any] | None = None
 
                 if geometry_type == "mesh":
+                    # Mesh visuals are the validated rigid dynamic path. Resolve
+                    # the source asset now so Blender can import it directly later.
                     uri = visual.get("uri")
                     if not isinstance(uri, str) or not uri.strip():
                         raise DynamicVisualFrameError(
@@ -298,6 +419,8 @@ def load_dynamic_visual_index() -> dict[str, dict[str, Any]]:
                     resolved_source_path = str(resolved_path)
                     source_path_exists = True
                 elif geometry_type == "box":
+                    # Primitive support is kept in the metadata even though the
+                    # current validated rigid path mostly uses mesh visuals.
                     primitive_parameters = {
                         "size": parse_scale3(
                             visual.get("size"),
@@ -318,6 +441,8 @@ def load_dynamic_visual_index() -> dict[str, dict[str, Any]]:
                     )
 
                 visual_record = {
+                    # This record is the stable join point between a logged link
+                    # pose and the source visual asset that should ride on that link.
                     "id": slug_id(model_name, link_name, visual_name),
                     "model_name": model_name,
                     "link_name": link_name,
@@ -340,6 +465,8 @@ def load_dynamic_visual_index() -> dict[str, dict[str, Any]]:
             visuals_by_link[link_name] = visual_records
 
         expected = EXPECTED_COUNTS[model_name]
+        # Re-check the validated Panda/UR5 visual counts here so downstream
+        # stages can trust this metadata file without revisiting the manifest.
         if len(link_order) != expected["logged_links"]:
             raise DynamicVisualFrameError(
                 f"{model_name} expected {expected['logged_links']} logged links, got {len(link_order)}"
@@ -371,6 +498,8 @@ def load_dynamic_visual_index() -> dict[str, dict[str, Any]]:
     total_renderable = sum(
         len(visual_index[model_name]["renderable_visuals"]) for model_name in MODEL_ORDER
     )
+    # Re-check the grand total so later single-frame exporters can trust one
+    # fixed renderable count across all prototype frames.
     if total_renderable != EXPECTED_TOTAL_RENDERABLE_VISUALS:
         raise DynamicVisualFrameError(
             f"Expected {EXPECTED_TOTAL_RENDERABLE_VISUALS} renderable visuals total, "
@@ -385,6 +514,8 @@ def validate_frame_link(
     model_name: str,
     link_name: str,
 ) -> dict[str, Any]:
+    # Resolve one link pose inside the trusted frame JSON and fail if the frame
+    # no longer matches the validated model/link structure.
     models = frame.get("models")
     if not isinstance(models, dict):
         raise DynamicVisualFrameError(f"Frame {frame.get('frame_id')} missing models object")
@@ -407,6 +538,8 @@ def build_visual_frames(
     trusted_frames: dict[str, Any],
     visual_index: dict[str, dict[str, Any]],
 ) -> tuple[list[dict[str, Any]], dict[str, int], bool]:
+    # Join the per-frame link poses from script 30 with the per-visual metadata
+    # from the manifest so each renderable mesh gets a world transform.
     frames_out: list[dict[str, Any]] = []
     per_frame_counts: dict[str, int] = {}
     all_source_paths_exist = True
@@ -425,6 +558,8 @@ def build_visual_frames(
         non_renderable_links: list[dict[str, Any]] = []
 
         for model_name in MODEL_ORDER:
+            # Check the logged link set first, then expand each link into zero or
+            # more renderable visuals according to the validated manifest.
             expected_logged_count = EXPECTED_COUNTS[model_name]["logged_links"]
             frame_model = frame["models"].get(model_name)
             if not isinstance(frame_model, dict):
@@ -449,6 +584,8 @@ def build_visual_frames(
                 )
 
             for link_name in visual_index[model_name]["link_order"]:
+                # Resolve one logged link pose from the trusted frame JSON, then
+                # attach every renderable visual that belongs to that link.
                 link = validate_frame_link(frame, model_name, link_name)
                 source_name = link.get("source_name")
                 expected_source_name = f"{model_name}::{link_name}"
@@ -475,6 +612,8 @@ def build_visual_frames(
                             f"Frame {frame_id} {model_name}.{link_name} should be renderable"
                         )
                 else:
+                    # Preserve non-renderable links explicitly for auditing so
+                    # researchers can see which logged links never become geometry.
                     if link.get("has_visuals") is not False:
                         raise DynamicVisualFrameError(
                             f"Frame {frame_id} {model_name}.{link_name} should be non-renderable"
@@ -496,6 +635,10 @@ def build_visual_frames(
                     if visual["source_path_exists"] is not True:
                         all_source_paths_exist = False
 
+                    # The final rigid transform chain for each robot visual is:
+                    # model_to_world * logged_link_pose * visual_pose * scale.
+                    # We store each term separately here so Blender export can
+                    # either inspect them individually or multiply them into one matrix.
                     renderable_visuals.append(
                         {
                             "frame_id": frame_id,
@@ -525,6 +668,8 @@ def build_visual_frames(
                     )
 
         if len(renderable_visuals) != EXPECTED_TOTAL_RENDERABLE_VISUALS:
+            # A per-frame count mismatch would mean the pose/visual join drifted
+            # from the validated Panda/UR5 prototype assumptions.
             raise DynamicVisualFrameError(
                 f"Frame sample {source_sample_index} expected "
                 f"{EXPECTED_TOTAL_RENDERABLE_VISUALS} renderable visuals, got "
@@ -546,6 +691,8 @@ def build_visual_frames(
 
 
 def build_model_summary(visual_index: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    # Keep a compact model-level summary next to the frame records so new users
+    # can understand the expected link/visual structure without re-reading the manifest.
     summary: dict[str, dict[str, Any]] = {}
     for model_name in MODEL_ORDER:
         summary[model_name] = {
@@ -557,16 +704,26 @@ def build_model_summary(visual_index: dict[str, dict[str, Any]]) -> dict[str, di
     return summary
 
 
-def write_output(data: dict[str, Any]) -> None:
-    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    with OUTPUT_PATH.open("w", encoding="utf-8") as handle:
+def write_output(path: Path, data: dict[str, Any]) -> None:
+    # Persist the full per-visual metadata so all later dynamic stages can reuse
+    # it without reopening manifests or pose logs.
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8") as handle:
         json.dump(data, handle, indent=2, ensure_ascii=False)
         handle.write("\n")
 
 
 def main() -> int:
+    args = parse_args()
     warnings: list[str] = []
-    trusted_frames = load_trusted_frames()
+    # Resolve the requested frame list first so both inputs are validated
+    # against the same ordered source sample indices.
+    expected_frames = load_expected_frames(args.frames_json)
+    dynamic_frames_path = args.dynamic_frames.expanduser().resolve()
+    output_path = args.output.expanduser().resolve()
+    trusted_frames = load_trusted_frames(dynamic_frames_path, expected_frames)
+    # Build the static visual lookup once, then join it against every selected
+    # frame from the trusted dynamic frame file.
     visual_index = load_dynamic_visual_index()
     frames, per_frame_counts, all_source_paths_exist = build_visual_frames(
         trusted_frames,
@@ -574,9 +731,15 @@ def main() -> int:
     )
     model_summary = build_model_summary(visual_index)
 
+    # Write one per-visual metadata file that downstream mesh export can trust
+    # instead of rejoining manifests and pose logs again.
     output = {
         "generated_by": Path(__file__).name,
-        "source_frames_file": "rt_out/dynamic_frames/prototype_frames.json",
+        "source_frames_file": (
+            "rt_out/dynamic_frames/prototype_frames.json"
+            if dynamic_frames_path == FRAMES_PATH.resolve()
+            else str(dynamic_frames_path)
+        ),
         "source_manifest_file": "rt_out/manifests/dynamic_manifest.json",
         "frame_count": len(frames),
         "models": model_summary,
@@ -589,26 +752,17 @@ def main() -> int:
             "warnings": warnings,
         },
     }
-    write_output(output)
+    write_output(output_path, output)
 
     print("Dynamic visual frame build")
-    print(f"Frames processed: {len(frames)}")
+    print(f"frames: {len(frames)}")
     print(
-        "Renderable visuals: "
-        + ", ".join(
-            f"{model_name}={model_summary[model_name]['renderable_visual_count']}"
-            for model_name in MODEL_ORDER
-        )
-        + f", total={EXPECTED_TOTAL_RENDERABLE_VISUALS}"
+        f"first: frame_id={frames[0]['frame_id']}, source_sample={frames[0]['source_sample_index']}"
     )
-    for sample_index in EXPECTED_SAMPLE_INDICES:
-        print(
-            f"Frame sample {sample_index}: "
-            f"renderable visuals={per_frame_counts[str(sample_index)]}"
-        )
-    print(f"All source paths exist: {all_source_paths_exist}")
-    print(f"Warnings: {len(warnings)}")
-    print(f"Output: {OUTPUT_PATH}")
+    print(
+        f"last: frame_id={frames[-1]['frame_id']}, source_sample={frames[-1]['source_sample_index']}"
+    )
+    print(f"output: {output_path}")
     return 0
 
 

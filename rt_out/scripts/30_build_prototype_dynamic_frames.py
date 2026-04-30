@@ -1,7 +1,15 @@
 #!/usr/bin/env python3
 
+"""Build per-frame dynamic pose records from the prototype robot pose logs.
+
+This stage reads the Panda and UR5 logs, finds the requested source samples, and
+writes a normalized JSON description of each dynamic frame so later scripts can
+attach mesh visuals and export posed geometry reproducibly.
+"""
+
 from __future__ import annotations
 
+import argparse
 import json
 import math
 from pathlib import Path
@@ -15,8 +23,7 @@ DYNAMIC_MANIFEST_PATH = PROJECT_ROOT / "rt_out" / "manifests" / "dynamic_manifes
 OUTPUT_PATH = PROJECT_ROOT / "rt_out" / "dynamic_frames" / "prototype_frames.json"
 
 PROTOTYPE_CONFIG = load_dynamic_prototype_config()
-PROTOTYPE_FRAMES = PROTOTYPE_CONFIG["prototype_frames"]
-SOURCE_SAMPLE_INDICES = PROTOTYPE_CONFIG["source_sample_indices"]
+DEFAULT_PROTOTYPE_FRAMES = PROTOTYPE_CONFIG["prototype_frames"]
 MODEL_ORDER = PROTOTYPE_CONFIG["model_names"]
 MODEL_CONFIG = {
     model_name: {
@@ -31,6 +38,25 @@ class DynamicFrameError(RuntimeError):
     pass
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Extract selected dynamic frame records from validated Panda + ur5_rg2 pose logs."
+    )
+    parser.add_argument(
+        "--frames-json",
+        type=Path,
+        default=None,
+        help="Optional frame selection JSON with frame_id/source_sample records.",
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=OUTPUT_PATH,
+        help="Output JSON path. Defaults to the validated prototype output path.",
+    )
+    return parser.parse_args()
+
+
 def load_json(path: Path) -> Any:
     try:
         with path.open("r", encoding="utf-8") as handle:
@@ -39,6 +65,68 @@ def load_json(path: Path) -> Any:
         raise DynamicFrameError(f"Missing input file: {path}") from exc
     except json.JSONDecodeError as exc:
         raise DynamicFrameError(f"Invalid JSON in {path}: {exc}") from exc
+
+
+def require_non_negative_int(value: Any, label: str) -> int:
+    if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+        raise DynamicFrameError(f"{label} must be a non-negative integer")
+    return value
+
+
+def load_selected_frames(path: Path | None) -> list[dict[str, int]]:
+    # Default to the validated 3-frame prototype selection, but also allow
+    # experiment-specific frame lists while preserving the same frame schema.
+    if path is None:
+        return [
+            {
+                "frame_id": int(frame["frame_id"]),
+                "source_sample_index": int(frame["source_sample_index"]),
+            }
+            for frame in DEFAULT_PROTOTYPE_FRAMES
+        ]
+
+    raw = load_json(path.expanduser().resolve())
+    if isinstance(raw, dict):
+        raw_frames = raw.get("frames")
+    else:
+        raw_frames = raw
+
+    if not isinstance(raw_frames, list) or not raw_frames:
+        raise DynamicFrameError("Custom frames JSON must be a non-empty list or an object with frames list")
+
+    frames: list[dict[str, int]] = []
+    seen_frame_ids: set[int] = set()
+    seen_source_samples: set[int] = set()
+    previous_source_sample: int | None = None
+
+    for index, item in enumerate(raw_frames):
+        if not isinstance(item, dict):
+            raise DynamicFrameError(f"frames[{index}] must be an object")
+        frame_id = require_non_negative_int(item.get("frame_id"), f"frames[{index}].frame_id")
+        source_value = item.get("source_sample_index", item.get("source_sample"))
+        source_sample_index = require_non_negative_int(
+            source_value,
+            f"frames[{index}].source_sample",
+        )
+        if frame_id in seen_frame_ids:
+            raise DynamicFrameError(f"Duplicate frame_id in custom frames JSON: {frame_id}")
+        if source_sample_index in seen_source_samples:
+            raise DynamicFrameError(
+                f"Duplicate source_sample in custom frames JSON: {source_sample_index}"
+            )
+        if previous_source_sample is not None and source_sample_index <= previous_source_sample:
+            raise DynamicFrameError("Custom source_sample values must be strictly increasing")
+        seen_frame_ids.add(frame_id)
+        seen_source_samples.add(source_sample_index)
+        previous_source_sample = source_sample_index
+        frames.append(
+            {
+                "frame_id": frame_id,
+                "source_sample_index": source_sample_index,
+            }
+        )
+
+    return frames
 
 
 def parse_pose6(value: Any, label: str) -> list[float]:
@@ -59,6 +147,8 @@ def parse_pose6(value: Any, label: str) -> list[float]:
 
 
 def pose6_to_matrix(pose: list[float]) -> list[list[float]]:
+    # Convert the model pose from the manifest into a homogeneous transform so
+    # it can be chained with logged link poses later.
     x, y, z, roll, pitch, yaw = pose
 
     cr, sr = math.cos(roll), math.sin(roll)
@@ -74,6 +164,8 @@ def pose6_to_matrix(pose: list[float]) -> list[list[float]]:
 
 
 def quaternion_to_matrix(quat_xyzw: list[float]) -> list[list[float]]:
+    # Gazebo pose logs store link orientation as quaternions. Normalize them
+    # before conversion so malformed or non-unit quaternions are caught early.
     x, y, z, w = quat_xyzw
     norm = math.sqrt(x * x + y * y + z * z + w * w)
     if not math.isfinite(norm) or norm <= 1e-12:
@@ -97,6 +189,8 @@ def quaternion_to_matrix(quat_xyzw: list[float]) -> list[list[float]]:
 
 
 def logged_pose_to_matrix(position: list[float], orientation_xyzw: list[float]) -> list[list[float]]:
+    # Turn one logged link pose into a 4x4 transform that can be chained with
+    # the model pose from the extracted dynamic manifest.
     matrix = quaternion_to_matrix(orientation_xyzw)
     matrix[0][3] = position[0]
     matrix[1][3] = position[1]
@@ -120,6 +214,8 @@ def extract_quoted_value(line: str, label: str) -> str:
 
 
 def iter_pose_blocks(path: Path):
+    # Parse the Gazebo pose log as a sequence of complete pose blocks. The later
+    # frame builder relies on sample index, not timestamp, because timestamps can repeat.
     if not path.exists():
         raise DynamicFrameError(f"Missing pose log: {path}")
 
@@ -238,6 +334,8 @@ def iter_pose_blocks(path: Path):
 
 
 def load_dynamic_models() -> dict[str, dict[str, Any]]:
+    # Read the extracted dynamic manifest to recover the validated link order,
+    # model pose, and which links actually carry visuals for Panda and UR5.
     manifest = load_json(DYNAMIC_MANIFEST_PATH)
     if not isinstance(manifest, list):
         raise DynamicFrameError("dynamic_manifest.json must contain a list")
@@ -323,6 +421,8 @@ def validate_pose_for_sample(
     current_sample: dict[str, dict[str, Any]],
     current_timestamp: tuple[int, int] | None,
 ) -> tuple[str, tuple[int, int]]:
+    # Enforce the assumption that one logical sample contains exactly one pose
+    # per expected link, all stamped with the same timestamp inside that sample.
     expected_links = model_info["link_set"]
 
     source_name = pose["name"]
@@ -380,6 +480,8 @@ def read_selected_samples(
     model_info: dict[str, Any],
     selected_indices: list[int],
 ) -> tuple[dict[int, dict[str, dict[str, Any]]], dict[str, Any]]:
+    # Walk the whole pose log sample by sample so requested source sample indices
+    # can be recovered exactly, even when timestamps are duplicated.
     log_path = MODEL_CONFIG[model_name]["log_path"]
     selected = set(selected_indices)
 
@@ -389,6 +491,7 @@ def read_selected_samples(
     sample_index = 0
 
     for pose in iter_pose_blocks(log_path):
+        # Accumulate poses until one complete sample has every expected link.
         link_name, pose_timestamp = validate_pose_for_sample(
             model_name,
             sample_index,
@@ -436,6 +539,8 @@ def build_link_record(
     link_name: str,
     pose: dict[str, Any],
 ) -> dict[str, Any]:
+    # The validated transform chain for rigid robot geometry starts from the
+    # model pose in the world file and then applies the logged link pose.
     link_matrix = logged_pose_to_matrix(pose["position"], pose["orientation_xyzw"])
     to_world = matmul4(model_info["model_matrix"], link_matrix)
 
@@ -451,16 +556,21 @@ def build_link_record(
 
 
 def build_frames(
+    frame_records: list[dict[str, int]],
     dynamic_models: dict[str, dict[str, Any]],
     selected_samples: dict[str, dict[int, dict[str, dict[str, Any]]]],
 ) -> tuple[list[dict[str, Any]], dict[str, dict[str, int]], dict[str, bool]]:
+    # Convert the selected source samples into compact frame records. The source
+    # sample index is preserved because it is the reliable frame identity.
     frames: list[dict[str, Any]] = []
     link_counts: dict[str, dict[str, int]] = {}
     cross_robot_timestamps_matched: dict[str, bool] = {}
 
-    for prototype_frame in PROTOTYPE_FRAMES:
-        frame_id = prototype_frame["frame_id"]
-        sample_index = prototype_frame["source_sample_index"]
+    for frame_record in frame_records:
+        frame_id = frame_record["frame_id"]
+        sample_index = frame_record["source_sample_index"]
+        # Cross-check that Panda and UR5 were sampled from the same logical
+        # instant before packaging them into one frame record.
         reference_timestamps = {
             model_name: selected_samples[model_name][sample_index][
                 dynamic_models[model_name]["link_order"][0]
@@ -486,6 +596,8 @@ def build_frames(
         frame_models: dict[str, Any] = {}
         frame_counts: dict[str, int] = {}
         for model_name in MODEL_ORDER:
+            # Preserve the validated manifest link order so later visual export
+            # stages can join logged link poses back to the correct visuals.
             model_info = dynamic_models[model_name]
             sample = selected_samples[model_name][sample_index]
             links = {
@@ -511,32 +623,46 @@ def build_frames(
     return frames, link_counts, cross_robot_timestamps_matched
 
 
-def write_output(data: dict[str, Any]) -> None:
-    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    with OUTPUT_PATH.open("w", encoding="utf-8") as handle:
+def write_output(path: Path, data: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8") as handle:
         json.dump(data, handle, indent=2, ensure_ascii=False)
         handle.write("\n")
 
 
 def main() -> int:
+    args = parse_args()
     warnings: list[str] = []
+    # Resolve the requested frame list first so every later stage works from the
+    # same ordered source sample indices.
+    frame_records = load_selected_frames(args.frames_json)
+    source_sample_indices = [frame["source_sample_index"] for frame in frame_records]
+    output_path = args.output.expanduser().resolve()
     dynamic_models = load_dynamic_models()
 
     selected_samples: dict[str, dict[int, dict[str, dict[str, Any]]]] = {}
     sample_validation: dict[str, dict[str, Any]] = {}
     for model_name in MODEL_ORDER:
+        # Recover the requested samples independently from each robot's pose log
+        # before checking they align into shared dynamic frames.
         model_samples, model_validation = read_selected_samples(
             model_name,
             dynamic_models[model_name],
-            SOURCE_SAMPLE_INDICES,
+            source_sample_indices,
         )
         selected_samples[model_name] = model_samples
         sample_validation[model_name] = model_validation
 
-    frames, link_counts, cross_robot_timestamps_matched = build_frames(dynamic_models, selected_samples)
+    frames, link_counts, cross_robot_timestamps_matched = build_frames(
+        frame_records,
+        dynamic_models,
+        selected_samples,
+    )
+    # Write one normalized JSON artifact that downstream scripts can trust
+    # instead of re-parsing raw Gazebo pose logs.
     output = {
         "generated_by": Path(__file__).name,
-        "source_sample_indices": SOURCE_SAMPLE_INDICES,
+        "source_sample_indices": source_sample_indices,
         "frames": frames,
         "validation": {
             "selected_frames_found": len(frames),
@@ -553,36 +679,17 @@ def main() -> int:
             "warnings": warnings,
         },
     }
-    write_output(output)
+    write_output(output_path, output)
 
     print("Dynamic prototype frame extraction")
-    print(f"Selected frames found: {len(frames)}")
-    for frame in frames:
-        counts = link_counts[str(frame["source_sample_index"])]
-        print(
-            f"Frame {frame['frame_id']} / sample {frame['source_sample_index']}: "
-            + ", ".join(f"{model_name}={counts[model_name]} links" for model_name in MODEL_ORDER)
-        )
+    print(f"frames: {len(frames)}")
     print(
-        "Samples validated: "
-        + ", ".join(
-            f"{model_name}={sample_validation[model_name]['samples_validated']}"
-            for model_name in MODEL_ORDER
-        )
+        f"first: frame_id={frames[0]['frame_id']}, source_sample={frames[0]['source_sample_index']}"
     )
     print(
-        "Per-sample timestamps consistent: "
-        + ", ".join(
-            f"{model_name}={sample_validation[model_name]['per_sample_timestamps_consistent']}"
-            for model_name in MODEL_ORDER
-        )
+        f"last: frame_id={frames[-1]['frame_id']}, source_sample={frames[-1]['source_sample_index']}"
     )
-    print(
-        "Cross-robot timestamps matched: "
-        f"{sum(cross_robot_timestamps_matched.values())}/{len(cross_robot_timestamps_matched)}"
-    )
-    print(f"Warnings: {len(warnings)}")
-    print(f"Output: {OUTPUT_PATH}")
+    print(f"output: {output_path}")
     return 0
 
 
