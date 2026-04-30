@@ -319,6 +319,10 @@ def parse_position(value: Any, label: str) -> tuple[float, float, float]:
     )
 
 
+def rt_batch_csv_name(num_frames: int) -> str:
+    return f"rt_{num_frames}frames_multi_rx.csv"
+
+
 def vec3_arg(value: tuple[float, float, float]) -> str:
     return f"{value[0]},{value[1]},{value[2]}"
 
@@ -790,9 +794,11 @@ def main() -> int:
     if args.max_rows is not None and args.max_rows <= 0:
         raise ExperimentRtBatchError("--max-rows must be a positive integer")
 
-    # Keep the historical filename for downstream compatibility. Under
-    # semantic_ablation_rigid_200f the file still contains 200-frame results.
-    output_csv_path = experiment["output_root"] / "rt_results" / "rt_100frames_multi_rx.csv"
+    output_csv_path = (
+        experiment["output_root"]
+        / "rt_results"
+        / rt_batch_csv_name(experiment["num_frames"])
+    )
     env = runtime_env()
     rows: list[dict[str, Any]] = []
     # Progress is counted at XML/RX row granularity because each row corresponds

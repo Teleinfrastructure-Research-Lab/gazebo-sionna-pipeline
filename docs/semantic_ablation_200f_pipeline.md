@@ -20,7 +20,7 @@ frames and 6 receiver locations.
 
 - Do not commit dynamic mesh exports, per-frame XMLs, RT CSVs, feature tables, or result CSVs unless you intentionally mean to version a small text artifact
 - The experiment wrappers are designed to reuse the validated low-level scripts without rewriting the frozen static baseline
-- The historical filename `rt_100frames_multi_rx.csv` is kept for downstream compatibility even in the 200-frame branch
+- RT and labeled-RT CSVs now follow the sampled-frame count, e.g. `rt_200frames_multi_rx.csv`
 
 ## Current radio setup
 
@@ -193,25 +193,27 @@ python3 rt_out/scripts/exp_run_semantic_ablation.py \
 - `rt_out/experiments/semantic_ablation_rigid_200f/frames/dynamic_meshes/dynamic_mesh_index.csv`
 - `rt_out/experiments/semantic_ablation_rigid_200f/frames/composed_manifests/composed_manifest_index.csv`
 - `rt_out/experiments/semantic_ablation_rigid_200f/sionna_xml/sionna_xml_index.csv`
-- `rt_out/experiments/semantic_ablation_rigid_200f/rt_results/rt_100frames_multi_rx.csv`
-- `rt_out/experiments/semantic_ablation_rigid_200f/rt_results/rt_100frames_multi_rx_labeled.csv`
+- `rt_out/experiments/semantic_ablation_rigid_200f/rt_results/rt_200frames_multi_rx.csv`
+- `rt_out/experiments/semantic_ablation_rigid_200f/rt_results/rt_200frames_multi_rx_labeled.csv`
 - `rt_out/experiments/semantic_ablation_rigid_200f/rt_results/rt_label_summary.csv`
 - `rt_out/experiments/semantic_ablation_rigid_200f/features/object_features_rt_labels.csv`
 - `rt_out/experiments/semantic_ablation_rigid_200f/features/raw_occupancy_features_rt_labels.csv`
-- `rt_out/experiments/semantic_ablation_rigid_200f/features/semantic_ablation_results_compact_y_adaptation_trigger_1db_panda_ur5_models_logistic_rf_svm.csv`
-- `rt_out/experiments/semantic_ablation_rigid_200f/features/semantic_ablation_results_compact_y_path_change_panda_ur5_nao_chest_models_logistic_rf_svm.csv`
-- `rt_out/experiments/semantic_ablation_rigid_200f/features/semantic_ablation_results_raw_y_adaptation_trigger_1db_panda_ur5_models_logistic_rf_svm.csv`
-- `rt_out/experiments/semantic_ablation_rigid_200f/features/semantic_ablation_results_raw_y_path_change_panda_ur5_nao_chest_models_logistic_rf_svm.csv`
+- `rt_out/experiments/semantic_ablation_rigid_200f/results/semantic_ablation_results_compact_y_adaptation_trigger_1db_panda_ur5_models_logistic_rf_svm.csv`
+- `rt_out/experiments/semantic_ablation_rigid_200f/results/semantic_ablation_results_compact_y_path_change_panda_ur5_nao_chest_models_logistic_rf_svm.csv`
+- `rt_out/experiments/semantic_ablation_rigid_200f/results/semantic_ablation_results_raw_y_adaptation_trigger_1db_panda_ur5_models_logistic_rf_svm.csv`
+- `rt_out/experiments/semantic_ablation_rigid_200f/results/semantic_ablation_results_raw_y_path_change_panda_ur5_nao_chest_models_logistic_rf_svm.csv`
 
-### Naming wart
+### Naming note
 
-`rt_100frames_multi_rx.csv` currently contains 200-frame data under
-`semantic_ablation_rigid_200f`. The filename is historical. Do not rename it
-unless all downstream scripts are updated together.
+The canonical RT batch output for this experiment is now
+`rt_out/experiments/semantic_ablation_rigid_200f/rt_results/rt_200frames_multi_rx.csv`.
+The RT-label builder follows the same pattern and writes
+`rt_200frames_multi_rx_labeled.csv`.
 
-Older local runs may also leave result snapshots under `results/` in some
-experiment folders. The current `exp_run_semantic_ablation.py` writes its
-result CSVs under `features/`.
+Older local runs may also leave legacy result snapshots under `results/` in
+some experiment folders. The current `exp_run_semantic_ablation.py` writes its
+final ablation result CSVs under `results/`, while intermediate feature tables
+remain under `features/`.
 
 ## Label definitions
 

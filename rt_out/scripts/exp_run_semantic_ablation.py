@@ -965,11 +965,7 @@ def main() -> int:
                 f"semantic_ablation_results_{safe_slug(args.target)}_"
                 f"{output_suffix}{model_suffix}.csv"
             )
-    output_path = (
-        config["output_root"]
-        / "features"
-        / output_name
-    )
+    output_path = config["output_root"] / "results" / output_name
     write_results(output_path, result_rows)
     print(f"output_csv={output_path}")
     return 0

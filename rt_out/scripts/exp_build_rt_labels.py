@@ -100,6 +100,14 @@ def require_numeric(value: Any, label: str) -> float:
         raise RtLabelBuildError(f"{label} must be numeric") from exc
 
 
+def rt_batch_csv_name(num_frames: int) -> str:
+    return f"rt_{num_frames}frames_multi_rx.csv"
+
+
+def rt_labeled_csv_name(num_frames: int) -> str:
+    return f"rt_{num_frames}frames_multi_rx_labeled.csv"
+
+
 def resolve_project_path(value: str) -> Path:
     path = Path(value).expanduser()
     if not path.is_absolute():
@@ -371,10 +379,8 @@ def main() -> int:
 
     experiment = load_experiment_config(config_path)
     rt_results_dir = experiment["output_root"] / "rt_results"
-    # Keep the historical filename for compatibility with downstream scripts.
-    # In semantic_ablation_rigid_200f this file still contains 200-frame data.
-    input_csv = rt_results_dir / "rt_100frames_multi_rx.csv"
-    labeled_csv = rt_results_dir / "rt_100frames_multi_rx_labeled.csv"
+    input_csv = rt_results_dir / rt_batch_csv_name(experiment["num_frames"])
+    labeled_csv = rt_results_dir / rt_labeled_csv_name(experiment["num_frames"])
     summary_csv = rt_results_dir / "rt_label_summary.csv"
 
     rows = load_rt_rows(input_csv, allow_failed=args.allow_failed)

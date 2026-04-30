@@ -525,17 +525,17 @@ they are part of the current repository and are used by the
 - **Status:** experiment
 - **Purpose:** runs one RT solve per XML/RX pair by calling `24_run_sionna_rt_sanity.py`, then adds helper-derived path/delay/gain summaries
 - **Inputs:** experiment config, `sionna_xml_index.csv`
-- **Outputs:** `rt_results/rt_100frames_multi_rx.csv`
+- **Outputs:** `rt_results/rt_<num_frames>frames_multi_rx.csv`
 - **Important CLI arguments:** `--config`, `--continue-on-error`, `--max-frames`, `--max-rows`, `--no-progress`, `--progress-every`
-- **Notes:** keeps the historical `rt_100frames_multi_rx.csv` filename even for 200-frame experiments; uses `--tx=<...>` / `--rx=<...>` argument passing for negative coordinates
+- **Notes:** names the RT batch CSV from `experiment_config.num_frames`, e.g. `rt_200frames_multi_rx.csv`; uses `--tx=<...>` / `--rx=<...>` argument passing for negative coordinates
 
 ### `exp_build_rt_labels.py`
 
 - **Location:** [`rt_out/scripts/exp_build_rt_labels.py`](../rt_out/scripts/exp_build_rt_labels.py)
 - **Status:** experiment
 - **Purpose:** converts per-frame RT rows into per-RX frame-to-frame labels such as `y_path_change` and `y_adaptation_trigger_1db`
-- **Inputs:** experiment config, `rt_100frames_multi_rx.csv`
-- **Outputs:** `rt_100frames_multi_rx_labeled.csv`, `rt_label_summary.csv`
+- **Inputs:** experiment config, `rt_<num_frames>frames_multi_rx.csv`
+- **Outputs:** `rt_<num_frames>frames_multi_rx_labeled.csv`, `rt_label_summary.csv`
 - **Important CLI arguments:** `--config`, `--eta-tau`, `--allow-failed`
 - **Notes:** `rx_power_dbm` is derived from `tx_power_dbm + path_gain_db`; the resulting RT columns are targets/metadata for later learning, not proactive input features
 
@@ -565,7 +565,7 @@ they are part of the current repository and are used by the
 - **Status:** experiment
 - **Purpose:** evaluates grouped frame-level classical baselines on `wide`, `compact`, or `raw` feature tables
 - **Inputs:** experiment config, feature table chosen by `--feature-mode`
-- **Outputs:** experiment-local result CSVs under `features/`
+- **Outputs:** experiment-local result CSVs under `results/`
 - **Important CLI arguments:** `--config`, `--target`, `--rx-filter`, `--feature-mode`, `--models`
 - **Notes:** supports `logistic`, `rf`, `svm`, optional `mlp`; uses grouped splits by `frame_id`; this is a feasibility classifier, not a beamforming/resource-allocation implementation
 

@@ -75,6 +75,10 @@ def require_positive_int(value: Any, label: str) -> int:
     return value
 
 
+def rt_labeled_csv_name(num_frames: int) -> str:
+    return f"rt_{num_frames}frames_multi_rx_labeled.csv"
+
+
 def resolve_project_path(value: str) -> Path:
     path = Path(value).expanduser()
     if not path.is_absolute():
@@ -645,9 +649,7 @@ def main() -> int:
 
     output_root: Path = config["output_root"]
     composed_manifest_index_path = output_root / "frames" / "composed_manifests" / "composed_manifest_index.csv"
-    # Keep the historical RT-label filename for compatibility with the existing
-    # experiment wrappers even when the experiment uses 200 sampled frames.
-    rt_labels_path = output_root / "rt_results" / "rt_100frames_multi_rx_labeled.csv"
+    rt_labels_path = output_root / "rt_results" / rt_labeled_csv_name(config["num_frames"])
     output_path = output_root / "features" / "object_features_rt_labels.csv"
 
     # Load the composed-scene geometry index and the already-labeled RT rows,

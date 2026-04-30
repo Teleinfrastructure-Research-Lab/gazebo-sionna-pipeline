@@ -278,10 +278,10 @@ These are not config files, but they still encode important assumptions.
   - these are effectively config-like defaults even though they live in code
 
 - [`rt_out/scripts/exp_run_rt_multi_rx_batch.py`](../rt_out/scripts/exp_run_rt_multi_rx_batch.py)
-  - keeps the historical output filename `rt_100frames_multi_rx.csv` even for
-    `semantic_ablation_rigid_200f`
-  - this is a compatibility naming wart rather than a scientific assumption,
-    but it matters for downstream scripts and docs
+  - names the RT batch CSV from `experiment_config.num_frames`, e.g.
+    `rt_200frames_multi_rx.csv` for `semantic_ablation_rigid_200f`
+  - downstream RT-label and feature builders assume the same
+    `rt_<num_frames>frames_multi_rx*.csv` convention
 
 ### Environment-discovery assumptions
 

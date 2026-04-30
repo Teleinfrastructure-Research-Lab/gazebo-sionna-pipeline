@@ -19,7 +19,7 @@ The active, validated pipeline in this repository currently covers:
 The repository also contains an experiment-local extension,
 `semantic_ablation_rigid_200f`, which reuses that validated core path and then
 adds sampled-frame batching, 6 RX positions, RT-derived labels, object-aware
-feature tables, and a raw occupancy baseline.
+feature tables, classical ablation models, and a raw occupancy baseline.
 
 Out of scope for the active pipeline:
 
@@ -166,6 +166,67 @@ In practical terms:
    Runs the 3-frame x 3-RX evaluation and writes:
    - [`rt_out/composed_scene/three_frame_three_rx_rt_summary.csv`](../rt_out/composed_scene/three_frame_three_rx_rt_summary.csv)
 
+### F. Experiment-Local Semantic Ablation Extension
+
+The validated `00`-`36` chain above remains the core reference pipeline. The
+`semantic_ablation_rigid_200f` branch layers experiment-local wrappers on top
+of that core without changing the frozen static baseline.
+
+1. [`exp_sample_frames.py`](../rt_out/scripts/exp_sample_frames.py)  
+   Uniformly samples `200` source pose samples from the common Panda/UR5 range
+   and writes:
+   - [`rt_out/experiments/semantic_ablation_rigid_200f/frames/sampled_frames.json`](../rt_out/experiments/semantic_ablation_rigid_200f/frames/sampled_frames.json)
+
+2. [`30_build_prototype_dynamic_frames.py`](../rt_out/scripts/30_build_prototype_dynamic_frames.py) and [`31_build_prototype_dynamic_visual_frames.py`](../rt_out/scripts/31_build_prototype_dynamic_visual_frames.py)  
+   Reuse the validated Panda/UR5 logic with experiment-local `--frames-json`
+   and output overrides to write:
+   - experiment-local `dynamic_frames.json`
+   - experiment-local `dynamic_visual_frames.json`
+
+3. Experiment batch wrappers:
+   - [`exp_export_dynamic_meshes_batch.py`](../rt_out/scripts/exp_export_dynamic_meshes_batch.py)
+   - [`exp_compose_frame_manifests_batch.py`](../rt_out/scripts/exp_compose_frame_manifests_batch.py)
+   - [`exp_build_sionna_xml_batch.py`](../rt_out/scripts/exp_build_sionna_xml_batch.py)
+
+   These iterate the validated single-frame exporters/composers across the full
+   200-frame sample list and produce experiment-local mesh indexes, composed
+   manifest indexes, and Sionna XML indexes.
+
+4. [`exp_run_rt_multi_rx_batch.py`](../rt_out/scripts/exp_run_rt_multi_rx_batch.py)  
+   Reuses [`24_run_sionna_rt_sanity.py`](../rt_out/scripts/24_run_sionna_rt_sanity.py)
+   as a thin wrapper to evaluate:
+   - `200` frames
+   - `6` RX locations
+   - `1` TX location
+
+   The canonical RT CSV path is:
+   - [`rt_out/experiments/semantic_ablation_rigid_200f/rt_results/rt_200frames_multi_rx.csv`](../rt_out/experiments/semantic_ablation_rigid_200f/rt_results/rt_200frames_multi_rx.csv)
+
+5. RT-derived labels and feature tables:
+   - [`exp_build_rt_labels.py`](../rt_out/scripts/exp_build_rt_labels.py)
+   - [`exp_build_object_features.py`](../rt_out/scripts/exp_build_object_features.py)
+   - [`exp_build_raw_occupancy_features.py`](../rt_out/scripts/exp_build_raw_occupancy_features.py)
+
+   These convert RT outputs into:
+   - frame-to-frame change/adaptation labels
+   - object-aware feature tables
+   - raw occupancy-style baselines with no semantic/material/object identity as features
+
+6. [`exp_run_semantic_ablation.py`](../rt_out/scripts/exp_run_semantic_ablation.py)  
+   Runs grouped frame-level classical baselines over:
+   - `wide` feature mode
+   - `compact` feature mode
+   - `raw` feature mode
+
+   Current model support includes:
+   - logistic regression
+   - random forest
+   - RBF SVM
+   - optional MLP diagnostic runs
+
+   This is a feasibility-study evaluation layer. It does not implement full
+   beamforming or resource allocation.
+
 ## 6. Current Active Branches And Outputs
 
 The active scripts currently default to the unsuffixed branch as the main output path.
@@ -190,6 +251,7 @@ Important detail: the shelf-orientation correction is implemented in the merge w
   - multi-RX RT CSVs
   - label tables
   - object-aware and raw occupancy feature tables
+  - compact/raw/wide ablation result CSVs under `results/`
 
 These experiment outputs are generated working artifacts and should normally
 remain ignored rather than being committed.
@@ -200,6 +262,14 @@ remain ignored rather than being committed.
 - Static actor geometry is not extracted because actors are not handled by the manifest extractor.
 - The static merge step assumes that required converted static meshes already exist under [`rt_out/static_scene/converted_meshes/`](../rt_out/static_scene/converted_meshes) for raw assets that are not directly usable as `PLY` or `OBJ`.
 - The dynamic mesh export step handles conversion on demand through Blender and caches the converted source meshes under [`rt_out/dynamic_scene/converted_mesh_cache/`](../rt_out/dynamic_scene/converted_mesh_cache).
+- The current experiment branch still treats `Panda` and `ur5_rg2` as metal in
+  the dynamic Sionna XML path.
+- Actor spikes exist as separate offline experiments, but Gazebo-runtime actor
+  phase/loop coupling is still unresolved and is not part of the active rigid
+  Panda/UR5 experiment flow.
+- The experiment wrappers generate many heavy intermediate artifacts under
+  `rt_out/experiments/`; these should normally stay ignored rather than being
+  versioned.
 
 ## 8. Minimal End-to-End Working Flow
 
@@ -222,6 +292,10 @@ python3 rt_out/scripts/36_run_three_frame_three_rx_rt_sanity.py
 If you need fresh pose logs first, run [`run_myworld_rt.sh`](../run_myworld_rt.sh) and then [`rt_out/scripts/run_all.sh`](../rt_out/scripts/run_all.sh).
 
 The RT sanity steps expect the current Sionna/Mitsuba runtime, typically through `COLLABPAPER_PYTHON` or the standard `collabpaper` conda environment.
+
+For the larger sampled-frame experiment branch, follow the dedicated guide
+instead of extending the 3-frame commands by hand:
+[`docs/semantic_ablation_200f_pipeline.md`](./semantic_ablation_200f_pipeline.md).
 
 ## 9. Recommended Reading Order
 
