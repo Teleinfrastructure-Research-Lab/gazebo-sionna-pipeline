@@ -1,0 +1,96 @@
+{
+  "experiment_name": "semantic_ablation_rigid_200f",
+  "num_frames": 200,
+  "dynamic_models": [
+    "Panda",
+    "ur5_rg2"
+  ],
+  "frequency_ghz": 28,
+  "tx": {
+    "id": "tx_ap",
+    "position": [
+      0.0,
+      0.0,
+      2.4
+    ],
+    "source": "manual_blender_marker_location"
+  },
+  "rx_list": [
+    {
+      "id": "rx_panda_base",
+      "position": [
+        0.582,
+        0.888,
+        1.195
+      ],
+      "source": "rt_out/config/prototype_radio_sites.json"
+    },
+    {
+      "id": "rx_ur5_base",
+      "position": [
+        0.497,
+        -0.841,
+        0.995
+      ],
+      "source": "rt_out/config/prototype_radio_sites.json"
+    },
+    {
+      "id": "rx_cerberus_base",
+      "position": [
+        4.074,
+        -1.779,
+        0.81
+      ],
+      "source": "rt_out/config/prototype_radio_sites.json"
+    },
+    {
+      "id": "rx_nao_chest",
+      "position": [
+        -0.1337,
+        2.748,
+        0.7
+      ],
+      "source": "manual_blender_marker_location"
+    },
+    {
+      "id": "rx_human_chest",
+      "position": [
+        -1.4605,
+        -0.8406,
+        1.6421
+      ],
+      "source": "manual_blender_marker_location"
+    },
+    {
+      "id": "rx_x500_body",
+      "position": [
+        -3.9279,
+        3.2024,
+        1.3944
+      ],
+      "source": "manual_blender_marker_location"
+    }
+  ],
+  "materials_of_interest": [
+    "metal",
+    "wood",
+    "glass",
+    "plastic",
+    "textile",
+    "cardboard"
+  ],
+  "semantic_classes_of_interest": [
+    "robot_arm",
+    "shelf",
+    "desk",
+    "window",
+    "door",
+    "box",
+    "chair",
+    "robot",
+    "drone",
+    "bin",
+    "laptop"
+  ],
+  "output_dir": "rt_out/experiments/semantic_ablation_rigid_200f"
+}
