@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+"""Build a Mitsuba XML scene from the merged static-scene outputs.
+
+This script is mainly a renderer/debug companion to the RT flow: it reads the
+same frozen static manifest and material assignments, then emits a Mitsuba scene
+file that can be used to inspect geometry/material assumptions visually.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -61,6 +68,9 @@ def add_default_camera(
     height: int,
     spp: int,
 ) -> None:
+    # Mitsuba output is primarily a visual debugging companion to the radio
+    # pipeline, so provide a simple default camera/sampler when geometry-only
+    # mode is not requested.
     sensor = ET.SubElement(scene, "sensor", {"type": "perspective"})
     transform = ET.SubElement(sensor, "transform", {"name": "to_world"})
     ET.SubElement(transform, "lookat", {"origin": origin, "target": target, "up": up})
@@ -73,6 +83,8 @@ def add_default_camera(
 
 
 def add_bsdf(shape: ET.Element, material_class: str) -> None:
+    # These are lightweight visual materials that mirror the semantic
+    # radio-material groups, making grouping mistakes easy to spot in renders.
     if material_class == "glass":
         bsdf = ET.SubElement(shape, "bsdf", {"type": "dielectric"})
         ET.SubElement(bsdf, "string", {"name": "int_ior", "value": "bk7"})
@@ -92,6 +104,8 @@ def add_bsdf(shape: ET.Element, material_class: str) -> None:
 
 
 def resolve_mesh_path(group: dict[str, Any], manifest_path: Path) -> Path:
+    # Resolve merged mesh paths relative to the manifest so the whole static
+    # export folder can be moved together without rewriting absolute paths.
     raw_path = group.get("merged_mesh_path")
     if not raw_path:
         raise ValueError(
@@ -110,6 +124,8 @@ def resolve_mesh_path(group: dict[str, Any], manifest_path: Path) -> Path:
 
 
 def mesh_path_for_xml(mesh_path: Path, xml_parent: Path) -> str:
+    # Prefer relative mesh references inside the XML so the export remains
+    # portable between machines and experiment directories.
     try:
         return os.path.relpath(mesh_path, xml_parent)
     except ValueError:
@@ -149,6 +165,8 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
 
+    # Default to the frozen merged static manifest used by the validated
+    # pipeline, but still allow explicit overrides for debugging.
     if args.manifest is None:
         root = Path(__file__).resolve().parents[2]
         manifest_path = root / "rt_out" / "static_scene" / "export" / "merged_static_manifest.json"
@@ -175,6 +193,9 @@ def main() -> None:
         output_path = args.output.expanduser().resolve()
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
+    # Build a minimal Mitsuba scene around the merged material groups. The
+    # geometry matches the static Sionna scene, but the purpose here is visual
+    # inspection of geometry and material grouping rather than RT itself.
     scene = ET.Element("scene", {"version": "3.0.0"})
     if not args.geometry_only:
         integrator = ET.SubElement(scene, "integrator", {"type": "path"})
@@ -192,6 +213,8 @@ def main() -> None:
 
     seen_materials: set[str] = set()
     for raw_group in groups:
+        # Emit exactly one shape per merged material bucket so the Mitsuba scene
+        # mirrors the frozen static baseline produced by the Blender merge step.
         if not isinstance(raw_group, dict):
             raise ValueError("Each merged group must be an object")
 

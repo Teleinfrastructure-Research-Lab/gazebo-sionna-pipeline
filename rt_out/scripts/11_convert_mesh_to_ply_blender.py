@@ -1,14 +1,23 @@
+"""Blender-side helper that converts a generic mesh asset into PLY.
+
+Compared with the DAE-specific helper, this version is used for mesh sources
+that may arrive in different formats but still need the same import, cleanup,
+and export flow before entering the RT pipeline.
+"""
+
 import sys
 from pathlib import Path
 import bpy
 
 def clear_scene():
+    """Remove previously loaded Blender objects before importing the next mesh."""
     bpy.ops.object.select_all(action='SELECT')
     bpy.ops.object.delete(use_global=False)
     if hasattr(bpy.ops.outliner, "orphans_purge"):
         bpy.ops.outliner.orphans_purge(do_local_ids=True, do_linked_ids=True, do_recursive=True)
 
 def import_mesh(filepath: str):
+    """Import one supported mesh asset based on its file extension."""
     ext = Path(filepath).suffix.lower()
 
     if ext == ".dae":
@@ -24,6 +33,7 @@ def import_mesh(filepath: str):
         raise RuntimeError(f"Неподдържано разширение: {ext}")
 
 def export_ply(filepath: str):
+    """Export the selected mesh objects to one PLY file."""
     if hasattr(bpy.ops.wm, "ply_export"):
         bpy.ops.wm.ply_export(
             filepath=filepath,
@@ -46,6 +56,7 @@ def export_ply(filepath: str):
         raise RuntimeError("Не е намерен PLY exporter.")
 
 def main():
+    """Load one mesh file, keep imported mesh objects selected, and export PLY."""
     argv = sys.argv
     if "--" not in argv:
         raise SystemExit("Използване: blender --background --python 11_convert_mesh_to_ply_blender.py -- input_mesh output.ply")

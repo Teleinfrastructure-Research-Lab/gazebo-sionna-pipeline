@@ -4,7 +4,9 @@
 
 This wrapper keeps the validated single-scene Sionna sanity script untouched and
 adds experiment-level iteration, richer path/delay/gain summaries, and CSV
-logging across many frame/RX combinations.
+logging across many frame/RX combinations. The resulting CSV is an offline
+label-generation artifact for later learning experiments; it is not itself a
+beamforming or resource-allocation implementation.
 """
 
 from __future__ import annotations
@@ -97,6 +99,9 @@ valid = np.asarray(paths.valid.numpy()).astype(bool)
 tau = np.asarray(paths.tau.numpy())
 tau_values = tau[valid]
 
+# Derive a received-power proxy from the public CIR coefficients when possible.
+# This stays best-effort: the outer wrapper can still keep RT rows valid even if
+# a particular Sionna build exposes the CIR tensors differently.
 path_gain_sum = None
 path_gain_db = None
 gain_method = None
@@ -171,12 +176,17 @@ try:
                 valid_mask = np.expand_dims(valid_mask, axis=0)
         if valid_mask.shape != a_complex.shape:
             valid_mask = np.broadcast_to(valid_mask, a_complex.shape)
+        # Align the tau-derived validity mask to the coefficient tensor so the
+        # path axis in `a_complex` is masked correctly even when Sionna inserts
+        # extra singleton antenna/time dimensions.
         gain = float(np.sum(np.abs(a_complex[valid_mask]) ** 2))
         path_gain_sum = gain
         path_gain_db = float(10.0 * np.log10(gain + 1e-30))
         gain_method = f"{gain_method}_tau_mask"
     except Exception as exc:
         gain_debug = f"{type(exc).__name__}: {exc}"
+        # Fall back to summing all finite coefficients if shape alignment is
+        # ambiguous. This keeps gain extraction diagnostic rather than fatal.
         coeff = np.asarray(a_complex)
         finite = np.isfinite(np.real(coeff)) & np.isfinite(np.imag(coeff))
         gain = float(np.sum(np.abs(coeff[finite]) ** 2))
@@ -561,6 +571,8 @@ def run_one_row(
             str(SANITY_SCRIPT),
             "--xml",
             str(xml_path),
+            # Use equals-form CLI arguments so negative coordinates are treated
+            # as values instead of being misparsed as new argparse options.
             f"--tx={vec3_arg(tx_position)}",
             f"--rx={vec3_arg(rx_position)}",
             f"--frequency-hz={frequency_hz}",
@@ -617,6 +629,8 @@ def run_one_row(
             if tau_min is not None and tau_max is not None:
                 delay_spread = float(tau_max - tau_min)
             if path_gain_db is not None:
+                # path_gain_db is a received-power proxy relative to the
+                # transmitter, so adding tx_power_dbm gives simulated rx_power_dbm.
                 rx_power_dbm = float(tx_power_dbm + path_gain_db)
             gain_method = "" if gain_method is None else str(gain_method)
             gain_error = "" if helper_gain_error is None else str(helper_gain_error)
@@ -776,6 +790,8 @@ def main() -> int:
     if args.max_rows is not None and args.max_rows <= 0:
         raise ExperimentRtBatchError("--max-rows must be a positive integer")
 
+    # Keep the historical filename for downstream compatibility. Under
+    # semantic_ablation_rigid_200f the file still contains 200-frame results.
     output_csv_path = experiment["output_root"] / "rt_results" / "rt_100frames_multi_rx.csv"
     env = runtime_env()
     rows: list[dict[str, Any]] = []

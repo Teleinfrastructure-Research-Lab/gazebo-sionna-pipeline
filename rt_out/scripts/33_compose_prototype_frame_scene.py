@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
 
+"""Compose one full frame manifest from frozen static and dynamic inputs.
+
+The static baseline is intentionally left untouched on disk. This script simply
+creates a per-frame combined manifest that points at the frozen static exports
+plus the chosen dynamic frame exports so XML generation can treat them as one
+scene.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -80,6 +88,8 @@ def parse_args() -> argparse.Namespace:
 
 
 def build_config(args: argparse.Namespace) -> ComposeConfig:
+    # Centralize all frame-specific paths so both the default prototype layout
+    # and experiment-local overrides share the same manifest contract.
     dynamic_manifest_path = (
         default_dynamic_manifest_path(args.frame_id)
         if args.dynamic_manifest is None
@@ -129,6 +139,8 @@ def slug(value: Any) -> str:
 
 
 def project_local_candidate(path: Path) -> Path | None:
+    # Some manifests may have been produced from a slightly different checkout
+    # path. Try to reroot them back into the current project tree when possible.
     parts = path.parts
     if "my_world" in parts:
         suffix = Path(*parts[parts.index("my_world") + 1 :])
@@ -140,6 +152,8 @@ def project_local_candidate(path: Path) -> Path | None:
 
 
 def resolve_existing_path(raw_path: Any, label: str) -> tuple[Path, bool]:
+    # Resolve mesh paths conservatively and report whether we had to reroot them
+    # into the current project checkout.
     if not isinstance(raw_path, str) or not raw_path.strip():
         raise ComposeFrameSceneError(f"{label} must be a non-empty path string")
 
@@ -157,6 +171,8 @@ def resolve_existing_path(raw_path: Any, label: str) -> tuple[Path, bool]:
 
 
 def build_static_entries(static_manifest: dict[str, Any]) -> tuple[list[dict[str, Any]], int]:
+    # Convert the frozen merged static manifest into flat per-mesh entries. The
+    # geometry is already baked into world space, so no further transforms are stored.
     groups = static_manifest.get("merged_groups")
     if not isinstance(groups, list) or not groups:
         raise ComposeFrameSceneError("Static manifest must contain a non-empty merged_groups list")
@@ -200,6 +216,8 @@ def build_dynamic_entries(
     *,
     frame_id: int,
 ) -> tuple[list[dict[str, Any]], int]:
+    # Convert the frame-local dynamic export manifest into flat entries that can
+    # be appended to the static baseline for this specific frame.
     if dynamic_manifest.get("frame_id") != frame_id:
         raise ComposeFrameSceneError(
             f"Dynamic manifest frame_id={dynamic_manifest.get('frame_id')}, expected {frame_id}"
@@ -221,6 +239,8 @@ def build_dynamic_entries(
 
     entries: list[dict[str, Any]] = []
     for index, visual in enumerate(visuals):
+        # Every dynamic entry must already be a successful world-space mesh
+        # export before it can be composed with the frozen static baseline.
         if not isinstance(visual, dict):
             raise ComposeFrameSceneError(f"Dynamic exported_visuals[{index}] is not an object")
         if visual.get("frame_id") != frame_id:
@@ -278,6 +298,8 @@ def build_dynamic_entries(
 
 
 def validate_entries(entries: list[dict[str, Any]], static_count: int, dynamic_count: int) -> None:
+    # Validate the composed manifest as a flat scene description: unique ids,
+    # all mesh paths present, and the expected static/dynamic counts preserved.
     ids: set[str] = set()
     duplicate_ids: list[str] = []
     missing_paths: list[str] = []
@@ -303,6 +325,8 @@ def validate_entries(entries: list[dict[str, Any]], static_count: int, dynamic_c
 
 
 def build_manifest(config: ComposeConfig) -> dict[str, Any]:
+    # Load both input manifests independently so the frozen static baseline stays
+    # untouched and the dynamic frame remains a replaceable per-frame overlay.
     static_manifest = load_json(config.static_manifest_path)
     dynamic_manifest = load_json(config.dynamic_manifest_path)
     if not isinstance(static_manifest, dict):
@@ -315,6 +339,8 @@ def build_manifest(config: ComposeConfig) -> dict[str, Any]:
         dynamic_manifest,
         frame_id=config.frame_id,
     )
+    # Compose the scene by concatenating the baked static entries with the baked
+    # dynamic entries for this frame. No geometry is modified here.
     entries = static_entries + dynamic_entries
 
     static_count = len(static_entries)
@@ -355,6 +381,8 @@ def main() -> int:
     args = parse_args()
     config = build_config(args)
     try:
+        # Build and save one composed manifest that later XML generation can
+        # treat as the complete scene for this frame.
         manifest = build_manifest(config)
         save_json(config.output_manifest_path, manifest)
     except ComposeFrameSceneError as exc:

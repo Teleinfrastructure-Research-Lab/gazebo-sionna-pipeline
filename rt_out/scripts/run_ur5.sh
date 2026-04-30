@@ -1,7 +1,15 @@
 #!/usr/bin/env bash
+
+# Drive the UR5+RG2 robot through the validated rigid-motion manipulation path.
+# The resulting pose log is paired with the Panda log to define the current
+# rigid dynamic scope used by the Gazebo-to-Sionna prototype pipeline.
+
 set -e
 
+# Helper for publishing one joint-position command to Gazebo.
 u () { gz topic -t /model/ur5_rg2/joint/$1/0/cmd_pos -m gz.msgs.Double -p "data: $2"; }
+# The helper is intentionally repeated at stage boundaries so each motion block
+# can be read independently without changing the historical script structure.
 # Pose for lifting the first item:
 u () { gz topic -t /model/ur5_rg2/joint/$1/0/cmd_pos -m gz.msgs.Double -p "data: $2"; }
 
@@ -41,7 +49,7 @@ u shoulder_pan_joint 1.54
 u shoulder_lift_joint -0.55
 u elbow_joint -1.38
 
-# Pose for placing the first item:
+# Pose for placing the first item.
 u () { gz topic -t /model/ur5_rg2/joint/$1/0/cmd_pos -m gz.msgs.Double -p "data: $2"; }
 
 # 0) keep the gripper holding
@@ -86,6 +94,8 @@ u wrist_3_joint 1.58
 u rg2_finger_joint1 0.46
 u rg2_finger_joint2 0.29
 
+# Continue the first placement arc toward the right-hand destination before
+# returning the arm to its nominal home pose.
 u () { gz topic -t /model/ur5_rg2/joint/$1/0/cmd_pos -m gz.msgs.Double -p "data: $2"; }
 
 # 0) keep the gripper holding
@@ -126,7 +136,8 @@ u wrist_3_joint 1.58
 u rg2_finger_joint1 0.25
 u rg2_finger_joint2 0.25
 
-# Return to the initial pose:
+# Return to the initial pose so the next scripted pickup starts from a known
+# configuration instead of depending on the previous placement endpoint.
 u () { gz topic -t /model/ur5_rg2/joint/$1/0/cmd_pos -m gz.msgs.Double -p "data: $2"; }
 
 u shoulder_pan_joint 0.03
@@ -138,7 +149,7 @@ u wrist_3_joint 0.00
 u rg2_finger_joint1 0.06
 u rg2_finger_joint2 0.07
 
-# Pose for lifting the second item:
+# Pose for lifting the second item.
 u () { gz topic -t /model/ur5_rg2/joint/$1/0/cmd_pos -m gz.msgs.Double -p "data: $2"; }
 
 # 1) early turn + open the gripper
@@ -196,7 +207,7 @@ u rg2_finger_joint1 0.64
 u rg2_finger_joint2 0.67
 sleep 1
 
-# Pose for placing the second item
+# Pose for placing the second item.
 u () { gz topic -t /model/ur5_rg2/joint/$1/0/cmd_pos -m gz.msgs.Double -p "data: $2"; }
 u shoulder_lift_joint 0.3
 sleep 0.5
@@ -209,7 +220,7 @@ u wrist_1_joint 0.44
 u wrist_2_joint 1.56
 u wrist_3_joint 0
 
-# Return to the initial pose:
+# Return to the initial pose after the second placement sequence.
 u () { gz topic -t /model/ur5_rg2/joint/$1/0/cmd_pos -m gz.msgs.Double -p "data: $2"; }
 
 u shoulder_pan_joint 0.03

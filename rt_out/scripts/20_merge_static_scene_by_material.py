@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+"""Orchestrate the frozen static-scene merge pass material by material.
+
+This script prepares Blender jobs, groups ready static records by semantic
+material class, launches the merge worker, and collates the merged outputs into
+the canonical static manifest used by XML generation and RT sanity runs.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -15,11 +22,15 @@ SUPPORTED_SCENE_MESH_EXTENSIONS = {".ply", ".obj", ".dae", ".stl", ".glb", ".glt
 
 
 def load_json(path: Path) -> Any:
+    # This orchestrator exchanges JSON between the registry, the Blender worker,
+    # and the final merged manifest, so keep JSON IO in one small helper.
     with path.open("r", encoding="utf-8") as handle:
         return json.load(handle)
 
 
 def save_json(path: Path, data: Any) -> None:
+    # Persist intermediate artifacts so a failed Blender run can be inspected
+    # without rerunning the full static merge step.
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as handle:
         json.dump(data, handle, ensure_ascii=False, indent=2)
@@ -36,6 +47,8 @@ def slugify(text: str) -> str:
 
 
 def blender_candidates() -> list[Path]:
+    # Search explicit environment configuration first, then PATH, then the
+    # project-local Blender locations used on this machine.
     candidates: list[Path] = []
 
     env_path = os.environ.get("BLENDER")
@@ -58,6 +71,8 @@ def blender_candidates() -> list[Path]:
 
 
 def resolve_blender_path(requested: Path | None = None) -> Path:
+    # Fail before preparing any job payloads if Blender cannot be found, because
+    # the static baseline merge depends on Blender for every output mesh.
     if requested is not None:
         candidate = requested.expanduser()
         if candidate.exists() and candidate.is_file():
@@ -144,6 +159,8 @@ def member_metadata(entry: dict[str, Any]) -> dict[str, Any]:
 
 
 def normalize_ready_entry(raw: Any, *, index: int) -> dict[str, Any]:
+    # static_registry.json may contain skipped or unresolved items. This stage
+    # only accepts entries already marked ready by the validated registry builder.
     if not isinstance(raw, dict):
         raise ValueError(f"Entry #{index} must be an object")
 
@@ -174,6 +191,8 @@ def normalize_ready_entry(raw: Any, *, index: int) -> dict[str, Any]:
     }
 
     if geometry_type == "mesh":
+        # Mesh entries already point at concrete converted scene meshes that the
+        # Blender worker can import directly.
         normalized["scene_mesh_path"] = normalize_mesh_path(raw.get("scene_mesh_path"))
         normalized["uri"] = raw.get("uri")
         normalized["resolved_path"] = raw.get("resolved_path")
@@ -209,6 +228,8 @@ def normalize_ready_entry(raw: Any, *, index: int) -> dict[str, Any]:
 
 
 def load_ready_entries(registry_path: Path) -> tuple[dict[str, Any], list[dict[str, Any]], Path]:
+    # Read the frozen static registry and retain only the geometry that is ready
+    # to be merged into the canonical baseline scene.
     data = load_json(registry_path)
     if not isinstance(data, dict):
         raise ValueError("static_registry.json must contain a JSON object")
@@ -235,6 +256,8 @@ def load_ready_entries(registry_path: Path) -> tuple[dict[str, Any], list[dict[s
 
 
 def group_by_material(entries: list[dict[str, Any]]) -> dict[str, list[dict[str, Any]]]:
+    # Merge by semantic material class so the downstream Mitsuba and Sionna XML
+    # builders can attach one material definition per merged mesh.
     grouped: dict[str, list[dict[str, Any]]] = {}
     for entry in entries:
         grouped.setdefault(entry["material_class"], []).append(entry)
@@ -256,6 +279,8 @@ def build_job_payload(
     export_individual: bool,
     grouped_entries: dict[str, list[dict[str, Any]]],
 ) -> dict[str, Any]:
+    # Package the fully resolved inputs and outputs into a single JSON payload so
+    # the Blender worker can run without importing repository state.
     return {
         "root": str(root),
         "inputs": {
@@ -284,6 +309,8 @@ def run_blender_job(
     job_path: Path,
     result_path: Path,
 ) -> dict[str, Any]:
+    # The worker writes a structured result JSON. Treat that file as the
+    # authoritative success/failure record instead of scraping stdout.
     if not blender_path.exists() and blender_path.name != "blender":
         raise FileNotFoundError(f"Blender binary does not exist: {blender_path}")
     if not helper_path.exists():
@@ -339,6 +366,8 @@ def build_merged_manifest(
     grouped_entries: dict[str, list[dict[str, Any]]],
     blender_result: dict[str, Any],
 ) -> dict[str, Any]:
+    # Convert the worker's per-material export summary into the canonical merged
+    # static manifest consumed by both XML builders.
     raw_groups = blender_result.get("groups")
     if not isinstance(raw_groups, list):
         raise RuntimeError("Blender result is missing the groups list")
@@ -361,6 +390,8 @@ def build_merged_manifest(
 
     merged_groups: list[dict[str, Any]] = []
     for material_class, entries in grouped_entries.items():
+        # Preserve per-entry provenance so merged meshes can still be traced back
+        # to the original validated registry records.
         if material_class not in by_material:
             raise RuntimeError(
                 f"Blender did not return an export result for material {material_class!r}"
@@ -448,6 +479,8 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
 
+    # Resolve the static registry first. Its embedded root lets the merge stage
+    # survive repo moves while still using the validated asset locations.
     if args.registry is None:
         root = Path(__file__).resolve().parents[2]
         registry_path = root / "rt_out" / "manifests" / "static_registry.json"
@@ -470,6 +503,8 @@ def main() -> None:
     merged_dir = out_dir / "merged_by_material"
     debug_dir = out_dir / "debug"
     individual_dir = out_dir / "transformed_individual" if args.export_individual else None
+    # Keep the manifest filename configurable, but require it to stay within the
+    # chosen output directory so the export layout remains predictable.
     manifest_name = str(args.manifest_name).strip()
     if not manifest_name:
         raise ValueError("--manifest-name must be a non-empty filename")
@@ -485,9 +520,13 @@ def main() -> None:
     if individual_dir:
         individual_dir.mkdir(parents=True, exist_ok=True)
 
+    # Remove any stale worker result so a previous success JSON cannot mask a
+    # fresh Blender failure.
     if result_path.exists():
         result_path.unlink()
 
+    # Group the ready entries before entering Blender so the worker can stay
+    # focused on geometry import/merge instead of material bookkeeping.
     grouped_entries = group_by_material(ready_entries)
     job_payload = build_job_payload(
         root=root,
@@ -507,6 +546,8 @@ def main() -> None:
         result_path=result_path,
     )
 
+    # Only after Blender succeeds do we mint the frozen merged static manifest
+    # that later Mitsuba/Sionna stages treat as the baseline scene.
     manifest = build_merged_manifest(
         root=root,
         registry_path=registry_path,

@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
-"""Convert raw RT batch outputs into frame-to-frame supervision labels.
+"""Convert experiment-local RT batch outputs into frame-to-frame labels.
 
 For each receiver independently, this script compares consecutive frames,
 computes deltas for path count, delay spread, and received power, then derives
-binary change/adaptation targets for later ablation experiments.
+binary supervision targets for later feasibility studies. These RT-derived
+columns are labels/targets, not proactive input features for the wireless
+models.
 """
 
 from __future__ import annotations
@@ -39,7 +41,7 @@ LABEL_COLUMNS = [
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Build frame-to-frame RT labels for the semantic_ablation_rigid_100f experiment."
+        description="Build frame-to-frame RT labels from an experiment-local multi-RX RT CSV."
     )
     parser.add_argument(
         "--config",
@@ -241,8 +243,15 @@ def build_labeled_rows(rows: list[dict[str, Any]], eta_tau: float) -> list[dict[
                 previous = row
                 continue
 
+            # Compare each frame against the immediately previous frame for the
+            # same RX. Path-count change is a propagation-structure diagnostic,
+            # while delay spread and received-power deltas are the ingredients
+            # used by the downstream adaptation-trigger labels.
             delta_num_paths = int(row["num_paths"]) - int(previous["num_paths"])
             delta_delay_spread = float(row["delay_spread"]) - float(previous["delay_spread"])
+
+            # dBm differences are already dB changes, so subtracting consecutive
+            # received powers gives the exact drop/increase in dB.
             delta_rx_power_db = float(row["rx_power_dbm"]) - float(previous["rx_power_dbm"])
 
             labeled = dict(row)
@@ -262,6 +271,9 @@ def build_labeled_rows(rows: list[dict[str, Any]], eta_tau: float) -> list[dict[
                     "y_delay_spread_increase": int(delta_delay_spread > eta_tau),
                 }
             )
+            # The adaptation-trigger labels intentionally stay simple: fire when
+            # the received-power drop threshold is crossed and/or delay spread
+            # increases beyond the experiment-level eta_tau threshold.
             labeled["y_adaptation_trigger_1db"] = int(
                 labeled["y_rx_power_drop_1db"] == 1 or labeled["y_delay_spread_increase"] == 1
             )
@@ -359,6 +371,8 @@ def main() -> int:
 
     experiment = load_experiment_config(config_path)
     rt_results_dir = experiment["output_root"] / "rt_results"
+    # Keep the historical filename for compatibility with downstream scripts.
+    # In semantic_ablation_rigid_200f this file still contains 200-frame data.
     input_csv = rt_results_dir / "rt_100frames_multi_rx.csv"
     labeled_csv = rt_results_dir / "rt_100frames_multi_rx_labeled.csv"
     summary_csv = rt_results_dir / "rt_label_summary.csv"

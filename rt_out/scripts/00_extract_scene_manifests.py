@@ -1,3 +1,10 @@
+"""Extract the raw static and dynamic scene manifests from the RT world SDF.
+
+This is the pipeline entry point that walks the Gazebo world description,
+resolves model/link poses, and separates the frozen scene from the configured
+dynamic prototype models so later stages can operate on explicit JSON inputs.
+"""
+
 import json
 import math
 import xml.etree.ElementTree as ET
@@ -20,12 +27,14 @@ dynamic_models = set(PROTOTYPE_CONFIG["model_names"])
 # --------------------------------------------------
 
 def pose_str_to_list(pose_str: str):
+    """Parse one Gazebo pose string into numeric xyz+rpy values."""
     vals = [float(x) for x in pose_str.strip().split()]
     if len(vals) != 6:
         raise ValueError(f"Expected 6 pose values, got {len(vals)} from: {pose_str}")
     return vals
 
 def pose_list_to_matrix(p):
+    """Convert xyz+rpy into a homogeneous transform matrix."""
     x, y, z, roll, pitch, yaw = p
 
     cx, sx = math.cos(roll), math.sin(roll)
@@ -51,6 +60,7 @@ def pose_list_to_matrix(p):
     return T
 
 def matrix_to_pose_list(T):
+    """Convert a homogeneous transform back into xyz+rpy values."""
     x, y, z = T[:3, 3]
     R = T[:3, :3]
 
@@ -71,6 +81,11 @@ def matrix_to_pose_list(T):
     return [x, y, z, roll, pitch, yaw]
 
 def compose_pose_strings(parent_pose: str, child_pose: str) -> str:
+    """Compose two pose strings through matrix multiplication.
+
+    This mirrors the transform composition later used by the rest of the
+    pipeline when world-space geometry is frozen into manifests and meshes.
+    """
     Tp = pose_list_to_matrix(pose_str_to_list(parent_pose))
     Tc = pose_list_to_matrix(pose_str_to_list(child_pose))
     Tout = Tp @ Tc
@@ -84,6 +99,7 @@ ZERO_POSE = "0 0 0 0 0 0"
 # --------------------------------------------------
 
 def extract_visual_geometry(visual):
+    """Extract the supported geometry payload from one <visual> element."""
     visual_pose = visual.findtext("pose", default=ZERO_POSE).strip()
 
     mesh_uri = visual.findtext("./geometry/mesh/uri")
@@ -133,6 +149,7 @@ def extract_visual_geometry(visual):
 # --------------------------------------------------
 
 def resolve_model_sdf(uri: str) -> Path | None:
+    """Resolve a model:// include to its model.sdf file on disk."""
     if not uri.startswith("model://"):
         return None
     rel = uri[len("model://"):]
@@ -184,6 +201,7 @@ def collect_links_recursive(model_elem, parent_pose=ZERO_POSE, scope=""):
     return links_out
 
 def build_model_entry_from_world_model(model_elem):
+    """Build one manifest entry for a model declared directly in the world."""
     model_name = model_elem.get("name")
     model_pose = model_elem.findtext("pose", default=ZERO_POSE).strip()
     is_static = model_elem.findtext("static", default="false").strip().lower() == "true"
@@ -221,6 +239,7 @@ def build_model_entry_from_world_model(model_elem):
     return entry
 
 def build_model_entry_from_include(include_elem):
+    """Build one manifest entry for a world-level <include> reference."""
     include_name = include_elem.findtext("name")
     include_uri = include_elem.findtext("uri")
     include_pose = include_elem.findtext("pose", default=ZERO_POSE).strip()
@@ -287,6 +306,8 @@ world = root.find("world")
 static_manifest = []
 dynamic_manifest = []
 
+# Split world-local models into the frozen static scene or the configured
+# dynamic prototype set based on the validated dynamic model names.
 # World <model>
 for model in world.findall("model"):
     model_entry = build_model_entry_from_world_model(model)
@@ -295,6 +316,8 @@ for model in world.findall("model"):
     else:
         static_manifest.append(model_entry)
 
+# Includes go through the same static/dynamic split after their referenced model
+# SDF has been expanded into link/visual records.
 # World <include>
 for include in world.findall("include"):
     model_entry = build_model_entry_from_include(include)

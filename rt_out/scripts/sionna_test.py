@@ -1,3 +1,10 @@
+"""Small ad hoc Sionna sandbox used for local scene/path experiments.
+
+This file is not part of the validated pipeline stages. It exists as a quick
+scratchpad for loading scenes, placing radios, and checking basic Sionna RT
+behavior while developing or debugging the main scripts.
+"""
+
 import csv
 from pathlib import Path
 import numpy as np

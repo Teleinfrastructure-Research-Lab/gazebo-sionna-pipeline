@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 
+"""Expand raw manifest entries into a geometry-centric registry.
+
+This stage resolves visual geometry types, URIs, nested model references, and
+world transforms so later scripts can reason about concrete meshes/primitives
+instead of higher-level Gazebo SDF structure.
+"""
+
 from __future__ import annotations
 
 import json
@@ -77,6 +84,8 @@ def _parse_number(value: Any, field_name: str) -> float:
 
 @lru_cache(maxsize=None)
 def _build_model_index(models_root: Path) -> dict[str, list[Path]]:
+    # Scan the local Gazebo model tree once and cache the result, because many
+    # different visuals can reference the same model:// prefix during one run.
     index: dict[str, list[Path]] = {}
     seen_paths: set[Path] = set()
 
@@ -95,6 +104,7 @@ def _build_model_index(models_root: Path) -> dict[str, list[Path]]:
 
 
 def resolve_uri(uri: Any, project_root: Path, models_root: Path) -> Path:
+    """Resolve model/file/plain mesh references into concrete filesystem paths."""
     if not isinstance(uri, str) or not uri.strip():
         raise ValueError("mesh uri must be a non-empty string")
 
@@ -163,13 +173,18 @@ def flatten_manifest(
     project_root: Path,
     models_root: Path,
 ) -> dict[str, Any]:
+    """Expand one manifest into one geometry-registry row per visual."""
     result = _empty_result()
 
+    # Each manifest should be a model list. If that outer structure is broken,
+    # the downstream registry would be meaningless, so skip the whole manifest.
     if not isinstance(manifest_data, list):
         result["warnings"].append(f"[{source_manifest}] manifest root is not a list; skipping")
         return result
 
     for model_index, model in enumerate(manifest_data):
+        # Walk the extracted manifest at the same semantic levels that appear in
+        # the world/model SDFs: model -> link -> visual.
         if not isinstance(model, dict):
             result["warnings"].append(
                 f"[{source_manifest}] model index {model_index}: model entry is not an object; skipping"
@@ -187,6 +202,8 @@ def flatten_manifest(
             continue
 
         try:
+            # Keep the model pose available because every link/visual entry in
+            # the registry inherits this model-level transform.
             model_pose = parse_pose(model.get("model_pose"))
             model_pose_error: str | None = None
         except ValueError as exc:
@@ -194,6 +211,8 @@ def flatten_manifest(
             model_pose_error = str(exc)
 
         for link_index, link in enumerate(raw_links):
+            # Validate the link shell before looking at visuals, because later
+            # stages rely on link names and poses for provenance/debugging.
             if not isinstance(link, dict):
                 result["warnings"].append(
                     f"[{source_manifest}] model={model_name!r}, link index {link_index}: "
@@ -213,6 +232,8 @@ def flatten_manifest(
                 continue
 
             if not visuals:
+                # Links without visuals are preserved as info so researchers can
+                # understand why some logged links never become geometry rows.
                 result["links_without_visuals"] += 1
                 result["info"].append(
                     _info(source_manifest, model_name, link_name, "link has no visuals")
@@ -220,6 +241,8 @@ def flatten_manifest(
                 continue
 
             try:
+                # Keep the link pose available even if a later visual under the
+                # same link turns out to be malformed or unsupported.
                 link_pose = parse_pose(link.get("link_pose"))
                 link_pose_error: str | None = None
             except ValueError as exc:
@@ -227,6 +250,8 @@ def flatten_manifest(
                 link_pose_error = str(exc)
 
             for visual_index, visual in enumerate(visuals):
+                # One registry row is produced per visual because later static
+                # and dynamic export stages operate at visual granularity.
                 if not isinstance(visual, dict):
                     result["skipped_visuals"] += 1
                     result["warnings"].append(
@@ -248,6 +273,8 @@ def flatten_manifest(
                 )
 
                 if not isinstance(raw_model_name, str) or not raw_model_name:
+                    # A missing model name means we cannot build a stable object
+                    # identity or resolve nested model assets.
                     result["skipped_visuals"] += 1
                     result["warnings"].append(
                         _warning(source_manifest, model_name, link_name, visual_label, "missing model name")
@@ -255,6 +282,8 @@ def flatten_manifest(
                     continue
 
                 if model_pose_error is not None:
+                    # If the model pose was malformed, every visual under that
+                    # model inherits the same blocker.
                     result["skipped_visuals"] += 1
                     result["warnings"].append(
                         _warning(
@@ -275,6 +304,8 @@ def flatten_manifest(
                     continue
 
                 if link_pose_error is not None:
+                    # Likewise, a malformed link pose prevents every visual in
+                    # that link from getting a trustworthy transform chain.
                     result["skipped_visuals"] += 1
                     result["warnings"].append(
                         _warning(
@@ -296,6 +327,8 @@ def flatten_manifest(
 
                 geometry_type = visual.get("geometry_type")
                 if not isinstance(geometry_type, str) or not geometry_type:
+                    # Geometry type determines every later export branch, so a
+                    # missing value makes the visual unusable.
                     result["skipped_visuals"] += 1
                     result["warnings"].append(
                         _warning(source_manifest, model_name, link_name, visual_label, "missing geometry_type")
@@ -303,6 +336,8 @@ def flatten_manifest(
                     continue
 
                 if geometry_type not in ALLOWED_GEOMETRY_TYPES:
+                    # Keep unsupported types as warnings instead of crashing so
+                    # the registry still captures the rest of the scene.
                     result["skipped_visuals"] += 1
                     result["warnings"].append(
                         _warning(
@@ -316,6 +351,8 @@ def flatten_manifest(
                     continue
 
                 try:
+                    # Visual pose is the final local transform in the static
+                    # chain: model pose -> link pose -> visual pose.
                     visual_pose = parse_pose(visual.get("visual_pose"))
                 except ValueError as exc:
                     result["skipped_visuals"] += 1
@@ -331,6 +368,8 @@ def flatten_manifest(
                     continue
 
                 record: dict[str, Any] = {
+                    # Store both provenance and geometry metadata because later
+                    # scripts need to know where an asset came from and how to handle it.
                     "model_name": raw_model_name,
                     "link_name": raw_link_name,
                     "visual_name": visual_name_value,
@@ -343,6 +382,8 @@ def flatten_manifest(
                 }
 
                 if geometry_type == "mesh":
+                    # Mesh visuals keep both the original URI and the resolved
+                    # filesystem path so later stages can choose the most useful representation.
                     if "uri" not in visual:
                         result["skipped_visuals"] += 1
                         result["warnings"].append(
@@ -382,6 +423,8 @@ def flatten_manifest(
                     if "scale" in visual:
                         scale_value = visual.get("scale")
                     else:
+                        # Missing scale is common enough to downgrade to a
+                        # warning and assume the SDF default identity scale.
                         scale_value = "1 1 1"
                         result["warnings"].append(
                             _warning(
@@ -417,6 +460,8 @@ def flatten_manifest(
                     )
 
                 elif geometry_type == "box":
+                    # Primitive entries keep numeric parameters instead of URIs
+                    # because they will be rebuilt procedurally later.
                     if "size" not in visual:
                         result["skipped_visuals"] += 1
                         result["warnings"].append(
@@ -442,6 +487,8 @@ def flatten_manifest(
                     record["size"] = size
 
                 elif geometry_type == "cylinder":
+                    # Cylinders and spheres are likewise preserved as primitive
+                    # specifications until Blender/export stages need geometry.
                     if "radius" not in visual or "length" not in visual:
                         result["skipped_visuals"] += 1
                         result["warnings"].append(
@@ -512,6 +559,9 @@ def build_registry(
     project_root: Path,
     models_root: Path,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    """Build the combined static/dynamic geometry registry plus summary."""
+    # Flatten the two manifests independently first so the registry preserves
+    # which rows belong to the frozen static scene and which belong to dynamic models.
     static_result = flatten_manifest(
         static_manifest,
         "static_manifest",
@@ -528,6 +578,8 @@ def build_registry(
     )
 
     registry = static_result["entries"] + dynamic_result["entries"]
+    # Aggregate counts and warnings after flattening so the summary covers the
+    # whole scene while still preserving per-manifest provenance in each message.
     geometry_counts = {
         geometry_type: (
             static_result["geometry_counts"][geometry_type]
@@ -559,7 +611,10 @@ def write_registry(path: Path, registry: list[dict[str, Any]]) -> None:
 
 
 def main() -> int:
+    """Flatten the extracted manifests into the geometry registry JSON."""
     try:
+        # Read both validated manifests, expand them into geometry-centric rows,
+        # and persist one registry JSON for all later export stages.
         static_manifest = load_json(STATIC_MANIFEST_PATH)
         dynamic_manifest = load_json(DYNAMIC_MANIFEST_PATH)
     except (FileNotFoundError, ValueError) as exc:

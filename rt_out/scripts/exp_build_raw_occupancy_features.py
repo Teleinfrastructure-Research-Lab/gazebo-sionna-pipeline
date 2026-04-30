@@ -5,7 +5,8 @@
 This script creates a class-agnostic baseline feature table for wireless
 prediction experiments. It reuses the composed per-frame manifests, samples mesh
 vertices in world space, and derives TX/RX-to-geometry features without using
-semantic labels, materials, or object identities as model inputs.
+semantic labels, material labels, model names, or object identities as model
+inputs. The result approximates a raw 3D / occupancy / LiDAR-style baseline.
 """
 
 from __future__ import annotations
@@ -442,6 +443,8 @@ def build_raw_features(
     if vertices.ndim != 2 or vertices.shape[1] != 3 or vertices.shape[0] == 0:
         raise RawOccupancyFeatureError("Raw occupancy feature computation received no vertices")
 
+    # Treat the sampled world-space vertices as an unsegmented occupancy cloud
+    # and measure how densely that cloud lies around the finite TX-RX segment.
     link_distances = segment_distances(vertices, tx, rx)
     rx_distances = point_distances(vertices, rx)
     tx_distances = point_distances(vertices, tx)
@@ -551,6 +554,8 @@ def main() -> int:
             ],
             dtype=np.float64,
         )
+        # Reuse the cached frame-level vertex cloud for each RX row so the raw
+        # baseline stays cheap even when many receivers share the same frame.
         raw_features = build_raw_features(
             vertices=frame_vertex_cache[frame_id],
             tx=tx,

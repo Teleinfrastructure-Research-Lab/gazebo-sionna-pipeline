@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+"""Run a single Sionna RT sanity solve for one XML scene and one TX/RX pair.
+
+The script is intentionally small and operational: load the scene, place the
+radio sites, solve paths, and print enough summary information to confirm that
+the XML and material setup behave sensibly before larger batch experiments.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -25,6 +32,8 @@ DEFAULT_RT_RUNTIME_CONFIG = load_rt_runtime_config()
 
 
 def parse_vec3(value: str, *, field: str) -> tuple[float, float, float]:
+    # Keep TX/RX overrides compact so batch wrappers can pass coordinates
+    # directly on the command line without creating temporary config files.
     parts = [item.strip() for item in value.split(",")]
     if len(parts) != 3:
         raise argparse.ArgumentTypeError(f"{field} must have format x,y,z")
@@ -75,6 +84,8 @@ def to_numpy(value: Any) -> Any | None:
 
 
 def count_paths(paths: Any) -> tuple[int | None, str]:
+    # Different Sionna versions expose path counts slightly differently. Probe
+    # the most reliable public tensors before giving up.
     valid = getattr(paths, "valid", None)
     valid_np = to_numpy(valid)
     if valid_np is not None:
@@ -99,6 +110,8 @@ def count_paths(paths: Any) -> tuple[int | None, str]:
 
 
 def summarize_paths(paths: Any) -> None:
+    # This verbose dump is intentionally diagnostic: sanity scripts use it to
+    # confirm that the XML solved and produced plausible tensor shapes.
     num_paths, source = count_paths(paths)
     if num_paths is None:
         print("paths_found        : <unavailable>")
@@ -125,6 +138,8 @@ def summarize_paths(paths: Any) -> None:
 
 
 def print_material_summary(scene: Any, *, limit: int = 12) -> None:
+    # Print a compact object/material inventory so we can verify that the emitted
+    # XML attached the intended radio materials after scene loading.
     objects = getattr(scene, "objects", {})
     materials = getattr(scene, "radio_materials", {})
     print(f"scene_objects      : {len(objects) if hasattr(objects, '__len__') else '<unknown>'}")
@@ -154,6 +169,8 @@ def print_material_summary(scene: Any, *, limit: int = 12) -> None:
 
 
 def print_run_command(script_path: Path) -> None:
+    # Helpful when the user launched the script from a different directory and
+    # needs a copy-pasteable repo-relative rerun command.
     try:
         rel = script_path.resolve().relative_to(Path.cwd().resolve())
     except ValueError:
@@ -164,6 +181,8 @@ def print_run_command(script_path: Path) -> None:
 
 
 def load_sionna_scene(load_scene: Any, xml_path: Path) -> Any:
+    # Older and newer Sionna builds differ on merge_shapes support. Keep the
+    # compatibility shim here so the rest of the script stays straightforward.
     try:
         return load_scene(str(xml_path), merge_shapes=False)
     except TypeError as exc:
@@ -226,6 +245,8 @@ def main() -> int:
     except Exception:
         pass
 
+    # Report the full runtime setup up front because this script is a sanity
+    # check, not a silent production batch job.
     args = parse_args()
     script_path = Path(__file__)
     xml_path = args.xml.expanduser().resolve()
@@ -249,6 +270,8 @@ def main() -> int:
         return 2
 
     try:
+        # Delay heavy imports until after basic path validation so environment
+        # errors do not obscure simple missing-file mistakes.
         import sionna.rt  # noqa: F401
         from sionna.rt import PlanarArray, Receiver, Transmitter, PathSolver, load_scene
     except Exception as exc:
@@ -269,6 +292,8 @@ def main() -> int:
         not selected_variant.endswith(REQUIRED_VARIANT_SUFFIX)
         and args.use_fallback_variant
     ):
+        # The validated branch expects a polarized mono Dr.Jit backend. Allow an
+        # explicit fallback only when the caller opts in.
         try:
             mi.set_variant(FALLBACK_VARIANT)
             selected_variant = str(mi.variant())
@@ -310,6 +335,8 @@ def main() -> int:
 
     try:
         scene = load_sionna_scene(load_scene, xml_path)
+        # Apply the carrier frequency immediately after loading because the XML
+        # itself is geometry/material focused, not radio-site specific.
         scene.frequency = float(args.frequency_hz)
         print("sionna_load        : OK")
         print(f"scene_frequency_hz : {format_scalar(getattr(scene, 'frequency', None))}")
@@ -335,6 +362,8 @@ def main() -> int:
         return 2
 
     try:
+        # Configure the same simple isotropic arrays used throughout the sanity
+        # scripts before placing TX and RX into the loaded scene.
         scene.tx_array = PlanarArray(
             num_rows=1,
             num_cols=1,
@@ -354,6 +383,8 @@ def main() -> int:
 
         tx = Transmitter(name="tx_static_sanity", position=mi.Point3f(*args.tx))
         rx = Receiver(name="rx_static_sanity", position=mi.Point3f(*args.rx))
+        # Point the transmitter at the receiver so the first sanity solve uses a
+        # straightforward directional setup with predictable line-of-sight behavior.
         scene.add(tx)
         scene.add(rx)
         tx.look_at(rx)
@@ -369,6 +400,8 @@ def main() -> int:
         return 2
 
     try:
+        # Solve a restrained path configuration. The goal here is to confirm the
+        # XML/material setup works, not to run a full-scale experiment.
         solver = PathSolver()
         paths = solver(
             scene=scene,

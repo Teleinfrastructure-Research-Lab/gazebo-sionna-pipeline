@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
-"""Join RT labels with compact object-centric geometry/material features.
+"""Join RT labels with object-centric geometry/material feature descriptors.
 
 This experiment helper reads composed frame manifests plus labeled RT rows and
-turns them into a flat supervised-learning table. The features are derived from
-object instances, material groups, semantic groups, and RX/TX geometry.
+turns them into a flat supervised-learning table. The feature columns are meant
+to resemble descriptors that could be derived from object masks/instances,
+material tags, and compact scene geometry summaries. The RT columns remain the
+supervision targets/metadata, not proactive input features by themselves.
 """
 
 from __future__ import annotations
@@ -216,7 +218,7 @@ def load_rt_label_rows(path: Path) -> list[dict[str, Any]]:
         raise ObjectFeatureBuildError(
             f"Missing labeled RT CSV: {path}. Run "
             f"`python3 rt_out/scripts/exp_build_rt_labels.py --config "
-            f"rt_out/experiments/semantic_ablation_rigid_100f/configs/experiment_config.json` first."
+            f"<experiment_config.json>` first."
         ) from exc
 
     if not rows:
@@ -529,6 +531,9 @@ def add_subset_features(
     tx: tuple[float, float, float],
     rx: tuple[float, float, float],
 ) -> None:
+    # Collapse one subset of objects into compact statistics rather than
+    # carrying per-instance rows into the classifier. This is the bridge from
+    # object-level scene understanding to a flat tabular learning baseline.
     centroid_objects = [
         obj for obj in objects if isinstance(obj.get("centroid"), tuple) and len(obj["centroid"]) == 3
     ]
@@ -571,6 +576,8 @@ def build_row_features(
     semantics_of_interest: list[str],
     dynamic_models: list[str],
 ) -> dict[str, Any]:
+    # Start with pure RX/TX geometry, then add increasingly structured object,
+    # material, semantic, and dynamic-model-specific aggregates.
     features: dict[str, Any] = {}
     features["geom_rx_x"] = rx[0]
     features["geom_rx_y"] = rx[1]
@@ -638,6 +645,8 @@ def main() -> int:
 
     output_root: Path = config["output_root"]
     composed_manifest_index_path = output_root / "frames" / "composed_manifests" / "composed_manifest_index.csv"
+    # Keep the historical RT-label filename for compatibility with the existing
+    # experiment wrappers even when the experiment uses 200 sampled frames.
     rt_labels_path = output_root / "rt_results" / "rt_100frames_multi_rx_labeled.csv"
     output_path = output_root / "features" / "object_features_rt_labels.csv"
 

@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+"""Build a static-only Sionna XML scene from the merged static manifest.
+
+This is the radio-facing XML emitter for the frozen baseline scene. It maps the
+project's semantic material classes onto Sionna radio materials and writes the
+static scene file used by sanity runs and later frame composition stages.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -40,6 +47,8 @@ def prettify(elem: ET.Element, level: int = 0) -> None:
 
 
 def resolve_mesh_path(group: dict[str, Any], manifest_path: Path) -> Path:
+    # Resolve merged mesh paths relative to the manifest so the static scene can
+    # be copied together with its exported assets.
     raw_path = group.get("merged_mesh_path")
     if not raw_path:
         raise ValueError(
@@ -58,6 +67,8 @@ def resolve_mesh_path(group: dict[str, Any], manifest_path: Path) -> Path:
 
 
 def mesh_path_for_xml(mesh_path: Path, xml_parent: Path) -> str:
+    # Prefer relative paths in the XML because the static export folder is often
+    # moved intact into experiment-specific directories.
     try:
         return os.path.relpath(mesh_path, xml_parent)
     except ValueError:
@@ -72,6 +83,8 @@ def add_shape(
     xml_parent: Path,
     material_id: str,
 ) -> None:
+    # Each merged static material group becomes one Sionna shape that simply
+    # references a previously declared radio material by id.
     shape = ET.SubElement(
         scene,
         "shape",
@@ -113,6 +126,8 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
 
+    # Default to the frozen merged static manifest, which is the validated
+    # baseline reused by every later dynamic composition stage.
     if args.manifest is None:
         root = Path(__file__).resolve().parents[2]
         manifest_path = root / "rt_out" / "static_scene" / "export" / "merged_static_manifest.json"
@@ -144,6 +159,8 @@ def main() -> None:
     used_radio_materials: dict[str, RtMaterialSpec] = {}
     shape_records: list[tuple[str, Path, str]] = []
 
+    # First validate every merged material bucket and collect which radio
+    # materials are actually needed in this scene.
     for raw_group in groups:
         if not isinstance(raw_group, dict):
             raise ValueError("Each merged group must be an object")
@@ -169,9 +186,13 @@ def main() -> None:
         shape_records.append((material_class, mesh_path, material_id))
 
     scene = ET.Element("scene", {"version": "3.0.0"})
+    # Declare radio materials before shapes so each mesh can attach to one of
+    # the shared electromagnetic material definitions.
     for material_id, material_spec in sorted(used_radio_materials.items()):
         add_radio_material_xml(scene, material_spec, material_id=material_id)
 
+    # Then emit one mesh shape per merged static group, preserving the semantic
+    # material partition established by the static merge stage.
     for material_class, mesh_path, material_id in shape_records:
         add_shape(
             scene,

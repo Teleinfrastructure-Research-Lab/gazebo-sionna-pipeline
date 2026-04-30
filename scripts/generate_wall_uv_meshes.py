@@ -81,6 +81,8 @@ def format_normal(normal: tuple[float, float, float]) -> str:
 
 
 def wall_uv(segment: Segment, local_vertex: tuple[float, float, float]) -> tuple[float, float]:
+    # Front/back wall faces use shared wall-space coordinates so the plaster
+    # texture continues smoothly across separate wall segments.
     wall_u = segment.center_u + local_vertex[0]
     wall_z = segment.center_z + local_vertex[2]
     u_meters = wall_u - segment.wall_space.u_min
@@ -97,6 +99,8 @@ def local_span_uv(
     axis_v: str,
     half_sizes: tuple[float, float, float],
 ) -> tuple[float, float]:
+    # Side, top, and bottom faces only need local 0..1 UVs because they are not
+    # part of the continuous wall-texture illusion.
     axis_index = {"x": 0, "y": 1, "z": 2}
     u_idx = axis_index[axis_u]
     v_idx = axis_index[axis_v]
@@ -106,6 +110,8 @@ def local_span_uv(
 
 
 def face_definitions(segment: Segment) -> list[tuple[str, list[tuple[float, float, float]], tuple[float, float, float]]]:
+    # Represent each box-like wall segment explicitly as six quad faces so we
+    # can control UV generation face by face before triangulating in OBJ.
     hx = segment.size_x / 2.0
     hy = segment.size_y / 2.0
     hz = segment.size_z / 2.0
@@ -148,6 +154,8 @@ def uv_for_face(
     face_name: str,
     local_vertex: tuple[float, float, float],
 ) -> tuple[float, float]:
+    # Only the broad wall faces participate in global wall-space UV mapping.
+    # The remaining faces fall back to simple local span coordinates.
     half_sizes = (segment.size_x / 2.0, segment.size_y / 2.0, segment.size_z / 2.0)
     if face_name.startswith("wall_face_"):
         return wall_uv(segment, local_vertex)
@@ -157,6 +165,8 @@ def uv_for_face(
 
 
 def write_segment(segment: Segment) -> Path:
+    # Emit one self-contained OBJ per wall segment so the world can replace box
+    # primitives with UV-aware meshes without changing the overall wall layout.
     output_path = OUTPUT_DIR / f"{segment.name}.obj"
     vertices: list[str] = [f"mtllib {MTL_NAME}", f"o {segment.name}"]
     uvs: list[str] = []
@@ -168,6 +178,8 @@ def write_segment(segment: Segment) -> Path:
     normal_index = 1
 
     for face_name, face_vertices, normal in face_definitions(segment):
+        # Write each quad as two triangles with its own UVs and normal so the
+        # resulting OBJ stays simple and widely importable.
         normals.append(format_normal(normal))
         normal_ref = normal_index
         normal_index += 1
@@ -218,6 +230,8 @@ def write_material_file() -> Path:
 
 
 def main() -> None:
+    # Regenerate the full set of wall meshes plus one placeholder MTL in a
+    # dedicated output directory under meshes/walls.
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     write_material_file()
     generated = [write_segment(segment) for segment in SEGMENTS]

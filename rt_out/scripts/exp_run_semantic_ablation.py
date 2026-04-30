@@ -3,8 +3,10 @@
 """Evaluate lightweight classical baselines on the experiment feature table.
 
 The script keeps the learning side intentionally simple: grouped frame-level
-cross-validation, RX filtering, compact/wide feature subsets, and a small set of
-classical models so we can test whether object-aware features are informative.
+cross-validation, RX filtering, raw/compact/wide feature subsets, and a small
+set of classical models. The targets come from RT-derived labels such as
+adaptation-trigger or path-change events; this script does not implement full
+beamforming or resource allocation.
 """
 
 from __future__ import annotations
@@ -191,7 +193,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--target",
         required=True,
-        help="Binary target column from object_features_rt_labels.csv",
+        help="Binary target column from the selected feature table",
     )
     parser.add_argument(
         "--rx-filter",
@@ -326,9 +328,11 @@ def load_feature_rows(path: Path) -> list[dict[str, str]]:
             rows = list(csv.DictReader(handle))
     except FileNotFoundError as exc:
         raise SemanticAblationError(
-            "Missing object feature CSV: "
+            "Missing feature CSV: "
             f"{path}. Run `python3 rt_out/scripts/exp_build_object_features.py "
-            f"--config rt_out/experiments/semantic_ablation_rigid_100f/configs/experiment_config.json` first."
+            f"--config <experiment_config.json>` first for wide/compact mode, or "
+            f"`python3 rt_out/scripts/exp_build_raw_occupancy_features.py "
+            f"--config <experiment_config.json>` first for raw mode."
         ) from exc
 
     if not rows:
@@ -376,6 +380,8 @@ def filter_rows(rows: list[dict[str, str]], rx_filter: list[str] | None) -> list
 
 
 def wide_feature_columns_from_header(header: list[str]) -> dict[str, list[str]]:
+    # Wide mode is intentionally diagnostic: include all discovered feature
+    # columns by prefix so we can inspect how broader feature families behave.
     geometry = sorted(column for column in header if column.startswith("geom_"))
     material = sorted(column for column in header if column.startswith("mat_"))
     semantic = sorted(column for column in header if column.startswith("sem_"))
@@ -394,6 +400,8 @@ def wide_feature_columns_from_header(header: list[str]) -> dict[str, list[str]]:
 def compact_feature_columns_from_header(
     header: list[str],
 ) -> tuple[dict[str, list[str]], list[str]]:
+    # Compact mode is paper-facing: request a smaller, defensible subset of
+    # features that maps more directly to object masks/instances.
     header_set = set(header)
     feature_sets: dict[str, list[str]] = {"majority_baseline": []}
     missing_columns: list[str] = []
@@ -405,6 +413,8 @@ def compact_feature_columns_from_header(
 
 
 def raw_feature_columns_from_header(header: list[str]) -> dict[str, list[str]]:
+    # Raw mode uses only unsegmented occupancy-style descriptors, with no
+    # semantic/material/object-identity feature columns.
     raw_columns = sorted(column for column in header if column.startswith("raw_"))
     if not raw_columns:
         raise SemanticAblationError("No raw occupancy feature columns were found")

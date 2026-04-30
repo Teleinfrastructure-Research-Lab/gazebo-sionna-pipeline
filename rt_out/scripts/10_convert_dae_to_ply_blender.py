@@ -1,15 +1,28 @@
+"""Blender-side helper that converts one DAE mesh asset into PLY.
+
+This script runs inside Blender rather than normal Python. The surrounding
+pipeline uses it when a Collada source mesh needs to be imported, cleaned up,
+and exported into the mesh format used by later static/dynamic stages.
+"""
+
 import sys
 from pathlib import Path
 import bpy
 
 def clear_scene():
+    """Remove previously loaded Blender objects before importing the next mesh."""
     bpy.ops.object.select_all(action='SELECT')
     bpy.ops.object.delete(use_global=False)
     if hasattr(bpy.ops.outliner, "orphans_purge"):
         bpy.ops.outliner.orphans_purge(do_local_ids=True, do_linked_ids=True, do_recursive=True)
 
 def export_ply(filepath: str):
-    # Нов оператор
+    """Export the currently selected mesh objects to one PLY file.
+
+    Blender's PLY API changed across versions, so the helper checks for the new
+    operator first and falls back to the older exporter when needed.
+    """
+    # Prefer the newer Blender PLY exporter when available.
     if hasattr(bpy.ops.wm, "ply_export"):
         op = bpy.ops.wm.ply_export
         props = op.get_rna_type().properties
@@ -29,7 +42,8 @@ def export_ply(filepath: str):
         if "ascii_format" in props:
             kwargs["ascii_format"] = False
 
-        # Внимателно с export_colors: понякога е bool, понякога enum
+        # Blender exposes color export differently across versions, so disable
+        # it through whichever property shape the current version supports.
         if "export_colors" in props:
             p = props["export_colors"]
             if p.type == 'BOOLEAN':
@@ -46,7 +60,7 @@ def export_ply(filepath: str):
         op(**kwargs)
         return
 
-    # Стар оператор
+    # Fall back to the legacy exporter used by older Blender releases.
     elif hasattr(bpy.ops.export_mesh, "ply"):
         bpy.ops.export_mesh.ply(
             filepath=filepath,
@@ -61,12 +75,14 @@ def export_ply(filepath: str):
     raise RuntimeError("Не е намерен оператор за износ към PLY в Blender.")
 
 def import_dae(filepath: str):
+    """Import one Collada mesh file into the current Blender scene."""
     if hasattr(bpy.ops.wm, "collada_import"):
         bpy.ops.wm.collada_import(filepath=filepath)
     else:
         raise RuntimeError("Не е намерен оператор за внос на COLLADA (.dae) в Blender.")
 
 def main():
+    """Load one DAE file, triangulate imported meshes, and export a PLY copy."""
     argv = sys.argv
     if "--" not in argv:
         raise SystemExit("Използване: blender --background --python 10_convert_dae_to_ply_blender.py -- input.dae output.ply")

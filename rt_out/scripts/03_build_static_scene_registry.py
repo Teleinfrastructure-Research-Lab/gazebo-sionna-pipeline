@@ -1,3 +1,10 @@
+"""Filter the geometry registry down to merge-ready static scene records.
+
+The goal here is to keep only frozen renderable geometry, assign semantic
+material classes from the project rules, and write the normalized static
+registry that drives material-wise static mesh merging.
+"""
+
 from __future__ import annotations
 
 import json
@@ -42,6 +49,7 @@ def slugify(text: str) -> str:
 
 
 def pose6_to_matrix(pose: List[float]) -> List[List[float]]:
+    """Convert xyz+rpy into a 4x4 transform for static-scene baking."""
     import math
 
     if len(pose) != 6:
@@ -100,11 +108,13 @@ def normalize_pose(raw_pose: Any) -> List[float]:
 
 
 def load_material_rules(path: Path) -> Dict[str, Any]:
+    """Load semantic material rules used by the frozen static baseline."""
     data = load_json(path)
     if not isinstance(data, dict):
         raise ValueError("material_map.json must be an object")
 
-    # Предпочитан формат:
+    # Preferred schema: explicit rule objects with match type, pattern, and
+    # resulting semantic material class.
     # {
     #   "default_material": "composite",
     #   "model_rules": [
@@ -114,7 +124,7 @@ def load_material_rules(path: Path) -> Dict[str, Any]:
     if "model_rules" in data:
         return data
 
-    # Резервен формат:
+    # Fallback schema: simple exact-name to material mappings.
     # {"factory_shell": "panel_wall", "person_standing": "human_skin"}
     return {
         "default_material": data.get("default_material", "composite"),
@@ -127,6 +137,7 @@ def load_material_rules(path: Path) -> Dict[str, Any]:
 
 
 def pick_material(match_text: str, rules: Dict[str, Any]) -> str:
+    """Map model/link/visual names onto the project's semantic material class."""
     default_material = rules.get("default_material", "composite")
     model_rules = rules.get("model_rules", [])
 
@@ -173,6 +184,11 @@ def record_status_for_mesh(src_path: Optional[Path], dst_path: Optional[Path]) -
 
 
 def build_entry(raw: Dict[str, Any], material_rules: Dict[str, Any], root: Path) -> Optional[Dict[str, Any]]:
+    """Convert one geometry-registry row into a merge-ready static record.
+
+    The final world transform here follows the validated static transform chain:
+    model_to_world * link_pose * visual_pose * scale.
+    """
     geometry_type = safe_str(raw.get("geometry_type")).lower()
     model_name = safe_str(raw.get("model_name"))
     link_name = safe_str(raw.get("link_name"))
@@ -189,11 +205,12 @@ def build_entry(raw: Dict[str, Any], material_rules: Dict[str, Any], root: Path)
     t_scale = diagonal_scale(scale)
     to_world = matmul4(matmul4(matmul4(t_model, t_link), t_visual), t_scale)
 
-    # Мачване по модел + линк + визуал, а не само по model_name
+    # Match by model, link, and visual together so scene-specific rules can
+    # distinguish different parts inside the same Gazebo model.
     match_text = " | ".join([model_name, link_name, visual_name])
     material_class = pick_material(match_text, material_rules)
 
-    # Позволява правила от типа material="__skip__"
+    # Some rules intentionally remove geometry from the frozen static baseline.
     if material_class == "__skip__":
         return None
 
@@ -231,7 +248,8 @@ def build_entry(raw: Dict[str, Any], material_rules: Dict[str, Any], root: Path)
             }
         )
 
-        # Ако източникът вече е ply/obj и съществува, ползваме него директно
+        # Reuse already-renderable mesh formats directly when possible so the
+        # static merge stage does not depend on an extra conversion output.
         if src_path and src_path.suffix.lower() in {".ply", ".obj"} and src_path.exists():
             entry["scene_mesh_path"] = str(src_path)
 
@@ -259,6 +277,7 @@ def build_entry(raw: Dict[str, Any], material_rules: Dict[str, Any], root: Path)
 
 
 def build_static_registry(root: Path, registry_path: Path, material_map_path: Path) -> Dict[str, Any]:
+    """Filter the geometry registry down to ready static records plus summary."""
     raw_registry = load_json(registry_path)
     material_rules = load_material_rules(material_map_path)
 
@@ -324,6 +343,7 @@ def build_static_registry(root: Path, registry_path: Path, material_map_path: Pa
 
 
 def main() -> None:
+    """Write the static registry that drives the material-wise merge stage."""
     registry = build_static_registry(ROOT, REGISTRY_PATH, MATERIAL_MAP_PATH)
     save_json(OUTPUT_PATH, registry)
     s = registry["summary"]

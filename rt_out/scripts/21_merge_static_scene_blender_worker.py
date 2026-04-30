@@ -1,4 +1,12 @@
 #!/usr/bin/env python3
+"""Blender worker that imports and merges one batch of static geometry.
+
+The outer orchestrator hands this script a prepared set of static records for a
+single material group. Inside Blender it imports the meshes/primitives, applies
+world transforms and any scene-specific fixes, merges them, and exports one
+clean baked mesh plus metadata.
+"""
+
 from __future__ import annotations
 
 import json
@@ -23,11 +31,15 @@ PICKING_SHELVES_CONVERTED_MESH_RELATIVE = Path(
 
 
 def load_json(path: Path) -> Any:
+    # The worker receives all instructions through JSON so it can be launched
+    # from Blender without importing project-side Python modules.
     with path.open("r", encoding="utf-8") as handle:
         return json.load(handle)
 
 
 def save_json(path: Path, data: Any) -> None:
+    # Always write a result JSON, even on failure, so the outer orchestrator can
+    # inspect a structured traceback after Blender exits.
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as handle:
         json.dump(data, handle, ensure_ascii=False, indent=2)
@@ -44,11 +56,15 @@ def slugify(text: str) -> str:
 
 
 def ensure_object_mode() -> None:
+    # Many Blender operators only work reliably in OBJECT mode, so normalize the
+    # context before selection, joining, or exporting.
     if bpy.context.mode != "OBJECT":
         bpy.ops.object.mode_set(mode="OBJECT")
 
 
 def clear_scene() -> None:
+    # Each material group is processed independently inside one Blender session.
+    # Start from an empty scene so geometry never leaks across groups.
     ensure_object_mode()
     bpy.ops.object.select_all(action="SELECT")
     bpy.ops.object.delete(use_global=False)
@@ -61,6 +77,8 @@ def clear_scene() -> None:
 
 
 def select_only(objects: list[bpy.types.Object]) -> None:
+    # Keep operator-driven actions deterministic by controlling both the active
+    # object and the explicit selection set.
     ensure_object_mode()
     bpy.ops.object.select_all(action="DESELECT")
     for obj in objects:
@@ -79,12 +97,16 @@ def recalc_normals_outside(obj: bpy.types.Object) -> None:
 
 
 def detach_keep_world(obj: bpy.types.Object) -> None:
+    # Imported assets can arrive parented. Detach them while preserving their
+    # world matrix so later transforms remain purely geometric.
     matrix = obj.matrix_world.copy()
     obj.parent = None
     obj.matrix_world = matrix
 
 
 def matrix44(value: Any) -> Matrix:
+    # The outer static registry already validated the matrix numerically; here we
+    # only translate it into Blender's native Matrix type.
     if not isinstance(value, list) or len(value) != 4:
         raise ValueError("to_world must be a 4x4 matrix")
     rows = []
@@ -96,6 +118,8 @@ def matrix44(value: Any) -> Matrix:
 
 
 def import_mesh(filepath: str) -> list[bpy.types.Object]:
+    # Support the mesh formats already accepted by the static registry so the
+    # worker can merge both converted assets and direct scene meshes.
     mesh_path = Path(filepath)
     ext = mesh_path.suffix.lower()
     before = {obj.as_pointer() for obj in bpy.data.objects}
@@ -147,6 +171,8 @@ def import_mesh(filepath: str) -> list[bpy.types.Object]:
 
 
 def export_selected_ply(filepath: Path) -> None:
+    # Export merged groups as binary PLY because that is the stable mesh format
+    # used by the later Mitsuba and Sionna XML generators.
     filepath.parent.mkdir(parents=True, exist_ok=True)
 
     if hasattr(bpy.ops.wm, "ply_export"):
@@ -181,6 +207,8 @@ def triangulate_object(obj: bpy.types.Object) -> None:
 
 
 def apply_world_transform(obj: bpy.types.Object, transform: Matrix) -> None:
+    # Bake the registry's to_world transform into the mesh so the downstream XML
+    # stages can treat every static mesh as already world-placed geometry.
     detach_keep_world(obj)
     obj.matrix_world = transform @ obj.matrix_world
     bpy.context.view_layer.update()
@@ -194,6 +222,8 @@ def local_correction_for_entry(
     picking_shelves_source_path: Path,
     picking_shelves_converted_mesh_path: Path,
 ) -> Matrix:
+    # A few assets import in a local orientation that does not match the SDF
+    # frame. Apply those corrections here so the general transform chain stays clean.
     resolved_path_raw = entry.get("resolved_path")
     resolved_path = (
         Path(str(resolved_path_raw)).expanduser().resolve()
@@ -246,6 +276,8 @@ def create_sphere(radius: float) -> list[bpy.types.Object]:
 
 
 def create_entry_objects(entry: dict[str, Any]) -> list[bpy.types.Object]:
+    # Mesh entries import a source asset, while primitive entries are rebuilt as
+    # simple procedural Blender meshes before merging.
     geometry_type = entry["geometry_type"]
     if geometry_type == "mesh":
         return import_mesh(entry["scene_mesh_path"])
@@ -259,6 +291,8 @@ def create_entry_objects(entry: dict[str, Any]) -> list[bpy.types.Object]:
 
 
 def join_objects(objects: list[bpy.types.Object], name: str) -> bpy.types.Object:
+    # Collapse all meshes for one entry or material group into a single object so
+    # later export stages only have to track one baked mesh file.
     if not objects:
         raise RuntimeError(f"No objects available to join for {name}")
 
@@ -283,6 +317,8 @@ def prepare_entry_object(
     picking_shelves_source_path: Path,
     picking_shelves_converted_mesh_path: Path,
 ) -> bpy.types.Object:
+    # Convert one validated registry entry into one triangulated world-space mesh.
+    # This is the core static transform path used by the frozen baseline.
     created_objects = create_entry_objects(entry)
     world_matrix = matrix44(entry["to_world"]) @ local_correction_for_entry(
         entry,
@@ -307,6 +343,8 @@ def prepare_entry_object(
     recalc_normals_outside(entry_object)
 
     if individual_dir is not None:
+        # Optional per-entry exports are strictly for debugging and do not change
+        # the canonical merged static baseline.
         individual_path = individual_dir / f"{slugify(entry['id'])}.ply"
         select_only([entry_object])
         export_selected_ply(individual_path)
@@ -324,6 +362,8 @@ def process_material_group(
     picking_shelves_source_path: Path,
     picking_shelves_converted_mesh_path: Path,
 ) -> dict[str, Any]:
+    # Process one material bucket end-to-end: clear the scene, import every
+    # member, bake transforms, merge them, and export one mesh.
     clear_scene()
 
     entry_objects: list[bpy.types.Object] = []
@@ -358,6 +398,8 @@ def process_material_group(
 
 
 def parse_job_args() -> tuple[Path, Path]:
+    # The worker is only meant to run under Blender with a simple
+    # `-- job.json result.json` interface.
     argv = sys.argv
     if "--" not in argv:
         raise SystemExit(
@@ -373,6 +415,7 @@ def parse_job_args() -> tuple[Path, Path]:
 
 def main() -> None:
     job_path, result_path = parse_job_args()
+    # Load the serialized job payload prepared by the outer Python orchestrator.
     payload = load_json(job_path)
     if not isinstance(payload, dict):
         raise RuntimeError("Merge job must be a JSON object")
@@ -420,6 +463,8 @@ def main() -> None:
     }
 
     try:
+        # Export each material group independently so failures can be traced back
+        # to one semantic bucket instead of an opaque whole-scene merge.
         for raw_group in material_groups:
             if not isinstance(raw_group, dict):
                 raise RuntimeError("Each material group must be an object")
@@ -450,6 +495,8 @@ def main() -> None:
         result["ok"] = True
         save_json(result_path, result)
     except Exception as exc:
+        # Preserve the traceback in JSON because Blender's terminal output is not
+        # always easy to recover after a background job fails.
         result["errors"].append(
             {
                 "type": type(exc).__name__,

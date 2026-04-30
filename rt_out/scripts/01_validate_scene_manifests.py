@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 
+"""Validate the extracted scene manifests before downstream geometry work.
+
+The checks here are intentionally strict because every later export stage trusts
+these JSON files. This script catches missing fields, bad paths, and mismatched
+static/dynamic assumptions early and writes a machine-readable validation report.
+"""
+
 from __future__ import annotations
 
 import json
@@ -26,6 +33,8 @@ ALLOWED_DYNAMIC_MODELS = set(PROTOTYPE_CONFIG["model_names"])
 
 
 def add_issue(bucket: list[dict[str, str]], manifest: str, location: str, message: str) -> None:
+    # Store every finding in the same structure so the console and JSON report
+    # can present validation errors, warnings, and info entries uniformly.
     bucket.append(
         {
             "manifest": manifest,
@@ -36,6 +45,8 @@ def add_issue(bucket: list[dict[str, str]], manifest: str, location: str, messag
 
 
 def load_json(path: Path) -> tuple[Any | None, str | None]:
+    # Return an error string instead of raising immediately so the caller can
+    # report both static and dynamic manifest load failures in one validation run.
     if not path.exists():
         return None, f"Missing file: {path}"
 
@@ -49,6 +60,8 @@ def load_json(path: Path) -> tuple[Any | None, str | None]:
 
 
 def parse_numeric_sequence(value: Any, expected_length: int) -> tuple[list[float] | None, str | None]:
+    # Manifest fields sometimes arrive as Gazebo-style whitespace strings and
+    # sometimes as JSON lists, so normalize both forms before validation.
     if isinstance(value, str):
         parts = value.split()
     elif isinstance(value, (list, tuple)):
@@ -89,6 +102,9 @@ def parse_positive_number(value: Any, field_name: str) -> str | None:
 
 
 def build_model_index(models_root: Path) -> dict[str, list[Path]]:
+    # Build a lookup for model:// URIs by scanning every model directory once.
+    # If multiple directories share a model name, keep all candidates so URI
+    # resolution can warn about the ambiguity explicitly.
     index: dict[str, list[Path]] = {}
     seen_paths: set[Path] = set()
 
@@ -107,6 +123,8 @@ def build_model_index(models_root: Path) -> dict[str, list[Path]]:
 
 
 def resolve_path_candidates(raw_path: str, manifest_dir: Path, project_root: Path) -> Path:
+    # Support both manifest-relative and project-root-relative mesh paths. The
+    # extracted manifests can preserve either form depending on the source asset.
     candidate = Path(raw_path)
     if candidate.is_absolute():
         return candidate
@@ -129,6 +147,8 @@ def resolve_uri(
     models_root: Path,
     model_index: dict[str, list[Path]],
 ) -> tuple[Path | None, str | None, str | None]:
+    # Mesh visuals are the main case where manifests reference external assets.
+    # Resolve the URI and return optional warning text if the lookup was ambiguous.
     if not isinstance(uri, str) or not uri.strip():
         return None, "Mesh uri must be a non-empty string", None
 
@@ -185,6 +205,8 @@ def validate_visual_by_geometry_type(
     errors: list[dict[str, str]],
     warnings: list[dict[str, str]],
 ) -> None:
+    # Downstream exporters assume every supported geometry type already carries
+    # the fields needed to either import a mesh or create a primitive.
     geometry_type = visual.get("geometry_type")
     if not isinstance(geometry_type, str):
         add_issue(errors, manifest_name, f"{location}.geometry_type", "geometry_type must be a string")
@@ -203,6 +225,8 @@ def validate_visual_by_geometry_type(
         return
 
     if geometry_type == "mesh":
+        # Mesh visuals must resolve all the way to a real file because Blender
+        # later imports the asset directly from this path.
         if "uri" not in visual:
             add_issue(errors, manifest_name, f"{location}.uri", "mesh visual is missing uri")
             return
@@ -246,6 +270,8 @@ def validate_visual_by_geometry_type(
         return
 
     if geometry_type == "box":
+        # Primitive boxes stay procedural until the static or dynamic export
+        # stages, so only their dimensions need to be validated here.
         if "size" not in visual:
             add_issue(errors, manifest_name, f"{location}.size", "box visual is missing size")
             return
@@ -260,6 +286,8 @@ def validate_visual_by_geometry_type(
         return
 
     if geometry_type == "cylinder":
+        # Cylinders and spheres are likewise emitted procedurally later, so the
+        # manifest only needs to prove their numeric parameters are sensible.
         radius_error = parse_positive_number(visual.get("radius"), "radius")
         length_error = parse_positive_number(visual.get("length"), "length")
 
@@ -287,6 +315,8 @@ def validate_visual(
     errors: list[dict[str, str]],
     warnings: list[dict[str, str]],
 ) -> None:
+    # Validate the shape of the visual record first, then delegate the
+    # geometry-specific rules to the helper above.
     if not isinstance(visual, dict):
         add_issue(errors, manifest_name, location, "visual entry must be an object")
         return
@@ -331,6 +361,8 @@ def validate_link(
     warnings: list[dict[str, str]],
     info: list[dict[str, str]],
 ) -> None:
+    # Count every visited link so the final report can confirm that the manifest
+    # still describes the expected amount of scene structure.
     counters["links"] += 1
 
     if not isinstance(link, dict):
@@ -357,6 +389,8 @@ def validate_link(
         add_issue(errors, manifest_name, f"{location}.visuals", "visuals must be a list")
         return
 
+    # Some helper links intentionally have no renderable geometry. Keep that as
+    # info instead of treating it as a hard failure.
     if not visuals:
         add_issue(info, manifest_name, f"{location}.visuals", "Link has no visuals")
         return
@@ -390,6 +424,8 @@ def validate_manifest(
     models_root: Path,
     model_index: dict[str, list[Path]],
 ) -> set[str]:
+    # Walk each manifest exactly the way downstream stages consume it:
+    # model -> link -> visual, while also enforcing the static/dynamic split.
     seen_models: set[str] = set()
 
     if not isinstance(manifest_data, list):
@@ -422,6 +458,8 @@ def validate_manifest(
 
         static_value = entry.get("static")
         if "static" in entry:
+            # The validated pipeline expects every entry in a given manifest to
+            # agree with that manifest's static/dynamic role.
             if not isinstance(static_value, bool):
                 add_issue(errors, manifest_name, f"{location}.static", "static must be a boolean")
             elif static_value is not expected_static:
@@ -466,6 +504,8 @@ def create_summary(
     warnings: list[dict[str, str]],
     info: list[dict[str, str]],
 ) -> dict[str, Any]:
+    # Keep the summary numeric and compact so the JSON report doubles as a quick
+    # regression target between validation runs.
     return {
         "static_manifest_models": static_manifest_models,
         "dynamic_manifest_models": dynamic_manifest_models,
@@ -479,12 +519,16 @@ def create_summary(
 
 
 def write_report(report_path: Path, report_data: dict[str, Any]) -> None:
+    # Always rewrite the full report so the JSON artifact matches the latest
+    # console output and can be archived with experiment results.
     with report_path.open("w", encoding="utf-8") as handle:
         json.dump(report_data, handle, indent=2, ensure_ascii=False)
         handle.write("\n")
 
 
 def print_issue_group(title: str, issues: list[dict[str, str]]) -> None:
+    # Mirror the JSON issue structure in the console so locations are easy to
+    # trace back into the written validation report.
     print(f"{title} ({len(issues)}):")
     if not issues:
         print("  - none")
@@ -495,6 +539,8 @@ def print_issue_group(title: str, issues: list[dict[str, str]]) -> None:
 
 
 def main() -> int:
+    # Accumulate findings across both manifests so one run gives a complete
+    # picture before any geometry conversion or XML generation happens.
     errors: list[dict[str, str]] = []
     warnings: list[dict[str, str]] = []
     info: list[dict[str, str]] = []
@@ -502,12 +548,16 @@ def main() -> int:
     static_data, static_load_error = load_json(STATIC_MANIFEST_PATH)
     dynamic_data, dynamic_load_error = load_json(DYNAMIC_MANIFEST_PATH)
 
+    # Parsing must succeed before structural checks can compare the frozen static
+    # baseline against the validated Panda/UR5 dynamic branch.
     if static_load_error is not None:
         add_issue(errors, "static_manifest", str(STATIC_MANIFEST_PATH), static_load_error)
     if dynamic_load_error is not None:
         add_issue(errors, "dynamic_manifest", str(DYNAMIC_MANIFEST_PATH), dynamic_load_error)
 
     if errors:
+        # Even early load failures get written to the standard report path so
+        # later debugging does not depend on captured terminal output.
         summary = {
             "static_manifest_models": 0,
             "dynamic_manifest_models": 0,
@@ -535,6 +585,7 @@ def main() -> int:
         "visuals": 0,
         "geometry_counts": {name: 0 for name in ALLOWED_GEOMETRY_TYPES},
     }
+    # Build the model:// lookup only after both manifests were parsed cleanly.
     model_index = build_model_index(MODELS_ROOT)
 
     static_models = validate_manifest(
@@ -566,6 +617,8 @@ def main() -> int:
     )
 
     if "factory_shell" not in static_models:
+        # The static baseline is expected to contain the full shell geometry.
+        # Missing it would invalidate every later RT export.
         add_issue(
             errors,
             "static_manifest",
@@ -576,6 +629,8 @@ def main() -> int:
     unexpected_dynamic_models = sorted(dynamic_models - ALLOWED_DYNAMIC_MODELS)
     missing_dynamic_models = sorted(ALLOWED_DYNAMIC_MODELS - dynamic_models)
 
+    # The current validated rigid dynamic path is intentionally narrow: Panda
+    # and ur5_rg2 only. Actor experiments are tracked separately in spike scripts.
     if unexpected_dynamic_models:
         add_issue(
             errors,
@@ -609,6 +664,8 @@ def main() -> int:
         "warnings": warnings,
         "info": info,
     }
+    # Persist the machine-readable report before printing the human-readable
+    # summary so the artifact exists even if stdout is truncated.
     write_report(REPORT_PATH, report)
 
     print("Manifest validation summary")

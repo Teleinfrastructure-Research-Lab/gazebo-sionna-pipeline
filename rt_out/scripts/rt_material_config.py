@@ -1,3 +1,10 @@
+"""Load and validate the RT material/radio-material configuration.
+
+XML builders and RT sanity scripts all need the same frequency and material
+mapping rules. This helper centralizes that schema validation and exposes the
+derived structures those scripts consume.
+"""
+
 from __future__ import annotations
 
 import json
@@ -17,6 +24,7 @@ class RtMaterialConfigError(RuntimeError):
 
 @dataclass(frozen=True)
 class RtMaterialSpec:
+    """One semantic material-class specification for XML/RT emission."""
     material_class: str
     model: str
     thickness: float
@@ -29,16 +37,19 @@ class RtMaterialSpec:
 
     @property
     def default_material_id(self) -> str:
+        """Return the stable XML identifier used when no explicit ID is given."""
         return f"mat-{slugify(self.material_class)}"
 
 
 @dataclass(frozen=True)
 class RtRuntimeConfig:
+    """Runtime-wide RT settings shared across material-aware scripts."""
     carrier_frequency_hz: float
     config_path: Path
 
 
 def slugify(text: Any) -> str:
+    """Create stable XML-safe identifiers from free-form material labels."""
     chars = []
     for ch in str(text):
         chars.append(ch.lower() if ch.isalnum() else "_")
@@ -49,6 +60,7 @@ def slugify(text: Any) -> str:
 
 
 def load_json(path: Path) -> Any:
+    """Read the raw RT material mapping JSON file."""
     try:
         with path.open("r", encoding="utf-8") as handle:
             return json.load(handle)
@@ -59,6 +71,7 @@ def load_json(path: Path) -> Any:
 
 
 def numeric(value: Any, label: str, *, minimum: float | None = None) -> float:
+    """Parse numeric material parameters and enforce optional lower bounds."""
     if isinstance(value, bool):
         raise RtMaterialConfigError(f"{label} must be numeric")
     try:
@@ -71,6 +84,7 @@ def numeric(value: Any, label: str, *, minimum: float | None = None) -> float:
 
 
 def non_empty_string(value: Any, label: str) -> str:
+    """Normalize required string-valued material config fields."""
     if not isinstance(value, str) or not value.strip():
         raise RtMaterialConfigError(f"{label} must be a non-empty string")
     return value.strip()
@@ -79,6 +93,11 @@ def non_empty_string(value: Any, label: str) -> str:
 def load_rt_material_specs(
     config_path: Path | None = None,
 ) -> dict[str, RtMaterialSpec]:
+    """Load semantic-material specs used when building Sionna/Mitsuba scenes.
+
+    The project maps semantic classes such as metal or glass onto either ITU or
+    custom radio-material parameters. This function validates that mapping.
+    """
     path = (config_path or DEFAULT_RT_MATERIAL_CONFIG_PATH).expanduser().resolve()
     data = load_json(path)
     if not isinstance(data, dict):
@@ -148,6 +167,7 @@ def load_rt_material_specs(
 
 
 def load_rt_runtime_config(config_path: Path | None = None) -> RtRuntimeConfig:
+    """Load the experiment-wide RT carrier-frequency metadata."""
     path = (config_path or DEFAULT_RT_MATERIAL_CONFIG_PATH).expanduser().resolve()
     data = load_json(path)
     if not isinstance(data, dict):
@@ -175,6 +195,11 @@ def add_radio_material_xml(
     *,
     material_id: str | None = None,
 ) -> str:
+    """Append one Sionna radio-material XML node and return its ID.
+
+    This keeps the semantic-to-radio material assumption explicit in the emitted
+    XML so later RT sanity runs use the same mapping as the rest of the project.
+    """
     bsdf_id = material_id or spec.default_material_id
 
     if spec.model == "itu":

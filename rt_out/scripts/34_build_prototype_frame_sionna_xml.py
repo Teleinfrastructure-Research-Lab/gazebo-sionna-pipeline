@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+"""Build a frame-specific Sionna XML scene from a composed frame manifest.
+
+The composed manifest already tells us which static and dynamic meshes belong in
+the scene. This script turns that manifest into a radio-ready XML file, mapping
+semantic materials to the configured Sionna radio-material definitions.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -78,6 +85,8 @@ def parse_args() -> argparse.Namespace:
 
 
 def build_config(args: argparse.Namespace) -> XmlConfig:
+    # Centralize all frame-specific paths so both the validated prototype layout
+    # and experiment-local overrides write the same XML artifact shape.
     input_manifest_path = (
         default_input_manifest_path(args.frame_id)
         if args.input_manifest is None
@@ -125,6 +134,8 @@ def prettify(elem: ET.Element, level: int = 0) -> None:
 
 
 def mesh_path_for_xml(mesh_path: Path, xml_parent: Path) -> str:
+    # Prefer relative mesh references so a composed frame directory remains
+    # portable when copied into experiment-specific folders.
     try:
         return os.path.relpath(mesh_path, xml_parent)
     except ValueError:
@@ -132,10 +143,13 @@ def mesh_path_for_xml(mesh_path: Path, xml_parent: Path) -> str:
 
 
 def material_bsdf_id(material_class: str, frame_id: int) -> str:
+    # Scope material ids by frame so each frame-local XML stays self-contained.
     return f"mat-frame{frame_id}_{slugify(material_class)}"
 
 
 def add_shape(scene: ET.Element, entry: dict[str, Any], xml_parent: Path, *, frame_id: int) -> None:
+    # Each composed entry is already a baked world-space mesh, so XML emission is
+    # just mesh reference plus radio-material reference with no extra transforms.
     material_class = entry["material_label_resolved"]
     shape = ET.SubElement(
         scene,
@@ -163,6 +177,8 @@ def require_non_empty_string(value: Any, label: str) -> str:
 
 
 def resolve_entry_material(entry: dict[str, Any], warnings: list[str]) -> str:
+    # Static entries keep their merged material label, while the validated rigid
+    # dynamic path force-maps Panda and UR5 visuals to metal for radio purposes.
     source = entry.get("source")
     entry_id = entry.get("id")
 
@@ -193,6 +209,8 @@ def validate_and_resolve_entries(
     frame_id: int,
     material_specs: dict[str, RtMaterialSpec],
 ) -> tuple[list[dict[str, Any]], list[str]]:
+    # Validate the composed manifest as a self-contained scene description and
+    # resolve the final radio material label for every entry.
     if data.get("frame_id") != frame_id:
         raise FrameSionnaXmlError(f"frame_id={data.get('frame_id')}, expected {frame_id}")
 
@@ -229,6 +247,8 @@ def validate_and_resolve_entries(
     seen_ids: set[str] = set()
 
     for index, raw_entry in enumerate(entries):
+        # Every entry must already point to a baked mesh on disk because this XML
+        # builder does not perform geometry conversion or transform application.
         if not isinstance(raw_entry, dict):
             raise FrameSionnaXmlError(f"entries[{index}] must be an object")
 
@@ -283,6 +303,8 @@ def build_xml(
     frame_id: int,
     material_specs: dict[str, RtMaterialSpec],
 ) -> None:
+    # Emit one self-contained Sionna XML scene for this frame by first defining
+    # the radio materials and then adding one shape per composed mesh entry.
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     used_materials = sorted({entry["material_label_resolved"] for entry in entries})
@@ -308,6 +330,8 @@ def main() -> int:
     args = parse_args()
     config = build_config(args)
     try:
+        # Load the composed manifest, validate it, then write the frame-local XML
+        # scene that RT sanity scripts will load directly.
         data = load_json(config.input_manifest_path)
         if not isinstance(data, dict):
             raise FrameSionnaXmlError("Input manifest root must be an object")

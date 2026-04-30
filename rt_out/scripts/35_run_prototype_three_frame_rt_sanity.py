@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+"""Run the validated three-frame prototype sanity flow with one RX site.
+
+This is an end-to-end operational harness around frame composition, XML
+generation, and the single-pair RT solve. It is useful when checking that the
+prototype dynamic pipeline still produces stable path statistics.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -141,6 +148,8 @@ def parse_args() -> argparse.Namespace:
 
 
 def collabpaper_python_executable() -> Path:
+    # Sionna/Mitsuba live in the dedicated collabpaper environment, so locate
+    # that interpreter explicitly instead of assuming the current shell Python.
     candidates: list[Path] = []
 
     env_path = os.environ.get("COLLABPAPER_PYTHON")
@@ -199,6 +208,8 @@ def xml_path(frame_id: int, composed_root: Path, output_suffix: str) -> Path:
 
 
 def runtime_env() -> dict[str, str]:
+    # Give long-running RT helpers stable cache/config directories that are safe
+    # to create on shared systems.
     env = os.environ.copy()
     mpl_config = Path("/tmp/matplotlib-collabpaper")
     drjit_cache = Path("/tmp/drjit-collabpaper")
@@ -219,6 +230,8 @@ def run_command(
     env: dict[str, str] | None = None,
     check: bool = True,
 ) -> subprocess.CompletedProcess[str]:
+    # Centralize subprocess execution so every stage runs from the repository
+    # root and reports stdout/stderr consistently on failure.
     result = subprocess.run(
         command,
         cwd=str(PROJECT_ROOT),
@@ -250,6 +263,8 @@ def load_json(path: Path) -> Any:
 
 
 def validate_dynamic_manifest(path: Path, frame_id: int, source_sample_index: int) -> None:
+    # Confirm the dynamic mesh export for this frame succeeded before composing
+    # it with the frozen static baseline.
     data = load_json(path)
     if data.get("frame_id") != frame_id:
         raise ThreeFrameRtError(f"{path} has frame_id={data.get('frame_id')}, expected {frame_id}")
@@ -270,6 +285,8 @@ def validate_dynamic_manifest(path: Path, frame_id: int, source_sample_index: in
 
 
 def validate_composed_manifest(path: Path, frame_id: int, source_sample_index: int) -> int:
+    # Confirm the composed manifest still contains the expected mix of frozen
+    # static meshes and frame-local dynamic meshes before building XML.
     data = load_json(path)
     if data.get("frame_id") != frame_id:
         raise ThreeFrameRtError(f"{path} has frame_id={data.get('frame_id')}, expected {frame_id}")
@@ -297,6 +314,7 @@ def validate_composed_manifest(path: Path, frame_id: int, source_sample_index: i
 
 
 def validate_xml(path: Path, expected_shapes: int) -> None:
+    # Sanity-check the emitted XML structurally before handing it to Sionna.
     if not path.exists():
         raise ThreeFrameRtError(f"Missing XML: {path}")
     root = ET.parse(path).getroot()
@@ -335,6 +353,8 @@ def extract_tau_stats(
     env: dict[str, str],
     rt_python: Path,
 ) -> tuple[int | None, float | None, float | None, str | None]:
+    # Re-run the same frame through a tiny embedded helper so tau statistics are
+    # extracted from the Paths object in a version-tolerant way.
     result = run_command(
         [str(rt_python), "-c", TAU_STATS_SCRIPT, str(path), str(CARRIER_FREQUENCY_HZ)],
         env=env,
@@ -365,6 +385,8 @@ def run_frame(
     output_manifest = composed_manifest_path(frame_id, composed_root, output_suffix)
     output_xml = xml_path(frame_id, composed_root, output_suffix)
 
+    # Rebuild the dynamic meshes for this prototype frame so the end-to-end
+    # sanity harness covers the full rigid Panda/UR5 path.
     run_command(
         [
             sys.executable,
@@ -377,6 +399,8 @@ def run_frame(
     )
     validate_dynamic_manifest(dynamic_manifest_path(frame_id), frame_id, source_sample_index)
 
+    # Compose the frame-local dynamic geometry with the frozen static baseline
+    # and verify the manifest counts before emitting XML.
     run_command(
         [
             sys.executable,
@@ -409,6 +433,8 @@ def run_frame(
     )
     validate_xml(output_xml, expected_shapes=expected_shapes)
 
+    # Finally run the single TX/RX Sionna sanity solve and collect path-count
+    # plus delay statistics for this frame.
     sanity_result = run_command(
         [
             str(rt_python),
@@ -510,6 +536,8 @@ def main() -> int:
     print(f"Composed root: {composed_root}")
     rows: list[dict[str, Any]] = []
     try:
+        # Iterate over the three validated prototype frames:
+        # frame 0 -> sample 0, frame 1 -> 25570, frame 2 -> 51140.
         for frame_id, source_sample_index in PROTOTYPE_FRAMES:
             rows.append(
                 run_frame(

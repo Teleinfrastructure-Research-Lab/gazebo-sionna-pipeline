@@ -1,7 +1,15 @@
 #!/usr/bin/env bash
+
+# Drive the Panda robot through the validated rigid-motion pickup/place program.
+# The exact joint command sequence is part of the prototype motion dataset used
+# by the current rigid Panda/UR5 dynamic pipeline.
+
 set -e
 
+# Helper for publishing one joint-position command to Gazebo.
 p () { gz topic -t /model/Panda/joint/$1/0/cmd_pos -m gz.msgs.Double -p "data: $2"; }
+# The helper is intentionally redefined at stage boundaries in this script so
+# each motion block can be read in isolation while preserving the old workflow.
 # Pose for grasping the first item:
 p () { gz topic -t /model/Panda/joint/$1/0/cmd_pos -m gz.msgs.Double -p "data: $2"; }
 
@@ -17,7 +25,8 @@ sleep 3.0
 
 p panda_joint2 1.58
 
-# Pose for placing the first item:
+# Pose for placing the first item. The comments below describe task-space intent
+# rather than low-level kinematics so the motion story remains readable.
 p () { gz topic -t /model/Panda/joint/$1/0/cmd_pos -m gz.msgs.Double -p "data: $2"; }
 
 # 0) hold the part
@@ -77,7 +86,7 @@ p panda_joint2 1.33
 p panda_finger_joint1 0.03
 p panda_finger_joint2 0.03
 
-# Pose for grasping the second item:
+# Pose for grasping the second item.
 p () { gz topic -t /model/Panda/joint/$1/0/cmd_pos -m gz.msgs.Double -p "data: $2"; }
 
 # 0) if the hand is empty, keep the fingers open
@@ -140,7 +149,7 @@ sleep 1
 p panda_joint2 1.28
 sleep 1
 
-# Pose for placing the second item:
+# Pose for placing the second item.
 p () { gz topic -t /model/Panda/joint/$1/0/cmd_pos -m gz.msgs.Double -p "data: $2"; }
 
 # 0) keep the fingers slightly open
@@ -207,7 +216,7 @@ sleep 1
 p panda_joint2 0.76
 sleep 1
 
-# Pose for grasping the third item:
+# Pose for grasping the third item.
 p () { gz topic -t /model/Panda/joint/$1/0/cmd_pos -m gz.msgs.Double -p "data: $2"; }
 
 # 0) fingers

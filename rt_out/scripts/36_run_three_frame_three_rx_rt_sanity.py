@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+"""Run the validated three-frame sanity flow against multiple RX positions.
+
+This wrapper keeps the same frame/XML logic as the prototype sanity path but
+expands the evaluation to several approved receiver sites so we can compare
+path-count and delay behavior across different static viewpoints.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -151,6 +158,8 @@ def parse_args() -> argparse.Namespace:
 
 
 def collabpaper_python_executable() -> Path:
+    # Sionna/Mitsuba live in the dedicated collabpaper environment, so locate
+    # that interpreter explicitly instead of assuming the current shell Python.
     candidates: list[Path] = []
 
     env_path = os.environ.get("COLLABPAPER_PYTHON")
@@ -175,6 +184,8 @@ def collabpaper_python_executable() -> Path:
 
 
 def runtime_env() -> dict[str, str]:
+    # Give long-running RT helpers stable cache/config directories that are safe
+    # to create on shared systems.
     env = os.environ.copy()
     mpl_config = Path("/tmp/matplotlib-collabpaper")
     drjit_cache = Path("/tmp/drjit-collabpaper")
@@ -254,6 +265,8 @@ def vec3_json(value: tuple[float, float, float]) -> str:
 
 
 def load_radio_sites(config_path: Path) -> tuple[str, tuple[float, float, float], list[tuple[str, tuple[float, float, float]]]]:
+    # Load the validated multi-RX sanity layout. This script intentionally
+    # reuses fixed sites rather than inventing new positions on the fly.
     data = load_json(config_path)
     if not isinstance(data, dict):
         raise ThreeFrameThreeRxError("prototype_radio_sites.json root must be an object")
@@ -300,6 +313,8 @@ def compose_and_emit_frame(
     static_manifest_path: Path,
     composed_root: Path,
 ) -> Path:
+    # Reuse the validated composition and XML builders to produce the per-frame
+    # scene that will be evaluated from several RX viewpoints.
     output_manifest = composed_manifest_path(frame_id, composed_root)
     output_xml = xml_path(frame_id, composed_root)
 
@@ -367,6 +382,8 @@ def extract_tau_stats(
     env: dict[str, str],
     rt_python: Path,
 ) -> tuple[int | None, float | None, float | None, str | None]:
+    # Re-run the same frame through a tiny embedded helper so tau statistics are
+    # extracted directly from the Sionna Paths object.
     result = run_command(
         [
             str(rt_python),
@@ -403,6 +420,8 @@ def run_one_row(
     env: dict[str, str],
     rt_python: Path,
 ) -> dict[str, Any]:
+    # Run one XML scene for one TX/RX pair and collect compact path-count plus
+    # delay statistics for the summary CSV.
     sanity_result = run_command(
         [
             str(rt_python),
@@ -507,6 +526,8 @@ def main() -> int:
     print(f"TX              : {tx_id} {vec3_json(tx_position)}")
 
     try:
+        # Reuse the three validated prototype frames, then evaluate each one from
+        # the approved receiver sites independently.
         for frame_id, source_sample_index in PROTOTYPE_FRAMES:
             xml = compose_and_emit_frame(
                 frame_id,

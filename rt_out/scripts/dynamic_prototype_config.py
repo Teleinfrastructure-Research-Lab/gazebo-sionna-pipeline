@@ -1,3 +1,10 @@
+"""Load and validate the dynamic prototype configuration schema.
+
+Multiple scripts rely on the same robot names, pose-log paths, sample indices,
+and expected visual counts. This helper centralizes that validation so the
+dynamic pipeline has one consistent source of truth.
+"""
+
 from __future__ import annotations
 
 import json
@@ -14,6 +21,7 @@ class DynamicPrototypeConfigError(RuntimeError):
 
 
 def _load_json(path: Path) -> Any:
+    """Read the raw JSON file and convert file/parse failures into config errors."""
     try:
         with path.open("r", encoding="utf-8") as handle:
             return json.load(handle)
@@ -24,30 +32,35 @@ def _load_json(path: Path) -> Any:
 
 
 def _require_object(value: Any, label: str) -> dict[str, Any]:
+    """Ensure a config node is an object before deeper schema validation."""
     if not isinstance(value, dict):
         raise DynamicPrototypeConfigError(f"{label} must be an object")
     return value
 
 
 def _require_non_empty_string(value: Any, label: str) -> str:
+    """Normalize and validate required string fields in the config."""
     if not isinstance(value, str) or not value.strip():
         raise DynamicPrototypeConfigError(f"{label} must be a non-empty string")
     return value.strip()
 
 
 def _require_positive_int(value: Any, label: str) -> int:
+    """Validate positive integer config fields such as link counts."""
     if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
         raise DynamicPrototypeConfigError(f"{label} must be a positive integer")
     return value
 
 
 def _require_non_negative_int(value: Any, label: str) -> int:
+    """Validate frame IDs and source sample indices that may be zero-based."""
     if isinstance(value, bool) or not isinstance(value, int) or value < 0:
         raise DynamicPrototypeConfigError(f"{label} must be a non-negative integer")
     return value
 
 
 def _resolve_project_path(value: str, project_root: Path) -> Path:
+    """Resolve repo-relative paths so downstream scripts can open them directly."""
     path = Path(value).expanduser()
     if not path.is_absolute():
         path = project_root / path
@@ -59,6 +72,12 @@ def load_dynamic_prototype_config(
     *,
     project_root: Path = PROJECT_ROOT,
 ) -> dict[str, Any]:
+    """Load the validated rigid Panda/UR5 prototype configuration.
+
+    The returned structure expands the raw JSON into derived lookup tables used
+    throughout the dynamic pipeline, including frame-to-sample mappings and the
+    expected renderable visual counts after non-renderable links are excluded.
+    """
     path = (config_path or DEFAULT_CONFIG_PATH).expanduser().resolve()
     data = _require_object(_load_json(path), "dynamic_prototype_config.json")
 
