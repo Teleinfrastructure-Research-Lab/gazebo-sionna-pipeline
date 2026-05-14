@@ -1,49 +1,118 @@
-# Gazebo to Sionna Pipeline
+# Gazebo To Sionna RT Pipeline
 
-Gazebo-to-Sionna RT pipeline for synthetic wireless and 3D-scene research. This repository converts a Gazebo-defined robotic lab world into ray-tracing-ready scene representations for Mitsuba and Sionna RT. It extracts static and dynamic scene manifests, prepares geometry for radio simulation, builds static and frame-specific XML scenes, and runs sanity evaluations for a prototype Panda/UR5 environment.
+This repository converts a Gazebo lab world into Mitsuba/Sionna RT scene inputs
+for wireless ray-tracing experiments. It extracts static and dynamic scene
+manifests, prepares mesh geometry, emits static and frame-specific Sionna XML,
+and runs small regression flows for a Panda/UR5 prototype scene.
 
-The project is organized around two connected sides. The **Gazebo side** contains the world files, model assets, plugins, and motion/logging helpers used to define and simulate the scene. The **RT side** lives under `rt_out/` and contains the preprocessing, mesh preparation, manifest generation, XML export, and evaluation pipeline used to translate that scene into Mitsuba/Sionna inputs.
+## Environment Setup
 
-The current validated pipeline supports:
-- rigid non-actor Gazebo scene content
-- static scene export to Mitsuba and Sionna RT
-- dynamic prototype motion for **Panda** and **ur5_rg2**
-- exactly **3 prototype frames**
-- an explicit **28 GHz** RT baseline
-- single-RX and 3-frame × 3-RX sanity evaluation flows 
-- experiment-local sampled-frame wrappers for semantic ablation branches such as
-  `semantic_ablation_rigid_200f`
+The repository currently assumes you already have a Python environment with
+Sionna RT and Mitsuba installed. Set `SIONNA_PYTHON` to that interpreter, for
+example:
 
-At a high level, the workflow is:
-1. create or update the Gazebo world and models
-2. launch the RT world and, when needed, record Panda/UR5 pose logs
-3. extract static and dynamic manifests from `myworld_rt.sdf`
-4. build geometry and static registries
-5. merge the static scene by material
-6. generate Mitsuba and Sionna XML scenes
-7. build dynamic prototype frames and per-frame transformed meshes
-8. compose static + dynamic frame scenes
-9. run RT sanity checks and export CSV summaries 
+```bash
+export SIONNA_PYTHON="$HOME/miniconda3/envs/your_env_name/bin/python"
+export COLLABPAPER_PYTHON="$SIONNA_PYTHON"  # legacy alias for older wrappers
+export BLENDER=blender
+```
 
-This repository is currently best understood as a **validated prototype pipeline**, not yet a fully generalized Gazebo-to-RT system. The active flow is still scoped to the current lab world, the configured Panda/UR5 dynamic prototype, prepared static converted meshes, and selected frame/sample definitions. Gazebo actors are present in the world files but are not yet integrated into the active RT path.
+A fully reproducible `environment.yml` or `requirements.txt` is not yet
+provided, so environment setup is still manual.
 
-## Repository guide
+The current validated scope is intentionally narrow:
 
-Start here depending on what you need:
+- Static Gazebo scene export to Mitsuba and Sionna RT XML.
+- Rigid dynamic prototype motion for `Panda` and `ur5_rg2`.
+- Three validated prototype frames.
+- Optional actor-aware export/composition for those same three frames.
+- A 28 GHz Sionna RT baseline with single-RX and three-RX sanity runners.
+- A validated `semantic_ablation_rigid_200f` experiment branch for rigid Panda/UR5 only.
+- A validated `semantic_ablation_actor_200f` experiment branch with static scene + Panda/UR5 + a moving human actor, including RT, labels, object-aware features, raw occupancy features, and ablations.
 
-- **Project structure and pipeline overview:** `docs/project_roadmap.md`
-- **Software requirements and required inputs:** `docs/requirements_and_inputs.md`
-- **Step-by-step execution guide:** `docs/step_by_step_guide.md`
-- **Configs and world-specific parts:** `docs/configs_and_world_specific_parts.md`
-- **Script-by-script reference:** `docs/script_reference.md`
-- **Semantic ablation 200f experiment guide:** `docs/semantic_ablation_200f_pipeline.md`
-- **Miscellaneous and historical notes:** `docs/misc_and_legacy.md`
+## Quickstart: Actor-Free Prototype
 
-## Semantic ablation branch
+Run from the repository root:
 
-The repository now also contains an experiment-local branch named
-`semantic_ablation_rigid_200f`. It reuses the frozen static baseline and the
-validated Panda/UR5 rigid dynamic path, then scales the workflow to 200 sampled
-frames, 6 RX locations, RT-derived supervision labels, object-aware feature
-tables, and a raw occupancy baseline. For the exact commands, naming quirks,
-and current scope limitations, see `docs/semantic_ablation_200f_pipeline.md`.
+```bash
+python3 rt_out/scripts/static_scene/00_extract_scene_manifests.py
+python3 rt_out/scripts/static_scene/01_validate_scene_manifests.py
+python3 rt_out/scripts/static_scene/02_build_scene_geometry_registry.py
+python3 rt_out/scripts/static_scene/03_build_static_scene_registry.py
+python3 rt_out/scripts/static_scene/20_merge_static_scene_by_material.py
+python3 rt_out/scripts/static_scene/23_build_static_sionna_xml.py
+python3 rt_out/scripts/static_scene/24_run_sionna_rt_sanity.py --xml rt_out/static_scene/export/static_scene_sionna.xml
+python3 rt_out/scripts/dynamic_rigid/30_build_prototype_dynamic_frames.py
+python3 rt_out/scripts/dynamic_rigid/31_build_prototype_dynamic_visual_frames.py
+python3 rt_out/scripts/dynamic_rigid/35_run_prototype_three_frame_rt_sanity.py
+python3 rt_out/scripts/dynamic_rigid/36_run_three_frame_three_rx_rt_sanity.py
+```
+
+## Quickstart: Optional Actor-Aware Prototype
+
+Actor support is validated only for the optional three-frame prototype branch.
+`35` and `36` remain actor-free unless `--include-actors` is passed.
+
+```bash
+python3 rt_out/scripts/dynamic_actor/40_extract_actor_manifest.py
+python3 rt_out/scripts/dynamic_actor/41_build_actor_frame_samples.py
+python3 rt_out/scripts/dynamic_rigid/35_run_prototype_three_frame_rt_sanity.py --include-actors
+python3 rt_out/scripts/dynamic_rigid/36_run_three_frame_three_rx_rt_sanity.py --include-actors
+```
+
+Current validation status: actor-free `35`, actor-aware `35`, and actor-aware
+`36` pass. Delay statistics are populated for rows that have paths; zero-path
+rows remain valid completed RT solves.
+
+## 200-Frame Experiment Branches
+
+- `semantic_ablation_rigid_200f`: rigid baseline branch for static scene + Panda/UR5 only.
+- `semantic_ablation_actor_200f`: actor-aware branch for static scene + Panda/UR5 + moving human actor. This branch has been validated through mesh export, composition, XML, RT, labels, object-aware features, raw occupancy features, and ablations.
+
+## Documentation
+
+- [Getting Started](docs/getting_started.md): prerequisites, required inputs, setup, and basic validation.
+- [Pipeline Overview](docs/pipeline_overview.md): architecture, script folders, branches, and validated scope.
+- [Configuration](docs/configuration.md): user-editable config files and when to change them.
+- [Script Reference](docs/script_reference.md): compact reference for every script group.
+- [Developer Guide](docs/developer_guide.md): manifest contracts, extension guidance, design decisions, and testing expectations.
+- [Actor-Aware 3-Frame Pipeline](docs/actor_aware_3frame_pipeline.md): actor-specific commands, alignment policies, validation tools, and limitations.
+- [Semantic Ablation 200f Pipeline](docs/semantic_ablation_200f_pipeline.md): rigid-only experiment workflow and outputs.
+- [Actor-Aware Semantic Ablation 200f Pipeline](docs/semantic_ablation_actor_200f_pipeline.md): actor-aware 200-frame workflow, debug commands, expected counts, label changes, and ablation snapshot.
+- [Troubleshooting](docs/troubleshooting.md): common environment, mesh, actor, RT, and stale-path issues.
+
+## Generated-Output Policy
+
+Recommended versioned files:
+
+- source scripts
+- configs
+- docs
+- world/model source files
+- small curated reports, if intentionally kept
+
+Usually not versioned:
+
+- `.blend` / `.blend1`
+- dynamic mesh exports
+- actor mesh exports
+- validation mesh batches
+- Sionna XML batches
+- RT CSVs
+- feature tables
+- ablation result tables
+- `__pycache__`
+- temporary worker specs/summaries
+
+Generated outputs may be large and should normally stay ignored unless they are
+intentionally curated.
+
+## Limitations
+
+This is a validated prototype pipeline, not a fully general Gazebo-to-RT
+converter. The rigid dynamic branch is tied to the configured Panda/UR5
+prototype and pose logs. Actor support is intentionally separate from the rigid
+link-pose parser. The actor-aware 200-frame branch uses offline actor sampling
+and does not claim Gazebo-runtime-perfect actor phase reconstruction. None of
+the current experiment branches should be read as full proactive
+beamforming/resource-allocation systems.

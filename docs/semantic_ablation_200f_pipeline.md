@@ -1,272 +1,213 @@
 # Semantic Ablation 200f Pipeline
 
-## Scope and limitations
+For the actor-aware variant, see
+[semantic_ablation_actor_200f_pipeline.md](semantic_ablation_actor_200f_pipeline.md).
 
-- Experiment branch: `semantic_ablation_rigid_200f`
-- Static scene: frozen validated rigid baseline
-- Dynamic scope: rigid `Panda` + `ur5_rg2` only
-- Actors are not integrated into this experiment path
-- Point-cloud generation is not part of the current branch
-- No no-go-zone logic is implemented here
-- No full beamforming or resource-allocation implementation is claimed here
-- The current study evaluates adaptation-trigger and propagation-change prediction as an intermediate feasibility task
+This document describes the `semantic_ablation_rigid_200f` experiment branch.
+It is a rigid Panda/UR5 experiment only. Actors are not included in this branch.
 
-This branch should be read as an experiment-local extension of the validated
-Gazebo-to-Sionna prototype. It reuses the frozen static baseline and the
-validated Panda/UR5 dynamic path, then scales that workflow to 200 sampled
-frames and 6 receiver locations.
+The experiment reuses the frozen static baseline and validated rigid dynamic
+scripts, then scales the workflow to sampled frames, multiple RX sites,
+RT-derived labels, feature tables, and classical ablation models.
 
-## Generated-output hygiene
+## Scope
 
-- Do not commit dynamic mesh exports, per-frame XMLs, RT CSVs, feature tables, or result CSVs unless you intentionally mean to version a small text artifact
-- The experiment wrappers are designed to reuse the validated low-level scripts without rewriting the frozen static baseline
-- RT and labeled-RT CSVs now follow the sampled-frame count, e.g. `rt_200frames_multi_rx.csv`
+- Static scene: frozen validated static baseline.
+- Dynamic scene: rigid Panda/UR5 only.
+- Frames: 200 sampled source frames.
+- Receivers: experiment-configured multi-RX setup.
+- Labels: derived from RT path-count and delay changes.
+- Features: object-aware compact/wide modes plus raw occupancy baseline.
 
-## Current radio setup
+Do not pass actor assumptions from the three-frame prototype into this branch
+unless the experiment wrappers are explicitly extended and revalidated later.
 
-- Frequency: `28 GHz`
-- `tx_power_dbm`: defaults to `30 dBm` unless overridden in `experiment_config.json`
+## Generated-Output Hygiene
 
-### TX
+Most experiment outputs are generated and can be large:
 
-- `tx_ap = [0.0, 0.0, 2.4]`
+- frame manifests
+- dynamic meshes
+- Sionna XML batches
+- RT result CSVs
+- label CSVs
+- feature tables
+- ablation result tables
 
-### RXs
+Do not commit these unless they are intentionally curated results or fixtures.
 
-- `rx_panda_base = [0.582, 0.888, 1.195]`
-- `rx_ur5_base = [0.497, -0.841, 0.995]`
-- `rx_cerberus_base = [4.074, -1.779, 0.81]`
-- `rx_nao_chest = [-0.1337, 2.748, 0.7]`
-- `rx_human_chest = [-1.4605, -0.8406, 1.6421]`
-- `rx_x500_body = [-3.9279, 3.2024, 1.3944]`
+## Radio Setup
 
-## End-to-end commands for `semantic_ablation_rigid_200f`
+The experiment reads TX/RX settings from its config. The current branch uses the
+same low-level RT sanity logic as the validated prototype wrappers, but runs it
+in batch form across sampled frames and RX locations.
 
-Run these from the repository root.
+## End-To-End Commands
 
-### 1. Validate config
+Set the config path once:
 
 ```bash
-python3 -m json.tool rt_out/experiments/semantic_ablation_rigid_200f/configs/experiment_config.json > /tmp/checked_experiment_config_200f.json
+CONFIG=rt_out/experiments/semantic_ablation_rigid_200f/configs/experiment_config.json
 ```
 
-### 2. Sample frames
+### 1. Sample Frames
 
 ```bash
-python3 rt_out/scripts/exp_sample_frames.py \
-  --config rt_out/experiments/semantic_ablation_rigid_200f/configs/experiment_config.json
+python3 rt_out/scripts/experiments/exp_sample_frames.py --config "$CONFIG"
 ```
 
-### 3. Build dynamic frames
+### 2. Build Rigid Dynamic Frames
 
 ```bash
-python3 rt_out/scripts/30_build_prototype_dynamic_frames.py \
+python3 rt_out/scripts/dynamic_rigid/30_build_prototype_dynamic_frames.py \
   --frames-json rt_out/experiments/semantic_ablation_rigid_200f/frames/sampled_frames.json \
   --output rt_out/experiments/semantic_ablation_rigid_200f/frames/dynamic_frames.json
 ```
 
-### 4. Build dynamic visual frames
+### 3. Build Rigid Dynamic Visual Frames
 
 ```bash
-python3 rt_out/scripts/31_build_prototype_dynamic_visual_frames.py \
+python3 rt_out/scripts/dynamic_rigid/31_build_prototype_dynamic_visual_frames.py \
   --frames-json rt_out/experiments/semantic_ablation_rigid_200f/frames/sampled_frames.json \
   --dynamic-frames rt_out/experiments/semantic_ablation_rigid_200f/frames/dynamic_frames.json \
   --output rt_out/experiments/semantic_ablation_rigid_200f/frames/dynamic_visual_frames.json
 ```
 
-### 5. Export dynamic meshes
+### 4. Export Dynamic Meshes
 
 ```bash
-BLENDER="$HOME/Documents/blender-4.5.8-linux-x64/blender" \
-python3 rt_out/scripts/exp_export_dynamic_meshes_batch.py \
-  --config rt_out/experiments/semantic_ablation_rigid_200f/configs/experiment_config.json
+python3 rt_out/scripts/experiments/exp_export_dynamic_meshes_batch.py --config "$CONFIG"
 ```
 
-### 6. Compose frame manifests
+### 5. Compose Frame Manifests
 
 ```bash
-python3 rt_out/scripts/exp_compose_frame_manifests_batch.py \
-  --config rt_out/experiments/semantic_ablation_rigid_200f/configs/experiment_config.json
+python3 rt_out/scripts/experiments/exp_compose_frame_manifests_batch.py --config "$CONFIG"
 ```
 
-### 7. Build Sionna XMLs
+### 6. Build Sionna XMLs
 
 ```bash
-python3 rt_out/scripts/exp_build_sionna_xml_batch.py \
-  --config rt_out/experiments/semantic_ablation_rigid_200f/configs/experiment_config.json
+python3 rt_out/scripts/experiments/exp_build_sionna_xml_batch.py --config "$CONFIG"
 ```
 
-### 8. Debug RT
+### 7. Debug RT
 
 ```bash
-python3 rt_out/scripts/exp_run_rt_multi_rx_batch.py \
-  --config rt_out/experiments/semantic_ablation_rigid_200f/configs/experiment_config.json \
+python3 rt_out/scripts/experiments/exp_run_rt_multi_rx_batch.py \
+  --config "$CONFIG" \
   --max-frames 1
 ```
 
-### 9. Full RT
+### 8. Full RT
 
 ```bash
-python3 rt_out/scripts/exp_run_rt_multi_rx_batch.py \
-  --config rt_out/experiments/semantic_ablation_rigid_200f/configs/experiment_config.json
+python3 rt_out/scripts/experiments/exp_run_rt_multi_rx_batch.py --config "$CONFIG"
 ```
 
-### 10. Build labels
+### 9. Build Labels
 
 ```bash
-python3 rt_out/scripts/exp_build_rt_labels.py \
-  --config rt_out/experiments/semantic_ablation_rigid_200f/configs/experiment_config.json
+python3 rt_out/scripts/experiments/exp_build_rt_labels.py --config "$CONFIG"
 ```
 
-### 11. Build object features
+### 10. Build Object Features
 
 ```bash
-python3 rt_out/scripts/exp_build_object_features.py \
-  --config rt_out/experiments/semantic_ablation_rigid_200f/configs/experiment_config.json
+python3 rt_out/scripts/experiments/exp_build_object_features.py --config "$CONFIG"
 ```
 
-### 12. Build raw occupancy features
+### 11. Build Raw Occupancy Features
 
 ```bash
-python3 rt_out/scripts/exp_build_raw_occupancy_features.py \
-  --config rt_out/experiments/semantic_ablation_rigid_200f/configs/experiment_config.json
+python3 rt_out/scripts/experiments/exp_build_raw_occupancy_features.py --config "$CONFIG"
 ```
 
-### 13. Main compact ablation
+### 12. Run Compact Ablation
 
 ```bash
-python3 rt_out/scripts/exp_run_semantic_ablation.py \
-  --config rt_out/experiments/semantic_ablation_rigid_200f/configs/experiment_config.json \
+python3 rt_out/scripts/experiments/exp_run_semantic_ablation.py \
+  --config "$CONFIG" \
   --target y_adaptation_trigger_1db \
   --rx-filter rx_panda_base,rx_ur5_base \
   --feature-mode compact \
   --models logistic,rf,svm
 ```
 
-### 14. Supporting compact ablation
+### 13. Run Raw Occupancy Ablation
 
 ```bash
-python3 rt_out/scripts/exp_run_semantic_ablation.py \
-  --config rt_out/experiments/semantic_ablation_rigid_200f/configs/experiment_config.json \
-  --target y_path_change \
-  --rx-filter rx_panda_base,rx_ur5_base,rx_nao_chest \
-  --feature-mode compact \
-  --models logistic,rf,svm
-```
-
-### 15. Main raw occupancy ablation
-
-```bash
-python3 rt_out/scripts/exp_run_semantic_ablation.py \
-  --config rt_out/experiments/semantic_ablation_rigid_200f/configs/experiment_config.json \
+python3 rt_out/scripts/experiments/exp_run_semantic_ablation.py \
+  --config "$CONFIG" \
   --target y_adaptation_trigger_1db \
   --rx-filter rx_panda_base,rx_ur5_base \
   --feature-mode raw \
   --models logistic,rf,svm
 ```
 
-### 16. Supporting raw occupancy ablation
+## Expected Row Counts
 
-```bash
-python3 rt_out/scripts/exp_run_semantic_ablation.py \
-  --config rt_out/experiments/semantic_ablation_rigid_200f/configs/experiment_config.json \
-  --target y_path_change \
-  --rx-filter rx_panda_base,rx_ur5_base,rx_nao_chest \
-  --feature-mode raw \
-  --models logistic,rf,svm
-```
-
-## Expected row counts
+For the current default `semantic_ablation_rigid_200f` setup, expected counts
+are:
 
 - sampled frames: `200`
-- Sionna XMLs: `200`
-- RT rows: `1200 = 200 frames x 6 RXs`
-- labeled rows: `1194 = 199 transitions x 6 RXs`
-- main adaptation ML subset: `398 = 199 transitions x 2 RXs`
-- supporting path-change subset: `597 = 199 transitions x 3 RXs`
+- RT rows: `1200` (`200` frames x `6` RX sites)
+- labeled rows: `1194` (`199` frame transitions x `6` RX sites)
+- main adaptation subset: `398` (`199` transitions x `2` RX sites)
+- supporting path-change subset: `597` (`199` transitions x `3` RX sites)
 
-## Output files
+These are current defaults, not universal truths. If the experiment config
+changes frame count, RX set, or filters, the counts should change accordingly.
 
-- `rt_out/experiments/semantic_ablation_rigid_200f/frames/sampled_frames.json`
-- `rt_out/experiments/semantic_ablation_rigid_200f/frames/dynamic_frames.json`
-- `rt_out/experiments/semantic_ablation_rigid_200f/frames/dynamic_visual_frames.json`
-- `rt_out/experiments/semantic_ablation_rigid_200f/frames/dynamic_meshes/dynamic_mesh_index.csv`
-- `rt_out/experiments/semantic_ablation_rigid_200f/frames/composed_manifests/composed_manifest_index.csv`
-- `rt_out/experiments/semantic_ablation_rigid_200f/sionna_xml/sionna_xml_index.csv`
-- `rt_out/experiments/semantic_ablation_rigid_200f/rt_results/rt_200frames_multi_rx.csv`
-- `rt_out/experiments/semantic_ablation_rigid_200f/rt_results/rt_200frames_multi_rx_labeled.csv`
-- `rt_out/experiments/semantic_ablation_rigid_200f/rt_results/rt_label_summary.csv`
-- `rt_out/experiments/semantic_ablation_rigid_200f/features/object_features_rt_labels.csv`
-- `rt_out/experiments/semantic_ablation_rigid_200f/features/raw_occupancy_features_rt_labels.csv`
-- `rt_out/experiments/semantic_ablation_rigid_200f/results/semantic_ablation_results_compact_y_adaptation_trigger_1db_panda_ur5_models_logistic_rf_svm.csv`
-- `rt_out/experiments/semantic_ablation_rigid_200f/results/semantic_ablation_results_compact_y_path_change_panda_ur5_nao_chest_models_logistic_rf_svm.csv`
-- `rt_out/experiments/semantic_ablation_rigid_200f/results/semantic_ablation_results_raw_y_adaptation_trigger_1db_panda_ur5_models_logistic_rf_svm.csv`
-- `rt_out/experiments/semantic_ablation_rigid_200f/results/semantic_ablation_results_raw_y_path_change_panda_ur5_nao_chest_models_logistic_rf_svm.csv`
+If counts diverge, inspect the frame JSON, RT CSV, and label CSV before trusting
+ablation results.
 
-### Naming note
+## Main Output Areas
 
-The canonical RT batch output for this experiment is now
-`rt_out/experiments/semantic_ablation_rigid_200f/rt_results/rt_200frames_multi_rx.csv`.
-The RT-label builder follows the same pattern and writes
-`rt_200frames_multi_rx_labeled.csv`.
+```text
+rt_out/experiments/semantic_ablation_rigid_200f/frames/
+rt_out/experiments/semantic_ablation_rigid_200f/sionna_xml/
+rt_out/experiments/semantic_ablation_rigid_200f/rt_results/
+rt_out/experiments/semantic_ablation_rigid_200f/features/
+rt_out/experiments/semantic_ablation_rigid_200f/results/
+```
 
-Older local runs may also leave legacy result snapshots under `results/` in
-some experiment folders. The current `exp_run_semantic_ablation.py` writes its
-final ablation result CSVs under `results/`, while intermediate feature tables
-remain under `features/`.
+## Label Definitions
 
-## Label definitions
+Labels are derived from RT outputs rather than hand-authored scene semantics.
+The current branch uses path-count and delay behavior to build supervised tasks,
+such as:
 
-- `rx_power_dbm = tx_power_dbm + path_gain_db`
-- dBm differences produce dB changes
-- `y_rx_power_drop_1db` fires when `previous_rx_power_dbm - current_rx_power_dbm >= 1.0`
-- `y_rx_power_drop_2db` fires when `previous_rx_power_dbm - current_rx_power_dbm >= 2.0`
-- `delay_spread = tau_max - tau_min`
-- `y_delay_spread_increase` fires when delay-spread increase exceeds the experiment-level `eta_tau`
-- `y_adaptation_trigger_1db` fires on a 1 dB received-power drop and/or a delay-spread increase
-- `y_adaptation_trigger_2db` is the stricter 2 dB variant plus the delay-spread increase criterion
-- `y_path_change` marks any change in valid path count between consecutive frames
-- `y_path_drop` marks a reduction in valid path count between consecutive frames
+- adaptation-trigger classification
+- propagation-change classification
 
-## Feature modes
+Thresholds and task settings should be read from the experiment config and the
+label builder arguments.
 
-### raw
+## Feature Modes
 
-- unsegmented mesh vertex / occupancy descriptors
-- no object identity, semantics, or material labels as features
-- approximates raw 3D / LiDAR / occupancy-style baselines
+### Raw
 
-### compact
+Low-level or lightly processed features. Useful as a baseline but harder to
+interpret.
 
-- object-level descriptors intended to map to object masks / instances
-- `compact_geometry`
-- `compact_geometry_material`
-- `compact_geometry_semantic`
-- `compact_full_object_aware`
+### Compact
 
-### wide
+Object/material-aware features intended to support paper-facing interpretation.
+This is the primary mode for semantic ablation comparisons.
 
-- broader object/material/semantic feature families selected by prefix
-- mostly diagnostic, not the preferred paper-facing table
+### Wide
 
-## Recommended paper-facing results
+Expanded object/material feature sets. Useful for exploratory checks and
+supporting analysis.
 
-### Main adaptation-trigger task
+## Recommended Paper-Facing Results
 
-- target: `y_adaptation_trigger_1db`
-- RX filter: `rx_panda_base,rx_ur5_base`
-- raw occupancy best: SVM-RBF, `F1 ~ 0.261`, `balanced accuracy ~ 0.606`
-- compact full object-aware best: Random Forest, `F1 ~ 0.393`, `balanced accuracy ~ 0.648`
+Primary results should emphasize:
 
-### Supporting propagation-change task
+- compact semantic/object-aware features
+- adaptation-trigger task behavior
+- comparison against raw occupancy baseline
 
-- target: `y_path_change`
-- RX filter: `rx_panda_base,rx_ur5_base,rx_nao_chest`
-- raw occupancy best: SVM-RBF, `F1 ~ 0.510`, `balanced accuracy ~ 0.628`
-- compact full object-aware best: SVM-RBF, `F1 ~ 0.509`, `balanced accuracy ~ 0.625`
-
-### Interpretation
-
-- Object-aware features improve adaptation-trigger prediction over raw occupancy
-- Propagation-change prediction is mostly geometry-driven because raw occupancy and object-aware features are similar
-- This is a feasibility result, not a full beamforming or resource-allocation result
+Supporting results can include propagation-change tasks and wider feature modes,
+but should clearly state that the branch is rigid Panda/UR5 only.
