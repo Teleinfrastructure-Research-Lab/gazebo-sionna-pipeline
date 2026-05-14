@@ -18,7 +18,6 @@ Recommended shell setup:
 
 ```bash
 export SIONNA_PYTHON="$HOME/miniconda3/envs/your_env_name/bin/python"
-export COLLABPAPER_PYTHON="$SIONNA_PYTHON"  # legacy alias for older wrappers
 export BLENDER=blender
 ```
 
@@ -28,8 +27,7 @@ easier to understand.
 
 Environment setup is currently manual. The repository expects a Python
 interpreter with Sionna RT and Mitsuba already installed. Prefer
-`SIONNA_PYTHON` for that interpreter; `COLLABPAPER_PYTHON` remains available as
-a backward-compatible alias for older wrapper flows. A fully reproducible
+`SIONNA_PYTHON` for that interpreter. A fully reproducible
 `environment.yml` or `requirements.txt` is not yet provided.
 
 ## Tested Environment
