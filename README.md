@@ -13,7 +13,6 @@ example:
 
 ```bash
 export SIONNA_PYTHON="$HOME/miniconda3/envs/your_env_name/bin/python"
-export COLLABPAPER_PYTHON="$SIONNA_PYTHON"  # legacy alias for older wrappers
 export BLENDER=blender
 ```
 
@@ -81,38 +80,3 @@ rows remain valid completed RT solves.
 - [Actor-Aware Semantic Ablation 200f Pipeline](docs/semantic_ablation_actor_200f_pipeline.md): actor-aware 200-frame workflow, debug commands, expected counts, label changes, and ablation snapshot.
 - [Troubleshooting](docs/troubleshooting.md): common environment, mesh, actor, RT, and stale-path issues.
 
-## Generated-Output Policy
-
-Recommended versioned files:
-
-- source scripts
-- configs
-- docs
-- world/model source files
-- small curated reports, if intentionally kept
-
-Usually not versioned:
-
-- `.blend` / `.blend1`
-- dynamic mesh exports
-- actor mesh exports
-- validation mesh batches
-- Sionna XML batches
-- RT CSVs
-- feature tables
-- ablation result tables
-- `__pycache__`
-- temporary worker specs/summaries
-
-Generated outputs may be large and should normally stay ignored unless they are
-intentionally curated.
-
-## Limitations
-
-This is a validated prototype pipeline, not a fully general Gazebo-to-RT
-converter. The rigid dynamic branch is tied to the configured Panda/UR5
-prototype and pose logs. Actor support is intentionally separate from the rigid
-link-pose parser. The actor-aware 200-frame branch uses offline actor sampling
-and does not claim Gazebo-runtime-perfect actor phase reconstruction. None of
-the current experiment branches should be read as full proactive
-beamforming/resource-allocation systems.
