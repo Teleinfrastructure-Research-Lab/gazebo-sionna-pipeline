@@ -45,7 +45,6 @@ rt_out/scripts/
   validation/        actor diagnostics and Blender inspection builders
   experiments/       rigid and actor-aware semantic ablation batch wrappers
   ops/               Gazebo operational helpers for Panda/UR5 pose logs
-  legacy/            historical/debug scripts outside the active pipeline
   dynamic_prototype_config.py
   rt_material_config.py
 ```
