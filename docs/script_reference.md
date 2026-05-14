@@ -81,14 +81,6 @@ flags/config are used.
 | `rt_out/scripts/ops/run_panda.sh` | Drive Panda motion sequence. | running Gazebo world | robot motion | none |
 | `rt_out/scripts/ops/run_ur5.sh` | Drive UR5/RG2 motion sequence. | running Gazebo world | robot motion | none |
 
-## Legacy
-
-| Path | Purpose | Notes |
-| --- | --- | --- |
-| `rt_out/scripts/legacy/sionna_test.py` | Ad hoc Sionna sandbox. | Not part of active validation. |
-| `rt_out/scripts/legacy/actor_spike_export_actor_walking.py` | Historical actor export spike. | Superseded by `dynamic_actor/40`-`42`. |
-| `rt_out/scripts/legacy/actor_spike_blender_sample_actor.py` | Historical Blender actor sampling helper. | Superseded by current actor worker. |
-
 ## Helper Modules
 
 | Path | Purpose |
