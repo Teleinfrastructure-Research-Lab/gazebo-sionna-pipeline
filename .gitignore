@@ -38,3 +38,6 @@ rt_out/experiments/*/rt_results/rt_200frames_multi_rx.csv
 
 docs/gazebo_rt_pipeline_step_by_step.drawio
 models/furniture/Reflective table/materials/textures/DepotEnvMap.dds
+
+# Experiment frame metadata/intermediates
+rt_out/experiments/*/frames/
