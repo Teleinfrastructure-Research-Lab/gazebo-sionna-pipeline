@@ -198,46 +198,5 @@ For the current actor-aware 200f branch, the expected counts are
 `actor_count == 1` and `total_count == 33`. If `actor_count` is `0`, the batch
 composition likely ran without `--include-actors`.
 
-## Generated-Output Policy
 
-Recommended versioned files:
 
-- source scripts
-- configs
-- docs
-- world/model source files
-- small curated reports, if intentionally kept
-
-Usually not versioned:
-
-- `.blend` and `.blend1` files
-- dynamic mesh exports
-- actor mesh exports
-- actor validation mesh batches
-- Sionna XML batches
-- temporary Blender worker payloads
-- RT CSVs from local debug runs
-- semantic ablation feature/result tables
-- `__pycache__/`
-
-Generated outputs may be large and should normally stay ignored unless they are
-intentional curated fixtures or baselines.
-
-## Stale Path After Script Reorganization
-
-Symptoms:
-
-- docs or wrappers refer to root-level `rt_out/scripts/35...`
-- old actor script names appear
-- a moved script cannot import `dynamic_prototype_config` or `rt_material_config`
-
-Checks:
-
-```bash
-find rt_out/scripts -maxdepth 1 -type f -print | sort
-rg -n "rt_out/scripts/" README.md docs rt_out/scripts
-```
-
-Root-level script files should be limited to shared helper modules. Moved
-scripts that import shared helper modules should add `rt_out/scripts` to
-`sys.path` before importing the helper.
