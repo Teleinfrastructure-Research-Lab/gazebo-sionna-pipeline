@@ -73,9 +73,8 @@ python3 rt_out/scripts/experiments/exp_build_sionna_xml_batch.py \
   --config "$CONFIG"
 
 Replace `/path/to/your/sionna/python` with the Python interpreter from an
-environment where Sionna RT and Mitsuba are installed. You can also set
-`COLLABPAPER_PYTHON` to that interpreter path if using scripts that
-auto-discover it.
+environment where Sionna RT and Mitsuba are installed. You can also set SIONNA_PYTHON 
+to that interpreter path; COLLABPAPER_PYTHON remains supported as a legacy alias.
 
 /path/to/your/sionna/python \
   rt_out/scripts/experiments/exp_run_rt_multi_rx_batch.py \
