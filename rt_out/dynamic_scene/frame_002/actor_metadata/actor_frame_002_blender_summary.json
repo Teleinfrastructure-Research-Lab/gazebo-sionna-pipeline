@@ -1,0 +1,145 @@
+{
+  "generated_by": "actor_blender_export_frame_meshes.py",
+  "spec_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_002/actor_metadata/actor_frame_002_blender_spec.json",
+  "frame_id": 2,
+  "validation_batch": false,
+  "source_sample_index": 51140,
+  "exports": [
+    {
+      "id": "actor__actor_walking__frame_002",
+      "actor_name": "actor_walking",
+      "frame_id": 2,
+      "validation_frame_id": null,
+      "source_sample_index": 51140,
+      "output_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_002/actor_meshes/actor__actor_walking__frame_002.ply",
+      "applied_actor_pose6": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "applied_root_pose6": [
+        3.0751,
+        -1.8579,
+        1.13,
+        0.0,
+        0.0,
+        1.16
+      ],
+      "applied_combined_matrix": [
+        [
+          0.3993395268917084,
+          -0.9168031215667725,
+          0.0,
+          3.0750999450683594
+        ],
+        [
+          0.9168031215667725,
+          0.3993395268917084,
+          0.0,
+          -1.8579000234603882
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          1.1299999952316284
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "applied_skin_scale": 0.9,
+      "animation_time_seconds": 5.08,
+      "sampled_blender_frame": {
+        "frame": 121,
+        "subframe": 0.9200000000000017,
+        "frame_float": 121.92
+      },
+      "mesh_object_count": 1,
+      "mesh_object_names": [
+        "human"
+      ],
+      "armature": {
+        "found": true,
+        "name": "_6_15_t"
+      },
+      "action": {
+        "found": true,
+        "name": "_6_15_tAction",
+        "frame_range": [
+          0.9999988675117493,
+          138.99998474121094
+        ]
+      },
+      "fps": 24.0,
+      "alignment_policy": "bounds_center_xy_to_root",
+      "pre_alignment_bounds_min": [
+        3.3139407634735107,
+        -1.0757520198822021,
+        1.121375322341919
+      ],
+      "pre_alignment_bounds_max": [
+        3.8520448207855225,
+        -0.4938589334487915,
+        2.634065628051758
+      ],
+      "pre_alignment_center_root_offset_xy": 1.1872181536295767,
+      "applied_alignment_translation": [
+        -0.5078927921295167,
+        -1.0730945233345033,
+        0.0
+      ],
+      "post_alignment_bounds_min": [
+        2.806047971343994,
+        -2.148846543216705,
+        0.10000000000000009
+      ],
+      "post_alignment_bounds_max": [
+        3.344152028656006,
+        -1.5669534567832948,
+        1.612690305709839
+      ],
+      "z_alignment_policy": "bounds_min_z_to_floor",
+      "floor_z": 0.1,
+      "pre_z_alignment_bounds_min": [
+        2.806047971343994,
+        -2.148846543216705,
+        1.121375322341919
+      ],
+      "pre_z_alignment_bounds_max": [
+        3.344152028656006,
+        -1.5669534567832948,
+        2.634065628051758
+      ],
+      "applied_z_alignment_translation": -1.0213753223419189,
+      "post_z_alignment_bounds_min": [
+        2.806047971343994,
+        -2.148846543216705,
+        0.10000000000000009
+      ],
+      "post_z_alignment_bounds_max": [
+        3.344152028656006,
+        -1.5669534567832948,
+        1.612690305709839
+      ],
+      "mesh_vertex_count": 7845,
+      "mesh_face_count": 15627,
+      "bounds_min": [
+        2.806047971343994,
+        -2.148846543216705,
+        0.10000000000000009
+      ],
+      "bounds_max": [
+        3.344152028656006,
+        -1.5669534567832948,
+        1.612690305709839
+      ]
+    }
+  ]
+}

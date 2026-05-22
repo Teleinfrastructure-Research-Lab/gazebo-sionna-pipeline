@@ -1,0 +1,31 @@
+{
+  "cameras": [
+    {
+      "camera_id": "cam_front",
+      "pose_xyz_rpy": [2.4, -3.6, 1.45, 0.0, 0.0, 3.1416],
+      "width": 640,
+      "height": 480,
+      "horizontal_fov": 1.047,
+      "near_clip": 0.1,
+      "far_clip": 12.0
+    },
+    {
+      "camera_id": "cam_side",
+      "pose_xyz_rpy": [0.4, -1.2, 1.35, 0.0, 0.0, -1.5708],
+      "width": 640,
+      "height": 480,
+      "horizontal_fov": 1.047,
+      "near_clip": 0.1,
+      "far_clip": 12.0
+    },
+    {
+      "camera_id": "cam_top_oblique",
+      "pose_xyz_rpy": [0.8, -2.2, 3.4, -0.95, 0.0, -0.35],
+      "width": 640,
+      "height": 480,
+      "horizontal_fov": 1.047,
+      "near_clip": 0.1,
+      "far_clip": 12.0
+    }
+  ]
+}

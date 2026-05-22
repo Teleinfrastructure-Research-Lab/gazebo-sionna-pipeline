@@ -1,8 +1,8 @@
 # Troubleshooting
 
-Common issues and where to look first.
+Common issues across the current Gazebo-to-Sionna RT project.
 
-## Sionna Import Fails
+## Sionna Or Mitsuba Import Fails
 
 Symptoms:
 
@@ -17,17 +17,46 @@ echo "$SIONNA_PYTHON"
 $SIONNA_PYTHON -c "import sionna.rt, mitsuba as mi; print(mi.variant())"
 ```
 
-Use the same Sionna/Mitsuba-capable environment for `24`, `35`, `36`, and the
-experiment RT wrappers. If an older wrapper flow still refers to
-`COLLABPAPER_PYTHON`, point it at the same interpreter as `SIONNA_PYTHON`.
+Use the same Sionna/Mitsuba-capable interpreter for the static sanity run, the
+prototype RT harnesses, and the experiment wrappers. If an older wrapper still
+refers to `COLLABPAPER_PYTHON`, point it at the same interpreter.
+
+## Gazebo Resource Paths Look Wrong
+
+If Gazebo cannot find models, textures, or nested resources, load the shared
+setup first:
+
+```bash
+source rt_out/scripts/ops/setup_gazebo_env.sh
+```
+
+For launches that should use the intended GPU environment, prefer:
+
+```bash
+bash rt_out/scripts/ops/run_gazebo_gpu.sh <world.sdf>
+```
+
+## Gazebo Uses CPU Rendering Or The Wrong GPU
+
+`glxinfo` can still show Mesa or `llvmpipe` if Gazebo was launched without the
+intended PRIME offload or GPU environment.
+
+Checks:
+
+```bash
+watch -n 1 nvidia-smi
+```
+
+Run the world through `run_gazebo_gpu.sh` while watching `nvidia-smi`. The
+helper sets the intended rendering variables for this project.
 
 ## Blender Not Found
 
 Symptoms:
 
-- static merge fails before launching worker
-- dynamic mesh export cannot find Blender
-- actor export fails before writing PLYs
+- static merge fails before launching a Blender worker
+- rigid mesh export cannot find Blender
+- actor export fails before writing meshes
 
 Set:
 
@@ -35,16 +64,18 @@ Set:
 export BLENDER=blender
 ```
 
-Then rerun the failing stage. Scripts also search `PATH` and common local
-Blender locations, but explicit configuration is clearer. Use
-`export BLENDER=/path/to/blender` if Blender is installed outside `PATH`.
+Or use a full path:
+
+```bash
+export BLENDER=/path/to/blender
+```
 
 ## Missing Converted Static Meshes
 
 Symptoms:
 
 - `20_merge_static_scene_by_material.py` reports missing source meshes
-- static registry has entries that cannot be imported by Blender
+- static registry entries cannot be imported by Blender
 
 Checks:
 
@@ -54,149 +85,114 @@ python3 rt_out/scripts/static_scene/02_build_scene_geometry_registry.py
 python3 rt_out/scripts/static_scene/03_build_static_scene_registry.py
 ```
 
-If a model asset changed, rebuild converted meshes or update material/geometry
-mapping before rerunning the static merge.
+If a model asset changed, rebuild the relevant static path before rerunning the
+merge or XML stages.
 
 ## Missing Pose Logs
 
 Symptoms:
 
 - `30_build_prototype_dynamic_frames.py` cannot find Panda or UR5 logs
-- source sample indices are out of range
+- sampled source indices are out of range
 
-Generate fresh logs by launching the RT world, then running:
+Generate fresh logs by launching the RT world and running:
 
 ```bash
 bash rt_out/scripts/ops/run_all.sh
 ```
 
-Confirm paths in `rt_out/config/dynamic_prototype_config.json` match the log
-locations.
+Then confirm the paths in `rt_out/config/dynamic_prototype_config.json`.
 
-## Actor Deviates From Path
+## Actor Alignment Looks Wrong
 
-Actor path drift usually means the baked mesh bounds do not visually align with
-the sampled root pose.
+Actor drift usually means the baked mesh bounds do not visually align with the
+sampled root pose.
 
-Prerequisites:
-
-- `40` and `41` have produced actor manifest and actor frame samples
-- at least one actor frame has been exported with `42` or `35 --include-actors`
-- for composed-frame inspection, a composed frame manifest exists
-
-Use:
+Useful checks:
 
 ```bash
 python3 rt_out/scripts/validation/53_diagnose_actor_validation_alignment.py
+python3 rt_out/scripts/validation/55_diagnose_actor_floor_alignment.py
 python3 rt_out/scripts/validation/56_build_composed_frame_blender_scene.py \
   --composed-manifest rt_out/composed_scene/frame_000/composed_frame_000_manifest.json
 ```
 
-The current actor export uses `bounds_center_xy_to_root` to align horizontal
-bounds to the sampled root pose.
+The current actor export uses approximate offline placement for RT export. It
+should not be described as exact Gazebo runtime animation-phase matching.
 
-## Actor Floats Above Or Sinks Below Floor
+## Actor-Aware 200-Frame Experiment Has Too Few RT Rows
 
-Prerequisites:
-
-- actor manifest and actor frame samples exist
-- actor meshes have been exported with the intended vertical alignment policy
-- static floor context is available from the current scene outputs
-
-Use the floor diagnostic:
-
-```bash
-python3 rt_out/scripts/validation/55_diagnose_actor_floor_alignment.py
-```
-
-The current export-time vertical correction is `bounds_min_z_to_floor` with
-`floor_z = 0.1`. This is a geometry correction for RT export, not a claim about
-perfect Gazebo runtime animation phase.
-
-Validation mesh exports can use the same XY and Z alignment policies as the
-production actor exporter. For parity checks, `51_export_actor_validation_meshes.py`
-supports:
-
-- `--alignment-policy bounds_center_xy_to_root`
-- `--z-alignment-policy bounds_min_z_to_floor`
-- `--floor-z 0.1`
-
-The production defaults remain:
-
-- `alignment_policy = bounds_center_xy_to_root`
-- `z_alignment_policy = bounds_min_z_to_floor`
-- `floor_z = 0.1`
-
-## Zero Paths With Actor/RX Overlap
-
-Zero paths are not automatically a failed run. The `35` and `36` harnesses treat
-a zero-path solve as valid if scene load and path computation complete. Check:
-
-- TX/RX positions in `rt_out/config/prototype_radio_sites.json`
-- actor position relative to the RX
-- whether the actor mesh blocks line-of-sight in the current frame
-- `num_paths`, `tau_min`, and `tau_max` in the summary CSV
-
-When `num_paths == 0`, tau columns are expected to be empty.
-
-## Actor 200-Frame Experiment Got Only 18 Or 120 RT Rows
-
-The actor-aware 200-frame experiment supports debug runs such as
-`--max-frames 3` and `--max-frames 20`. Those debug runs still write to
-`rt_200frames_multi_rx.csv`.
+The actor-aware 200-frame branch supports debug runs with fewer frames.
 
 Checks:
 
 - `18` rows means `3` frames x `6` RX
 - `120` rows means `20` frames x `6` RX
-- full labels/features require the full `1200` RT rows before running
-  `exp_build_rt_labels.py`, `exp_build_object_features.py`, or
-  `exp_build_raw_occupancy_features.py`
+- the full branch expects `1200` RT rows before building full labels and
+  features
 
-Do not build labels or features from a debug RT CSV unless that is explicitly
-what you want for a local debug-only branch.
+Do not build final labels or features from a debug-only RT CSV unless that is
+the branch you actually want.
 
-## Actor-Aware Object Features Do Not Show Actor
+## Perception Topics Show No Data
 
-The actor-aware object-feature branch should include actor entries from composed
-manifests.
-
-Checks:
-
-- `mat_human_skin_dynamic_count` should be present when `human_skin` is in
-  `materials_of_interest`
-- `geom_dynamic_count` should be `22` per row in the actor-aware branch rather
-  than `21`
-- `frames_with_actor_objects` and `actor_objects_extracted` from
-  `exp_build_object_features.py` should both be non-zero
-
-If those checks fail, confirm the actor-aware branch used
-`exp_compose_frame_manifests_batch.py --include-actors` and that the composed
-manifests actually contain `source == "actor"` entries.
-
-## Verify Actor-Aware Composed Manifests
+For the active perception pilot, the capture topics are panoptic:
 
 ```bash
-python3 - <<'PY'
-import csv, json
-from pathlib import Path
-
-idx = Path("rt_out/experiments/semantic_ablation_actor_200f/frames/composed_manifests/composed_manifest_index.csv")
-rows = list(csv.DictReader(idx.open()))
-bad = []
-for row in rows:
-    p = Path(row["composed_manifest_path"])
-    data = json.load(p.open())
-    if data.get("actor_count") != 1 or data.get("total_count") != 33:
-        bad.append((row["frame_id"], data.get("actor_count"), data.get("total_count")))
-print("rows", len(rows))
-print("bad_actor_counts", bad[:10], "count", len(bad))
-PY
+gz topic -l | grep /perception/native/panoptic
 ```
 
-For the current actor-aware 200f branch, the expected counts are
-`actor_count == 1` and `total_count == 33`. If `actor_count` is `0`, the batch
-composition likely ran without `--include-actors`.
+No captured messages usually means one of these:
 
+- the Gazebo world is not running
+- the panoptic world is still loading and not publishing yet
+- the wrong world was launched
+- the wrong capture mode was requested
 
+The active perception path is panoptic-only. Missing semantic-only or
+instance-only perception worlds is expected in the current checkout.
 
+## C++ Topic-Capture Helper Does Not Build
+
+If the perception topic-capture helper fails to compile, confirm a C++
+frontend is available:
+
+```bash
+g++ --version
+clang++ --version
+bash rt_out/scripts/perception/cpp/build_capture_segmentation_topics.sh
+```
+
+Install `g++` or `clang++` if neither exists.
+
+## Panoptic Validation Fails
+
+Useful checks:
+
+```bash
+python3 rt_out/scripts/perception/66_validate_native_segmentation_capture.py \
+  --config rt_out/experiments/perception_rt_small_v0/configs/perception_dataset_config.json \
+  --zero-threshold 0.01
+```
+
+If the zero-label ratio is high:
+
+- inspect
+  `rt_out/experiments/perception_rt_small_v0/validation/native_segmentation_validation_summary.json`
+- inspect the generated previews under
+  `rt_out/experiments/perception_rt_small_v0/validation/previews/`
+
+Label `0` is treated as invalid or unlabeled, but tiny ratios below the
+configured threshold are allowed.
+
+## Current Perception Assumptions
+
+The active perception pilot uses:
+
+- panoptic topic capture
+- semantic labels from channel `2`
+- Gazebo instance count from `rgb[1] * 256 + rgb[0]`
+
+`gazebo_instance_count` is not the stable dataset instance ID. Stable object
+metadata remains in
+`rt_out/experiments/perception_rt_small_v0/frames/instance_registry.json`.

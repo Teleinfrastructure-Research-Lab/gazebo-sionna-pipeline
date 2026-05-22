@@ -1,43 +1,47 @@
+# Python / caches
 __pycache__/
 *.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 .venv/
 env/
+
+# Logs / temporary files
+*.log
+*.stdout.log
+*.stderr.log
+*.tmp
+*.bak
 trash/
 rt_out/temp/
 
-# Local/editor
+# Local editor / tooling
 .codex
 .vscode/
 
-# Blender
+# Native build outputs
+*.o
+*.so
+*.a
+rt_out/scripts/perception/cpp/capture_segmentation_topics
+
+# Blender and other heavy local authoring files
 *.blend
 *.blend1
 
 # Pose logs
 rt_out/poses/**/*.log
 
-# Heavy prototype / validation artifacts
 rt_out/actor_prototype_validation/
-rt_out/actor_validation*/
-rt_out/dynamic_scene/
-rt_out/dynamic_frames/actor_frame_samples.json
-rt_out/manifests/actor_manifest.json
 rt_out/composed_scene/frame_*/blender_inspection*/
-rt_out/composed_scene/**/frame_*_sionna.xml
 
 # Heavy experiment intermediates
-rt_out/experiments/*/frames/dynamic_meshes/
-rt_out/experiments/*/frames/actor_meshes/
-rt_out/experiments/*/frames/composed_manifests/
-rt_out/experiments/*/sionna_xml/
 rt_out/experiments/*/blender_timeline*/
-rt_out/experiments/*/rt_results/rt_200frames_multi_rx.csv
+rt_out/experiments/semantic_ablation_rigid_200f/frames/
+rt_out/experiments/semantic_ablation_actor_200f/frames/
 
-# Keep curated experiment configs/results/features/labels visible by default.
-# Do not add a blanket ignore for rt_out/experiments/.
 
+# Local one-off assets that should not be versioned
 docs/gazebo_rt_pipeline_step_by_step.drawio
 models/furniture/Reflective table/materials/textures/DepotEnvMap.dds
-
-# Experiment frame metadata/intermediates
-rt_out/experiments/*/frames/

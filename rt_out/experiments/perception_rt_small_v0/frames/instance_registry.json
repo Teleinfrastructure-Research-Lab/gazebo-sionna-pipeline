@@ -1,0 +1,1510 @@
+{
+  "experiment_name": "perception_rt_small_v0",
+  "source_experiment": "rt_out/experiments/semantic_ablation_actor_200f",
+  "semantic_label_map_path": "rt_out/experiments/perception_rt_small_v0/configs/semantic_label_map.json",
+  "selected_frames_path": "rt_out/experiments/perception_rt_small_v0/frames/selected_frames.json",
+  "instance_count": 39,
+  "instances": [
+    {
+      "instance_id": 1000,
+      "instance_name": "factory_door",
+      "semantic_id": 4,
+      "semantic_name": "door",
+      "source": "static",
+      "source_key": "static_manifest[0]::factory_door",
+      "model": "factory_door",
+      "members": [
+        {
+          "link_name": "body",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://OrangeDoors/meshes/door.obj"
+        }
+      ],
+      "assignment_method": "heuristic_name_match",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1001,
+      "instance_name": "lamp_fixture_01",
+      "semantic_id": 10,
+      "semantic_name": "misc_object",
+      "source": "static",
+      "source_key": "static_manifest[1]::lamp_fixture_01",
+      "model": "lamp_fixture_01",
+      "members": [
+        {
+          "link_name": "lamp_fixture_01_link",
+          "visual_name": "lamp_fixture_01_housing",
+          "geometry_type": "box",
+          "uri": null
+        },
+        {
+          "link_name": "lamp_fixture_01_link",
+          "visual_name": "lamp_fixture_01_diffuser",
+          "geometry_type": "box",
+          "uri": null
+        }
+      ],
+      "assignment_method": "fallback_misc_object",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1002,
+      "instance_name": "lamp_fixture_02",
+      "semantic_id": 10,
+      "semantic_name": "misc_object",
+      "source": "static",
+      "source_key": "static_manifest[2]::lamp_fixture_02",
+      "model": "lamp_fixture_02",
+      "members": [
+        {
+          "link_name": "lamp_fixture_02_link",
+          "visual_name": "lamp_fixture_02_housing",
+          "geometry_type": "box",
+          "uri": null
+        },
+        {
+          "link_name": "lamp_fixture_02_link",
+          "visual_name": "lamp_fixture_02_diffuser",
+          "geometry_type": "box",
+          "uri": null
+        }
+      ],
+      "assignment_method": "fallback_misc_object",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1003,
+      "instance_name": "lamp_fixture_03",
+      "semantic_id": 10,
+      "semantic_name": "misc_object",
+      "source": "static",
+      "source_key": "static_manifest[3]::lamp_fixture_03",
+      "model": "lamp_fixture_03",
+      "members": [
+        {
+          "link_name": "lamp_fixture_03_link",
+          "visual_name": "lamp_fixture_03_housing",
+          "geometry_type": "box",
+          "uri": null
+        },
+        {
+          "link_name": "lamp_fixture_03_link",
+          "visual_name": "lamp_fixture_03_diffuser",
+          "geometry_type": "box",
+          "uri": null
+        }
+      ],
+      "assignment_method": "fallback_misc_object",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1004,
+      "instance_name": "lamp_fixture_04",
+      "semantic_id": 10,
+      "semantic_name": "misc_object",
+      "source": "static",
+      "source_key": "static_manifest[4]::lamp_fixture_04",
+      "model": "lamp_fixture_04",
+      "members": [
+        {
+          "link_name": "lamp_fixture_04_link",
+          "visual_name": "lamp_fixture_04_housing",
+          "geometry_type": "box",
+          "uri": null
+        },
+        {
+          "link_name": "lamp_fixture_04_link",
+          "visual_name": "lamp_fixture_04_diffuser",
+          "geometry_type": "box",
+          "uri": null
+        }
+      ],
+      "assignment_method": "fallback_misc_object",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1005,
+      "instance_name": "aws_robomaker_warehouse_clutteringc_01",
+      "semantic_id": 10,
+      "semantic_name": "misc_object",
+      "source": "static",
+      "source_key": "static_manifest[5]::aws_robomaker_warehouse_ClutteringC_01",
+      "model": "aws_robomaker_warehouse_ClutteringC_01",
+      "members": [
+        {
+          "link_name": "link",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://aws_robomaker_warehouse_ClutteringC_01/meshes/aws_robomaker_warehouse_ClutteringC_01_visual.DAE"
+        }
+      ],
+      "assignment_method": "fallback_misc_object",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1006,
+      "instance_name": "officechairblue",
+      "semantic_id": 7,
+      "semantic_name": "chair",
+      "source": "static",
+      "source_key": "static_manifest[6]::OfficeChairBlue",
+      "model": "OfficeChairBlue",
+      "members": [
+        {
+          "link_name": "body",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://OfficeChairBlue/meshes/OfficeChairBlue.obj"
+        }
+      ],
+      "assignment_method": "heuristic_name_match",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1007,
+      "instance_name": "officechairblack",
+      "semantic_id": 7,
+      "semantic_name": "chair",
+      "source": "static",
+      "source_key": "static_manifest[7]::OfficeChairBlack",
+      "model": "OfficeChairBlack",
+      "members": [
+        {
+          "link_name": "body",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://OfficeChairBlack/meshes/OfficeChairBlack.obj"
+        }
+      ],
+      "assignment_method": "heuristic_name_match",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1008,
+      "instance_name": "officechairgrey",
+      "semantic_id": 7,
+      "semantic_name": "chair",
+      "source": "static",
+      "source_key": "static_manifest[8]::OfficeChairGrey",
+      "model": "OfficeChairGrey",
+      "members": [
+        {
+          "link_name": "body",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://OfficeChairGrey/meshes/OfficeChairGrey.obj"
+        }
+      ],
+      "assignment_method": "heuristic_name_match",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1009,
+      "instance_name": "picking_shelves",
+      "semantic_id": 10,
+      "semantic_name": "misc_object",
+      "source": "static",
+      "source_key": "static_manifest[9]::Picking_Shelves",
+      "model": "Picking_Shelves",
+      "members": [
+        {
+          "link_name": "base_link",
+          "visual_name": "base_visual",
+          "geometry_type": "mesh",
+          "uri": "model://picking_shelves/base_visual.glb"
+        }
+      ],
+      "assignment_method": "scene_specific_name_rule",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1010,
+      "instance_name": "desk",
+      "semantic_id": 6,
+      "semantic_name": "table",
+      "source": "static",
+      "source_key": "static_manifest[10]::Desk",
+      "model": "Desk",
+      "members": [
+        {
+          "link_name": "base_link",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://OfficeDesk/meshes/desk.dae"
+        }
+      ],
+      "assignment_method": "heuristic_name_match",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1011,
+      "instance_name": "desk_0",
+      "semantic_id": 6,
+      "semantic_name": "table",
+      "source": "static",
+      "source_key": "static_manifest[11]::Desk_0",
+      "model": "Desk_0",
+      "members": [
+        {
+          "link_name": "base_link",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://OfficeDesk/meshes/desk.dae"
+        }
+      ],
+      "assignment_method": "heuristic_name_match",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1012,
+      "instance_name": "desk_1",
+      "semantic_id": 6,
+      "semantic_name": "table",
+      "source": "static",
+      "source_key": "static_manifest[12]::Desk_1",
+      "model": "Desk_1",
+      "members": [
+        {
+          "link_name": "link",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://Desk/meshes/desk.obj"
+        }
+      ],
+      "assignment_method": "heuristic_name_match",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1013,
+      "instance_name": "monitorandkeyboard",
+      "semantic_id": 10,
+      "semantic_name": "misc_object",
+      "source": "static",
+      "source_key": "static_manifest[13]::MonitorAndKeyboard",
+      "model": "MonitorAndKeyboard",
+      "members": [
+        {
+          "link_name": "body",
+          "visual_name": "visual_monitor",
+          "geometry_type": "mesh",
+          "uri": "model://MonitorAndKeyboard/meshes/monitor.obj"
+        },
+        {
+          "link_name": "body",
+          "visual_name": "visual_keyboard",
+          "geometry_type": "mesh",
+          "uri": "model://MonitorAndKeyboard/meshes/keyboard.obj"
+        }
+      ],
+      "assignment_method": "scene_specific_name_rule",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1014,
+      "instance_name": "cerberus_anymal_c_sensor_config_1",
+      "semantic_id": 8,
+      "semantic_name": "robot",
+      "source": "static",
+      "source_key": "static_manifest[14]::cerberus_anymal_c_sensor_config_1",
+      "model": "cerberus_anymal_c_sensor_config_1",
+      "members": [
+        {
+          "link_name": "base",
+          "visual_name": "base_visual",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/base.dae"
+        },
+        {
+          "link_name": "base",
+          "visual_name": "base_fixed_joint_lump__LF_HAA_visual_1",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae"
+        },
+        {
+          "link_name": "base",
+          "visual_name": "base_fixed_joint_lump__LH_HAA_visual_2",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae"
+        },
+        {
+          "link_name": "base",
+          "visual_name": "base_fixed_joint_lump__RF_HAA_visual_3",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae"
+        },
+        {
+          "link_name": "base",
+          "visual_name": "base_fixed_joint_lump__RH_HAA_visual_4",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae"
+        },
+        {
+          "link_name": "base",
+          "visual_name": "base_fixed_joint_lump__battery_visual_5",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/battery.dae"
+        },
+        {
+          "link_name": "base",
+          "visual_name": "base_fixed_joint_lump__bottom_shell_visual_6",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/bottom_shell.dae"
+        },
+        {
+          "link_name": "base",
+          "visual_name": "base_fixed_joint_lump__handle_visual_7",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/handle.dae"
+        },
+        {
+          "link_name": "base",
+          "visual_name": "base_fixed_joint_lump__hatch_visual_8",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hatch.dae"
+        },
+        {
+          "link_name": "base",
+          "visual_name": "base_fixed_joint_lump__remote_visual_9",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/remote.dae"
+        },
+        {
+          "link_name": "base",
+          "visual_name": "base_fixed_joint_lump__alphasense_mesh_visual_10",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/alphasense.stl"
+        },
+        {
+          "link_name": "base",
+          "visual_name": "base_fixed_joint_lump__bpearl_front_visual_11",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/rslidar_bpearl.stl"
+        },
+        {
+          "link_name": "base",
+          "visual_name": "base_fixed_joint_lump__bpearl_front_protection_bars_visual_12",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/bpearl_protection_bars.stl"
+        },
+        {
+          "link_name": "base",
+          "visual_name": "base_fixed_joint_lump__bpearl_rear_visual_13",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/rslidar_bpearl.stl"
+        },
+        {
+          "link_name": "base",
+          "visual_name": "base_fixed_joint_lump__bpearl_rear_protection_bars_visual_14",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/bpearl_protection_bars.stl"
+        },
+        {
+          "link_name": "base",
+          "visual_name": "base_fixed_joint_lump__perception_head_cage_visual_15",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/perception_head.stl"
+        },
+        {
+          "link_name": "base",
+          "visual_name": "base_fixed_joint_lump__lidar_visual_16",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/lidar.dae"
+        },
+        {
+          "link_name": "base",
+          "visual_name": "base_fixed_joint_lump__top_shell_visual_17",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/top_shell.dae"
+        },
+        {
+          "link_name": "base",
+          "visual_name": "base_fixed_joint_lump__imu_link_visual_18",
+          "geometry_type": "box",
+          "uri": null
+        },
+        {
+          "link_name": "LF_HIP",
+          "visual_name": "LF_HIP_fixed_joint_lump__LF_hip_fixed_visual",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hip_l.dae"
+        },
+        {
+          "link_name": "LF_HIP",
+          "visual_name": "LF_HIP_fixed_joint_lump__LF_HFE_visual_1",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae"
+        },
+        {
+          "link_name": "LF_THIGH",
+          "visual_name": "LF_THIGH_fixed_joint_lump__LF_thigh_fixed_visual",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/thigh.dae"
+        },
+        {
+          "link_name": "LF_THIGH",
+          "visual_name": "LF_THIGH_fixed_joint_lump__LF_KFE_visual_1",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae"
+        },
+        {
+          "link_name": "LF_SHANK",
+          "visual_name": "LF_SHANK_fixed_joint_lump__LF_shank_fixed_visual",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/shank_l.dae"
+        },
+        {
+          "link_name": "LF_SHANK",
+          "visual_name": "LF_SHANK_fixed_joint_lump__LF_FOOT_visual_1",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/foot.dae"
+        },
+        {
+          "link_name": "LH_HIP",
+          "visual_name": "LH_HIP_fixed_joint_lump__LH_hip_fixed_visual",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hip_r.dae"
+        },
+        {
+          "link_name": "LH_HIP",
+          "visual_name": "LH_HIP_fixed_joint_lump__LH_HFE_visual_1",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae"
+        },
+        {
+          "link_name": "LH_THIGH",
+          "visual_name": "LH_THIGH_fixed_joint_lump__LH_thigh_fixed_visual",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/thigh.dae"
+        },
+        {
+          "link_name": "LH_THIGH",
+          "visual_name": "LH_THIGH_fixed_joint_lump__LH_KFE_visual_1",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae"
+        },
+        {
+          "link_name": "LH_SHANK",
+          "visual_name": "LH_SHANK_fixed_joint_lump__LH_shank_fixed_visual",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/shank_r.dae"
+        },
+        {
+          "link_name": "LH_SHANK",
+          "visual_name": "LH_SHANK_fixed_joint_lump__LH_FOOT_visual_1",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/foot.dae"
+        },
+        {
+          "link_name": "RF_HIP",
+          "visual_name": "RF_HIP_fixed_joint_lump__RF_hip_fixed_visual",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hip_r.dae"
+        },
+        {
+          "link_name": "RF_HIP",
+          "visual_name": "RF_HIP_fixed_joint_lump__RF_HFE_visual_1",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae"
+        },
+        {
+          "link_name": "RF_THIGH",
+          "visual_name": "RF_THIGH_fixed_joint_lump__RF_thigh_fixed_visual",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/thigh.dae"
+        },
+        {
+          "link_name": "RF_THIGH",
+          "visual_name": "RF_THIGH_fixed_joint_lump__RF_KFE_visual_1",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae"
+        },
+        {
+          "link_name": "RF_SHANK",
+          "visual_name": "RF_SHANK_fixed_joint_lump__RF_shank_fixed_visual",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/shank_r.dae"
+        },
+        {
+          "link_name": "RF_SHANK",
+          "visual_name": "RF_SHANK_fixed_joint_lump__RF_FOOT_visual_1",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/foot.dae"
+        },
+        {
+          "link_name": "RH_HIP",
+          "visual_name": "RH_HIP_fixed_joint_lump__RH_hip_fixed_visual",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/hip_l.dae"
+        },
+        {
+          "link_name": "RH_HIP",
+          "visual_name": "RH_HIP_fixed_joint_lump__RH_HFE_visual_1",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae"
+        },
+        {
+          "link_name": "RH_THIGH",
+          "visual_name": "RH_THIGH_fixed_joint_lump__RH_thigh_fixed_visual",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/thigh.dae"
+        },
+        {
+          "link_name": "RH_THIGH",
+          "visual_name": "RH_THIGH_fixed_joint_lump__RH_KFE_visual_1",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/drive.dae"
+        },
+        {
+          "link_name": "RH_SHANK",
+          "visual_name": "RH_SHANK_fixed_joint_lump__RH_shank_fixed_visual",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/shank_l.dae"
+        },
+        {
+          "link_name": "RH_SHANK",
+          "visual_name": "RH_SHANK_fixed_joint_lump__RH_FOOT_visual_1",
+          "geometry_type": "mesh",
+          "uri": "model://CERBERUS_ANYMAL_C_SENSOR_CONFIG_1/meshes/foot.dae"
+        }
+      ],
+      "assignment_method": "heuristic_name_match",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1015,
+      "instance_name": "trashbin",
+      "semantic_id": 10,
+      "semantic_name": "misc_object",
+      "source": "static",
+      "source_key": "static_manifest[15]::TrashBin",
+      "model": "TrashBin",
+      "members": [
+        {
+          "link_name": "body",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://TrashBin/meshes/TrashBin.obj"
+        }
+      ],
+      "assignment_method": "fallback_misc_object",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1016,
+      "instance_name": "trashbin_0",
+      "semantic_id": 10,
+      "semantic_name": "misc_object",
+      "source": "static",
+      "source_key": "static_manifest[16]::TrashBin_0",
+      "model": "TrashBin_0",
+      "members": [
+        {
+          "link_name": "body",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://TrashBin/meshes/TrashBin.obj"
+        }
+      ],
+      "assignment_method": "fallback_misc_object",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1017,
+      "instance_name": "trashbin_1",
+      "semantic_id": 10,
+      "semantic_name": "misc_object",
+      "source": "static",
+      "source_key": "static_manifest[17]::TrashBin_1",
+      "model": "TrashBin_1",
+      "members": [
+        {
+          "link_name": "body",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://TrashBin/meshes/TrashBin.obj"
+        }
+      ],
+      "assignment_method": "fallback_misc_object",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1018,
+      "instance_name": "reflective_table",
+      "semantic_id": 6,
+      "semantic_name": "table",
+      "source": "static",
+      "source_key": "static_manifest[18]::Reflective table",
+      "model": "Reflective table",
+      "members": [
+        {
+          "link_name": "link",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://Reflective table/meshes/Table.dae"
+        }
+      ],
+      "assignment_method": "heuristic_name_match",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1019,
+      "instance_name": "reflective_table_1",
+      "semantic_id": 6,
+      "semantic_name": "table",
+      "source": "static",
+      "source_key": "static_manifest[19]::Reflective table_1",
+      "model": "Reflective table_1",
+      "members": [
+        {
+          "link_name": "link",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://Reflective table/meshes/Table.dae"
+        }
+      ],
+      "assignment_method": "heuristic_name_match",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1020,
+      "instance_name": "reflective_table_1_1",
+      "semantic_id": 6,
+      "semantic_name": "table",
+      "source": "static",
+      "source_key": "static_manifest[20]::Reflective table_1_1",
+      "model": "Reflective table_1_1",
+      "members": [
+        {
+          "link_name": "link",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://Reflective table/meshes/Table.dae"
+        }
+      ],
+      "assignment_method": "heuristic_name_match",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1021,
+      "instance_name": "reflective_table_1_2",
+      "semantic_id": 6,
+      "semantic_name": "table",
+      "source": "static",
+      "source_key": "static_manifest[21]::Reflective table_1_2",
+      "model": "Reflective table_1_2",
+      "members": [
+        {
+          "link_name": "link",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://Reflective table/meshes/Table.dae"
+        }
+      ],
+      "assignment_method": "heuristic_name_match",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1022,
+      "instance_name": "gasket_part",
+      "semantic_id": 10,
+      "semantic_name": "misc_object",
+      "source": "static",
+      "source_key": "static_manifest[22]::gasket_part",
+      "model": "gasket_part",
+      "members": [
+        {
+          "link_name": "link",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://gasket_part/meshes/gasket.dae"
+        }
+      ],
+      "assignment_method": "scene_specific_name_rule",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1023,
+      "instance_name": "cross_joint_part",
+      "semantic_id": 10,
+      "semantic_name": "misc_object",
+      "source": "static",
+      "source_key": "static_manifest[23]::cross_joint_part",
+      "model": "cross_joint_part",
+      "members": [
+        {
+          "link_name": "link",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://cross_joint_part/meshes/cross_joint.dae"
+        }
+      ],
+      "assignment_method": "scene_specific_name_rule",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1024,
+      "instance_name": "t_brace_part",
+      "semantic_id": 10,
+      "semantic_name": "misc_object",
+      "source": "static",
+      "source_key": "static_manifest[24]::t_brace_part",
+      "model": "t_brace_part",
+      "members": [
+        {
+          "link_name": "link",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://t_brace_part/meshes/t_brace.dae"
+        }
+      ],
+      "assignment_method": "scene_specific_name_rule",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1025,
+      "instance_name": "disk_part",
+      "semantic_id": 10,
+      "semantic_name": "misc_object",
+      "source": "static",
+      "source_key": "static_manifest[25]::disk_part",
+      "model": "disk_part",
+      "members": [
+        {
+          "link_name": "link",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://disk_part/meshes/disk.dae"
+        }
+      ],
+      "assignment_method": "scene_specific_name_rule",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1026,
+      "instance_name": "piston_rod_part",
+      "semantic_id": 10,
+      "semantic_name": "misc_object",
+      "source": "static",
+      "source_key": "static_manifest[26]::piston_rod_part",
+      "model": "piston_rod_part",
+      "members": [
+        {
+          "link_name": "link",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://piston_rod_part/meshes/piston_rod.dae"
+        }
+      ],
+      "assignment_method": "scene_specific_name_rule",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1027,
+      "instance_name": "gear_part",
+      "semantic_id": 10,
+      "semantic_name": "misc_object",
+      "source": "static",
+      "source_key": "static_manifest[27]::gear_part",
+      "model": "gear_part",
+      "members": [
+        {
+          "link_name": "link",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://gear_part/meshes/gear.dae"
+        }
+      ],
+      "assignment_method": "scene_specific_name_rule",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1028,
+      "instance_name": "arm_part",
+      "semantic_id": 10,
+      "semantic_name": "misc_object",
+      "source": "static",
+      "source_key": "static_manifest[28]::arm_part",
+      "model": "arm_part",
+      "members": [
+        {
+          "link_name": "link",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://arm_part/meshes/arm.dae"
+        }
+      ],
+      "assignment_method": "scene_specific_name_rule",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1029,
+      "instance_name": "x500",
+      "semantic_id": 8,
+      "semantic_name": "robot",
+      "source": "static",
+      "source_key": "static_manifest[29]::x500",
+      "model": "x500",
+      "members": [
+        {
+          "link_name": "base_link",
+          "visual_name": "base_link_visual",
+          "geometry_type": "mesh",
+          "uri": "model://x500/meshes/NXP-HGD-CF.dae"
+        },
+        {
+          "link_name": "base_link",
+          "visual_name": "5010_motor_base_0",
+          "geometry_type": "mesh",
+          "uri": "model://x500/meshes/5010Base.dae"
+        },
+        {
+          "link_name": "base_link",
+          "visual_name": "5010_motor_base_1",
+          "geometry_type": "mesh",
+          "uri": "model://x500/meshes/5010Base.dae"
+        },
+        {
+          "link_name": "base_link",
+          "visual_name": "5010_motor_base_2",
+          "geometry_type": "mesh",
+          "uri": "model://x500/meshes/5010Base.dae"
+        },
+        {
+          "link_name": "base_link",
+          "visual_name": "5010_motor_base_3",
+          "geometry_type": "mesh",
+          "uri": "model://x500/meshes/5010Base.dae"
+        },
+        {
+          "link_name": "rotor_0",
+          "visual_name": "rotor_0_visual",
+          "geometry_type": "mesh",
+          "uri": "model://x500/meshes/1345_prop_ccw.stl"
+        },
+        {
+          "link_name": "rotor_0",
+          "visual_name": "rotor_0_visual_motor_bell",
+          "geometry_type": "mesh",
+          "uri": "model://x500/meshes/5010Bell.dae"
+        },
+        {
+          "link_name": "rotor_1",
+          "visual_name": "rotor_1_visual",
+          "geometry_type": "mesh",
+          "uri": "model://x500/meshes/1345_prop_ccw.stl"
+        },
+        {
+          "link_name": "rotor_1",
+          "visual_name": "rotor_1_visual_motor_top",
+          "geometry_type": "mesh",
+          "uri": "model://x500/meshes/5010Bell.dae"
+        },
+        {
+          "link_name": "rotor_2",
+          "visual_name": "rotor_2_visual",
+          "geometry_type": "mesh",
+          "uri": "model://x500/meshes/1345_prop_cw.stl"
+        },
+        {
+          "link_name": "rotor_2",
+          "visual_name": "rotor_2_visual_motor_top",
+          "geometry_type": "mesh",
+          "uri": "model://x500/meshes/5010Bell.dae"
+        },
+        {
+          "link_name": "rotor_3",
+          "visual_name": "rotor_3_visual",
+          "geometry_type": "mesh",
+          "uri": "model://x500/meshes/1345_prop_cw.stl"
+        },
+        {
+          "link_name": "rotor_3",
+          "visual_name": "rotor_3_visual_motor_top",
+          "geometry_type": "mesh",
+          "uri": "model://x500/meshes/5010Bell.dae"
+        }
+      ],
+      "assignment_method": "heuristic_name_match",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1030,
+      "instance_name": "person_standing",
+      "semantic_id": 9,
+      "semantic_name": "human",
+      "source": "static",
+      "source_key": "static_manifest[30]::person_standing",
+      "model": "person_standing",
+      "members": [
+        {
+          "link_name": "link",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://person_standing/meshes/standing.dae"
+        }
+      ],
+      "assignment_method": "heuristic_name_match",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1031,
+      "instance_name": "sofa",
+      "semantic_id": 10,
+      "semantic_name": "misc_object",
+      "source": "static",
+      "source_key": "static_manifest[31]::Sofa",
+      "model": "Sofa",
+      "members": [
+        {
+          "link_name": "link",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://Sofa/meshes/Sofa.obj"
+        }
+      ],
+      "assignment_method": "fallback_misc_object",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1032,
+      "instance_name": "coffeetable",
+      "semantic_id": 6,
+      "semantic_name": "table",
+      "source": "static",
+      "source_key": "static_manifest[32]::CoffeeTable",
+      "model": "CoffeeTable",
+      "members": [
+        {
+          "link_name": "body",
+          "visual_name": "visual",
+          "geometry_type": "mesh",
+          "uri": "model://coffeetable/meshes/CoffeeTable.obj"
+        }
+      ],
+      "assignment_method": "heuristic_name_match",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1033,
+      "instance_name": "naoh25v40",
+      "semantic_id": 10,
+      "semantic_name": "misc_object",
+      "source": "static",
+      "source_key": "static_manifest[33]::naoH25V40",
+      "model": "naoH25V40",
+      "members": [
+        {
+          "link_name": "Torso",
+          "visual_name": "Torso_visual",
+          "geometry_type": "mesh",
+          "uri": "model://Algo/meshes/V40/Torso.dae"
+        },
+        {
+          "link_name": "Neck",
+          "visual_name": "Neck_visual",
+          "geometry_type": "mesh",
+          "uri": "model://Algo/meshes/V40/HeadYaw.dae"
+        },
+        {
+          "link_name": "Head",
+          "visual_name": "Head_visual",
+          "geometry_type": "mesh",
+          "uri": "model://Algo/meshes/V40/HeadPitch.dae"
+        },
+        {
+          "link_name": "LPelvis",
+          "visual_name": "LPelvis_visual",
+          "geometry_type": "mesh",
+          "uri": "model://Algo/meshes/V40/LHipYawPitch.dae"
+        },
+        {
+          "link_name": "LHip",
+          "visual_name": "LHip_visual",
+          "geometry_type": "mesh",
+          "uri": "model://Algo/meshes/V40/LHipRoll.dae"
+        },
+        {
+          "link_name": "LThigh",
+          "visual_name": "LThigh_visual",
+          "geometry_type": "mesh",
+          "uri": "model://Algo/meshes/V40/LHipPitch.dae"
+        },
+        {
+          "link_name": "LTibia",
+          "visual_name": "LTibia_visual",
+          "geometry_type": "mesh",
+          "uri": "model://Algo/meshes/V40/LKneePitch.dae"
+        },
+        {
+          "link_name": "LAnkle",
+          "visual_name": "LAnkle_visual",
+          "geometry_type": "mesh",
+          "uri": "model://Algo/meshes/V40/LAnklePitch.dae"
+        },
+        {
+          "link_name": "LSole",
+          "visual_name": "LSole_visual",
+          "geometry_type": "mesh",
+          "uri": "model://Algo/meshes/V40/LAnkleRoll.dae"
+        },
+        {
+          "link_name": "LShoulder",
+          "visual_name": "LShoulder_visual",
+          "geometry_type": "mesh",
+          "uri": "model://Algo/meshes/V40/LShoulderPitch.dae"
+        },
+        {
+          "link_name": "LBicep",
+          "visual_name": "LBicep_visual",
+          "geometry_type": "mesh",
+          "uri": "model://Algo/meshes/V40/LShoulderRoll.dae"
+        },
+        {
+          "link_name": "LForeArm",
+          "visual_name": "LForeArm_visual",
+          "geometry_type": "mesh",
+          "uri": "model://Algo/meshes/V40/LElbowRoll.dae"
+        },
+        {
+          "link_name": "LWrist",
+          "visual_name": "LWrist_visual",
+          "geometry_type": "mesh",
+          "uri": "model://Algo/meshes/V40/LWristYaw.dae"
+        },
+        {
+          "link_name": "RPelvis",
+          "visual_name": "RPelvis_visual",
+          "geometry_type": "mesh",
+          "uri": "model://Algo/meshes/V40/RHipYawPitch.dae"
+        },
+        {
+          "link_name": "RHip",
+          "visual_name": "RHip_visual",
+          "geometry_type": "mesh",
+          "uri": "model://Algo/meshes/V40/RHipRoll.dae"
+        },
+        {
+          "link_name": "RThigh",
+          "visual_name": "RThigh_visual",
+          "geometry_type": "mesh",
+          "uri": "model://Algo/meshes/V40/RHipPitch.dae"
+        },
+        {
+          "link_name": "RTibia",
+          "visual_name": "RTibia_visual",
+          "geometry_type": "mesh",
+          "uri": "model://Algo/meshes/V40/RKneePitch.dae"
+        },
+        {
+          "link_name": "RAnkle",
+          "visual_name": "RAnkle_visual",
+          "geometry_type": "mesh",
+          "uri": "model://Algo/meshes/V40/RAnklePitch.dae"
+        },
+        {
+          "link_name": "RSole",
+          "visual_name": "RSole_visual",
+          "geometry_type": "mesh",
+          "uri": "model://Algo/meshes/V40/RAnkleRoll.dae"
+        },
+        {
+          "link_name": "RShoulder",
+          "visual_name": "RShoulder_visual",
+          "geometry_type": "mesh",
+          "uri": "model://Algo/meshes/V40/RShoulderPitch.dae"
+        },
+        {
+          "link_name": "RBicep",
+          "visual_name": "RBicep_visual",
+          "geometry_type": "mesh",
+          "uri": "model://Algo/meshes/V40/RShoulderRoll.dae"
+        },
+        {
+          "link_name": "RForeArm",
+          "visual_name": "RForeArm_visual",
+          "geometry_type": "mesh",
+          "uri": "model://Algo/meshes/V40/RElbowRoll.dae"
+        },
+        {
+          "link_name": "RWrist",
+          "visual_name": "RWrist_visual",
+          "geometry_type": "mesh",
+          "uri": "model://Algo/meshes/V40/RWristYaw.dae"
+        }
+      ],
+      "assignment_method": "fallback_misc_object",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 1034,
+      "instance_name": "factory_shell",
+      "semantic_id": 10,
+      "semantic_name": "misc_object",
+      "source": "static",
+      "source_key": "static_manifest[34]::factory_shell",
+      "model": "factory_shell",
+      "members": [
+        {
+          "link_name": "factory_floor::floor_link",
+          "visual_name": "floor_visual",
+          "geometry_type": "box",
+          "uri": null
+        },
+        {
+          "link_name": "factory_floor::floor_link",
+          "visual_name": "floor_surface_visual",
+          "geometry_type": "mesh",
+          "uri": "model://factory_shell/surfaces/tiled_plane_9p5m_8x.obj"
+        },
+        {
+          "link_name": "factory_ceiling::ceiling_link",
+          "visual_name": "ceiling_visual",
+          "geometry_type": "box",
+          "uri": null
+        },
+        {
+          "link_name": "factory_ceiling::ceiling_link",
+          "visual_name": "ceiling_surface_visual",
+          "geometry_type": "mesh",
+          "uri": "model://factory_shell/surfaces/tiled_plane_9p5m_8x.obj"
+        },
+        {
+          "link_name": "north_wall::north_wall_lower_link",
+          "visual_name": "north_wall_lower_visual",
+          "geometry_type": "mesh",
+          "uri": "model://factory_shell/meshes/north_wall_lower.obj"
+        },
+        {
+          "link_name": "north_wall::north_wall_upper_link",
+          "visual_name": "north_wall_upper_visual",
+          "geometry_type": "mesh",
+          "uri": "model://factory_shell/meshes/north_wall_upper.obj"
+        },
+        {
+          "link_name": "north_wall::north_wall_left_pier_link",
+          "visual_name": "north_wall_left_pier_visual",
+          "geometry_type": "mesh",
+          "uri": "model://factory_shell/meshes/north_wall_left_pier.obj"
+        },
+        {
+          "link_name": "north_wall::north_wall_center_pier_link",
+          "visual_name": "north_wall_center_pier_visual",
+          "geometry_type": "mesh",
+          "uri": "model://factory_shell/meshes/north_wall_center_pier.obj"
+        },
+        {
+          "link_name": "north_wall::north_wall_right_pier_link",
+          "visual_name": "north_wall_right_pier_visual",
+          "geometry_type": "mesh",
+          "uri": "model://factory_shell/meshes/north_wall_right_pier.obj"
+        },
+        {
+          "link_name": "north_wall::north_window_left_link",
+          "visual_name": "north_window_left_glass_visual",
+          "geometry_type": "box",
+          "uri": null
+        },
+        {
+          "link_name": "north_wall::north_window_left_link",
+          "visual_name": "north_window_left_frame_top_visual",
+          "geometry_type": "box",
+          "uri": null
+        },
+        {
+          "link_name": "north_wall::north_window_left_link",
+          "visual_name": "north_window_left_frame_bottom_visual",
+          "geometry_type": "box",
+          "uri": null
+        },
+        {
+          "link_name": "north_wall::north_window_left_link",
+          "visual_name": "north_window_left_frame_left_visual",
+          "geometry_type": "box",
+          "uri": null
+        },
+        {
+          "link_name": "north_wall::north_window_left_link",
+          "visual_name": "north_window_left_frame_right_visual",
+          "geometry_type": "box",
+          "uri": null
+        },
+        {
+          "link_name": "north_wall::north_window_left_link",
+          "visual_name": "north_window_left_frame_center_visual",
+          "geometry_type": "box",
+          "uri": null
+        },
+        {
+          "link_name": "north_wall::north_window_left_link",
+          "visual_name": "north_window_left_frame_transom_visual",
+          "geometry_type": "box",
+          "uri": null
+        },
+        {
+          "link_name": "north_wall::north_window_right_link",
+          "visual_name": "north_window_right_glass_visual",
+          "geometry_type": "box",
+          "uri": null
+        },
+        {
+          "link_name": "north_wall::north_window_right_link",
+          "visual_name": "north_window_right_frame_top_visual",
+          "geometry_type": "box",
+          "uri": null
+        },
+        {
+          "link_name": "north_wall::north_window_right_link",
+          "visual_name": "north_window_right_frame_bottom_visual",
+          "geometry_type": "box",
+          "uri": null
+        },
+        {
+          "link_name": "north_wall::north_window_right_link",
+          "visual_name": "north_window_right_frame_left_visual",
+          "geometry_type": "box",
+          "uri": null
+        },
+        {
+          "link_name": "north_wall::north_window_right_link",
+          "visual_name": "north_window_right_frame_right_visual",
+          "geometry_type": "box",
+          "uri": null
+        },
+        {
+          "link_name": "north_wall::north_window_right_link",
+          "visual_name": "north_window_right_frame_center_visual",
+          "geometry_type": "box",
+          "uri": null
+        },
+        {
+          "link_name": "north_wall::north_window_right_link",
+          "visual_name": "north_window_right_frame_transom_visual",
+          "geometry_type": "box",
+          "uri": null
+        },
+        {
+          "link_name": "south_wall::south_wall_left_link",
+          "visual_name": "south_wall_left_visual",
+          "geometry_type": "mesh",
+          "uri": "model://factory_shell/meshes/south_wall_left.obj"
+        },
+        {
+          "link_name": "south_wall::south_wall_right_link",
+          "visual_name": "south_wall_right_visual",
+          "geometry_type": "mesh",
+          "uri": "model://factory_shell/meshes/south_wall_right.obj"
+        },
+        {
+          "link_name": "south_wall::south_wall_overdoor_link",
+          "visual_name": "south_wall_overdoor_visual",
+          "geometry_type": "mesh",
+          "uri": "model://factory_shell/meshes/south_wall_overdoor.obj"
+        },
+        {
+          "link_name": "east_wall::east_wall_link",
+          "visual_name": "east_wall_visual",
+          "geometry_type": "mesh",
+          "uri": "model://factory_shell/meshes/east_wall.obj"
+        },
+        {
+          "link_name": "west_wall::west_wall_link",
+          "visual_name": "west_wall_visual",
+          "geometry_type": "mesh",
+          "uri": "model://factory_shell/meshes/west_wall.obj"
+        }
+      ],
+      "assignment_method": "fallback_misc_object",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 2000,
+      "instance_name": "panda",
+      "semantic_id": 8,
+      "semantic_name": "robot",
+      "source": "dynamic_rigid",
+      "source_key": "dynamic_visual_frames::Panda",
+      "model": "Panda",
+      "members": [
+        {
+          "entry_id": "Panda__panda_hand__panda_hand_visual",
+          "model_name": "Panda",
+          "link_name": "panda_hand",
+          "visual_name": "panda_hand_visual"
+        },
+        {
+          "entry_id": "Panda__panda_leftfinger__panda_leftfinger_visual",
+          "model_name": "Panda",
+          "link_name": "panda_leftfinger",
+          "visual_name": "panda_leftfinger_visual"
+        },
+        {
+          "entry_id": "Panda__panda_link0__panda_link0_visual",
+          "model_name": "Panda",
+          "link_name": "panda_link0",
+          "visual_name": "panda_link0_visual"
+        },
+        {
+          "entry_id": "Panda__panda_link1__panda_link1_visual",
+          "model_name": "Panda",
+          "link_name": "panda_link1",
+          "visual_name": "panda_link1_visual"
+        },
+        {
+          "entry_id": "Panda__panda_link2__panda_link2_visual",
+          "model_name": "Panda",
+          "link_name": "panda_link2",
+          "visual_name": "panda_link2_visual"
+        },
+        {
+          "entry_id": "Panda__panda_link3__panda_link3_visual",
+          "model_name": "Panda",
+          "link_name": "panda_link3",
+          "visual_name": "panda_link3_visual"
+        },
+        {
+          "entry_id": "Panda__panda_link4__panda_link4_visual",
+          "model_name": "Panda",
+          "link_name": "panda_link4",
+          "visual_name": "panda_link4_visual"
+        },
+        {
+          "entry_id": "Panda__panda_link5__panda_link5_visual",
+          "model_name": "Panda",
+          "link_name": "panda_link5",
+          "visual_name": "panda_link5_visual"
+        },
+        {
+          "entry_id": "Panda__panda_link6__panda_link6_visual",
+          "model_name": "Panda",
+          "link_name": "panda_link6",
+          "visual_name": "panda_link6_visual"
+        },
+        {
+          "entry_id": "Panda__panda_link7__panda_link7_visual",
+          "model_name": "Panda",
+          "link_name": "panda_link7",
+          "visual_name": "panda_link7_visual"
+        },
+        {
+          "entry_id": "Panda__panda_rightfinger__panda_rightfinger_visual",
+          "model_name": "Panda",
+          "link_name": "panda_rightfinger",
+          "visual_name": "panda_rightfinger_visual"
+        }
+      ],
+      "assignment_method": "heuristic_name_match",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 2001,
+      "instance_name": "ur5_rg2",
+      "semantic_id": 8,
+      "semantic_name": "robot",
+      "source": "dynamic_rigid",
+      "source_key": "dynamic_visual_frames::ur5_rg2",
+      "model": "ur5_rg2",
+      "members": [
+        {
+          "entry_id": "ur5_rg2__base_link__base_link_visual",
+          "model_name": "ur5_rg2",
+          "link_name": "base_link",
+          "visual_name": "base_link_visual"
+        },
+        {
+          "entry_id": "ur5_rg2__forearm_link__forearm_link_visual",
+          "model_name": "ur5_rg2",
+          "link_name": "forearm_link",
+          "visual_name": "forearm_link_visual"
+        },
+        {
+          "entry_id": "ur5_rg2__rg2_hand__rg2_hand_visual",
+          "model_name": "ur5_rg2",
+          "link_name": "rg2_hand",
+          "visual_name": "rg2_hand_visual"
+        },
+        {
+          "entry_id": "ur5_rg2__rg2_leftfinger__rg2_leftfinger_visual",
+          "model_name": "ur5_rg2",
+          "link_name": "rg2_leftfinger",
+          "visual_name": "rg2_leftfinger_visual"
+        },
+        {
+          "entry_id": "ur5_rg2__rg2_rightfinger__rg2_rightfinger_visual",
+          "model_name": "ur5_rg2",
+          "link_name": "rg2_rightfinger",
+          "visual_name": "rg2_rightfinger_visual"
+        },
+        {
+          "entry_id": "ur5_rg2__shoulder_link__shoulder_link_visual",
+          "model_name": "ur5_rg2",
+          "link_name": "shoulder_link",
+          "visual_name": "shoulder_link_visual"
+        },
+        {
+          "entry_id": "ur5_rg2__upper_arm_link__upper_arm_link_visual",
+          "model_name": "ur5_rg2",
+          "link_name": "upper_arm_link",
+          "visual_name": "upper_arm_link_visual"
+        },
+        {
+          "entry_id": "ur5_rg2__wrist_1_link__wrist_1_link_visual",
+          "model_name": "ur5_rg2",
+          "link_name": "wrist_1_link",
+          "visual_name": "wrist_1_link_visual"
+        },
+        {
+          "entry_id": "ur5_rg2__wrist_2_link__wrist_2_link_visual",
+          "model_name": "ur5_rg2",
+          "link_name": "wrist_2_link",
+          "visual_name": "wrist_2_link_visual"
+        },
+        {
+          "entry_id": "ur5_rg2__wrist_3_link__wrist_3_link_visual",
+          "model_name": "ur5_rg2",
+          "link_name": "wrist_3_link",
+          "visual_name": "wrist_3_link_visual"
+        }
+      ],
+      "assignment_method": "heuristic_name_match",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 3000,
+      "instance_name": "actor_sitting_office_chair_black",
+      "semantic_id": 9,
+      "semantic_name": "human",
+      "source": "actor",
+      "source_key": "actor::actor_sitting_office_chair_black",
+      "model": "actor_sitting_office_chair_black",
+      "members": [
+        {
+          "actor_name": "actor_sitting_office_chair_black",
+          "present_in_source_samples": false,
+          "present_in_actor_manifest": true
+        }
+      ],
+      "assignment_method": "heuristic_name_match",
+      "review_status": "auto_assigned"
+    },
+    {
+      "instance_id": 3001,
+      "instance_name": "actor_walking",
+      "semantic_id": 9,
+      "semantic_name": "human",
+      "source": "actor",
+      "source_key": "actor::actor_walking",
+      "model": "actor_walking",
+      "members": [
+        {
+          "actor_name": "actor_walking",
+          "present_in_source_samples": true,
+          "present_in_actor_manifest": true
+        }
+      ],
+      "assignment_method": "heuristic_name_match",
+      "review_status": "auto_assigned"
+    }
+  ]
+}

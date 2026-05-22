@@ -1,0 +1,117 @@
+{
+  "mode": "panoptic",
+  "output_root": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic",
+  "topic_count": 16,
+  "camera_count": 8,
+  "max_messages_per_topic": 3,
+  "timeout_seconds": 30,
+  "any_message_received": true,
+  "captured_metadata_count": 24,
+  "captured_labels_map_count": 24,
+  "captured_labels_maps_decoded_count": 24,
+  "captured_colored_map_count": 24,
+  "captured_colored_map_count_source": "filesystem",
+  "utility_binary": "rt_out/scripts/perception/cpp/capture_segmentation_topics",
+  "topics": [
+    {
+      "topic": "/perception/native/panoptic/cam_corner_ne/colored_map",
+      "camera_id": "cam_corner_ne",
+      "map_type": "colored_map",
+      "message_count": 3
+    },
+    {
+      "topic": "/perception/native/panoptic/cam_corner_ne/labels_map",
+      "camera_id": "cam_corner_ne",
+      "map_type": "labels_map",
+      "message_count": 3
+    },
+    {
+      "topic": "/perception/native/panoptic/cam_corner_nw/colored_map",
+      "camera_id": "cam_corner_nw",
+      "map_type": "colored_map",
+      "message_count": 3
+    },
+    {
+      "topic": "/perception/native/panoptic/cam_corner_nw/labels_map",
+      "camera_id": "cam_corner_nw",
+      "map_type": "labels_map",
+      "message_count": 3
+    },
+    {
+      "topic": "/perception/native/panoptic/cam_corner_se/colored_map",
+      "camera_id": "cam_corner_se",
+      "map_type": "colored_map",
+      "message_count": 3
+    },
+    {
+      "topic": "/perception/native/panoptic/cam_corner_se/labels_map",
+      "camera_id": "cam_corner_se",
+      "map_type": "labels_map",
+      "message_count": 3
+    },
+    {
+      "topic": "/perception/native/panoptic/cam_corner_sw/colored_map",
+      "camera_id": "cam_corner_sw",
+      "map_type": "colored_map",
+      "message_count": 3
+    },
+    {
+      "topic": "/perception/native/panoptic/cam_corner_sw/labels_map",
+      "camera_id": "cam_corner_sw",
+      "map_type": "labels_map",
+      "message_count": 3
+    },
+    {
+      "topic": "/perception/native/panoptic/cam_wall_east/colored_map",
+      "camera_id": "cam_wall_east",
+      "map_type": "colored_map",
+      "message_count": 3
+    },
+    {
+      "topic": "/perception/native/panoptic/cam_wall_east/labels_map",
+      "camera_id": "cam_wall_east",
+      "map_type": "labels_map",
+      "message_count": 3
+    },
+    {
+      "topic": "/perception/native/panoptic/cam_wall_north/colored_map",
+      "camera_id": "cam_wall_north",
+      "map_type": "colored_map",
+      "message_count": 3
+    },
+    {
+      "topic": "/perception/native/panoptic/cam_wall_north/labels_map",
+      "camera_id": "cam_wall_north",
+      "map_type": "labels_map",
+      "message_count": 3
+    },
+    {
+      "topic": "/perception/native/panoptic/cam_wall_south/colored_map",
+      "camera_id": "cam_wall_south",
+      "map_type": "colored_map",
+      "message_count": 3
+    },
+    {
+      "topic": "/perception/native/panoptic/cam_wall_south/labels_map",
+      "camera_id": "cam_wall_south",
+      "map_type": "labels_map",
+      "message_count": 3
+    },
+    {
+      "topic": "/perception/native/panoptic/cam_wall_west/colored_map",
+      "camera_id": "cam_wall_west",
+      "map_type": "colored_map",
+      "message_count": 3
+    },
+    {
+      "topic": "/perception/native/panoptic/cam_wall_west/labels_map",
+      "camera_id": "cam_wall_west",
+      "map_type": "labels_map",
+      "message_count": 3
+    }
+  ],
+  "warnings": [],
+  "captured_semantic_decoded_count": 24,
+  "captured_gazebo_instance_count_count": 24,
+  "raw_labels_dir": "labels_maps_rgb"
+}

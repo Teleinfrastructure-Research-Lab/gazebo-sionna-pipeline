@@ -1,0 +1,13 @@
+mode,camera_id,mask_path,width,height,invalid_label,pixel_count,pixel_ratio,reason
+panoptic,cam_corner_nw,rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_nw/semantic_decoded/000000.pgm,640,480,0,690,0.00224609,zero_label_unlabeled
+panoptic,cam_corner_nw,rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_nw/semantic_decoded/000001.pgm,640,480,0,690,0.00224609,zero_label_unlabeled
+panoptic,cam_corner_nw,rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_nw/semantic_decoded/000002.pgm,640,480,0,690,0.00224609,zero_label_unlabeled
+panoptic,cam_corner_ne,rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_ne/semantic_decoded/000000.pgm,640,480,0,955,0.00310872,zero_label_unlabeled
+panoptic,cam_corner_ne,rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_ne/semantic_decoded/000001.pgm,640,480,0,955,0.00310872,zero_label_unlabeled
+panoptic,cam_corner_ne,rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_ne/semantic_decoded/000002.pgm,640,480,0,955,0.00310872,zero_label_unlabeled
+panoptic,cam_corner_se,rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_se/semantic_decoded/000000.pgm,640,480,0,1164,0.00378906,zero_label_unlabeled
+panoptic,cam_corner_se,rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_se/semantic_decoded/000001.pgm,640,480,0,1164,0.00378906,zero_label_unlabeled
+panoptic,cam_corner_se,rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_se/semantic_decoded/000002.pgm,640,480,0,1165,0.00379232,zero_label_unlabeled
+panoptic,cam_wall_north,rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_wall_north/semantic_decoded/000000.pgm,640,480,0,101,0.00032878,zero_label_unlabeled
+panoptic,cam_wall_north,rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_wall_north/semantic_decoded/000001.pgm,640,480,0,101,0.00032878,zero_label_unlabeled
+panoptic,cam_wall_north,rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_wall_north/semantic_decoded/000002.pgm,640,480,0,101,0.00032878,zero_label_unlabeled
