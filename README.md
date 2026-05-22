@@ -41,9 +41,6 @@ panoptic perception capture; it does not replace the existing RT baselines.
   - primary raw output:
     `rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/`
 
-These are the current project results and pilot branches, not universal claims
-about all environments or all scene layouts.
-
 ## Environment Setup
 
 The repository expects a manually prepared environment. At minimum, keep these
@@ -110,25 +107,6 @@ top-level README.
 - [Troubleshooting](docs/troubleshooting.md): environment, Gazebo, actor, RT,
   and perception issues.
 
-## Generated Outputs And Git Policy
-
-Usually worth committing:
-
-- source scripts
-- configs
-- docs
-- curated small summaries and validation reports
-- world/model source assets when intentionally versioned
-
-Usually not committed:
-
-- raw perception masks and images
-- preview images
-- generated SDFs if they are reproducible
-- compiled binaries
-- logs
-- large generated RT artifacts such as XML batches, CSVs, features, and mesh exports
-
 ## Limitations
 
 - The rigid dynamic branch is configured around the current Panda/UR5 setup and
@@ -137,5 +115,3 @@ Usually not committed:
   actors are animated skinned meshes rather than rigid link-pose records.
 - The actor-aware export path uses approximate offline actor mesh placement and
   should not be described as perfect Gazebo runtime animation-phase matching.
-- `perception_rt_small_v0` is a pilot perception branch, not the main RT
-  baseline.
