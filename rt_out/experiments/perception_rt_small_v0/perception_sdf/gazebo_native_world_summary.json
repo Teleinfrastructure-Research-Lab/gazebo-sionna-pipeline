@@ -1,0 +1,21 @@
+{
+  "primary_mode": "panoptic",
+  "primary_world": "rt_out/experiments/perception_rt_small_v0/perception_sdf/gazebo_native_panoptic_world.sdf",
+  "panoptic_world": "rt_out/experiments/perception_rt_small_v0/perception_sdf/gazebo_native_panoptic_world.sdf",
+  "instance_label_map": "rt_out/experiments/perception_rt_small_v0/perception_sdf/instance_label_map.json",
+  "instance_label_map_role": "stable metadata/debug compact-instance lookup; not the primary panoptic instance encoding",
+  "build_debug_split_worlds": false,
+  "camera_count": 8,
+  "labeled_static_count": 34,
+  "labeled_robot_count": 4,
+  "labeled_human_count": 3,
+  "labeled_factory_shell_structural_count": 8,
+  "compact_instance_label_count": 46,
+  "max_compact_instance_label": 46,
+  "warnings": [],
+  "skipped_unmatched_models": [],
+  "legacy_split_world_debug_root": "rt_out/experiments/perception_rt_small_v0/legacy/split_world_debug_sdfs",
+  "debug_worlds": {
+    "camera_tuning_world": "rt_out/experiments/perception_rt_small_v0/perception_sdf/gazebo_native_camera_tuning_world.sdf"
+  }
+}

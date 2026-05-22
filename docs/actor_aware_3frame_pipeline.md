@@ -204,4 +204,4 @@ Use `BLENDER=/path/to/blender` instead if Blender is not on `PATH`.
 - Actor geometry is baked for RT export; it is not live Gazebo actor simulation.
 - The current horizontal and vertical alignment policies are export-time corrections.
 - The actor-aware 200-frame experiment is documented separately in `semantic_ablation_actor_200f_pipeline.md`.
-- Legacy actor spike scripts remain in `rt_out/scripts/legacy/` for reference only.
+- Older actor spike scripts are not part of the active workflow.

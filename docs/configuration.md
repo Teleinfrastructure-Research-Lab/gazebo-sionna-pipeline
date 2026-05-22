@@ -1,103 +1,89 @@
 # Configuration
 
-This document lists the files users are expected to edit and what each one
-controls. For internal contracts and extension advice, see
-[Developer Guide](developer_guide.md).
+This document lists the main configuration files across the current
+Gazebo-to-Sionna RT project. It focuses on what users are expected to edit and
+what each file controls.
+
+## Core Project Configs
 
 | File | Controls | Edit when |
 | --- | --- | --- |
-| `rt_out/config/dynamic_prototype_config.json` | rigid Panda/UR5 model membership, pose logs, prototype frames, expected counts | changing rigid dynamic models, pose logs, frame selection, or renderable counts |
-| `rt_out/config/actor_dynamic_config.json` | optional actor participation, actor sampling, actor material labels | enabling/disabling actors or changing three-frame actor timing/materials |
-| `rt_out/config/prototype_radio_sites.json` | TX/RX positions used by `36` | moving approved radio sites or adding code-supported site IDs |
-| `rt_out/config/rt_material_mapping.json` | carrier frequency and Sionna radio-material definitions | changing RT frequency or material assumptions |
-| `rt_out/materials/material_map.json` | semantic material labels for static scene objects | adding static assets or correcting material assignments |
-| `rt_out/experiments/<experiment>/configs/experiment_config.json` | experiment frame count, output root, TX/RX list, labels/features | changing experiment scope or output location |
+| `rt_out/config/dynamic_prototype_config.json` | rigid Panda/UR5 model membership, pose logs, prototype frames, expected counts | changing rigid dynamic models, pose logs, or sampled rigid frames |
+| `rt_out/config/actor_dynamic_config.json` | actor participation, sampling, and actor export defaults | enabling/disabling actors or changing actor timing/materials |
+| `rt_out/config/prototype_radio_sites.json` | TX/RX positions used by the prototype RT harnesses | moving approved radio sites or renaming site IDs used by the scripts |
+| `rt_out/config/rt_material_mapping.json` | Sionna radio materials and runtime RT defaults | changing carrier frequency or RT material behavior |
+| `rt_out/materials/material_map.json` | semantic material labels for static scene assets | adding or correcting static asset material assignments |
 
-## `rt_out/config/dynamic_prototype_config.json`
+## World And Asset Inputs
 
-Controls the rigid Panda/UR5 prototype branch.
+Important project files that behave like configuration:
 
-Typical contents:
+- `myworld_rt.sdf`: main RT-oriented Gazebo world
+- `myworld.sdf`: general Gazebo simulation world
+- `models/`: Gazebo models, meshes, textures, actors, robots, and furniture
+- `run_myworld_rt.sh`: RT-world launch helper
+
+Changing world geometry or model assets usually means rerunning the static
+manifest, registry, merge, XML, and RT sanity stages.
+
+## `dynamic_prototype_config.json`
+
+This is the main rigid-dynamic config. It controls:
 
 - dynamic model names
-- pose-log paths
+- Panda and UR5 pose-log paths
 - expected logged link counts
-- expected renderable link and visual counts
-- prototype frame IDs and source sample indices
+- expected renderable link/visual counts
+- prototype frame IDs and sampled source indices
 - forced material labels for rigid dynamic models
 
-Edit this when:
+Downstream users include the static extract/validate flow, rigid-frame builders,
+frame composition, XML generation, and the prototype RT sanity harnesses.
 
-- changing Panda/UR5 pose log locations
-- selecting different three-frame samples
-- adapting the rigid branch to a different dynamic model set
-- changing expected renderable counts after model asset changes
+## `actor_dynamic_config.json`
 
-Downstream users include `00`, `01`, `30`, `31`, `32`, `33`, `34`, `35`, `36`,
-and experiment wrappers.
-
-## `rt_out/config/actor_dynamic_config.json`
-
-Controls which extracted Gazebo actors participate in the optional three-frame
-actor branch.
-
-Typical contents:
+This controls the optional actor-aware branch:
 
 - enabled actor IDs or names
-- frame sampling strategy and timing policy
-- material labels for actor exports
-- actor-specific export defaults
-
-Edit this when:
-
-- enabling or disabling actor participation
-- changing actor sampling times for the three prototype frames
-- changing actor material labels
+- actor frame sampling strategy
+- actor material labels
+- actor export defaults
 
 The actor branch is separate from the rigid Panda/UR5 parser because Gazebo
-actors are skinned animated meshes, not rigid link-pose records.
+actors are animated skinned meshes, not rigid link-pose records.
 
-## `rt_out/config/prototype_radio_sites.json`
+## `prototype_radio_sites.json`
 
-Defines the current TX/RX positions used by `36`.
+This defines the current TX/RX positions used by the multi-RX rigid and
+actor-aware sanity runners.
 
-The current multi-RX runner expects:
+Current expected IDs include:
 
 - `tx_sites.tx_ap`
 - `rx_sites.rx_panda_base`
 - `rx_sites.rx_ur5_base`
 - `rx_sites.rx_cerberus_base`
 
-Edit numeric positions freely when evaluating different approved locations. If
-you rename site IDs, update the runner or extension code that currently expects
-those names.
+If you rename site IDs, also update the code paths that expect them.
 
-## `rt_out/config/rt_material_mapping.json`
+## `rt_material_mapping.json`
 
-Maps semantic labels to Sionna radio-material settings and runtime defaults.
+This file controls:
 
-It controls:
-
-- carrier frequency used by sanity scripts
+- carrier frequency
 - Sionna radio-material definitions
-- material properties used in emitted XML
-- runtime parameters shared by static and frame XML generation
+- material properties written into generated XML
+- shared RT runtime defaults
 
-Edit this when changing material assumptions or frequency/material behavior.
-Then rebuild the relevant XMLs and rerun RT sanity checks.
+After changing it, rebuild the relevant XMLs and rerun RT sanity checks.
 
-## `rt_out/materials/material_map.json`
+## `material_map.json`
 
-Assigns semantic material labels to static scene objects. The static registry
-and merge steps use these labels to group geometry and choose RT materials.
+This assigns semantic material labels to static scene objects. The static
+registry and merge steps use these labels for both geometry grouping and RT
+material assignment.
 
-Edit this when:
-
-- adding static assets
-- changing object names or model names
-- correcting semantic material labels
-
-After edits, rerun the static registry and merge path:
+If you change it, rerun:
 
 ```bash
 python3 rt_out/scripts/static_scene/03_build_static_scene_registry.py
@@ -113,82 +99,97 @@ Experiment-local configs live under:
 rt_out/experiments/<experiment_name>/configs/
 ```
 
-For `semantic_ablation_rigid_200f`, the key config is typically:
+Common examples:
 
-```text
-rt_out/experiments/semantic_ablation_rigid_200f/configs/experiment_config.json
-```
+- `rt_out/experiments/semantic_ablation_rigid_200f/configs/experiment_config.json`
+- `rt_out/experiments/semantic_ablation_actor_200f/configs/experiment_config.json`
 
-For the actor-aware variant, the parallel config is:
-
-```text
-rt_out/experiments/semantic_ablation_actor_200f/configs/experiment_config.json
-```
-
-It controls:
+These configs typically control:
 
 - experiment name and output roots
-- frame count and sampled-frame JSON
+- frame count and sampled-frame metadata
 - dynamic model subset
 - TX/RX set for batch RT
 - label thresholds
 - feature modes and ablation outputs
-- optional `actors` block for experiment-local actor sampling/export
+- optional actor blocks for actor-aware experiment branches
 
-For `semantic_ablation_actor_200f`, the `actors` block includes:
+For the current actor-aware branch, the `actors` block includes timing,
+alignment, floor alignment, and runtime-phase-claim settings. The current
+export path uses approximate actor placement for RT and does not claim perfect
+Gazebo runtime animation matching.
 
-- `enabled`
-- `actor_manifest`
-- `actor_name`
-- `material_label`
-- `actor_time_policy`
-- `trajectory_duration_seconds`
-- `animation_time_policy`
-- `animation_loop_duration_seconds`
-- `alignment_policy`
-- `z_alignment_policy`
-- `floor_z`
-- `runtime_phase_claim`
+## Perception Pilot Configs
 
-The actor-aware branch currently uses:
+The panoptic perception pilot keeps its active configs under:
 
-- `alignment_policy = bounds_center_xy_to_root`
-- `z_alignment_policy = bounds_min_z_to_floor`
-- `floor_z = 0.1`
-
-Compact example:
-
-```json
-"actors": {
-  "enabled": true,
-  "actor_manifest": "rt_out/manifests/actor_manifest.json",
-  "actor_name": "actor_walking",
-  "material_label": "human_skin",
-  "actor_time_policy": "uniform_over_actor_trajectory",
-  "trajectory_duration_seconds": 29.58,
-  "animation_time_policy": "mod_clip_duration",
-  "animation_loop_duration_seconds": 5.79,
-  "alignment_policy": "bounds_center_xy_to_root",
-  "z_alignment_policy": "bounds_min_z_to_floor",
-  "floor_z": 0.1,
-  "runtime_phase_claim": false
-}
+```text
+rt_out/experiments/perception_rt_small_v0/configs/
 ```
 
-If actor material features are desired, include `human_skin` in
-`materials_of_interest`.
+### `perception_dataset_config.json`
 
-## World And Asset Inputs
+Controls:
 
-Important project files that behave like configuration:
+- experiment name
+- source experiment path
+- selected frame count
+- expected camera count
+- expected perception sample count
+- output roots used by the perception scripts
 
-- `myworld_rt.sdf`: RT extraction world
-- `myworld.sdf`: general Gazebo simulation world
-- `models/`: model SDFs, meshes, textures, actors, robots, and furniture assets
-- `run_myworld_rt.sh`: launch helper for the RT-oriented world
+Current active values include:
 
-Changing world geometry or model assets usually requires rerunning the static
-manifest, registry, merge, XML, and sanity steps.
+- `frame_count = 20`
+- `expected_camera_count = 8`
+- `expected_perception_samples = 160`
+
+### `camera_rig.json`
+
+Defines the 8 fixed panoptic camera viewpoints:
+
+- `cam_corner_nw`
+- `cam_corner_ne`
+- `cam_corner_sw`
+- `cam_corner_se`
+- `cam_wall_north`
+- `cam_wall_south`
+- `cam_wall_east`
+- `cam_wall_west`
+
+Each entry contains pose, resolution, FOV, and clip settings for the fixed
+capture rig.
+
+### `semantic_label_map.json`
+
+Defines the compact semantic taxonomy used by the perception pilot:
+
+- `1 floor`
+- `2 ceiling`
+- `3 wall`
+- `4 door`
+- `5 window`
+- `6 table`
+- `7 chair`
+- `8 robot`
+- `9 human`
+- `10 misc_object`
+
+For the current panoptic capture, semantic labels are decoded from channel `2`
+of the Gazebo panoptic labels map.
+
+## Perception Metadata Files
+
+Two generated perception metadata files are still important to interpret the
+pilot outputs:
+
+- `rt_out/experiments/perception_rt_small_v0/frames/instance_registry.json`
+  keeps the stable object metadata used by the pilot scripts
+- `rt_out/experiments/perception_rt_small_v0/perception_sdf/instance_label_map.json`
+  describes Gazebo-side label assignments for world generation and debugging
+
+`gazebo_instance_count` from the panoptic capture is not the stable dataset
+instance ID.
 
 ## What To Rerun
 
@@ -203,7 +204,7 @@ python3 rt_out/scripts/static_scene/20_merge_static_scene_by_material.py
 python3 rt_out/scripts/static_scene/23_build_static_sionna_xml.py
 ```
 
-If you changed rigid pose logs or prototype frame selection:
+If you changed rigid pose logs or rigid frame selection:
 
 ```bash
 python3 rt_out/scripts/dynamic_rigid/30_build_prototype_dynamic_frames.py
@@ -217,4 +218,16 @@ If you changed actor config or actor assets:
 python3 rt_out/scripts/dynamic_actor/40_extract_actor_manifest.py
 python3 rt_out/scripts/dynamic_actor/41_build_actor_frame_samples.py
 python3 rt_out/scripts/dynamic_rigid/35_run_prototype_three_frame_rt_sanity.py --include-actors
+```
+
+If you changed perception configs or camera rig settings:
+
+```bash
+python3 rt_out/scripts/perception/60_select_perception_frames.py \
+  --config rt_out/experiments/perception_rt_small_v0/configs/perception_dataset_config.json
+python3 rt_out/scripts/perception/61_build_perception_instance_registry.py \
+  --config rt_out/experiments/perception_rt_small_v0/configs/perception_dataset_config.json
+python3 rt_out/scripts/perception/62_build_labeled_gazebo_world.py \
+  --config rt_out/experiments/perception_rt_small_v0/configs/perception_dataset_config.json \
+  --force
 ```

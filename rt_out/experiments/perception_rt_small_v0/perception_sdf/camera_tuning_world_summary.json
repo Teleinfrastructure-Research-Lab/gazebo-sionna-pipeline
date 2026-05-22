@@ -1,0 +1,127 @@
+{
+  "tuning_world": "rt_out/experiments/perception_rt_small_v0/perception_sdf/gazebo_native_camera_tuning_world.sdf",
+  "camera_count": 8,
+  "cameras": [
+    {
+      "camera_id": "cam_corner_nw",
+      "model_name": "debug_cam_corner_nw",
+      "pose_xyz_rpy": [
+        -4.368888,
+        4.38902,
+        2.76265,
+        -0.018875,
+        0.447306,
+        -0.787697
+      ],
+      "helper_geometry_count": 8,
+      "source": "debug_camera_visual",
+      "note": "static tuning handle; not part of dataset capture"
+    },
+    {
+      "camera_id": "cam_corner_ne",
+      "model_name": "debug_cam_corner_ne",
+      "pose_xyz_rpy": [
+        4.38989,
+        4.38902,
+        2.76265,
+        -0.018875,
+        0.447306,
+        -2.356294
+      ],
+      "helper_geometry_count": 8,
+      "source": "debug_camera_visual",
+      "note": "static tuning handle; not part of dataset capture"
+    },
+    {
+      "camera_id": "cam_corner_sw",
+      "model_name": "debug_cam_corner_sw",
+      "pose_xyz_rpy": [
+        -4.2766,
+        -4.27322,
+        2.72007,
+        -0.014193,
+        0.518246,
+        0.774445
+      ],
+      "helper_geometry_count": 8,
+      "source": "debug_camera_visual",
+      "note": "static tuning handle; not part of dataset capture"
+    },
+    {
+      "camera_id": "cam_corner_se",
+      "model_name": "debug_cam_corner_se",
+      "pose_xyz_rpy": [
+        4.44776,
+        -4.40805,
+        2.80523,
+        -0.023556,
+        0.376367,
+        2.408296
+      ],
+      "helper_geometry_count": 8,
+      "source": "debug_camera_visual",
+      "note": "static tuning handle; not part of dataset capture"
+    },
+    {
+      "camera_id": "cam_wall_north",
+      "model_name": "debug_cam_wall_north",
+      "pose_xyz_rpy": [
+        0.221087,
+        4.38902,
+        2.71504,
+        -0.0,
+        0.562591,
+        -1.5708
+      ],
+      "helper_geometry_count": 8,
+      "source": "debug_camera_visual",
+      "note": "static tuning handle; not part of dataset capture"
+    },
+    {
+      "camera_id": "cam_wall_south",
+      "model_name": "debug_cam_wall_south",
+      "pose_xyz_rpy": [
+        0.221056,
+        -4.22159,
+        2.7964,
+        0.000426,
+        0.271157,
+        1.577903
+      ],
+      "helper_geometry_count": 8,
+      "source": "debug_camera_visual",
+      "note": "static tuning handle; not part of dataset capture"
+    },
+    {
+      "camera_id": "cam_wall_east",
+      "model_name": "debug_cam_wall_east",
+      "pose_xyz_rpy": [
+        4.38989,
+        -0.157588,
+        2.81304,
+        -0.047579,
+        0.393096,
+        3.098594
+      ],
+      "helper_geometry_count": 8,
+      "source": "debug_camera_visual",
+      "note": "static tuning handle; not part of dataset capture"
+    },
+    {
+      "camera_id": "cam_wall_west",
+      "model_name": "debug_cam_wall_west",
+      "pose_xyz_rpy": [
+        -4.368888,
+        -0.03657,
+        2.817008,
+        0.035211,
+        0.406352,
+        0.030119
+      ],
+      "helper_geometry_count": 8,
+      "source": "debug_camera_visual",
+      "note": "static tuning handle; not part of dataset capture"
+    }
+  ],
+  "helper_geometry_count": 64
+}

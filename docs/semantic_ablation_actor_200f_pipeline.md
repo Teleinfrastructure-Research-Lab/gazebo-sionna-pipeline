@@ -73,9 +73,8 @@ python3 rt_out/scripts/experiments/exp_build_sionna_xml_batch.py \
   --config "$CONFIG"
 
 Replace `/path/to/your/sionna/python` with the Python interpreter from an
-environment where Sionna RT and Mitsuba are installed. You can also set
-`COLLABPAPER_PYTHON` to that interpreter path if using scripts that
-auto-discover it.
+environment where Sionna RT and Mitsuba are installed. You can also set SIONNA_PYTHON 
+to that interpreter path
 
 /path/to/your/sionna/python \
   rt_out/scripts/experiments/exp_run_rt_multi_rx_batch.py \
@@ -189,9 +188,7 @@ python3 rt_out/scripts/experiments/exp_run_semantic_ablation.py \
 
 ## Ablation Snapshot
 
-These numbers are a current validated snapshot of generated outputs. If the
-experiment is regenerated, refresh them rather than treating them as immutable
-constants.
+Results are presented below:
 
 | Task | Feature Mode / Model | F1 | Balanced Accuracy |
 | --- | --- | --- | --- |
@@ -206,8 +203,3 @@ Compared with the rigid branch:
 - compact object-aware path-change F1 improved from `50.9` to `58.2`
 - raw occupancy improved only slightly, while compact object-aware features became clearly stronger in the actor-aware branch
 
-## Caveats
-
-- actor timing is offline sampled and is not claimed to be Gazebo-runtime-perfect actor phase
-- actor geometry is baked for RT export, not live Gazebo actor simulation
-- this is not a full proactive beamforming/resource-allocation pipeline

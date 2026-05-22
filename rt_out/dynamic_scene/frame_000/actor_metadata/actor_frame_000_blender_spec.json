@@ -1,0 +1,75 @@
+{
+  "generated_by": "42_export_actor_frame_meshes.py",
+  "frame_id": 0,
+  "source_sample_index": 0,
+  "alignment_policy": "bounds_center_xy_to_root",
+  "z_alignment_policy": "bounds_min_z_to_floor",
+  "floor_z": 0.1,
+  "alignment_policy_note": "Experimental visual-validation correction only; not claimed to be Gazebo-runtime-faithful actor animation.",
+  "samples": [
+    {
+      "id": "actor__actor_walking__frame_000",
+      "actor_name": "actor_walking",
+      "frame_id": 0,
+      "source_sample_index": 0,
+      "actor_time_seconds": 1.99,
+      "animation_time_seconds": 1.99,
+      "root_pose_source": "trajectory_exact_waypoint",
+      "actor_pose6": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "root_pose6": [
+        2.5072,
+        -3.1608,
+        1.13,
+        0.0,
+        0.0,
+        0.2850000000000001
+      ],
+      "skin_scale": 0.9,
+      "skin_path_resolved": "/home/telilab4090/Documents/Gazebo World/my_world/models/humans/actor_walk/meshes/walk.dae",
+      "animation_path_resolved": "/home/telilab4090/Documents/Gazebo World/my_world/models/humans/actor_walk/meshes/walk.dae",
+      "material_label": "human_skin",
+      "alignment_policy": "bounds_center_xy_to_root",
+      "z_alignment_policy": "bounds_min_z_to_floor",
+      "floor_z": 0.1,
+      "output_mesh_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_000/actor_meshes/actor__actor_walking__frame_000.ply",
+      "sample_record": {
+        "actor_name": "actor_walking",
+        "frame_id": 0,
+        "source_sample_index": 0,
+        "actor_time_seconds": 1.99,
+        "animation_time_seconds": 1.99,
+        "animation_time_policy": "same_as_actor_time",
+        "loop_policy": "mod_actor_script_duration",
+        "runtime_phase_claim": false,
+        "root_pose_source": "trajectory_exact_waypoint",
+        "root_pose6": [
+          2.5072,
+          -3.1608,
+          1.13,
+          0.0,
+          0.0,
+          0.2850000000000001
+        ],
+        "material_label": "human_skin",
+        "skin_uri": "model://actor_walk/meshes/walk.dae",
+        "skin_path_resolved": "/home/telilab4090/Documents/Gazebo World/my_world/models/humans/actor_walk/meshes/walk.dae",
+        "skin_scale": 0.9,
+        "animation_name": "walk",
+        "animation_uri": "model://actor_walk/meshes/walk.dae",
+        "animation_path_resolved": "/home/telilab4090/Documents/Gazebo World/my_world/models/humans/actor_walk/meshes/walk.dae",
+        "animation_interpolate_x": true,
+        "trajectory_id": "0",
+        "trajectory_type": "walk",
+        "waypoint_time_seconds": 1.99
+      }
+    }
+  ],
+  "summary_path": "/home/telilab4090/Documents/Gazebo World/my_world/rt_out/dynamic_scene/frame_000/actor_metadata/actor_frame_000_blender_summary.json"
+}

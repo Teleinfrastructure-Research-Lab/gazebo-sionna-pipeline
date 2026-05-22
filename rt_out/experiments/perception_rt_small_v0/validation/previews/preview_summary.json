@@ -1,0 +1,77 @@
+{
+  "experiment_name": "perception_rt_small_v0",
+  "primary_mode": "panoptic",
+  "preview_root": "rt_out/experiments/perception_rt_small_v0/validation/previews",
+  "panoptic_input_root": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic",
+  "camera_count": 8,
+  "copied_preview_file_count": 24,
+  "montage_backend": "pillow",
+  "montage_count": 8,
+  "cameras": [
+    {
+      "camera_id": "cam_corner_nw",
+      "semantic_decoded_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_corner_nw/cam_corner_nw_semantic_decoded.pgm",
+      "gazebo_instance_count_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_corner_nw/cam_corner_nw_gazebo_instance_count.pgm",
+      "colored_map_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_corner_nw/cam_corner_nw_colored_map.ppm",
+      "montage_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_corner_nw/cam_corner_nw_preview_montage.png",
+      "warnings": []
+    },
+    {
+      "camera_id": "cam_corner_ne",
+      "semantic_decoded_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_corner_ne/cam_corner_ne_semantic_decoded.pgm",
+      "gazebo_instance_count_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_corner_ne/cam_corner_ne_gazebo_instance_count.pgm",
+      "colored_map_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_corner_ne/cam_corner_ne_colored_map.ppm",
+      "montage_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_corner_ne/cam_corner_ne_preview_montage.png",
+      "warnings": []
+    },
+    {
+      "camera_id": "cam_corner_sw",
+      "semantic_decoded_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_corner_sw/cam_corner_sw_semantic_decoded.pgm",
+      "gazebo_instance_count_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_corner_sw/cam_corner_sw_gazebo_instance_count.pgm",
+      "colored_map_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_corner_sw/cam_corner_sw_colored_map.ppm",
+      "montage_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_corner_sw/cam_corner_sw_preview_montage.png",
+      "warnings": []
+    },
+    {
+      "camera_id": "cam_corner_se",
+      "semantic_decoded_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_corner_se/cam_corner_se_semantic_decoded.pgm",
+      "gazebo_instance_count_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_corner_se/cam_corner_se_gazebo_instance_count.pgm",
+      "colored_map_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_corner_se/cam_corner_se_colored_map.ppm",
+      "montage_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_corner_se/cam_corner_se_preview_montage.png",
+      "warnings": []
+    },
+    {
+      "camera_id": "cam_wall_north",
+      "semantic_decoded_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_wall_north/cam_wall_north_semantic_decoded.pgm",
+      "gazebo_instance_count_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_wall_north/cam_wall_north_gazebo_instance_count.pgm",
+      "colored_map_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_wall_north/cam_wall_north_colored_map.ppm",
+      "montage_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_wall_north/cam_wall_north_preview_montage.png",
+      "warnings": []
+    },
+    {
+      "camera_id": "cam_wall_south",
+      "semantic_decoded_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_wall_south/cam_wall_south_semantic_decoded.pgm",
+      "gazebo_instance_count_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_wall_south/cam_wall_south_gazebo_instance_count.pgm",
+      "colored_map_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_wall_south/cam_wall_south_colored_map.ppm",
+      "montage_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_wall_south/cam_wall_south_preview_montage.png",
+      "warnings": []
+    },
+    {
+      "camera_id": "cam_wall_east",
+      "semantic_decoded_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_wall_east/cam_wall_east_semantic_decoded.pgm",
+      "gazebo_instance_count_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_wall_east/cam_wall_east_gazebo_instance_count.pgm",
+      "colored_map_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_wall_east/cam_wall_east_colored_map.ppm",
+      "montage_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_wall_east/cam_wall_east_preview_montage.png",
+      "warnings": []
+    },
+    {
+      "camera_id": "cam_wall_west",
+      "semantic_decoded_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_wall_west/cam_wall_west_semantic_decoded.pgm",
+      "gazebo_instance_count_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_wall_west/cam_wall_west_gazebo_instance_count.pgm",
+      "colored_map_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_wall_west/cam_wall_west_colored_map.ppm",
+      "montage_preview": "rt_out/experiments/perception_rt_small_v0/validation/previews/cam_wall_west/cam_wall_west_preview_montage.png",
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

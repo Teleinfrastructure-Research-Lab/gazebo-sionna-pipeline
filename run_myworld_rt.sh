@@ -9,6 +9,7 @@ set -euo pipefail
 # Resolve the repository root so the script works when launched from anywhere.
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$SCRIPT_DIR"
+SETUP_SCRIPT="$PROJECT_ROOT/rt_out/scripts/ops/setup_gazebo_env.sh"
 
 # Gazebo Sim is the only external runtime dependency this launcher assumes.
 if ! command -v gz >/dev/null 2>&1; then
@@ -16,18 +17,14 @@ if ! command -v gz >/dev/null 2>&1; then
   exit 1
 fi
 
-# Expose every model subtree the RT world may reference through model:// URIs.
-RESOURCE_PATHS=(
-  "$PROJECT_ROOT/models"
-  "$PROJECT_ROOT/models/furniture"
-  "$PROJECT_ROOT/models/humans"
-  "$PROJECT_ROOT/models/parts"
-  "$PROJECT_ROOT/models/robots"
-  "$PROJECT_ROOT/models/UAVs"
-)
+if [[ ! -f "$SETUP_SCRIPT" ]]; then
+  echo "Gazebo environment setup script not found: $SETUP_SCRIPT" >&2
+  exit 1
+fi
 
-RESOURCE_PATH="$(IFS=:; printf '%s' "${RESOURCE_PATHS[*]}")"
-export GZ_SIM_RESOURCE_PATH="${RESOURCE_PATH}${GZ_SIM_RESOURCE_PATH:+:$GZ_SIM_RESOURCE_PATH}"
+# Share the same model resource and GPU rendering setup used by other Gazebo launch helpers.
+# shellcheck disable=SC1090
+source "$SETUP_SCRIPT"
 
-# Forward any extra Gazebo CLI flags, then point Gazebo at the RT world file.
+# Forward any extra Gazebo CLI flags, then point Gazebo at the main world file.
 exec gz sim "$@" "$PROJECT_ROOT/myworld_rt.sdf"

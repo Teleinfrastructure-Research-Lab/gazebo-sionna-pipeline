@@ -29,5 +29,10 @@ RESOURCE_PATHS=(
 RESOURCE_PATH="$(IFS=:; printf '%s' "${RESOURCE_PATHS[*]}")"
 export GZ_SIM_RESOURCE_PATH="${RESOURCE_PATH}${GZ_SIM_RESOURCE_PATH:+:$GZ_SIM_RESOURCE_PATH}"
 
+# Force Gazebo GUI / OpenGL rendering through the NVIDIA GPU.
+export __NV_PRIME_RENDER_OFFLOAD=1
+export __GLX_VENDOR_LIBRARY_NAME=nvidia
+export __VK_LAYER_NV_optimus=NVIDIA_only
+
 # Forward any extra Gazebo CLI flags, then point Gazebo at the main world file.
 exec gz sim "$@" "$PROJECT_ROOT/myworld.sdf"

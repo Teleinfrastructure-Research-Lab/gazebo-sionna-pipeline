@@ -1,0 +1,278 @@
+{
+  "1": {
+    "stable_instance_id": 4000,
+    "instance_name": "factory_shell_floor",
+    "semantic_id": 1,
+    "semantic_name": "floor"
+  },
+  "2": {
+    "stable_instance_id": 4001,
+    "instance_name": "factory_shell_ceiling",
+    "semantic_id": 2,
+    "semantic_name": "ceiling"
+  },
+  "3": {
+    "stable_instance_id": 4002,
+    "instance_name": "factory_shell_north_wall",
+    "semantic_id": 3,
+    "semantic_name": "wall"
+  },
+  "4": {
+    "stable_instance_id": 4003,
+    "instance_name": "factory_shell_south_wall",
+    "semantic_id": 3,
+    "semantic_name": "wall"
+  },
+  "5": {
+    "stable_instance_id": 4004,
+    "instance_name": "factory_shell_east_wall",
+    "semantic_id": 3,
+    "semantic_name": "wall"
+  },
+  "6": {
+    "stable_instance_id": 4005,
+    "instance_name": "factory_shell_west_wall",
+    "semantic_id": 3,
+    "semantic_name": "wall"
+  },
+  "7": {
+    "stable_instance_id": 4100,
+    "instance_name": "factory_shell_north_window_left",
+    "semantic_id": 5,
+    "semantic_name": "window"
+  },
+  "8": {
+    "stable_instance_id": 4101,
+    "instance_name": "factory_shell_north_window_right",
+    "semantic_id": 5,
+    "semantic_name": "window"
+  },
+  "9": {
+    "stable_instance_id": 1000,
+    "instance_name": "factory_door",
+    "semantic_id": 4,
+    "semantic_name": "door"
+  },
+  "10": {
+    "stable_instance_id": 1001,
+    "instance_name": "lamp_fixture_01",
+    "semantic_id": 10,
+    "semantic_name": "misc_object"
+  },
+  "11": {
+    "stable_instance_id": 1002,
+    "instance_name": "lamp_fixture_02",
+    "semantic_id": 10,
+    "semantic_name": "misc_object"
+  },
+  "12": {
+    "stable_instance_id": 1003,
+    "instance_name": "lamp_fixture_03",
+    "semantic_id": 10,
+    "semantic_name": "misc_object"
+  },
+  "13": {
+    "stable_instance_id": 1004,
+    "instance_name": "lamp_fixture_04",
+    "semantic_id": 10,
+    "semantic_name": "misc_object"
+  },
+  "14": {
+    "stable_instance_id": 1005,
+    "instance_name": "aws_robomaker_warehouse_clutteringc_01",
+    "semantic_id": 10,
+    "semantic_name": "misc_object"
+  },
+  "15": {
+    "stable_instance_id": 1006,
+    "instance_name": "officechairblue",
+    "semantic_id": 7,
+    "semantic_name": "chair"
+  },
+  "16": {
+    "stable_instance_id": 1007,
+    "instance_name": "officechairblack",
+    "semantic_id": 7,
+    "semantic_name": "chair"
+  },
+  "17": {
+    "stable_instance_id": 1008,
+    "instance_name": "officechairgrey",
+    "semantic_id": 7,
+    "semantic_name": "chair"
+  },
+  "18": {
+    "stable_instance_id": 1009,
+    "instance_name": "picking_shelves",
+    "semantic_id": 10,
+    "semantic_name": "misc_object"
+  },
+  "19": {
+    "stable_instance_id": 1010,
+    "instance_name": "desk",
+    "semantic_id": 6,
+    "semantic_name": "table"
+  },
+  "20": {
+    "stable_instance_id": 1011,
+    "instance_name": "desk_0",
+    "semantic_id": 6,
+    "semantic_name": "table"
+  },
+  "21": {
+    "stable_instance_id": 1012,
+    "instance_name": "desk_1",
+    "semantic_id": 6,
+    "semantic_name": "table"
+  },
+  "22": {
+    "stable_instance_id": 1013,
+    "instance_name": "monitorandkeyboard",
+    "semantic_id": 10,
+    "semantic_name": "misc_object"
+  },
+  "23": {
+    "stable_instance_id": 1014,
+    "instance_name": "cerberus_anymal_c_sensor_config_1",
+    "semantic_id": 8,
+    "semantic_name": "robot"
+  },
+  "24": {
+    "stable_instance_id": 1015,
+    "instance_name": "trashbin",
+    "semantic_id": 10,
+    "semantic_name": "misc_object"
+  },
+  "25": {
+    "stable_instance_id": 1016,
+    "instance_name": "trashbin_0",
+    "semantic_id": 10,
+    "semantic_name": "misc_object"
+  },
+  "26": {
+    "stable_instance_id": 1017,
+    "instance_name": "trashbin_1",
+    "semantic_id": 10,
+    "semantic_name": "misc_object"
+  },
+  "27": {
+    "stable_instance_id": 1018,
+    "instance_name": "reflective_table",
+    "semantic_id": 6,
+    "semantic_name": "table"
+  },
+  "28": {
+    "stable_instance_id": 1019,
+    "instance_name": "reflective_table_1",
+    "semantic_id": 6,
+    "semantic_name": "table"
+  },
+  "29": {
+    "stable_instance_id": 1020,
+    "instance_name": "reflective_table_1_1",
+    "semantic_id": 6,
+    "semantic_name": "table"
+  },
+  "30": {
+    "stable_instance_id": 1021,
+    "instance_name": "reflective_table_1_2",
+    "semantic_id": 6,
+    "semantic_name": "table"
+  },
+  "31": {
+    "stable_instance_id": 1022,
+    "instance_name": "gasket_part",
+    "semantic_id": 10,
+    "semantic_name": "misc_object"
+  },
+  "32": {
+    "stable_instance_id": 1023,
+    "instance_name": "cross_joint_part",
+    "semantic_id": 10,
+    "semantic_name": "misc_object"
+  },
+  "33": {
+    "stable_instance_id": 1024,
+    "instance_name": "t_brace_part",
+    "semantic_id": 10,
+    "semantic_name": "misc_object"
+  },
+  "34": {
+    "stable_instance_id": 1025,
+    "instance_name": "disk_part",
+    "semantic_id": 10,
+    "semantic_name": "misc_object"
+  },
+  "35": {
+    "stable_instance_id": 1026,
+    "instance_name": "piston_rod_part",
+    "semantic_id": 10,
+    "semantic_name": "misc_object"
+  },
+  "36": {
+    "stable_instance_id": 1027,
+    "instance_name": "gear_part",
+    "semantic_id": 10,
+    "semantic_name": "misc_object"
+  },
+  "37": {
+    "stable_instance_id": 1028,
+    "instance_name": "arm_part",
+    "semantic_id": 10,
+    "semantic_name": "misc_object"
+  },
+  "38": {
+    "stable_instance_id": 1029,
+    "instance_name": "x500",
+    "semantic_id": 8,
+    "semantic_name": "robot"
+  },
+  "39": {
+    "stable_instance_id": 1030,
+    "instance_name": "person_standing",
+    "semantic_id": 9,
+    "semantic_name": "human"
+  },
+  "40": {
+    "stable_instance_id": 1031,
+    "instance_name": "sofa",
+    "semantic_id": 10,
+    "semantic_name": "misc_object"
+  },
+  "41": {
+    "stable_instance_id": 1032,
+    "instance_name": "coffeetable",
+    "semantic_id": 6,
+    "semantic_name": "table"
+  },
+  "42": {
+    "stable_instance_id": 1033,
+    "instance_name": "naoh25v40",
+    "semantic_id": 10,
+    "semantic_name": "misc_object"
+  },
+  "43": {
+    "stable_instance_id": 2000,
+    "instance_name": "panda",
+    "semantic_id": 8,
+    "semantic_name": "robot"
+  },
+  "44": {
+    "stable_instance_id": 2001,
+    "instance_name": "ur5_rg2",
+    "semantic_id": 8,
+    "semantic_name": "robot"
+  },
+  "45": {
+    "stable_instance_id": 3000,
+    "instance_name": "actor_sitting_office_chair_black",
+    "semantic_id": 9,
+    "semantic_name": "human"
+  },
+  "46": {
+    "stable_instance_id": 3001,
+    "instance_name": "actor_walking",
+    "semantic_id": 9,
+    "semantic_name": "human"
+  }
+}
