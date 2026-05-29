@@ -1,0 +1,79 @@
+{
+  "experiment_name": "perception_rt_small_v0",
+  "camera_count": 8,
+  "expected_groups_per_camera": 3,
+  "expected_total_group_count": 24,
+  "actual_group_count": 24,
+  "actual_labels_count": 24,
+  "actual_rgb_count": 24,
+  "actual_ply_count": 24,
+  "actual_metadata_count": 24,
+  "min_time_delta_ms": 0.0,
+  "max_time_delta_ms": 0.0,
+  "total_points_written": 460713,
+  "min_points_per_cloud": 19190,
+  "max_points_per_cloud": 19200,
+  "compact_label_nonzero_ratio_mean": 0.9998409016927083,
+  "unknown_compact_label_count": 0,
+  "overall_passed": true,
+  "failure_count": 0,
+  "invalid_row_count": 0,
+  "camera_summaries": [
+    {
+      "camera_id": "cam_corner_nw",
+      "group_count": 3,
+      "failure_count": 0,
+      "unknown_compact_label_count": 0,
+      "compact_label_nonzero_ratio_mean": 0.9995572916666666
+    },
+    {
+      "camera_id": "cam_corner_ne",
+      "group_count": 3,
+      "failure_count": 0,
+      "unknown_compact_label_count": 0,
+      "compact_label_nonzero_ratio_mean": 0.9994986979166667
+    },
+    {
+      "camera_id": "cam_corner_sw",
+      "group_count": 3,
+      "failure_count": 0,
+      "unknown_compact_label_count": 0,
+      "compact_label_nonzero_ratio_mean": 1.0
+    },
+    {
+      "camera_id": "cam_corner_se",
+      "group_count": 3,
+      "failure_count": 0,
+      "unknown_compact_label_count": 0,
+      "compact_label_nonzero_ratio_mean": 1.0
+    },
+    {
+      "camera_id": "cam_wall_north",
+      "group_count": 3,
+      "failure_count": 0,
+      "unknown_compact_label_count": 0,
+      "compact_label_nonzero_ratio_mean": 0.9996712239583333
+    },
+    {
+      "camera_id": "cam_wall_south",
+      "group_count": 3,
+      "failure_count": 0,
+      "unknown_compact_label_count": 0,
+      "compact_label_nonzero_ratio_mean": 1.0
+    },
+    {
+      "camera_id": "cam_wall_east",
+      "group_count": 3,
+      "failure_count": 0,
+      "unknown_compact_label_count": 0,
+      "compact_label_nonzero_ratio_mean": 1.0
+    },
+    {
+      "camera_id": "cam_wall_west",
+      "group_count": 3,
+      "failure_count": 0,
+      "unknown_compact_label_count": 0,
+      "compact_label_nonzero_ratio_mean": 1.0
+    }
+  ]
+}

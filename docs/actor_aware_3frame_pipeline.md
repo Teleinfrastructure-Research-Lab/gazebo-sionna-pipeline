@@ -21,12 +21,6 @@ The actor branch supports:
 It does not expand the separate 200-frame experiment branches. Keep this page
 for the validated three-frame actor prototype only.
 
-Current validation status:
-
-- actor-aware `35` passes
-- actor-aware `36` passes for all 9 frame/RX rows
-- delay statistics are populated for non-zero-path rows
-
 ## Data Flow
 
 ```text
@@ -198,10 +192,3 @@ python3 rt_out/scripts/validation/56_build_composed_frame_blender_scene.py \
 
 Use `BLENDER=/path/to/blender` instead if Blender is not on `PATH`.
 
-## Limitations
-
-- Actor support is validated only for the three-frame prototype branch.
-- Actor geometry is baked for RT export; it is not live Gazebo actor simulation.
-- The current horizontal and vertical alignment policies are export-time corrections.
-- The actor-aware 200-frame experiment is documented separately in `semantic_ablation_actor_200f_pipeline.md`.
-- Older actor spike scripts are not part of the active workflow.

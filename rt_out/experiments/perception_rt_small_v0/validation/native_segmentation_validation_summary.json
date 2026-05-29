@@ -11,8 +11,9 @@
   "expected_gazebo_instance_count_count": 24,
   "outputs": {
     "summary_json": "rt_out/experiments/perception_rt_small_v0/validation/native_segmentation_validation_summary.json",
-    "label_histograms_csv": "rt_out/experiments/perception_rt_small_v0/validation/native_segmentation_label_histograms.csv",
-    "invalid_pixels_csv": "rt_out/experiments/perception_rt_small_v0/validation/native_segmentation_invalid_pixels.csv"
+    "label_histograms_csv": null,
+    "invalid_pixels_csv": null,
+    "supplementary_diagnostics_written": false
   },
   "overall_passed": true,
   "failure_count": 0,

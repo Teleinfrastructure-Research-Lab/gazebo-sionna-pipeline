@@ -45,3 +45,6 @@ rt_out/experiments/semantic_ablation_actor_200f/frames/
 # Local one-off assets that should not be versioned
 docs/gazebo_rt_pipeline_step_by_step.drawio
 models/furniture/Reflective table/materials/textures/DepotEnvMap.dds
+
+# Large local experiment archives
+rt_out/experiments/semantic_ablation.zip

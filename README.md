@@ -1,57 +1,64 @@
 # Gazebo-To-Sionna RT Pipeline
 
-This repository provides a Gazebo-to-Sionna RT pipeline for building
-object-aware wireless datasets from 3D simulation scenes. The core project is
-the validated RT stack: static scene export, rigid Panda/UR5 dynamics,
-actor-aware extensions, and the semantic/object-aware experiment branches. The
-new `perception_rt_small_v0` branch is a pilot extension that adds Gazebo-native
-panoptic perception capture; it does not replace the existing RT baselines.
+This repository builds a Gazebo-to-Sionna RT pipeline for generating object-aware wireless datasets from 3D simulation scenes. It connects Gazebo scene geometry, rigid and actor-aware dynamics, and perception-side artifacts to Sionna RT ray-tracing outputs, RT-derived wireless labels, semantic/object-aware descriptors, and pilot perception products that can support downstream wireless learning and control workflows.
 
-## Current Validated Branches
+## What the project does
 
-- Static scene branch: Gazebo/SDF scene extraction, mesh/material export, and
-  Sionna RT validation.
-- Rigid Panda/UR5 branch: frame-wise rigid robot placement and RT generation
-  from pose logs.
-- Actor-aware branch: static scene + Panda/UR5 + moving human actor, with
-  actor handling kept separate from rigid dynamics because Gazebo actors are
-  animated skinned meshes.
-- `semantic_ablation_rigid_200f`: validated 200-frame rigid experiment with
-  RT outputs, labels, object-aware features, and raw occupancy features.
-- `semantic_ablation_actor_200f`: validated 200-frame actor-aware experiment
-  with RT outputs, labels, object-aware features, and raw occupancy features.
-- `perception_rt_small_v0`: pilot Gazebo-native panoptic perception branch
-  built on top of the actor-aware experiment outputs.
+The project turns Gazebo scene structure, dynamics, and selected perception outputs into Sionna RT wireless data, then derives labels and features that support object-aware wireless prediction, analysis, and control experiments.
 
-## Current Branch Snapshot
+## Main capabilities
 
-- Stable foundation: the static, rigid, and actor-aware RT branches.
-- Important current actor-aware pilot result:
-  - adaptation trigger F1: compact object-aware `0.411` vs raw occupancy `0.272`
-  - path change F1: compact object-aware `0.582` vs raw occupancy `0.527`
-  - actor-aware compact path-change F1 vs rigid compact baseline:
-    `0.582` vs `0.509`
-- Panoptic perception pilot:
-  - experiment: `rt_out/experiments/perception_rt_small_v0`
-  - selected frames: `20`
-  - fixed cameras: `8`
-  - expected perception samples: `160`
-  - primary world:
-    `rt_out/experiments/perception_rt_small_v0/perception_sdf/gazebo_native_panoptic_world.sdf`
-  - primary raw output:
-    `rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/`
+- Static Gazebo/SDF scene export and Sionna RT validation
+- Rigid Panda/UR5 dynamic frame export and multi-frame RT evaluation
+- Actor-aware export for a moving human branch layered onto the rigid scene
+- Semantic/object-aware feature generation
+- Raw occupancy baseline generation
+- RT-derived wireless labels
+- Panoptic perception pilot on top of the actor-aware RT branch
+- RGB-D, synchronized RGB/PCL, and final labeled colorized point-cloud products where currently implemented
+
+## Current Validated Branches And Status
+
+- Static scene branch
+- Rigid Panda/UR5 branch
+- Actor-aware branch
+- `semantic_ablation_rigid_200f`
+- `semantic_ablation_actor_200f`
+- `perception_rt_small_v0` as a pilot extension, not a replacement for the validated RT baselines
+
+## Current Results Snapshot
+
+- Adaptation trigger F1: compact object-aware `0.411` vs raw occupancy `0.272`
+- Path change F1: compact object-aware `0.582` vs raw occupancy `0.527`
+- Actor-aware compact path-change F1 vs rigid compact baseline: `0.582` vs `0.509`
+
+## Perception / Panoptic Pilot Status
+
+- Experiment: `rt_out/experiments/perception_rt_small_v0`
+- Selected frames: `20`
+- Fixed cameras: `8`
+- Expected perception samples: `160`
+- Final useful output: synchronized, labeled, colorized point clouds with fields `x y z red green blue class_label instance_id`
+
+The perception branch is a pilot extension layered on top of the actor-aware RT outputs. It extends the validated RT workflow with Gazebo-native panoptic capture and synchronized labeled point-cloud products, but it does not replace the validated RT baselines.
+
+## Repository Structure
+
+```text
+docs/                    Canonical project documentation
+models/                  Gazebo models, robots, actors, and scene assets
+plugins/                 Gazebo plugin sources/build artifacts
+rt_out/scripts/          Static, dynamic, experiment, ops, validation, and perception scripts
+rt_out/experiments/      Experiment outputs, validation artifacts, and pilot branches
+myworld.sdf              Main Gazebo world
+myworld_rt.sdf           RT-oriented Gazebo world input
+run_myworld.sh           Gazebo launch helper
+run_myworld_rt.sh        RT-world launch helper
+```
 
 ## Environment Setup
 
-The repository expects a manually prepared environment. At minimum, keep these
-tools available:
-
-- Python 3 for orchestration, manifests, features, and validation
-- a Sionna RT + Mitsuba-capable Python interpreter
-- Blender for mesh conversion and actor export helpers
-- Gazebo Sim plus the `gz` CLI
-- a C++ compiler such as `g++` or `clang++` for the panoptic topic-capture helper
-- an NVIDIA-capable setup if you plan to run Gazebo rendering or GPU-backed RT
+Run commands from the repository root with a manually prepared environment. At minimum, keep Python 3, a Sionna RT + Mitsuba-capable Python environment, Blender, Gazebo Sim with the `gz` CLI, and a C++ compiler such as `g++` or `clang++` available. If you plan to run Gazebo rendering or GPU-backed RT, use an NVIDIA-capable setup.
 
 Typical shell setup:
 
@@ -59,59 +66,51 @@ Typical shell setup:
 export SIONNA_PYTHON="$HOME/miniconda3/envs/your_env_name/bin/python"
 export COLLABPAPER_PYTHON="$SIONNA_PYTHON"
 export BLENDER=blender
+source rt_out/scripts/ops/setup_gazebo_env.sh
 ```
 
-For Gazebo launches:
+## Quick Start
+
+Start with the canonical docs rather than treating this page as the full runbook:
+
+- [Getting Started](docs/getting_started.md)
+- [Pipeline Overview](docs/pipeline_overview.md)
+
+Useful validated entry commands from the current docs include:
 
 ```bash
-source rt_out/scripts/ops/setup_gazebo_env.sh
-bash run_myworld_rt.sh
-bash rt_out/scripts/ops/run_gazebo_gpu.sh \
-  rt_out/experiments/perception_rt_small_v0/perception_sdf/gazebo_native_panoptic_world.sdf
+python3 rt_out/scripts/static_scene/00_extract_scene_manifests.py
+python3 rt_out/scripts/static_scene/01_validate_scene_manifests.py
+python3 rt_out/scripts/static_scene/23_build_static_sionna_xml.py
+python3 rt_out/scripts/static_scene/24_run_sionna_rt_sanity.py --xml rt_out/static_scene/export/static_scene_sionna.xml
 ```
 
-## Workflow Map
-
-1. Validate the static scene export path.
-2. Build and validate the rigid Panda/UR5 dynamic branch.
-3. Add the actor-aware branch when human motion is needed.
-4. Run the semantic/object-aware experiment branches for RT, labels, and
-   features.
-5. Optionally run the `perception_rt_small_v0` panoptic pilot.
-
-Detailed command sequences live in the docs listed below rather than in this
-top-level README.
+For rigid, actor-aware, experiment, and perception branches, follow the branch-specific documentation below.
 
 ## Documentation
 
-- [Getting Started](docs/getting_started.md): prerequisites, setup, and the
-  high-level workflow map.
-- [Pipeline Overview](docs/pipeline_overview.md): the whole-project pipeline,
-  repository structure, and validated branches.
-- [Configuration](docs/configuration.md): main configs for static, dynamic,
-  actor-aware, experiment, and perception branches.
-- [Script Reference](docs/script_reference.md): compact reference for the main
-  script groups.
-- [Developer Guide](docs/developer_guide.md): internal contracts and extension
-  guidance.
-- [Actor-Aware 3-Frame Pipeline](docs/actor_aware_3frame_pipeline.md): actor
-  prototype details and alignment caveats.
-- [Semantic Ablation 200f Pipeline](docs/semantic_ablation_200f_pipeline.md):
-  rigid experiment workflow.
-- [Actor-Aware Semantic Ablation 200f Pipeline](docs/semantic_ablation_actor_200f_pipeline.md):
-  actor-aware experiment workflow.
-- [Perception Script README](rt_out/scripts/perception/README.md): active
-  panoptic perception workflow.
-- [Perception Pilot README](rt_out/experiments/perception_rt_small_v0/README.md):
-  experiment-local perception status.
-- [Troubleshooting](docs/troubleshooting.md): environment, Gazebo, actor, RT,
-  and perception issues.
+- [Getting Started](docs/getting_started.md)
+- [Pipeline Overview](docs/pipeline_overview.md)
+- [Configuration](docs/configuration.md)
+- [Script Reference](docs/script_reference.md)
+- [Developer Guide](docs/developer_guide.md)
+- [Actor-Aware 3-Frame Pipeline](docs/actor_aware_3frame_pipeline.md)
+- [Semantic Ablation 200f Pipeline](docs/semantic_ablation_200f_pipeline.md)
+- [Actor-Aware Semantic Ablation 200f Pipeline](docs/semantic_ablation_actor_200f_pipeline.md)
+- [Actor vs Rigid Ablation Comparison](docs/actor_vs_rigid_ablation_comparison.md)
+- [Troubleshooting](docs/troubleshooting.md)
 
 ## Limitations
 
-- The rigid dynamic branch is configured around the current Panda/UR5 setup and
-  pose-log format.
-- Actor handling is intentionally separate from rigid dynamics because Gazebo
-  actors are animated skinned meshes rather than rigid link-pose records.
-- The actor-aware export path uses approximate offline actor mesh placement and
-  should not be described as perfect Gazebo runtime animation-phase matching.
+- Actor handling is separate from rigid dynamics because Gazebo actors are animated/skinned meshes rather than rigid-link pose streams.
+- Actor mesh placement is an approximate offline export and should not be claimed as perfect Gazebo runtime animation-phase matching.
+- The perception pilot is partial pilot-status work and should not be described as replacing the validated RT baselines.
+- Environment setup is manual and depends on local Gazebo, Sionna RT, Mitsuba, and Blender availability.
+
+## Citation / Academic Use
+
+If you use this repository, please cite the associated paper once available.
+
+## License
+
+This repository includes a [LICENSE](LICENSE) file.

@@ -170,7 +170,7 @@ Install `g++` or `clang++` if neither exists.
 Useful checks:
 
 ```bash
-python3 rt_out/scripts/perception/66_validate_native_segmentation_capture.py \
+python3 rt_out/scripts/perception/64_validate_panoptic_capture.py \
   --config rt_out/experiments/perception_rt_small_v0/configs/perception_dataset_config.json \
   --zero-threshold 0.01
 ```
@@ -179,8 +179,17 @@ If the zero-label ratio is high:
 
 - inspect
   `rt_out/experiments/perception_rt_small_v0/validation/native_segmentation_validation_summary.json`
-- inspect the generated previews under
+- generate optional previews with
+  `rt_out/scripts/perception/92_preview_panoptic_capture.py` and inspect them under
   `rt_out/experiments/perception_rt_small_v0/validation/previews/`
+
+Supplementary panoptic validation diagnostics are optional:
+
+- `native_segmentation_label_histograms.csv`
+- `native_segmentation_invalid_pixels.csv`
+
+They are only written when `64_validate_panoptic_capture.py --write-diagnostics`
+is used.
 
 Label `0` is treated as invalid or unlabeled, but tiny ratios below the
 configured threshold are allowed.

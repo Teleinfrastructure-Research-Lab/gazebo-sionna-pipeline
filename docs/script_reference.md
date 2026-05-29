@@ -82,20 +82,35 @@ Compact reference for the current `rt_out/scripts/` tree. Use
 
 ## Perception Pilot
 
-Active perception scripts for `perception_rt_small_v0`:
+Active final perception pipeline for `perception_rt_small_v0`:
 
 | Path | Purpose |
 | --- | --- |
 | `rt_out/scripts/perception/60_select_perception_frames.py` | select the 20 source frames for the perception pilot |
 | `rt_out/scripts/perception/61_build_perception_instance_registry.py` | build the stable object and semantic registry |
-| `rt_out/scripts/perception/62_build_labeled_gazebo_world.py` | build the panoptic Gazebo world and optional panoptic helper worlds |
-| `rt_out/scripts/perception/63_run_gazebo_native_capture.py` | optional helper for launching Gazebo-native capture runs |
-| `rt_out/scripts/perception/64_capture_segmentation_topics.py` | capture panoptic Gazebo Transport segmentation topics |
-| `rt_out/scripts/perception/65_preview_native_segmentation_capture.py` | build preview images from panoptic capture outputs |
-| `rt_out/scripts/perception/66_validate_native_segmentation_capture.py` | validate the panoptic capture outputs |
-| `rt_out/scripts/perception/67_extract_camera_rig_from_gazebo_pose.py` | extract tuned camera poses from Gazebo pose logs |
+| `rt_out/scripts/perception/62_build_labeled_gazebo_world.py` | build the panoptic Gazebo world and optional stable-instance sibling world |
+| `rt_out/scripts/perception/63_capture_panoptic_topics.py` | capture panoptic Gazebo Transport topics for the fixed camera rig |
+| `rt_out/scripts/perception/64_validate_panoptic_capture.py` | validate the panoptic capture outputs and always write `native_segmentation_validation_summary.json`; supplementary histogram/invalid-pixel CSVs are optional via `--write-diagnostics` |
+| `rt_out/scripts/perception/65_build_panoptic_dataset_index.py` | build the simplified CSV/JSON index linking selected source frames, camera metadata, panoptic perception samples, RT rows, wireless labels, and final labeled colorized PCL outputs; partial `24/160` perception coverage is expected in the current pilot |
+| `rt_out/scripts/perception/70_capture_synchronized_stable_instance_rgb_pcl_topics.py` | capture synchronized stable-instance panoptic labels, RGB images, and direct Gazebo `/depth/points` clouds as the bridge toward final labeled colorized PCLs |
+| `rt_out/scripts/perception/71_validate_synchronized_stable_instance_rgb_pcl_capture.py` | validate synchronized stable-instance label/RGB/PCL capture outputs saved under `perception_raw/native/sync_stable_instance_rgb_pcl/` |
+| `rt_out/scripts/perception/72_build_labeled_colorized_pointclouds.py` | build the strict final labeled RGB point-cloud export whose PLY fields are exactly `x y z red green blue class_label instance_id`, with no bridge/debug fields exported |
+| `rt_out/scripts/perception/73_validate_labeled_colorized_pointclouds.py` | validate the final labeled RGB point-cloud export, confirm that all final points are labeled, and enforce that no bridge/debug fields appear in the public PLY header |
 | `rt_out/scripts/perception/cpp/capture_segmentation_topics.cpp` | C++ helper for topic capture |
 | `rt_out/scripts/perception/cpp/build_capture_segmentation_topics.sh` | build helper for the C++ capture utility |
+| `rt_out/scripts/perception/cpp/capture_synchronized_stable_instance_rgb_pcl_topics.cpp` | C++ helper for synchronized stable-instance label/RGB/PCL capture |
+| `rt_out/scripts/perception/cpp/build_capture_synchronized_stable_instance_rgb_pcl_topics.sh` | build helper for the synchronized stable-instance label/RGB/PCL capture utility |
 
-For detailed perception commands and current dataset assumptions, use
-`rt_out/scripts/perception/README.md`.
+Optional utilities retained outside the active numbered pipeline:
+
+| Path | Purpose |
+| --- | --- |
+| `rt_out/scripts/perception/91_run_gazebo_capture_helper.py` | optional launcher/helper for the panoptic or stable-instance Gazebo worlds |
+| `rt_out/scripts/perception/92_preview_panoptic_capture.py` | optional preview builder for panoptic capture outputs |
+| `rt_out/scripts/perception/93_extract_camera_rig_from_gazebo_pose.py` | optional helper for extracting tuned camera poses from Gazebo pose logs |
+
+For the finalized perception pilot, pair this reference with:
+
+- [Pipeline Overview](pipeline_overview.md)
+- [Configuration](configuration.md)
+- [Troubleshooting](troubleshooting.md)

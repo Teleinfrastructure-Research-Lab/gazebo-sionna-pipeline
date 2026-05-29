@@ -1,0 +1,72 @@
+{
+  "mode": "sync_rgb_pcl",
+  "output_root": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/sync_rgb_pcl",
+  "camera_count": 8,
+  "topic_count": 16,
+  "max_pairs_per_camera": 3,
+  "timeout_seconds": 30,
+  "stride": 4,
+  "max_sync_delta_ms": 50.0,
+  "any_message_received": true,
+  "captured_metadata_count": 24,
+  "captured_rgb_count": 24,
+  "captured_ply_count": 24,
+  "matched_pair_count": 24,
+  "min_time_delta_ms": 0.0,
+  "max_time_delta_ms": 0.0,
+  "total_points_written": 460713,
+  "failed_write_count": 0,
+  "write_errors": [],
+  "utility_binary": "rt_out/scripts/perception/cpp/capture_synchronized_rgb_pcl_topics",
+  "cameras": [
+    {
+      "camera_id": "cam_corner_ne",
+      "rgb_topic": "/perception/native/rgbd/cam_corner_ne/rgb",
+      "pcl_topic": "/perception/native/rgbd/cam_corner_ne/depth/points",
+      "pair_count": 3
+    },
+    {
+      "camera_id": "cam_corner_nw",
+      "rgb_topic": "/perception/native/rgbd/cam_corner_nw/rgb",
+      "pcl_topic": "/perception/native/rgbd/cam_corner_nw/depth/points",
+      "pair_count": 3
+    },
+    {
+      "camera_id": "cam_corner_se",
+      "rgb_topic": "/perception/native/rgbd/cam_corner_se/rgb",
+      "pcl_topic": "/perception/native/rgbd/cam_corner_se/depth/points",
+      "pair_count": 3
+    },
+    {
+      "camera_id": "cam_corner_sw",
+      "rgb_topic": "/perception/native/rgbd/cam_corner_sw/rgb",
+      "pcl_topic": "/perception/native/rgbd/cam_corner_sw/depth/points",
+      "pair_count": 3
+    },
+    {
+      "camera_id": "cam_wall_east",
+      "rgb_topic": "/perception/native/rgbd/cam_wall_east/rgb",
+      "pcl_topic": "/perception/native/rgbd/cam_wall_east/depth/points",
+      "pair_count": 3
+    },
+    {
+      "camera_id": "cam_wall_north",
+      "rgb_topic": "/perception/native/rgbd/cam_wall_north/rgb",
+      "pcl_topic": "/perception/native/rgbd/cam_wall_north/depth/points",
+      "pair_count": 3
+    },
+    {
+      "camera_id": "cam_wall_south",
+      "rgb_topic": "/perception/native/rgbd/cam_wall_south/rgb",
+      "pcl_topic": "/perception/native/rgbd/cam_wall_south/depth/points",
+      "pair_count": 3
+    },
+    {
+      "camera_id": "cam_wall_west",
+      "rgb_topic": "/perception/native/rgbd/cam_wall_west/rgb",
+      "pcl_topic": "/perception/native/rgbd/cam_wall_west/depth/points",
+      "pair_count": 3
+    }
+  ],
+  "warnings": []
+}

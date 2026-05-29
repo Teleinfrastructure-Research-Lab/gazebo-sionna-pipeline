@@ -1,0 +1,255 @@
+{
+  "experiment_root": "rt_out/experiments/perception_rt_small_v0",
+  "scripts_root": "rt_out/scripts/perception",
+  "output_dir": "rt_out/experiments/perception_rt_small_v0/cleanup_inventory",
+  "generated_at": "2026-05-28T18:08:20.999653+03:00",
+  "git_status_short": "git status --short summary: modified=13, deleted=467, untracked=37",
+  "git_status_short_raw_omitted": true,
+  "total_experiment_size_bytes": 209976276,
+  "script_inventory_count": 20,
+  "path_inventory_count": 597,
+  "main_candidate_scripts": [
+    "rt_out/scripts/perception/60_select_perception_frames.py",
+    "rt_out/scripts/perception/61_build_perception_instance_registry.py",
+    "rt_out/scripts/perception/62_build_labeled_gazebo_world.py",
+    "rt_out/scripts/perception/63_capture_panoptic_topics.py",
+    "rt_out/scripts/perception/64_validate_panoptic_capture.py",
+    "rt_out/scripts/perception/65_build_panoptic_dataset_index.py",
+    "rt_out/scripts/perception/70_capture_synchronized_stable_instance_rgb_pcl_topics.py",
+    "rt_out/scripts/perception/71_validate_synchronized_stable_instance_rgb_pcl_capture.py",
+    "rt_out/scripts/perception/72_build_labeled_colorized_pointclouds.py",
+    "rt_out/scripts/perception/73_validate_labeled_colorized_pointclouds.py"
+  ],
+  "diagnostic_keep_scripts": [
+    "rt_out/scripts/perception/90_cleanup_inventory_dry_run.py",
+    "rt_out/scripts/perception/91_run_gazebo_capture_helper.py",
+    "rt_out/scripts/perception/92_preview_panoptic_capture.py",
+    "rt_out/scripts/perception/93_extract_camera_rig_from_gazebo_pose.py"
+  ],
+  "cleanup_candidates": [],
+  "review_required": [
+    "rt_out/experiments/perception_rt_small_v0/perception_raw/native/rgbd_capture_index.csv",
+    "rt_out/experiments/perception_rt_small_v0/perception_raw/native/rgbd_capture_summary.json",
+    "rt_out/experiments/perception_rt_small_v0/perception_raw/native/rgbd_pointcloud_capture_index.csv",
+    "rt_out/experiments/perception_rt_small_v0/perception_raw/native/rgbd_pointcloud_capture_summary.json",
+    "rt_out/experiments/perception_rt_small_v0/perception_raw/native/sync_rgb_pcl_capture_index.csv",
+    "rt_out/experiments/perception_rt_small_v0/perception_raw/native/sync_rgb_pcl_capture_summary.json",
+    "rt_out/experiments/perception_rt_small_v0/validation/rgbd_validity_masks",
+    "rt_out/experiments/perception_rt_small_v0/validation/rgbd_validity_masks/cam_corner_ne",
+    "rt_out/experiments/perception_rt_small_v0/validation/rgbd_validity_masks/cam_corner_ne/depth_validity_mask_000000.png",
+    "rt_out/experiments/perception_rt_small_v0/validation/rgbd_validity_masks/cam_corner_ne/depth_validity_mask_000001.png",
+    "rt_out/experiments/perception_rt_small_v0/validation/rgbd_validity_masks/cam_corner_ne/depth_validity_mask_000002.png",
+    "rt_out/experiments/perception_rt_small_v0/validation/rgbd_validity_masks/cam_corner_nw",
+    "rt_out/experiments/perception_rt_small_v0/validation/rgbd_validity_masks/cam_corner_nw/depth_validity_mask_000000.png",
+    "rt_out/experiments/perception_rt_small_v0/validation/rgbd_validity_masks/cam_corner_nw/depth_validity_mask_000001.png",
+    "rt_out/experiments/perception_rt_small_v0/validation/rgbd_validity_masks/cam_corner_nw/depth_validity_mask_000002.png",
+    "rt_out/experiments/perception_rt_small_v0/validation/rgbd_validity_masks/cam_wall_north",
+    "rt_out/experiments/perception_rt_small_v0/validation/rgbd_validity_masks/cam_wall_north/depth_validity_mask_000000.png",
+    "rt_out/experiments/perception_rt_small_v0/validation/rgbd_validity_masks/cam_wall_north/depth_validity_mask_000001.png",
+    "rt_out/experiments/perception_rt_small_v0/validation/rgbd_validity_masks/cam_wall_north/depth_validity_mask_000002.png"
+  ],
+  "largest_directories": [
+    {
+      "path": ".",
+      "size_bytes": 209976276,
+      "file_count": 433
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw",
+      "size_bytes": 184634318,
+      "file_count": 370
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native",
+      "size_bytes": 184634318,
+      "file_count": 370
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/sync_stable_instance_rgb_pcl",
+      "size_bytes": 109903018,
+      "file_count": 168
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic",
+      "size_bytes": 66387564,
+      "file_count": 120
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/reconstruction",
+      "size_bytes": 21560663,
+      "file_count": 26
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/reconstruction/labeled_colorized_pcl_sync",
+      "size_bytes": 21560663,
+      "file_count": 26
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/sync_stable_instance_rgb_pcl/cam_corner_sw",
+      "size_bytes": 13759425,
+      "file_count": 21
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/sync_stable_instance_rgb_pcl/cam_corner_nw",
+      "size_bytes": 13757373,
+      "file_count": 21
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/sync_stable_instance_rgb_pcl/cam_corner_ne",
+      "size_bytes": 13753150,
+      "file_count": 21
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/sync_stable_instance_rgb_pcl/cam_corner_se",
+      "size_bytes": 13751379,
+      "file_count": 21
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/sync_stable_instance_rgb_pcl/cam_wall_north",
+      "size_bytes": 13744545,
+      "file_count": 21
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/sync_stable_instance_rgb_pcl/cam_wall_east",
+      "size_bytes": 13717629,
+      "file_count": 21
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/sync_stable_instance_rgb_pcl/cam_wall_west",
+      "size_bytes": 13714248,
+      "file_count": 21
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/sync_stable_instance_rgb_pcl/cam_wall_south",
+      "size_bytes": 13705269,
+      "file_count": 21
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_wall_north",
+      "size_bytes": 8298459,
+      "file_count": 15
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_wall_south",
+      "size_bytes": 8298459,
+      "file_count": 15
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_ne",
+      "size_bytes": 8298441,
+      "file_count": 15
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_nw",
+      "size_bytes": 8298441,
+      "file_count": 15
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_se",
+      "size_bytes": 8298441,
+      "file_count": 15
+    }
+  ],
+  "largest_files": [
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/dataset_index/panoptic_dataset_index.json",
+      "size_bytes": 1493863
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/dataset_index/panoptic_dataset_index.csv",
+      "size_bytes": 976074
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_ne/colored_maps/000000.ppm",
+      "size_bytes": 921615
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_ne/colored_maps/000001.ppm",
+      "size_bytes": 921615
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_ne/colored_maps/000002.ppm",
+      "size_bytes": 921615
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_ne/labels_maps_rgb/000000.ppm",
+      "size_bytes": 921615
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_ne/labels_maps_rgb/000001.ppm",
+      "size_bytes": 921615
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_ne/labels_maps_rgb/000002.ppm",
+      "size_bytes": 921615
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_nw/colored_maps/000000.ppm",
+      "size_bytes": 921615
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_nw/colored_maps/000001.ppm",
+      "size_bytes": 921615
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_nw/colored_maps/000002.ppm",
+      "size_bytes": 921615
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_nw/labels_maps_rgb/000000.ppm",
+      "size_bytes": 921615
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_nw/labels_maps_rgb/000001.ppm",
+      "size_bytes": 921615
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_nw/labels_maps_rgb/000002.ppm",
+      "size_bytes": 921615
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_se/colored_maps/000000.ppm",
+      "size_bytes": 921615
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_se/colored_maps/000001.ppm",
+      "size_bytes": 921615
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_se/colored_maps/000002.ppm",
+      "size_bytes": 921615
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_se/labels_maps_rgb/000000.ppm",
+      "size_bytes": 921615
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_se/labels_maps_rgb/000001.ppm",
+      "size_bytes": 921615
+    },
+    {
+      "path": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_se/labels_maps_rgb/000002.ppm",
+      "size_bytes": 921615
+    }
+  ],
+  "script_classification_counts": {
+    "main_candidate": 10,
+    "diagnostic_keep": 4,
+    "docs_or_other": 1,
+    "cpp_helper": 5
+  },
+  "path_recommendation_counts": {
+    "keep": 469,
+    "review_required": 19,
+    "keep_for_now": 109
+  },
+  "notes": [
+    "Do not delete anything referenced by panoptic_dataset_index.csv unless the dataset index is rebuilt or patched afterward.",
+    "Do not delete perception_raw/native/sync_stable_instance_rgb_pcl or reconstruction/labeled_colorized_pcl_sync because these are the current main corrected outputs.",
+    "Treat optional helpers like 91_run_gazebo_capture_helper.py, 92_preview_panoptic_capture.py, and 93_extract_camera_rig_from_gazebo_pose.py as non-core utilities rather than active generation steps.",
+    "Treat native_segmentation_label_histograms.csv, native_segmentation_invalid_pixels.csv, and preview assets as supplementary diagnostics rather than required active outputs.",
+    "Do not delete source configs, selected frames, semantic label map, instance registry, generated world SDF, or the RT source archive.",
+    "Do not delete outputs just because they are partial. Some partial outputs are deliberately linked in the index as 24/160 coverage.",
+    "This helper is dry-run only and does not remove or archive any files."
+  ]
+}

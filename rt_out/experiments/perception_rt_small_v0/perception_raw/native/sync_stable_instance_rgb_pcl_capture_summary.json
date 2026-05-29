@@ -1,0 +1,62 @@
+{
+  "mode": "sync_stable_instance_rgb_pcl",
+  "output_root": "rt_out/experiments/perception_rt_small_v0/perception_raw/native/sync_stable_instance_rgb_pcl",
+  "topic_count": 8,
+  "camera_count": 8,
+  "max_groups_per_camera": 3,
+  "timeout_seconds": 30,
+  "stride": 4,
+  "max_sync_delta_ms_threshold": 50.0,
+  "any_message_received": true,
+  "captured_group_count": 24,
+  "captured_labels_count": 24,
+  "captured_compact_instance_label_count": 24,
+  "captured_gazebo_instance_count_count": 24,
+  "captured_colored_map_count": 24,
+  "captured_rgb_count": 24,
+  "captured_ply_count": 24,
+  "captured_metadata_count": 24,
+  "total_points_written": 460713,
+  "min_points_per_cloud": 19190,
+  "max_points_per_cloud": 19200,
+  "min_time_delta_ms": 0.0,
+  "max_time_delta_ms": 0.0,
+  "failed_write_count": 0,
+  "write_errors": [],
+  "topics": [
+    {
+      "camera_id": "cam_corner_ne",
+      "group_count": 3
+    },
+    {
+      "camera_id": "cam_corner_nw",
+      "group_count": 3
+    },
+    {
+      "camera_id": "cam_corner_se",
+      "group_count": 3
+    },
+    {
+      "camera_id": "cam_corner_sw",
+      "group_count": 3
+    },
+    {
+      "camera_id": "cam_wall_east",
+      "group_count": 3
+    },
+    {
+      "camera_id": "cam_wall_north",
+      "group_count": 3
+    },
+    {
+      "camera_id": "cam_wall_south",
+      "group_count": 3
+    },
+    {
+      "camera_id": "cam_wall_west",
+      "group_count": 3
+    }
+  ],
+  "capture_binary": "rt_out/scripts/perception/cpp/capture_synchronized_stable_instance_rgb_pcl_topics",
+  "warnings": []
+}

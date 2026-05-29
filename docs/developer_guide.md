@@ -3,6 +3,41 @@
 This guide preserves the architectural and contract details needed to extend the
 pipeline without mixing them into the quickstart docs.
 
+Current project state to keep in mind while extending the repo:
+
+- the validated RT baseline remains the static, rigid, actor-aware, and
+  semantic-ablation branches
+- `perception_rt_small_v0` is a pilot extension layered on top of the RT
+  branches rather than a replacement for them
+- the current final perception artifact is the strict labeled RGB point cloud
+  export under
+  `rt_out/experiments/perception_rt_small_v0/reconstruction/labeled_colorized_pcl_sync/`
+- in this checkout, actor-aware RT/label source data may come from
+  `rt_out/experiments/semantic_ablation.zip`; any `semantic_ablation_*`
+  deletion or archive decision should be handled separately from normal
+  perception pilot updates
+
+## Perception Pilot Contracts
+
+The current perception pilot has a few strict contracts that should not be
+blurred while extending the repo:
+
+- stable instance IDs used by the final labeled PCL export come from
+  `rt_out/experiments/perception_rt_small_v0/perception_sdf/stable_instance_label_map.json`
+- `gazebo_instance_count` from Gazebo panoptic capture is only a bridge/debug
+  quantity and is not the final stable `instance_id`
+- the final public PLY export under
+  `rt_out/experiments/perception_rt_small_v0/reconstruction/labeled_colorized_pcl_sync/`
+  contains exactly:
+  `x y z red green blue class_label instance_id`
+- bridge/debug fields such as `pixel_u`, `pixel_v`,
+  `compact_instance_label`, and `gazebo_instance_count` are used internally
+  during synchronized labeling but are not exported in the final public PLY
+- the simplified central dataset index now tracks selected-frame metadata,
+  camera metadata, panoptic artifacts, RT links, wireless labels, and final
+  labeled PCL links only; retired RGB-D/direct-PCL/sync-RGB-PCL branches are
+  no longer part of the active index contract
+
 ## Design Principles
 
 - Keep the static scene frozen and reusable. Once static geometry is merged by

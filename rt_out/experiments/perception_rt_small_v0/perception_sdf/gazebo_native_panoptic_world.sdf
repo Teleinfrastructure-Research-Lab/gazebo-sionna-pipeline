@@ -9204,7 +9204,7 @@
         </visual>
       </link>
     </model>
-    <!--panoptic camera rig: labels_map stores semantic IDs in channel 2 and Gazebo runtime instance counts in channels 1 and 0.-->
+    <!--panoptic camera rig: labels_map stores semantic IDs in channel 2 and Gazebo runtime instance counts in channels 1 and 0. Each fixed pose also carries optional RGB and depth sensors for RGB-D capture.-->
     <model name="perception_native_camera_rig_panoptic">
       <static>true</static>
       <pose>0 0 0 0 0 0</pose>
@@ -9221,7 +9221,7 @@
             </image>
             <clip>
               <near>0.1</near>
-              <far>12.0</far>
+              <far>20.0</far>
             </clip>
             <save enabled="true">
               <path>/home/telilab4090/Documents/Gazebo World/my_world/rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_nw</path>
@@ -9230,6 +9230,55 @@
           <always_on>1</always_on>
           <update_rate>30</update_rate>
           <visualize>true</visualize>
+        </sensor>
+        <sensor name="cam_corner_nw_rgb" type="camera">
+          <topic>/perception/native/rgbd/cam_corner_nw/rgb</topic>
+          <camera>
+            <horizontal_fov>1.047</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>20.0</far>
+            </clip>
+            <save enabled="true">
+              <path>/home/telilab4090/Documents/Gazebo World/my_world/rt_out/experiments/perception_rt_small_v0/perception_raw/native/rgbd/cam_corner_nw/rgb</path>
+            </save>
+          </camera>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>false</visualize>
+        </sensor>
+        <sensor name="cam_corner_nw_depth" type="depth_camera">
+          <topic>/perception/native/rgbd/cam_corner_nw/depth</topic>
+          <camera>
+            <horizontal_fov>1.047</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R_FLOAT32</format>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>20.0</far>
+            </clip>
+            <save enabled="true">
+              <path>/home/telilab4090/Documents/Gazebo World/my_world/rt_out/experiments/perception_rt_small_v0/perception_raw/native/rgbd/cam_corner_nw/depth</path>
+            </save>
+            <depth_camera>
+              <output>depths</output>
+              <clip>
+                <near>0.1</near>
+                <far>20.0</far>
+              </clip>
+            </depth_camera>
+          </camera>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>false</visualize>
         </sensor>
       </link>
       <link name="cam_corner_ne">
@@ -9245,7 +9294,7 @@
             </image>
             <clip>
               <near>0.1</near>
-              <far>12.0</far>
+              <far>20.0</far>
             </clip>
             <save enabled="true">
               <path>/home/telilab4090/Documents/Gazebo World/my_world/rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_ne</path>
@@ -9254,6 +9303,55 @@
           <always_on>1</always_on>
           <update_rate>30</update_rate>
           <visualize>true</visualize>
+        </sensor>
+        <sensor name="cam_corner_ne_rgb" type="camera">
+          <topic>/perception/native/rgbd/cam_corner_ne/rgb</topic>
+          <camera>
+            <horizontal_fov>1.047</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>20.0</far>
+            </clip>
+            <save enabled="true">
+              <path>/home/telilab4090/Documents/Gazebo World/my_world/rt_out/experiments/perception_rt_small_v0/perception_raw/native/rgbd/cam_corner_ne/rgb</path>
+            </save>
+          </camera>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>false</visualize>
+        </sensor>
+        <sensor name="cam_corner_ne_depth" type="depth_camera">
+          <topic>/perception/native/rgbd/cam_corner_ne/depth</topic>
+          <camera>
+            <horizontal_fov>1.047</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R_FLOAT32</format>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>20.0</far>
+            </clip>
+            <save enabled="true">
+              <path>/home/telilab4090/Documents/Gazebo World/my_world/rt_out/experiments/perception_rt_small_v0/perception_raw/native/rgbd/cam_corner_ne/depth</path>
+            </save>
+            <depth_camera>
+              <output>depths</output>
+              <clip>
+                <near>0.1</near>
+                <far>20.0</far>
+              </clip>
+            </depth_camera>
+          </camera>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>false</visualize>
         </sensor>
       </link>
       <link name="cam_corner_sw">
@@ -9269,7 +9367,7 @@
             </image>
             <clip>
               <near>0.1</near>
-              <far>12.0</far>
+              <far>20.0</far>
             </clip>
             <save enabled="true">
               <path>/home/telilab4090/Documents/Gazebo World/my_world/rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_sw</path>
@@ -9278,6 +9376,55 @@
           <always_on>1</always_on>
           <update_rate>30</update_rate>
           <visualize>true</visualize>
+        </sensor>
+        <sensor name="cam_corner_sw_rgb" type="camera">
+          <topic>/perception/native/rgbd/cam_corner_sw/rgb</topic>
+          <camera>
+            <horizontal_fov>1.047</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>20.0</far>
+            </clip>
+            <save enabled="true">
+              <path>/home/telilab4090/Documents/Gazebo World/my_world/rt_out/experiments/perception_rt_small_v0/perception_raw/native/rgbd/cam_corner_sw/rgb</path>
+            </save>
+          </camera>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>false</visualize>
+        </sensor>
+        <sensor name="cam_corner_sw_depth" type="depth_camera">
+          <topic>/perception/native/rgbd/cam_corner_sw/depth</topic>
+          <camera>
+            <horizontal_fov>1.047</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R_FLOAT32</format>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>20.0</far>
+            </clip>
+            <save enabled="true">
+              <path>/home/telilab4090/Documents/Gazebo World/my_world/rt_out/experiments/perception_rt_small_v0/perception_raw/native/rgbd/cam_corner_sw/depth</path>
+            </save>
+            <depth_camera>
+              <output>depths</output>
+              <clip>
+                <near>0.1</near>
+                <far>20.0</far>
+              </clip>
+            </depth_camera>
+          </camera>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>false</visualize>
         </sensor>
       </link>
       <link name="cam_corner_se">
@@ -9293,7 +9440,7 @@
             </image>
             <clip>
               <near>0.1</near>
-              <far>12.0</far>
+              <far>20.0</far>
             </clip>
             <save enabled="true">
               <path>/home/telilab4090/Documents/Gazebo World/my_world/rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_corner_se</path>
@@ -9302,6 +9449,55 @@
           <always_on>1</always_on>
           <update_rate>30</update_rate>
           <visualize>true</visualize>
+        </sensor>
+        <sensor name="cam_corner_se_rgb" type="camera">
+          <topic>/perception/native/rgbd/cam_corner_se/rgb</topic>
+          <camera>
+            <horizontal_fov>1.047</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>20.0</far>
+            </clip>
+            <save enabled="true">
+              <path>/home/telilab4090/Documents/Gazebo World/my_world/rt_out/experiments/perception_rt_small_v0/perception_raw/native/rgbd/cam_corner_se/rgb</path>
+            </save>
+          </camera>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>false</visualize>
+        </sensor>
+        <sensor name="cam_corner_se_depth" type="depth_camera">
+          <topic>/perception/native/rgbd/cam_corner_se/depth</topic>
+          <camera>
+            <horizontal_fov>1.047</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R_FLOAT32</format>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>20.0</far>
+            </clip>
+            <save enabled="true">
+              <path>/home/telilab4090/Documents/Gazebo World/my_world/rt_out/experiments/perception_rt_small_v0/perception_raw/native/rgbd/cam_corner_se/depth</path>
+            </save>
+            <depth_camera>
+              <output>depths</output>
+              <clip>
+                <near>0.1</near>
+                <far>20.0</far>
+              </clip>
+            </depth_camera>
+          </camera>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>false</visualize>
         </sensor>
       </link>
       <link name="cam_wall_north">
@@ -9317,7 +9513,7 @@
             </image>
             <clip>
               <near>0.1</near>
-              <far>12.0</far>
+              <far>20.0</far>
             </clip>
             <save enabled="true">
               <path>/home/telilab4090/Documents/Gazebo World/my_world/rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_wall_north</path>
@@ -9326,6 +9522,55 @@
           <always_on>1</always_on>
           <update_rate>30</update_rate>
           <visualize>true</visualize>
+        </sensor>
+        <sensor name="cam_wall_north_rgb" type="camera">
+          <topic>/perception/native/rgbd/cam_wall_north/rgb</topic>
+          <camera>
+            <horizontal_fov>1.047</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>20.0</far>
+            </clip>
+            <save enabled="true">
+              <path>/home/telilab4090/Documents/Gazebo World/my_world/rt_out/experiments/perception_rt_small_v0/perception_raw/native/rgbd/cam_wall_north/rgb</path>
+            </save>
+          </camera>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>false</visualize>
+        </sensor>
+        <sensor name="cam_wall_north_depth" type="depth_camera">
+          <topic>/perception/native/rgbd/cam_wall_north/depth</topic>
+          <camera>
+            <horizontal_fov>1.047</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R_FLOAT32</format>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>20.0</far>
+            </clip>
+            <save enabled="true">
+              <path>/home/telilab4090/Documents/Gazebo World/my_world/rt_out/experiments/perception_rt_small_v0/perception_raw/native/rgbd/cam_wall_north/depth</path>
+            </save>
+            <depth_camera>
+              <output>depths</output>
+              <clip>
+                <near>0.1</near>
+                <far>20.0</far>
+              </clip>
+            </depth_camera>
+          </camera>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>false</visualize>
         </sensor>
       </link>
       <link name="cam_wall_south">
@@ -9341,7 +9586,7 @@
             </image>
             <clip>
               <near>0.1</near>
-              <far>12.0</far>
+              <far>20.0</far>
             </clip>
             <save enabled="true">
               <path>/home/telilab4090/Documents/Gazebo World/my_world/rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_wall_south</path>
@@ -9350,6 +9595,55 @@
           <always_on>1</always_on>
           <update_rate>30</update_rate>
           <visualize>true</visualize>
+        </sensor>
+        <sensor name="cam_wall_south_rgb" type="camera">
+          <topic>/perception/native/rgbd/cam_wall_south/rgb</topic>
+          <camera>
+            <horizontal_fov>1.047</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>20.0</far>
+            </clip>
+            <save enabled="true">
+              <path>/home/telilab4090/Documents/Gazebo World/my_world/rt_out/experiments/perception_rt_small_v0/perception_raw/native/rgbd/cam_wall_south/rgb</path>
+            </save>
+          </camera>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>false</visualize>
+        </sensor>
+        <sensor name="cam_wall_south_depth" type="depth_camera">
+          <topic>/perception/native/rgbd/cam_wall_south/depth</topic>
+          <camera>
+            <horizontal_fov>1.047</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R_FLOAT32</format>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>20.0</far>
+            </clip>
+            <save enabled="true">
+              <path>/home/telilab4090/Documents/Gazebo World/my_world/rt_out/experiments/perception_rt_small_v0/perception_raw/native/rgbd/cam_wall_south/depth</path>
+            </save>
+            <depth_camera>
+              <output>depths</output>
+              <clip>
+                <near>0.1</near>
+                <far>20.0</far>
+              </clip>
+            </depth_camera>
+          </camera>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>false</visualize>
         </sensor>
       </link>
       <link name="cam_wall_east">
@@ -9365,7 +9659,7 @@
             </image>
             <clip>
               <near>0.1</near>
-              <far>12.0</far>
+              <far>20.0</far>
             </clip>
             <save enabled="true">
               <path>/home/telilab4090/Documents/Gazebo World/my_world/rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_wall_east</path>
@@ -9374,6 +9668,55 @@
           <always_on>1</always_on>
           <update_rate>30</update_rate>
           <visualize>true</visualize>
+        </sensor>
+        <sensor name="cam_wall_east_rgb" type="camera">
+          <topic>/perception/native/rgbd/cam_wall_east/rgb</topic>
+          <camera>
+            <horizontal_fov>1.047</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>20.0</far>
+            </clip>
+            <save enabled="true">
+              <path>/home/telilab4090/Documents/Gazebo World/my_world/rt_out/experiments/perception_rt_small_v0/perception_raw/native/rgbd/cam_wall_east/rgb</path>
+            </save>
+          </camera>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>false</visualize>
+        </sensor>
+        <sensor name="cam_wall_east_depth" type="depth_camera">
+          <topic>/perception/native/rgbd/cam_wall_east/depth</topic>
+          <camera>
+            <horizontal_fov>1.047</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R_FLOAT32</format>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>20.0</far>
+            </clip>
+            <save enabled="true">
+              <path>/home/telilab4090/Documents/Gazebo World/my_world/rt_out/experiments/perception_rt_small_v0/perception_raw/native/rgbd/cam_wall_east/depth</path>
+            </save>
+            <depth_camera>
+              <output>depths</output>
+              <clip>
+                <near>0.1</near>
+                <far>20.0</far>
+              </clip>
+            </depth_camera>
+          </camera>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>false</visualize>
         </sensor>
       </link>
       <link name="cam_wall_west">
@@ -9389,7 +9732,7 @@
             </image>
             <clip>
               <near>0.1</near>
-              <far>12.0</far>
+              <far>20.0</far>
             </clip>
             <save enabled="true">
               <path>/home/telilab4090/Documents/Gazebo World/my_world/rt_out/experiments/perception_rt_small_v0/perception_raw/native/panoptic/cam_wall_west</path>
@@ -9398,6 +9741,55 @@
           <always_on>1</always_on>
           <update_rate>30</update_rate>
           <visualize>true</visualize>
+        </sensor>
+        <sensor name="cam_wall_west_rgb" type="camera">
+          <topic>/perception/native/rgbd/cam_wall_west/rgb</topic>
+          <camera>
+            <horizontal_fov>1.047</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>20.0</far>
+            </clip>
+            <save enabled="true">
+              <path>/home/telilab4090/Documents/Gazebo World/my_world/rt_out/experiments/perception_rt_small_v0/perception_raw/native/rgbd/cam_wall_west/rgb</path>
+            </save>
+          </camera>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>false</visualize>
+        </sensor>
+        <sensor name="cam_wall_west_depth" type="depth_camera">
+          <topic>/perception/native/rgbd/cam_wall_west/depth</topic>
+          <camera>
+            <horizontal_fov>1.047</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R_FLOAT32</format>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>20.0</far>
+            </clip>
+            <save enabled="true">
+              <path>/home/telilab4090/Documents/Gazebo World/my_world/rt_out/experiments/perception_rt_small_v0/perception_raw/native/rgbd/cam_wall_west/depth</path>
+            </save>
+            <depth_camera>
+              <output>depths</output>
+              <clip>
+                <near>0.1</near>
+                <far>20.0</far>
+              </clip>
+            </depth_camera>
+          </camera>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>false</visualize>
         </sensor>
       </link>
     </model>

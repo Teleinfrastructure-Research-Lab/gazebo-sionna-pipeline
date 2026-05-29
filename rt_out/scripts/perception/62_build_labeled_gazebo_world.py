@@ -5,9 +5,15 @@ This script preserves the original Gazebo scene structure from ``myworld_rt.sdf`
 and adds segmentation labels plus the fixed perception camera rig. It does not
 run Gazebo.
 
-The active output is ``gazebo_native_panoptic_world.sdf``. Its ``labels_map``
-stores semantic labels in channel 2 and Gazebo runtime instance counts in
-channels 1 and 0.
+The active output is ``gazebo_native_panoptic_world.sdf``. Its panoptic
+``labels_map`` stores semantic labels in channel 2 and Gazebo runtime instance
+counts in channels 1 and 0. The same fixed rig also gets optional RGB and
+depth sensors so RGB-D can be captured without changing the panoptic topics.
+
+An optional sibling world can also be generated for stable-instance panoptic
+labeling. That world preserves the same scene and camera rig, but writes compact
+stable instance labels into channel 2 while keeping Gazebo runtime instance
+counts in channels 1 and 0 for diagnostics only.
 
 Legacy split semantic / instance worlds can still be rebuilt for debugging with
 ``--build-debug-split-worlds``. When requested, they are written under the
@@ -37,6 +43,11 @@ def parse_args() -> argparse.Namespace:
         description="Build the Gazebo-native panoptic primary world for the perception pilot."
     )
     parser.add_argument("--config", default=str(DEFAULT_CONFIG), help="Perception dataset config JSON.")
+    parser.add_argument(
+        "--build-stable-instance-panoptic-world",
+        action="store_true",
+        help="Build an additional stable-instance panoptic world without changing the primary semantic panoptic world behavior.",
+    )
     parser.add_argument(
         "--build-debug-split-worlds",
         action="store_true",
@@ -249,6 +260,82 @@ def add_segmentation_sensor(
     append_text(sensor, "visualize", "true")
 
 
+def add_camera_core(
+    camera_elem: ET.Element,
+    camera: dict[str, Any],
+    *,
+    image_format: str | None,
+    save_dir: Path,
+) -> None:
+    append_text(camera_elem, "horizontal_fov", str(camera["horizontal_fov"]))
+    image = ET.SubElement(camera_elem, "image")
+    append_text(image, "width", str(camera["width"]))
+    append_text(image, "height", str(camera["height"]))
+    if image_format:
+        append_text(image, "format", image_format)
+    clip = ET.SubElement(camera_elem, "clip")
+    append_text(clip, "near", str(camera["near_clip"]))
+    append_text(clip, "far", str(camera["far_clip"]))
+    save = ET.SubElement(camera_elem, "save", {"enabled": "true"})
+    append_text(save, "path", str(save_dir.resolve()))
+
+
+def add_rgb_sensor(
+    link: ET.Element,
+    camera: dict[str, Any],
+    topic: str,
+    save_dir: Path,
+) -> None:
+    sensor = ET.SubElement(link, "sensor", {"name": f"{camera['camera_id']}_rgb", "type": "camera"})
+    append_text(sensor, "topic", topic)
+    camera_elem = ET.SubElement(sensor, "camera")
+    add_camera_core(camera_elem, camera, image_format="R8G8B8", save_dir=save_dir)
+    append_text(sensor, "always_on", "1")
+    append_text(sensor, "update_rate", "30")
+    append_text(sensor, "visualize", "false")
+
+
+def add_depth_sensor(
+    link: ET.Element,
+    camera: dict[str, Any],
+    topic: str,
+    save_dir: Path,
+) -> None:
+    sensor = ET.SubElement(link, "sensor", {"name": f"{camera['camera_id']}_depth", "type": "depth_camera"})
+    append_text(sensor, "topic", topic)
+    camera_elem = ET.SubElement(sensor, "camera")
+    add_camera_core(camera_elem, camera, image_format="R_FLOAT32", save_dir=save_dir)
+    depth_camera = ET.SubElement(camera_elem, "depth_camera")
+    append_text(depth_camera, "output", "depths")
+    depth_clip = ET.SubElement(depth_camera, "clip")
+    append_text(depth_clip, "near", str(camera["near_clip"]))
+    append_text(depth_clip, "far", str(camera["far_clip"]))
+    append_text(sensor, "always_on", "1")
+    append_text(sensor, "update_rate", "30")
+    append_text(sensor, "visualize", "false")
+
+
+def add_rgbd_sensors(
+    link: ET.Element,
+    camera: dict[str, Any],
+    output_root: Path,
+) -> None:
+    camera_id = str(camera["camera_id"])
+    camera_root = output_root / camera_id
+    add_rgb_sensor(
+        link,
+        camera,
+        f"/perception/native/rgbd/{camera_id}/rgb",
+        camera_root / "rgb",
+    )
+    add_depth_sensor(
+        link,
+        camera,
+        f"/perception/native/rgbd/{camera_id}/depth",
+        camera_root / "depth",
+    )
+
+
 def add_camera_rig(
     world: ET.Element,
     cameras: list[dict[str, Any]],
@@ -259,7 +346,14 @@ def add_camera_rig(
     if world_kind == "panoptic":
         note = (
             "panoptic camera rig: labels_map stores semantic IDs in channel 2 and "
-            "Gazebo runtime instance counts in channels 1 and 0."
+            "Gazebo runtime instance counts in channels 1 and 0. "
+            "Each fixed pose also carries optional RGB and depth sensors for RGB-D capture."
+        )
+    elif world_kind == "stable_instance_panoptic":
+        note = (
+            "stable-instance panoptic camera rig: labels_map stores compact stable instance labels "
+            "in channel 2 and Gazebo runtime instance counts in channels 1 and 0. "
+            "Each fixed pose also carries optional RGB and depth sensors for synchronized RGB/PCL capture."
         )
     elif world_kind == "semantic":
         note = "debug semantic camera rig: labels_map stores class labels 1..10."
@@ -279,6 +373,12 @@ def add_camera_rig(
             output_root / camera["camera_id"],
             segmentation_mode,
         )
+        if world_kind in {"panoptic", "stable_instance_panoptic"}:
+            add_rgbd_sensors(
+                link,
+                camera,
+                output_root.parent / "rgbd",
+            )
     return len(cameras)
 
 
@@ -573,7 +673,7 @@ def build_factory_shell_models(
 def build_compact_instance_label_map(
     registry_instances: list[dict[str, Any]],
     factory_shell_groups: dict[str, dict[str, Any]],
-) -> tuple[dict[str, dict[str, Any]], dict[int, int], int, int]:
+) -> tuple[dict[str, dict[str, Any]], dict[int, int], list[dict[str, Any]], int, int]:
     entries: list[dict[str, Any]] = []
     structural_entries = [
         {
@@ -581,6 +681,7 @@ def build_compact_instance_label_map(
             "instance_name": str(group["instance_name"]),
             "semantic_id": int(group["semantic_id"]),
             "semantic_name": str(group["semantic_name"]),
+            "source": "factory_shell_structure",
         }
         for _, group in sorted(
             factory_shell_groups.items(),
@@ -598,11 +699,13 @@ def build_compact_instance_label_map(
                 "instance_name": str(instance["instance_name"]),
                 "semantic_id": int(instance["semantic_id"]),
                 "semantic_name": str(instance["semantic_name"]),
+                "source": str(instance.get("source", "registry")),
             }
         )
 
     label_map: dict[str, dict[str, Any]] = {}
     lookup: dict[int, int] = {}
+    numbered_entries: list[dict[str, Any]] = []
     for compact_label, entry in enumerate(entries, start=1):
         if compact_label >= 255:
             fail(
@@ -611,13 +714,41 @@ def build_compact_instance_label_map(
             )
         label_map[str(compact_label)] = entry
         lookup[int(entry["stable_instance_id"])] = compact_label
+        numbered_entries.append(
+            {
+                "compact_instance_label": compact_label,
+                **entry,
+            }
+        )
 
     if not label_map:
         fail("Compact instance label map is empty.")
     max_label = max(int(key) for key in label_map)
     if max_label >= 255:
         fail(f"max_compact_instance_label={max_label} must stay < 255.")
-    return label_map, lookup, len(label_map), max_label
+    return label_map, lookup, numbered_entries, len(label_map), max_label
+
+
+def build_stable_instance_label_map_payload(
+    numbered_entries: list[dict[str, Any]],
+) -> dict[str, Any]:
+    reverse_lookup = {
+        str(int(entry["stable_instance_id"])): int(entry["compact_instance_label"])
+        for entry in numbered_entries
+    }
+    return {
+        "label_mode": "compact_stable_instance",
+        "label_channel": "panoptic_rgb_channel_2",
+        "gazebo_instance_count_channels": "rgb[1] * 256 + rgb[0]",
+        "gazebo_instance_count_is_stable_instance_id": False,
+        "compact_instance_label_count": len(numbered_entries),
+        "max_compact_instance_label": max(
+            (int(entry["compact_instance_label"]) for entry in numbered_entries),
+            default=0,
+        ),
+        "stable_instance_id_to_compact_instance_label": reverse_lookup,
+        "entries": numbered_entries,
+    }
 
 
 def build_registry_lookups(registry_instances: list[dict[str, Any]]) -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, Any]]]:
@@ -758,6 +889,13 @@ def build_world_variant(
                 "panoptic labels_map stores semantic IDs in channel 2 and Gazebo runtime instance counts in channels 1 and 0."
             )
         )
+    elif world_kind == "stable_instance_panoptic":
+        world.append(
+            ET.Comment(
+                "Stable-instance panoptic native perception world: labels_map stores compact stable "
+                "instance labels in channel 2 and Gazebo runtime instance counts in channels 1 and 0."
+            )
+        )
     elif world_kind == "semantic":
         world.append(ET.Comment("Debug semantic native perception world: labels_map stores class labels 1..10."))
     else:
@@ -774,6 +912,9 @@ def build_world_variant(
         "label_mode": label_mode,
         "segmentation_mode": segmentation_mode,
         "camera_count": camera_count,
+        "rgbd_enabled": world_kind in {"panoptic", "stable_instance_panoptic"},
+        "rgbd_sensor_count": camera_count * 2 if world_kind in {"panoptic", "stable_instance_panoptic"} else 0,
+        "rgbd_output_root": project_rel(native_raw_root / "rgbd") if world_kind in {"panoptic", "stable_instance_panoptic"} else "",
         "labeled_static_count": labeled_static_count,
         "labeled_robot_count": labeled_robot_count,
         "labeled_human_count": labeled_human_count,
@@ -854,20 +995,44 @@ def main() -> None:
     native_raw_root = experiment_root / "perception_raw" / "native"
 
     panoptic_world_path = output_root / "gazebo_native_panoptic_world.sdf"
+    stable_instance_panoptic_world_path = output_root / "gazebo_native_stable_instance_panoptic_world.sdf"
     semantic_world_path = split_world_debug_root / "gazebo_native_semantic_world.sdf"
     instance_world_path = split_world_debug_root / "gazebo_native_instance_world.sdf"
     debug_world_path = output_root / "gazebo_native_camera_debug_world.sdf"
     tuning_world_path = output_root / "gazebo_native_camera_tuning_world.sdf"
     instance_label_map_path = output_root / "instance_label_map.json"
+    stable_instance_label_map_path = output_root / "stable_instance_label_map.json"
     summary_path = output_root / "gazebo_native_world_summary.json"
+    stable_instance_summary_path = output_root / "gazebo_native_stable_instance_panoptic_world_summary.json"
     debug_summary_path = output_root / "camera_debug_world_summary.json"
     tuning_summary_path = output_root / "camera_tuning_world_summary.json"
 
+    build_primary_panoptic = (
+        not args.build_stable_instance_panoptic_world
+        or args.build_debug_split_worlds
+        or args.debug_camera_visuals
+        or args.camera_tuning_world
+    )
+    build_stable_instance_world = bool(args.build_stable_instance_panoptic_world)
+
     overwrite_targets = [
-        panoptic_world_path,
-        instance_label_map_path,
-        summary_path,
     ]
+    if build_primary_panoptic:
+        overwrite_targets.extend(
+            [
+                panoptic_world_path,
+                instance_label_map_path,
+                summary_path,
+            ]
+        )
+    if build_stable_instance_world:
+        overwrite_targets.extend(
+            [
+                stable_instance_panoptic_world_path,
+                stable_instance_label_map_path,
+                stable_instance_summary_path,
+            ]
+        )
     if args.build_debug_split_worlds:
         overwrite_targets.extend([semantic_world_path, instance_world_path])
     if args.debug_camera_visuals:
@@ -897,21 +1062,39 @@ def main() -> None:
             break
 
     factory_shell_groups, factory_shell_warnings = parse_factory_shell(DEFAULT_FACTORY_SHELL, include_pose, semantic_map)
-    instance_label_map, compact_lookup, compact_instance_label_count, max_compact_instance_label = (
+    instance_label_map, compact_lookup, numbered_compact_entries, compact_instance_label_count, max_compact_instance_label = (
         build_compact_instance_label_map(registry_instances, factory_shell_groups)
     )
+    stable_instance_label_map = build_stable_instance_label_map_payload(numbered_compact_entries)
 
-    panoptic_tree, panoptic_summary = build_world_variant(
-        base_root,
-        "panoptic",
-        "semantic",
-        "panoptic",
-        factory_shell_groups,
-        registry_instances,
-        cameras,
-        compact_lookup,
-        native_raw_root,
-    )
+    panoptic_tree: ET.ElementTree | None = None
+    panoptic_summary: dict[str, Any] | None = None
+    if build_primary_panoptic:
+        panoptic_tree, panoptic_summary = build_world_variant(
+            base_root,
+            "panoptic",
+            "semantic",
+            "panoptic",
+            factory_shell_groups,
+            registry_instances,
+            cameras,
+            compact_lookup,
+            native_raw_root,
+        )
+    stable_instance_tree: ET.ElementTree | None = None
+    stable_instance_summary: dict[str, Any] | None = None
+    if build_stable_instance_world:
+        stable_instance_tree, stable_instance_summary = build_world_variant(
+            base_root,
+            "stable_instance_panoptic",
+            "instance",
+            "panoptic",
+            factory_shell_groups,
+            registry_instances,
+            cameras,
+            compact_lookup,
+            native_raw_root,
+        )
     semantic_tree: ET.ElementTree | None = None
     semantic_summary: dict[str, Any] | None = None
     instance_tree: ET.ElementTree | None = None
@@ -941,8 +1124,12 @@ def main() -> None:
         )
 
     output_root.mkdir(parents=True, exist_ok=True)
-    panoptic_tree.write(panoptic_world_path, encoding="unicode")
-    write_json(instance_label_map_path, instance_label_map)
+    if panoptic_tree is not None:
+        panoptic_tree.write(panoptic_world_path, encoding="unicode")
+        write_json(instance_label_map_path, instance_label_map)
+    if stable_instance_tree is not None:
+        stable_instance_tree.write(stable_instance_panoptic_world_path, encoding="unicode")
+        write_json(stable_instance_label_map_path, stable_instance_label_map)
     if args.build_debug_split_worlds:
         split_world_debug_root.mkdir(parents=True, exist_ok=True)
         assert semantic_tree is not None
@@ -951,6 +1138,8 @@ def main() -> None:
         instance_tree.write(instance_world_path, encoding="unicode")
 
     if args.debug_camera_visuals:
+        if panoptic_tree is None:
+            fail("--debug-camera-visuals requires the primary panoptic world build path.")
         debug_tree, debug_world_summary = build_camera_debug_world(panoptic_tree, cameras, args.camera_helper_scale)
         debug_tree.write(debug_world_path, encoding="unicode")
         write_json(
@@ -964,6 +1153,8 @@ def main() -> None:
         )
 
     if args.camera_tuning_world:
+        if panoptic_tree is None:
+            fail("--camera-tuning-world requires the primary panoptic world build path.")
         tuning_tree, tuning_world_summary = build_camera_tuning_world(
             panoptic_tree,
             cameras,
@@ -984,54 +1175,95 @@ def main() -> None:
         )
 
     warnings = list(factory_shell_warnings)
-    warnings.extend(panoptic_summary["warnings"])
+    if panoptic_summary is not None:
+        warnings.extend(panoptic_summary["warnings"])
+    if stable_instance_summary is not None:
+        warnings.extend(stable_instance_summary["warnings"])
     if semantic_summary is not None:
         warnings.extend(semantic_summary["warnings"])
     if instance_summary is not None:
         warnings.extend(instance_summary["warnings"])
-    warnings.extend(
-        f"Skipped/unmatched {item['entity']} {item['name']}: {item['reason']}"
-        for item in panoptic_summary["skipped_unmatched_models"]
-    )
+    if panoptic_summary is not None:
+        warnings.extend(
+            f"Skipped/unmatched {item['entity']} {item['name']}: {item['reason']}"
+            for item in panoptic_summary["skipped_unmatched_models"]
+        )
 
-    summary = {
-        "primary_mode": "panoptic",
-        "primary_world": project_rel(panoptic_world_path),
-        "panoptic_world": project_rel(panoptic_world_path),
-        "instance_label_map": project_rel(instance_label_map_path),
-        "instance_label_map_role": "stable metadata/debug compact-instance lookup; not the primary panoptic instance encoding",
-        "build_debug_split_worlds": bool(args.build_debug_split_worlds),
-        "camera_count": panoptic_summary["camera_count"],
-        "labeled_static_count": panoptic_summary["labeled_static_count"],
-        "labeled_robot_count": panoptic_summary["labeled_robot_count"],
-        "labeled_human_count": panoptic_summary["labeled_human_count"],
-        "labeled_factory_shell_structural_count": panoptic_summary["labeled_factory_shell_structural_count"],
-        "compact_instance_label_count": compact_instance_label_count,
-        "max_compact_instance_label": max_compact_instance_label,
-        "warnings": warnings,
-        "skipped_unmatched_models": panoptic_summary["skipped_unmatched_models"],
-        "legacy_split_world_debug_root": project_rel(split_world_debug_root),
-        "debug_worlds": {},
-    }
-    if args.build_debug_split_worlds:
-        summary["debug_worlds"]["semantic_world"] = project_rel(semantic_world_path)
-        summary["debug_worlds"]["instance_world"] = project_rel(instance_world_path)
-    if debug_world_path.exists():
-        summary["debug_worlds"]["camera_debug_world"] = project_rel(debug_world_path)
-    if tuning_world_path.exists():
-        summary["debug_worlds"]["camera_tuning_world"] = project_rel(tuning_world_path)
-    write_json(summary_path, summary)
+        summary = {
+            "primary_mode": "panoptic",
+            "primary_world": project_rel(panoptic_world_path),
+            "panoptic_world": project_rel(panoptic_world_path),
+            "instance_label_map": project_rel(instance_label_map_path),
+            "instance_label_map_role": "stable metadata/debug compact-instance lookup; not the primary panoptic instance encoding",
+            "build_debug_split_worlds": bool(args.build_debug_split_worlds),
+            "camera_count": panoptic_summary["camera_count"],
+            "rgbd_enabled": panoptic_summary["rgbd_enabled"],
+            "rgbd_sensor_count": panoptic_summary["rgbd_sensor_count"],
+            "rgbd_output_root": panoptic_summary["rgbd_output_root"],
+            "labeled_static_count": panoptic_summary["labeled_static_count"],
+            "labeled_robot_count": panoptic_summary["labeled_robot_count"],
+            "labeled_human_count": panoptic_summary["labeled_human_count"],
+            "labeled_factory_shell_structural_count": panoptic_summary["labeled_factory_shell_structural_count"],
+            "compact_instance_label_count": compact_instance_label_count,
+            "max_compact_instance_label": max_compact_instance_label,
+            "warnings": warnings,
+            "skipped_unmatched_models": panoptic_summary["skipped_unmatched_models"],
+            "legacy_split_world_debug_root": project_rel(split_world_debug_root),
+            "debug_worlds": {},
+        }
+        if args.build_debug_split_worlds:
+            summary["debug_worlds"]["semantic_world"] = project_rel(semantic_world_path)
+            summary["debug_worlds"]["instance_world"] = project_rel(instance_world_path)
+        if debug_world_path.exists():
+            summary["debug_worlds"]["camera_debug_world"] = project_rel(debug_world_path)
+        if tuning_world_path.exists():
+            summary["debug_worlds"]["camera_tuning_world"] = project_rel(tuning_world_path)
+        write_json(summary_path, summary)
+
+    if stable_instance_summary is not None:
+        stable_summary = {
+            "primary_mode": "stable_instance_panoptic",
+            "stable_instance_panoptic_world": project_rel(stable_instance_panoptic_world_path),
+            "stable_instance_label_map": project_rel(stable_instance_label_map_path),
+            "camera_count": stable_instance_summary["camera_count"],
+            "rgbd_enabled": stable_instance_summary["rgbd_enabled"],
+            "rgbd_sensor_count": stable_instance_summary["rgbd_sensor_count"],
+            "rgbd_output_root": stable_instance_summary["rgbd_output_root"],
+            "label_mode": "compact_stable_instance",
+            "label_channel": "panoptic_rgb_channel_2",
+            "gazebo_instance_count_encoding": "rgb[1] * 256 + rgb[0]",
+            "gazebo_instance_count_is_stable_instance_id": False,
+            "labeled_static_count": stable_instance_summary["labeled_static_count"],
+            "labeled_robot_count": stable_instance_summary["labeled_robot_count"],
+            "labeled_human_count": stable_instance_summary["labeled_human_count"],
+            "labeled_factory_shell_structural_count": stable_instance_summary["labeled_factory_shell_structural_count"],
+            "compact_instance_label_count": compact_instance_label_count,
+            "max_compact_instance_label": max_compact_instance_label,
+            "warnings": list(factory_shell_warnings) + stable_instance_summary["warnings"],
+            "skipped_unmatched_models": stable_instance_summary["skipped_unmatched_models"],
+        }
+        write_json(stable_instance_summary_path, stable_summary)
 
     print(f"experiment_name={config.get('experiment_name', 'perception_rt_small_v0')}")
-    print(f"primary_mode={summary['primary_mode']}")
-    print(f"primary_world={summary['primary_world']}")
-    print(f"panoptic_world={summary['panoptic_world']}")
-    print(f"instance_label_map={project_rel(instance_label_map_path)}")
-    print(f"camera_count={summary['camera_count']}")
-    print(f"labeled_static_count={summary['labeled_static_count']}")
-    print(f"labeled_robot_count={summary['labeled_robot_count']}")
-    print(f"labeled_human_count={summary['labeled_human_count']}")
-    print(f"labeled_factory_shell_structural_count={summary['labeled_factory_shell_structural_count']}")
+    print_summary = panoptic_summary or stable_instance_summary
+    if panoptic_summary is not None:
+        print("primary_mode=panoptic")
+        print(f"primary_world={project_rel(panoptic_world_path)}")
+        print(f"panoptic_world={project_rel(panoptic_world_path)}")
+        print(f"instance_label_map={project_rel(instance_label_map_path)}")
+        print(f"camera_count={panoptic_summary['camera_count']}")
+    if stable_instance_summary is not None:
+        print("stable_instance_mode=compact_stable_instance")
+        print(f"stable_instance_panoptic_world={project_rel(stable_instance_panoptic_world_path)}")
+        print(f"stable_instance_label_map={project_rel(stable_instance_label_map_path)}")
+        print(f"stable_instance_camera_count={stable_instance_summary['camera_count']}")
+    if print_summary is not None:
+        print(f"rgbd_enabled={print_summary['rgbd_enabled']}")
+        print(f"rgbd_sensor_count={print_summary['rgbd_sensor_count']}")
+        print(f"labeled_static_count={print_summary['labeled_static_count']}")
+        print(f"labeled_robot_count={print_summary['labeled_robot_count']}")
+        print(f"labeled_human_count={print_summary['labeled_human_count']}")
+        print(f"labeled_factory_shell_structural_count={print_summary['labeled_factory_shell_structural_count']}")
     print(f"compact_instance_label_count={compact_instance_label_count}")
     print(f"max_compact_instance_label={max_compact_instance_label}")
     if args.build_debug_split_worlds:

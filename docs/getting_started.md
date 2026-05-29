@@ -3,7 +3,9 @@
 This guide is the short entry point for the current Gazebo-to-Sionna RT
 project. It focuses on prerequisites and the order of the major branches. For
 script-by-script commands, use [Script Reference](script_reference.md), the
-experiment guides, and the perception README.
+experiment guides, and the canonical perception sections in
+[Pipeline Overview](pipeline_overview.md), [Configuration](configuration.md),
+and [Troubleshooting](troubleshooting.md).
 
 ## Prerequisites
 
@@ -25,8 +27,6 @@ export BLENDER=blender
 source rt_out/scripts/ops/setup_gazebo_env.sh
 ```
 
-The environment is still assembled manually. There is no fully pinned
-`environment.yml` or `requirements.txt` in the current checkout.
 
 ## Typical Tooling
 
@@ -111,9 +111,14 @@ expanding everything in this page.
 
 ## Perception Pilot Pointer
 
-The detailed panoptic perception workflow is documented in:
+For the finalized perception pilot, use these `docs/` pages together:
 
-`rt_out/scripts/perception/README.md`
+- [Pipeline Overview](pipeline_overview.md) for branch context and current
+  pilot status
+- [Script Reference](script_reference.md) for the active renamed perception
+  scripts, utilities, and helpers
+- [Configuration](configuration.md) for camera/world/config contracts
+- [Troubleshooting](troubleshooting.md) for capture/validation pitfalls
 
 ## Basic Validation Checks
 
