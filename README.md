@@ -106,4 +106,4 @@ If you use this repository, please cite the associated paper once available.
 
 ## License
 
-This repository is lincensed under the MIT(LICENSE) conditions.
+This repository is lincensed under the MIT license conditions.
