@@ -100,17 +100,10 @@ For rigid, actor-aware, experiment, and perception branches, follow the branch-s
 - [Actor vs Rigid Ablation Comparison](docs/actor_vs_rigid_ablation_comparison.md)
 - [Troubleshooting](docs/troubleshooting.md)
 
-## Limitations
-
-- Actor handling is separate from rigid dynamics because Gazebo actors are animated/skinned meshes rather than rigid-link pose streams.
-- Actor mesh placement is an approximate offline export and should not be claimed as perfect Gazebo runtime animation-phase matching.
-- The perception pilot is partial pilot-status work and should not be described as replacing the validated RT baselines.
-- Environment setup is manual and depends on local Gazebo, Sionna RT, Mitsuba, and Blender availability.
-
 ## Citation / Academic Use
 
 If you use this repository, please cite the associated paper once available.
 
 ## License
 
-This repository includes a [LICENSE](LICENSE) file.
+This repository is lincensed under the MIT(LICENSE) conditions.
