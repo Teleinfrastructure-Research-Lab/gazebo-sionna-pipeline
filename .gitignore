@@ -1,5 +1,6 @@
 # Python / caches
-__pycache__/
+
+**pycache**/
 *.py[cod]
 .pytest_cache/
 .mypy_cache/
@@ -7,44 +8,34 @@ __pycache__/
 .venv/
 env/
 
-# Logs / temporary files
-*.log
-*.stdout.log
-*.stderr.log
+# Temporary files
+
+*.log~
 *.tmp
 *.bak
 trash/
 rt_out/temp/
 
 # Local editor / tooling
-.codex
+
+.codex/
 .vscode/
 
 # Native build outputs
+
 *.o
 *.so
 *.a
-rt_out/scripts/perception/cpp/capture_segmentation_topics
 
-# Blender and other heavy local authoring files
-*.blend
-*.blend1
+# Large source environment map referenced by the Gazebo worlds.
 
-# Pose logs
-rt_out/poses/**/*.log
+# Keep this rule until the file is assigned to Git LFS
 
-rt_out/actor_prototype_validation/
-rt_out/composed_scene/frame_*/blender_inspection*/
+# or external asset storage.
 
-# Heavy experiment intermediates
-rt_out/experiments/*/blender_timeline*/
-rt_out/experiments/semantic_ablation_rigid_200f/frames/
-rt_out/experiments/semantic_ablation_actor_200f/frames/
-
-
-# Local one-off assets that should not be versioned
-docs/gazebo_rt_pipeline_step_by_step.drawio
 models/furniture/Reflective table/materials/textures/DepotEnvMap.dds
 
-# Large local experiment archives
-rt_out/experiments/semantic_ablation.zip
+# Experiment outputs are stored in Zenodo and GitHub Releases
+
+/rt_out/experiments/
+
