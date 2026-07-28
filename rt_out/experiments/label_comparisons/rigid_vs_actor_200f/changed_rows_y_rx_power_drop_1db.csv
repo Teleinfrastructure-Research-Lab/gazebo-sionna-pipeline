@@ -1,3 +1,0 @@
-frame_id,source_sample_index,rx_id,label,baseline_value,actor_value,baseline_num_paths,actor_num_paths,baseline_delay_spread,actor_delay_spread,baseline_rx_power_dbm,actor_rx_power_dbm,baseline_delta_num_paths,actor_delta_num_paths,baseline_delta_delay_spread,actor_delta_delay_spread,baseline_delta_rx_power_db,actor_delta_rx_power_db
-114,29296,rx_nao_chest,y_rx_power_drop_1db,0,1,24,16,5.130942337672195e-08,4.0688618696549383e-08,-41.397070238498515,-56.15149817467206,0,-3,0.0,-1.0620804680172569e-08,0.0,-14.736186825243422
-51,13106,rx_cerberus_base,y_rx_power_drop_1db,0,1,18,16,4.148822796423701e-08,4.007502063529955e-08,-44.411208955631295,-55.22385446814788,0,0,0.0,-1.4132073289374603e-09,8.521095935520862e-07,-10.806249557737203
