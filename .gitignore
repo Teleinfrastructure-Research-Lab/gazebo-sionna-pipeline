@@ -45,3 +45,10 @@ models/furniture/Reflective table/materials/textures/DepotEnvMap.dds
 
 # Local Codex state
 .codex
+
+# Generated pipeline artifacts
+/rt_out/composed_scene/
+/rt_out/dynamic_frames/
+/rt_out/dynamic_scene/
+/rt_out/manifests/
+/rt_out/static_scene/
