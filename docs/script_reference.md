@@ -3683,7 +3683,7 @@ Source-level geometry/material constants; no CLI arguments are parsed.
 
 **Output**
 
-OBJ files for each wall segment plus `meshes/walls/wall_placeholder.mtl`.
+OBJ files for each wall segment plus `models/factory_shell/meshes/wall_placeholder.mtl`.
 
 **Options**
 

@@ -16,7 +16,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUTPUT_DIR = ROOT / "meshes" / "walls"
+OUTPUT_DIR = ROOT / "models" / "factory_shell" / "meshes"
 MTL_NAME = "wall_placeholder.mtl"
 MATERIAL_NAME = "wall_placeholder"
 
@@ -231,7 +231,7 @@ def write_material_file() -> Path:
 
 def main() -> None:
     # Regenerate the full set of wall meshes plus one placeholder MTL in a
-    # dedicated output directory under meshes/walls.
+    # canonical model mesh directory under models/factory_shell/meshes.
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     write_material_file()
     generated = [write_segment(segment) for segment in SEGMENTS]
