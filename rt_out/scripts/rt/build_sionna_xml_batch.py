@@ -101,11 +101,62 @@ def require_non_negative_int(value: Any, label: str) -> int:
     return value
 
 
-def resolve_project_path(value: str) -> Path:
-    path = Path(value).expanduser()
-    if not path.is_absolute():
-        path = PROJECT_ROOT / path
-    return path.resolve()
+def resolve_config_output_root(config_path: Path, output_dir: str) -> Path:
+    configured = Path(output_dir).expanduser()
+    if configured.is_absolute():
+        return configured.resolve()
+    config_path = config_path.expanduser().resolve()
+    owner_root = (
+        config_path.parent.parent
+        if config_path.parent.name == "config"
+        else config_path.parent
+    )
+    return (owner_root / configured).resolve()
+
+
+def resolve_index_path(run_root: Path, value: Any, label: str) -> Path:
+    text = require_non_empty_string(value, label)
+    try:
+        candidate = Path(text).expanduser()
+        if candidate.is_absolute():
+            return candidate.resolve()
+        run_root = run_root.expanduser().resolve()
+        resolved = (run_root / candidate).resolve()
+        try:
+            resolved.relative_to(run_root)
+        except ValueError as exc:
+            raise BatchBuildSionnaXmlError(
+                f"{label} escapes run root: {text}"
+            ) from exc
+        return resolved
+    except BatchBuildSionnaXmlError:
+        raise
+    except (OSError, RuntimeError, TypeError, ValueError) as exc:
+        raise BatchBuildSionnaXmlError(f"Invalid {label}: {text!r}") from exc
+
+
+def validate_index_target(
+    run_root: Path,
+    value: Any,
+    label: str,
+) -> Path:
+    path = resolve_index_path(run_root, value, label)
+    if not path.is_file():
+        raise BatchBuildSionnaXmlError(
+            f"{label} does not reference an existing file: {path}"
+        )
+    return path
+
+
+def run_relative_path(run_root: Path, path: Path, label: str) -> str:
+    run_root = run_root.expanduser().resolve()
+    resolved = path.expanduser().resolve()
+    try:
+        return resolved.relative_to(run_root).as_posix()
+    except ValueError as exc:
+        raise BatchBuildSionnaXmlError(
+            f"{label} is outside the selected run root: {resolved}"
+        ) from exc
 
 
 def load_experiment_config(path: Path) -> dict[str, Any]:
@@ -124,7 +175,7 @@ def load_experiment_config(path: Path) -> dict[str, Any]:
         config.get("output_dir"),
         "experiment_config.output_dir",
     )
-    output_root = resolve_project_path(output_dir)
+    output_root = resolve_config_output_root(path, output_dir)
     return {
         "config_path": path.resolve(),
         "experiment_name": experiment_name,
@@ -134,7 +185,7 @@ def load_experiment_config(path: Path) -> dict[str, Any]:
     }
 
 
-def load_composed_manifest_index(path: Path) -> list[dict[str, Any]]:
+def load_composed_manifest_index(path: Path, run_root: Path) -> list[dict[str, Any]]:
     # Read the composed-manifest index and reduce it to the fields needed by the
     # single-frame XML builder.
     try:
@@ -161,7 +212,11 @@ def load_composed_manifest_index(path: Path) -> list[dict[str, Any]]:
             row.get("composed_manifest_path"),
             f"row[{index}].composed_manifest_path",
         )
-        composed_manifest_path = Path(composed_manifest_value).expanduser().resolve()
+        composed_manifest_path = validate_index_target(
+            run_root,
+            composed_manifest_value,
+            f"row[{index}].composed_manifest_path",
+        )
         if frame_id in seen_frame_ids:
             raise BatchBuildSionnaXmlError(
                 f"Duplicate frame_id in composed manifest index: {frame_id}"
@@ -252,6 +307,7 @@ def main() -> int:
     )
     records = load_composed_manifest_index(
         composed_manifest_index_path,
+        experiment["output_root"],
     )
     if args.max_frames is not None:
         if args.max_frames <= 0:
@@ -301,8 +357,16 @@ def main() -> int:
             {
                 "frame_id": frame_id,
                 "source_sample_index": source_sample_index,
-                "composed_manifest_path": str(composed_manifest_path),
-                "xml_path": str(xml_path),
+                "composed_manifest_path": run_relative_path(
+                    experiment["output_root"],
+                    composed_manifest_path,
+                    "composed_manifest_path",
+                ),
+                "xml_path": run_relative_path(
+                    experiment["output_root"],
+                    xml_path,
+                    "xml_path",
+                ),
             }
         )
         if progress is not None:
@@ -314,8 +378,16 @@ def main() -> int:
     # Re-validate the index after the loop so RT batch scripts can trust every
     # XML path without rescanning the output directory.
     for row in rows:
-        if not Path(row["xml_path"]).exists():
-            raise BatchBuildSionnaXmlError(f"Indexed xml_path does not exist: {row['xml_path']}")
+        validate_index_target(
+            experiment["output_root"],
+            row.get("composed_manifest_path"),
+            "generated composed_manifest_path",
+        )
+        validate_index_target(
+            experiment["output_root"],
+            row.get("xml_path"),
+            "generated xml_path",
+        )
 
     write_index_csv(index_csv_path, rows)
 

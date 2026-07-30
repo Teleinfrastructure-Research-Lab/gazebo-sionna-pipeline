@@ -5,9 +5,10 @@ import argparse, csv, json, math, os, subprocess, sys, time
 from pathlib import Path
 from typing import Any
 SCRIPTS = Path(__file__).resolve().parents[2]
-ROOT = SCRIPTS.parents[1]
 sys.path.insert(0, str(SCRIPTS))
+sys.path.insert(0, str(SCRIPTS / 'composition'))
 from runtime_config import PROJECT_ROOT, find_sionna_python, runtime_env
+from compose_frame_manifests_batch import composed_manifest_path
 from rt.run_rt_multi_rx_batch import load_experiment_config, TAU_STATS_SCRIPT
 N = 2446
 RX = ('rx_panda_base', 'rx_ur5_base', 'rx_cerberus_base', 'rx_nao_chest', 'rx_human_chest', 'rx_x500_body')
@@ -15,9 +16,16 @@ TX = (0.0, 0.0, 2.4)
 RX_POS = ((0.582, 0.888, 1.195), (0.497, -0.841, 0.995), (4.074, -1.779, 0.81), (-0.1337, 2.748, 0.7), (-1.4605, -0.8406, 1.6421), (-3.9279, 3.2024, 1.3944))
 FIELDS = ['frame_id', 'source_sample_index', 'timestamp', 'rx_id', 'xml_path', 'tx_power_dbm', 'tx_x', 'tx_y', 'tx_z', 'rx_x', 'rx_y', 'rx_z', 'frequency_hz', 'num_paths', 'tau_min', 'tau_max', 'delay_spread', 'path_gain_sum', 'path_gain_db', 'rx_power_dbm', 'gain_method', 'gain_error', 'a_shape', 'tau_cir_shape', 'valid_shape', 'tau_shape', 'gain_debug', 'sanity_ok', 'error_message']
 SOLVER_SETTINGS = {'max_depth': 2, 'max_num_paths_per_src': 10000, 'samples_per_src': 20000, 'synthetic_array': True, 'los': True, 'specular_reflection': True, 'diffuse_reflection': False, 'refraction': False, 'seed': 42}
+STATIC_MANIFEST_RELATIVE_PATH = Path('geometry/static/export/merged_static_manifest.json')
 
 class Error(RuntimeError):
     pass
+
+def resolve_static_manifest(run_root: Path) -> Path:
+    path = (run_root / STATIC_MANIFEST_RELATIVE_PATH).resolve()
+    if not path.is_file():
+        raise Error(f'missing static manifest; expected path: {path}')
+    return path
 
 def read(path: Path) -> Any:
     try:
@@ -59,10 +67,30 @@ def actor(root: Path, f: int) -> Path:
     return root / f'frames/actor_meshes/frame_{f:03d}/actor_frame_{f:03d}_manifest.json'
 
 def composed(root: Path, f: int) -> Path:
-    return root / f'frames/composed_manifests/frame_{f:03d}_manifest.json'
+    return composed_manifest_path(root, f)
 
 def xml(root: Path, f: int) -> Path:
     return root / f'sionna_xml/frame_{f:03d}_sionna.xml'
+
+def run_relative_path(root: Path, path: Path, label: str) -> str:
+    root = root.expanduser().resolve()
+    resolved = path.expanduser().resolve()
+    try:
+        return resolved.relative_to(root).as_posix()
+    except ValueError as exc:
+        raise Error(f'{label} is outside the selected run root: {resolved}') from exc
+
+def generated_index_rows(root: Path, frame_ids: Any) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    composed_rows = []
+    xml_rows = []
+    for f in frame_ids:
+        composed_path = composed(root, f)
+        xml_path = xml(root, f)
+        composed_relative = run_relative_path(root, composed_path, 'composed_manifest_path')
+        xml_relative = run_relative_path(root, xml_path, 'xml_path')
+        composed_rows.append({'frame_id': f, 'source_sample_index': f, 'composed_manifest_path': composed_relative})
+        xml_rows.append({'frame_id': f, 'source_sample_index': f, 'composed_manifest_path': composed_relative, 'xml_path': xml_relative})
+    return composed_rows, xml_rows
 
 def rowfile(root: Path, f: int) -> Path:
     return root / f'rt_results/staging/frame_{f:03d}.csv'
@@ -84,27 +112,45 @@ def sample_metadata(root: Path) -> dict[int, tuple[int, float]]:
         result[f] = (src, float(ts))
     return result
 
-def valid_dynamic(path: Path, f: int) -> bool:
+def resolve_manifest_path(run_root: Path, value: Any) -> Path:
+    if not isinstance(value, str) or not value.strip():
+        raise Error('manifest mesh path must be a non-empty string')
+    try:
+        candidate = Path(value).expanduser()
+        run_root = run_root.expanduser().resolve()
+        if candidate.is_absolute():
+            return candidate.resolve()
+        resolved = (run_root / candidate).resolve()
+        try:
+            resolved.relative_to(run_root)
+        except ValueError as exc:
+            raise Error(f'manifest mesh path escapes run root: {value}') from exc
+        return resolved
+    except (OSError, RuntimeError, TypeError, ValueError) as exc:
+        raise Error(f'invalid manifest mesh path: {value!r}') from exc
+
+
+def valid_dynamic(path: Path, f: int, run_root: Path) -> bool:
     try:
         d = read(path)
         es = d.get('exported_visuals', [])
-        return d.get('frame_id') == f and d.get('source_sample_index') == f and (len(es) == 21) and all((Path(x.get('exported_mesh_path', '')).is_file() for x in es))
+        return d.get('frame_id') == f and d.get('source_sample_index') == f and (len(es) == 21) and all((resolve_manifest_path(run_root, x.get('exported_mesh_path')).is_file() for x in es))
     except Error:
         return False
 
-def valid_actor(path: Path, f: int) -> bool:
+def valid_actor(path: Path, f: int, run_root: Path) -> bool:
     try:
         d = read(path)
         es = d.get('exported_actors', [])
-        return d.get('frame_id') == f and d.get('source_sample_index') == f and (len(es) == 1) and Path(es[0].get('exported_mesh_path', '')).is_file()
+        return d.get('frame_id') == f and d.get('source_sample_index') == f and (len(es) == 1) and resolve_manifest_path(run_root, es[0].get('exported_mesh_path')).is_file()
     except Error:
         return False
 
-def valid_composed(path: Path, f: int) -> bool:
+def valid_composed(path: Path, f: int, run_root: Path) -> bool:
     try:
         d = read(path)
         es = d.get('entries', [])
-        return d.get('frame_id') == f and d.get('source_sample_index') == f and ((d.get('static_count'), d.get('dynamic_count'), d.get('actor_count'), d.get('total_count')) == (11, 21, 1, 33)) and (len(es) == 33) and all((Path(x.get('mesh_path', '')).is_file() for x in es))
+        return d.get('frame_id') == f and d.get('source_sample_index') == f and ((d.get('static_count'), d.get('dynamic_count'), d.get('actor_count'), d.get('total_count')) == (11, 21, 1, 33)) and (len(es) == 33) and all((resolve_manifest_path(run_root, x.get('mesh_path')).is_file() for x in es))
     except Error:
         return False
 
@@ -159,12 +205,24 @@ def run(cmd: list[str], name: str, metrics: dict[str, Any]) -> None:
         m['failures'] += 1
         raise Error(f'{name} failed: {r.stderr[-1000:]}')
 
+def compose_frame_command(root: Path, frame_id: int, static_manifest: Path | None = None) -> list[str]:
+    manifest = static_manifest or resolve_static_manifest(root)
+    return [
+        sys.executable,
+        str(SCRIPTS / 'dynamic_rigid/compose_frame_scene.py'),
+        '--frame-id', str(frame_id),
+        '--static-manifest', str(manifest),
+        '--dynamic-manifest', str(dyn(root, frame_id)),
+        '--actor-frame-manifest', str(actor(root, frame_id)),
+        '--output-manifest', str(composed(root, frame_id)),
+    ]
+
 def preflight(root: Path) -> dict[str, Any]:
     meta = sample_metadata(root)
     e = load_experiment_config(root / 'config/experiment_config.json')
     if e['num_frames'] != N or tuple(e['tx_position']) != TX or e['frequency_hz'] != 28000000000.0 or ([x['id'] for x in e['rx_list']] != list(RX)) or ([tuple(x['position']) for x in e['rx_list']] != list(RX_POS)):
         raise Error('non-canonical TX/RX coordinates, frequency, receiver order, or frame count')
-    counts = {'dynamic_manifests': sum((valid_dynamic(dyn(root, f), f) for f in expected())), 'actor_manifests': sum((valid_actor(actor(root, f), f) for f in expected())), 'composed_manifests': sum((valid_composed(composed(root, f), f) for f in expected())), 'sionna_xml': sum((valid_xml(xml(root, f), f) for f in expected()))}
+    counts = {'dynamic_manifests': sum((valid_dynamic(dyn(root, f), f, root) for f in expected())), 'actor_manifests': sum((valid_actor(actor(root, f), f, root) for f in expected())), 'composed_manifests': sum((valid_composed(composed(root, f), f, root) for f in expected())), 'sionna_xml': sum((valid_xml(xml(root, f), f) for f in expected()))}
     for k in ('dynamic_manifests', 'actor_manifests'):
         if counts[k] != N:
             raise Error(f'{k} valid={counts[k]}, expected {N}')
@@ -183,6 +241,7 @@ def main() -> None:
     if (a.probe_frame is None) != (a.probe_rx is None) or sum((bool(x) for x in (a.preflight, a.run, probe))) != 1:
         raise Error('choose --preflight, --run, or both --probe-frame and --probe-rx')
     root = a.root.resolve()
+    static_manifest = resolve_static_manifest(root)
     summary = preflight(root)
     if a.preflight:
         print(json.dumps(summary, sort_keys=True))
@@ -206,22 +265,23 @@ def main() -> None:
     metrics = {'stages': {}, 'started_unix': time.time(), 'expected_rows': N * 6}
     cfg = root / 'config/experiment_config.json'
     for f in expected():
-        if not valid_composed(composed(root, f), f):
+        if not valid_composed(composed(root, f), f, root):
             if composed(root, f).exists():
                 raise Error(f'invalid composed manifest {composed(root, f)}')
-            run([sys.executable, str(SCRIPTS / 'dynamic_rigid/compose_frame_scene.py'), '--frame-id', str(f), '--static-manifest', str(ROOT / 'rt_out/experiments/factory_panda_ur5/legacy_run_20260522_133045/static_scene/export/merged_static_manifest.json'), '--dynamic-manifest', str(dyn(root, f)), '--actor-frame-manifest', str(actor(root, f)), '--output-manifest', str(composed(root, f))], 'compose', metrics)
+            run(compose_frame_command(root, f, static_manifest), 'compose', metrics)
         if not valid_xml(xml(root, f), f):
             if xml(root, f).exists():
                 raise Error(f'invalid XML {xml(root, f)}')
             run([sys.executable, str(SCRIPTS / 'dynamic_rigid/build_frame_sionna_xml.py'), '--frame-id', str(f), '--input-manifest', str(composed(root, f)), '--output-xml', str(xml(root, f))], 'xml', metrics)
-    if any((not valid_composed(composed(root, f), f) or not valid_xml(xml(root, f), f) for f in expected())):
+    if any((not valid_composed(composed(root, f), f, root) or not valid_xml(xml(root, f), f) for f in expected())):
         raise Error('composed/XML final validation failed')
     composed_index = root / 'frames/composed_manifests/composed_manifest_index.csv'
     xml_index = root / 'sionna_xml/sionna_xml_index.csv'
+    composed_rows, xml_rows = generated_index_rows(root, expected())
     if not composed_index.exists():
-        atomic_table(composed_index, ['frame_id', 'source_sample_index', 'composed_manifest_path'], [{'frame_id': f, 'source_sample_index': f, 'composed_manifest_path': str(composed(root, f))} for f in expected()])
+        atomic_table(composed_index, ['frame_id', 'source_sample_index', 'composed_manifest_path'], composed_rows)
     if not xml_index.exists():
-        atomic_table(xml_index, ['frame_id', 'source_sample_index', 'composed_manifest_path', 'xml_path'], [{'frame_id': f, 'source_sample_index': f, 'composed_manifest_path': str(composed(root, f)), 'xml_path': str(xml(root, f))} for f in expected()])
+        atomic_table(xml_index, ['frame_id', 'source_sample_index', 'composed_manifest_path', 'xml_path'], xml_rows)
     allrows = []
     resumed = new = 0
     for f in expected():

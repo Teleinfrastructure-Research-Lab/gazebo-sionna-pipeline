@@ -322,11 +322,47 @@ def require_numeric(value: Any, label: str) -> float:
         raise ExperimentRtBatchError(f"{label} must be numeric") from exc
 
 
-def resolve_project_path(value: str) -> Path:
-    path = Path(value).expanduser()
-    if not path.is_absolute():
-        path = PROJECT_ROOT / path
-    return path.resolve()
+def resolve_config_output_root(config_path: Path, output_dir: str) -> Path:
+    configured = Path(output_dir).expanduser()
+    if configured.is_absolute():
+        return configured.resolve()
+    config_path = config_path.expanduser().resolve()
+    owner_root = (
+        config_path.parent.parent
+        if config_path.parent.name == "config"
+        else config_path.parent
+    )
+    return (owner_root / configured).resolve()
+
+
+def resolve_xml_index_path(run_root: Path, value: Any, label: str) -> Path:
+    text = require_non_empty_string(value, label)
+    try:
+        candidate = Path(text).expanduser()
+        if candidate.is_absolute():
+            return candidate.resolve()
+        run_root = run_root.expanduser().resolve()
+        resolved = (run_root / candidate).resolve()
+        try:
+            resolved.relative_to(run_root)
+        except ValueError as exc:
+            raise ExperimentRtBatchError(
+                f"{label} escapes run root: {text}"
+            ) from exc
+        return resolved
+    except ExperimentRtBatchError:
+        raise
+    except (OSError, RuntimeError, TypeError, ValueError) as exc:
+        raise ExperimentRtBatchError(f"Invalid {label}: {text!r}") from exc
+
+
+def validate_xml_index_target(run_root: Path, value: Any, label: str) -> Path:
+    path = resolve_xml_index_path(run_root, value, label)
+    if not path.is_file():
+        raise ExperimentRtBatchError(
+            f"{label} does not reference an existing file: {path}"
+        )
+    return path
 
 
 def parse_position(value: Any, label: str) -> tuple[float, float, float]:
@@ -508,7 +544,7 @@ def load_experiment_config(path: Path) -> dict[str, Any]:
         data.get("output_dir"),
         "experiment_config.output_dir",
     )
-    output_root = resolve_project_path(output_dir)
+    output_root = resolve_config_output_root(path, output_dir)
     return {
         "experiment_name": experiment_name,
         "num_frames": num_frames,
@@ -520,7 +556,7 @@ def load_experiment_config(path: Path) -> dict[str, Any]:
     }
 
 
-def load_xml_index(path: Path) -> list[dict[str, Any]]:
+def load_xml_index(path: Path, run_root: Path) -> list[dict[str, Any]]:
     # Read the XML index produced by the batch XML builder and reduce it to the
     # frame/sample/XML triples needed by this RT wrapper.
     try:
@@ -543,7 +579,11 @@ def load_xml_index(path: Path) -> list[dict[str, Any]]:
         except (KeyError, TypeError, ValueError) as exc:
             raise ExperimentRtBatchError(f"Invalid frame row at index {index}") from exc
         xml_value = require_non_empty_string(row.get("xml_path"), f"row[{index}].xml_path")
-        xml_path = Path(xml_value).expanduser().resolve()
+        xml_path = validate_xml_index_target(
+            run_root,
+            xml_value,
+            f"row[{index}].xml_path",
+        )
         if frame_id in seen_frame_ids:
             raise ExperimentRtBatchError(f"Duplicate frame_id in sionna_xml_index.csv: {frame_id}")
         seen_frame_ids.add(frame_id)
@@ -797,7 +837,7 @@ def main() -> int:
 
     experiment = load_experiment_config(config_path)
     xml_index_path = experiment["output_root"] / "sionna_xml" / "sionna_xml_index.csv"
-    frame_rows = load_xml_index(xml_index_path)
+    frame_rows = load_xml_index(xml_index_path, experiment["output_root"])
     if args.max_frames is not None:
         # Debug mode can clip the XML list before the RX expansion so a short run
         # still exercises the same inner logic as the full batch.

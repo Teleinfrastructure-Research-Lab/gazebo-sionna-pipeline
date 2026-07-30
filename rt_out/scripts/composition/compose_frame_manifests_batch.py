@@ -25,8 +25,8 @@ if str(SCRIPT_ROOT) not in sys.path:
 from runtime_config import PROJECT_ROOT, SCRIPT_COMPOSE_FRAME_SCENE  # noqa: E402
 
 COMPOSE_SCRIPT = SCRIPT_COMPOSE_FRAME_SCENE
-DEFAULT_STATIC_MANIFEST = (
-    PROJECT_ROOT / "rt_out" / "experiments" / "factory_panda_ur5" / "legacy_run_20260522_133045" / "static_scene" / "export" / "merged_static_manifest.json"
+STATIC_MANIFEST_RELATIVE_PATH = Path(
+    "geometry/static/export/merged_static_manifest.json"
 )
 
 
@@ -49,6 +49,14 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         required=True,
         help="Path to experiment_config.json",
+    )
+    parser.add_argument(
+        "--static-manifest",
+        type=Path,
+        help=(
+            "Optional static manifest path. When omitted, use "
+            "<run_root>/geometry/static/export/merged_static_manifest.json."
+        ),
     )
     parser.add_argument(
         "--no-progress",
@@ -109,15 +117,41 @@ def require_non_negative_int(value: Any, label: str) -> int:
     return value
 
 
-def resolve_project_path(value: str) -> Path:
-    path = Path(value).expanduser()
-    if not path.is_absolute():
-        path = PROJECT_ROOT / path
-    return path.resolve()
+def resolve_config_output_root(config_path: Path, output_dir: str) -> Path:
+    configured = Path(output_dir).expanduser()
+    if configured.is_absolute():
+        return configured.resolve()
+    config_path = config_path.expanduser().resolve()
+    owner_root = (
+        config_path.parent.parent
+        if config_path.parent.name == "config"
+        else config_path.parent
+    )
+    return (owner_root / configured).resolve()
 
 
-def frame_dir_name(frame_id: int) -> str:
-    return f"frame_{frame_id:03d}"
+def resolve_static_manifest(run_root: Path, explicit_path: Path | None = None) -> Path:
+    if explicit_path is None:
+        manifest_path = run_root / STATIC_MANIFEST_RELATIVE_PATH
+    else:
+        manifest_path = explicit_path.expanduser()
+        if not manifest_path.is_absolute():
+            manifest_path = PROJECT_ROOT / manifest_path
+    manifest_path = manifest_path.resolve()
+    if not manifest_path.is_file():
+        raise BatchComposeFrameManifestError(
+            f"Static manifest does not exist; expected path: {manifest_path}"
+        )
+    return manifest_path
+
+
+def composed_manifest_path(run_root: Path, frame_id: int) -> Path:
+    return (
+        run_root.expanduser().resolve()
+        / "frames"
+        / "composed_manifests"
+        / f"frame_{frame_id:03d}_manifest.json"
+    )
 
 
 def load_experiment_config(path: Path) -> dict[str, Any]:
@@ -136,7 +170,7 @@ def load_experiment_config(path: Path) -> dict[str, Any]:
         config.get("output_dir"),
         "experiment_config.output_dir",
     )
-    output_root = resolve_project_path(output_dir)
+    output_root = resolve_config_output_root(path, output_dir)
     actors = config.get("actors")
     if actors is not None and not isinstance(actors, dict):
         raise BatchComposeFrameManifestError("experiment_config.actors must be an object when present")
@@ -150,7 +184,56 @@ def load_experiment_config(path: Path) -> dict[str, Any]:
     }
 
 
-def load_dynamic_mesh_index(path: Path) -> list[dict[str, Any]]:
+def resolve_index_path(run_root: Path, value: Any, label: str) -> Path:
+    text = require_non_empty_string(value, label)
+    try:
+        candidate = Path(text).expanduser()
+        if candidate.is_absolute():
+            return candidate.resolve()
+        run_root = run_root.expanduser().resolve()
+        resolved = (run_root / candidate).resolve()
+        try:
+            resolved.relative_to(run_root)
+        except ValueError as exc:
+            raise BatchComposeFrameManifestError(
+                f"{label} escapes run root: {text}"
+            ) from exc
+        return resolved
+    except BatchComposeFrameManifestError:
+        raise
+    except (OSError, RuntimeError, TypeError, ValueError) as exc:
+        raise BatchComposeFrameManifestError(f"Invalid {label}: {text!r}") from exc
+
+
+def validate_index_target(
+    run_root: Path,
+    value: Any,
+    label: str,
+    *,
+    directory: bool = False,
+) -> Path:
+    path = resolve_index_path(run_root, value, label)
+    valid = path.is_dir() if directory else path.is_file()
+    if not valid:
+        kind = "directory" if directory else "file"
+        raise BatchComposeFrameManifestError(
+            f"{label} does not reference an existing {kind}: {path}"
+        )
+    return path
+
+
+def run_relative_path(run_root: Path, path: Path, label: str) -> str:
+    run_root = run_root.expanduser().resolve()
+    resolved = path.expanduser().resolve()
+    try:
+        return resolved.relative_to(run_root).as_posix()
+    except ValueError as exc:
+        raise BatchComposeFrameManifestError(
+            f"{label} is outside the selected run root: {resolved}"
+        ) from exc
+
+
+def load_dynamic_mesh_index(path: Path, run_root: Path) -> list[dict[str, Any]]:
     # Read the mesh-export index and reduce it to the fields needed by the
     # single-frame compose script.
     try:
@@ -177,7 +260,17 @@ def load_dynamic_mesh_index(path: Path) -> list[dict[str, Any]]:
             row.get("manifest_path"),
             f"row[{index}].manifest_path",
         )
-        dynamic_manifest_path = Path(dynamic_manifest_value).expanduser().resolve()
+        dynamic_manifest_path = validate_index_target(
+            run_root,
+            dynamic_manifest_value,
+            f"row[{index}].manifest_path",
+        )
+        output_dir = validate_index_target(
+            run_root,
+            row.get("output_dir"),
+            f"row[{index}].output_dir",
+            directory=True,
+        )
         if frame_id in seen_frame_ids:
             raise BatchComposeFrameManifestError(f"Duplicate frame_id in dynamic mesh index: {frame_id}")
         seen_frame_ids.add(frame_id)
@@ -190,6 +283,7 @@ def load_dynamic_mesh_index(path: Path) -> list[dict[str, Any]]:
                 "frame_id": frame_id,
                 "source_sample_index": source_sample_index,
                 "dynamic_manifest_path": dynamic_manifest_path,
+                "output_dir": output_dir,
             }
         )
     return records
@@ -204,7 +298,7 @@ def actor_options_from_experiment(experiment: dict[str, Any]) -> dict[str, Any]:
     return actors
 
 
-def load_actor_mesh_index(path: Path) -> dict[int, dict[str, Any]]:
+def load_actor_mesh_index(path: Path, run_root: Path) -> dict[int, dict[str, Any]]:
     try:
         with path.open("r", encoding="utf-8", newline="") as handle:
             rows = list(csv.DictReader(handle))
@@ -232,7 +326,17 @@ def load_actor_mesh_index(path: Path) -> dict[int, dict[str, Any]]:
             row.get("actor_frame_manifest_path"),
             f"actor row[{index}].actor_frame_manifest_path",
         )
-        actor_manifest_path = Path(actor_manifest_value).expanduser().resolve()
+        actor_manifest_path = validate_index_target(
+            run_root,
+            actor_manifest_value,
+            f"actor row[{index}].actor_frame_manifest_path",
+        )
+        output_dir = validate_index_target(
+            run_root,
+            row.get("output_dir"),
+            f"actor row[{index}].output_dir",
+            directory=True,
+        )
         if frame_id in records:
             raise BatchComposeFrameManifestError(f"Duplicate frame_id in actor mesh index: {frame_id}")
         if not actor_manifest_path.exists():
@@ -243,6 +347,7 @@ def load_actor_mesh_index(path: Path) -> dict[int, dict[str, Any]]:
             "frame_id": frame_id,
             "source_sample_index": source_sample_index,
             "actor_frame_manifest_path": actor_manifest_path,
+            "output_dir": output_dir,
             "actor_count": actor_count,
         }
     return records
@@ -362,16 +467,15 @@ def main() -> int:
     config_path = args.config.expanduser().resolve()
     if not config_path.exists():
         raise BatchComposeFrameManifestError(f"Config file does not exist: {config_path}")
-    if not DEFAULT_STATIC_MANIFEST.exists():
-        raise BatchComposeFrameManifestError(
-            f"Frozen static manifest does not exist: {DEFAULT_STATIC_MANIFEST}"
-        )
-
     experiment = load_experiment_config(config_path)
+    static_manifest_path = resolve_static_manifest(
+        experiment["output_root"],
+        args.static_manifest,
+    )
     dynamic_mesh_index_path = (
         experiment["output_root"] / "frames" / "dynamic_meshes" / "dynamic_mesh_index.csv"
     )
-    records = load_dynamic_mesh_index(dynamic_mesh_index_path)
+    records = load_dynamic_mesh_index(dynamic_mesh_index_path, experiment["output_root"])
     if args.max_frames is not None:
         if args.max_frames <= 0:
             raise BatchComposeFrameManifestError("--max-frames must be a positive integer")
@@ -383,7 +487,10 @@ def main() -> int:
         actor_mesh_index_path = (
             experiment["output_root"] / "frames" / "actor_meshes" / "actor_mesh_index.csv"
         )
-        actor_records_by_frame = load_actor_mesh_index(actor_mesh_index_path)
+        actor_records_by_frame = load_actor_mesh_index(
+            actor_mesh_index_path,
+            experiment["output_root"],
+        )
 
     output_root = experiment["output_root"] / "frames" / "composed_manifests"
     index_csv_path = output_root / "composed_manifest_index.csv"
@@ -426,24 +533,20 @@ def main() -> int:
                 f"[compose manifests] {index}/{total} {status} "
                 f"elapsed={format_elapsed(time.time() - start_time)}"
             )
-        composed_manifest_path = (
-            output_root
-            / frame_dir_name(frame_id)
-            / f"composed_frame_{frame_id:03d}_manifest.json"
-        )
+        composed_path = composed_manifest_path(experiment["output_root"], frame_id)
         run_compose(
             frame_id=frame_id,
-            static_manifest_path=DEFAULT_STATIC_MANIFEST,
+            static_manifest_path=static_manifest_path,
             dynamic_manifest_path=dynamic_manifest_path,
             actor_frame_manifest_path=actor_frame_manifest_path,
-            output_manifest_path=composed_manifest_path,
+            output_manifest_path=composed_path,
         )
-        if not composed_manifest_path.exists():
+        if not composed_path.exists():
             raise BatchComposeFrameManifestError(
-                f"Expected composed manifest was not created for frame_id={frame_id}: {composed_manifest_path}"
+                f"Expected composed manifest was not created for frame_id={frame_id}: {composed_path}"
             )
         validate_composed_manifest(
-            manifest_path=composed_manifest_path,
+            manifest_path=composed_path,
             frame_id=frame_id,
             source_sample_index=source_sample_index,
             expected_actor_count=actor_count,
@@ -452,12 +555,26 @@ def main() -> int:
             {
                 "frame_id": frame_id,
                 "source_sample_index": source_sample_index,
-                "dynamic_manifest_path": str(dynamic_manifest_path),
+                "dynamic_manifest_path": run_relative_path(
+                    experiment["output_root"],
+                    dynamic_manifest_path,
+                    "dynamic_manifest_path",
+                ),
                 "actor_frame_manifest_path": (
-                    str(actor_frame_manifest_path) if actor_frame_manifest_path is not None else ""
+                    run_relative_path(
+                        experiment["output_root"],
+                        actor_frame_manifest_path,
+                        "actor_frame_manifest_path",
+                    )
+                    if actor_frame_manifest_path is not None
+                    else ""
                 ),
                 "actor_count": actor_count,
-                "composed_manifest_path": str(composed_manifest_path),
+                "composed_manifest_path": run_relative_path(
+                    experiment["output_root"],
+                    composed_path,
+                    "composed_manifest_path",
+                ),
             }
         )
         if progress is not None:
@@ -469,10 +586,11 @@ def main() -> int:
     # Re-validate the index after the loop so later XML generation can trust the
     # composed manifest paths without rescanning the frame directories.
     for row in rows:
-        if not Path(row["composed_manifest_path"]).exists():
-            raise BatchComposeFrameManifestError(
-                f"Indexed composed_manifest_path does not exist: {row['composed_manifest_path']}"
-            )
+        validate_index_target(
+            experiment["output_root"],
+            row.get("composed_manifest_path"),
+            "generated composed_manifest_path",
+        )
 
     write_index_csv(index_csv_path, rows)
 

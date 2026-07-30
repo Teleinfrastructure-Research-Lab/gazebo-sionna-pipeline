@@ -20,6 +20,18 @@ class E(RuntimeError):
 def j(p):
     return json.loads(p.read_text())
 
+def resolve_output_root(config_path: Path, output_dir: str) -> Path:
+    configured = Path(output_dir).expanduser()
+    if configured.is_absolute():
+        return configured.resolve()
+    config_path = config_path.expanduser().resolve()
+    owner_root = (
+        config_path.parent.parent
+        if config_path.parent.name == 'config'
+        else config_path.parent
+    )
+    return (owner_root / configured).resolve()
+
 def args():
     p = argparse.ArgumentParser()
     p.add_argument('--config', type=Path, required=True)
@@ -178,7 +190,7 @@ def main():
     a = args()
     configure(a.voxel_size)
     cfg = j(a.config)
-    root = (Path.cwd() / cfg['output_dir']).resolve()
+    root = resolve_output_root(a.config, cfg['output_dir'])
     gt = root / 'gt_scene_pointclouds'
     lab = root / 'rt_results/rt_2446frames_multi_rx_horizon10_labeled.csv'
     reg = j(gt / 'label_registry.json')

@@ -11,7 +11,9 @@ into the run directory and rerun every stage that depends on it.
 | `myworld_rt.sdf` | Gazebo and static extraction | world models, poses, static flags, actor declarations | Geometry/model changes require manifest validation, registry, conversion/merge, XML, then RT rerun. |
 | `models/` | Gazebo, registry, Blender | model SDF/config, mesh URIs, actor assets | Asset changes invalidate static/dynamic/actor products that reference them. |
 | `rt_out/materials/material_map.json` | `build_static_scene_registry.py` | model/link/visual matching rules and material classes | Rerun static registry, merge, and XML. Check that every emitted material has RT mapping. |
-| `rt_out/config/*` when present | prototype helpers | reusable material/site templates | Treat as templates; copy the resolved version into `<run>/config/`. |
+| `rt_out/materials/material_map.json` | scene processing | maps model, link, and visual names to reusable semantic material classes | Shared across scenes; update only when classification rules change. |
+| `rt_out/materials/rt_material_mapping.json` | Sionna RT material loading | defines reusable electromagnetic and ray-tracing parameters for each material class | Shared across scenes; copy the resolved version into `<run>/config/` when recording an experiment. |
+| `<run>/config/` | experiment orchestration | stores resolved actor, radio-site, runtime, frame, and material configuration for one run | Run-specific and immutable after dataset generation. |
 
 The current repository does not expose one complete generic static-config CLI.
 `build_scene_geometry_registry.py` and `build_static_scene_registry.py` retain

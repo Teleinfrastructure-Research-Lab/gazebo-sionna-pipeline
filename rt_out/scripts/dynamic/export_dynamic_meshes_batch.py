@@ -123,11 +123,66 @@ def require_non_negative_int(value: Any, label: str) -> int:
     return value
 
 
-def resolve_project_path(value: str) -> Path:
-    path = Path(value).expanduser()
-    if not path.is_absolute():
-        path = PROJECT_ROOT / path
-    return path.resolve()
+def resolve_config_output_root(config_path: Path, output_dir: str) -> Path:
+    configured = Path(output_dir).expanduser()
+    if configured.is_absolute():
+        return configured.resolve()
+    config_path = config_path.expanduser().resolve()
+    owner_root = (
+        config_path.parent.parent
+        if config_path.parent.name == "config"
+        else config_path.parent
+    )
+    return (owner_root / configured).resolve()
+
+
+def resolve_run_path(run_root: Path, value: Any, label: str) -> Path:
+    text = require_non_empty_string(value, label)
+    try:
+        candidate = Path(text).expanduser()
+        if candidate.is_absolute():
+            return candidate.resolve()
+        run_root = run_root.expanduser().resolve()
+        resolved = (run_root / candidate).resolve()
+        try:
+            resolved.relative_to(run_root)
+        except ValueError as exc:
+            raise BatchDynamicMeshExportError(
+                f"{label} escapes run root: {text}"
+            ) from exc
+        return resolved
+    except BatchDynamicMeshExportError:
+        raise
+    except (OSError, RuntimeError, TypeError, ValueError) as exc:
+        raise BatchDynamicMeshExportError(f"Invalid {label}: {text!r}") from exc
+
+
+def run_relative_path(run_root: Path, path: Path, label: str) -> str:
+    run_root = run_root.expanduser().resolve()
+    resolved = path.expanduser().resolve()
+    try:
+        return resolved.relative_to(run_root).as_posix()
+    except ValueError as exc:
+        raise BatchDynamicMeshExportError(
+            f"{label} is outside the selected run root: {resolved}"
+        ) from exc
+
+
+def validate_index_path(
+    run_root: Path,
+    value: Any,
+    label: str,
+    *,
+    directory: bool = False,
+) -> Path:
+    path = resolve_run_path(run_root, value, label)
+    valid = path.is_dir() if directory else path.is_file()
+    if not valid:
+        kind = "directory" if directory else "file"
+        raise BatchDynamicMeshExportError(
+            f"{label} does not reference an existing {kind}: {path}"
+        )
+    return path
 
 
 def frame_dir_name(frame_id: int) -> str:
@@ -150,7 +205,7 @@ def load_experiment_config(path: Path) -> dict[str, Any]:
         config.get("output_dir"),
         "experiment_config.output_dir",
     )
-    output_root = resolve_project_path(output_dir)
+    output_root = resolve_config_output_root(path, output_dir)
     actors = config.get("actors")
     if actors is not None and not isinstance(actors, dict):
         raise BatchDynamicMeshExportError("experiment_config.actors must be an object when present")
@@ -258,11 +313,13 @@ def actor_options_from_experiment(experiment: dict[str, Any]) -> dict[str, Any]:
     if enabled is not True:
         raise BatchDynamicMeshExportError("--include-actors requires experiment_config.actors.enabled == true")
 
-    actor_manifest = resolve_project_path(
+    actor_manifest = resolve_run_path(
+        experiment["output_root"],
         require_non_empty_string(
             actors.get("actor_manifest"),
             "experiment_config.actors.actor_manifest",
-        )
+        ),
+        "experiment_config.actors.actor_manifest",
     )
     alignment_policy = require_non_empty_string(
         actors.get("alignment_policy"),
@@ -356,6 +413,7 @@ def validate_actor_manifest(
     manifest_path: Path,
     frame_id: int,
     source_sample_index: int,
+    run_root: Path,
 ) -> int:
     data = require_object(load_json(manifest_path), f"actor manifest {manifest_path}")
     manifest_frame_id = require_non_negative_int(data.get("frame_id"), f"{manifest_path}.frame_id")
@@ -380,13 +438,12 @@ def validate_actor_manifest(
         raise BatchDynamicMeshExportError(f"{manifest_path} exported_actors must be non-empty")
     for index, raw_actor in enumerate(exported_actors):
         actor = require_object(raw_actor, f"{manifest_path}.exported_actors[{index}]")
-        mesh_path = resolve_project_path(
-            require_non_empty_string(
-                actor.get("exported_mesh_path"),
-                f"{manifest_path}.exported_actors[{index}].exported_mesh_path",
-            )
+        mesh_path = resolve_run_path(
+            run_root,
+            actor.get("exported_mesh_path"),
+            f"{manifest_path}.exported_actors[{index}].exported_mesh_path",
         )
-        if not mesh_path.exists():
+        if not mesh_path.is_file():
             raise BatchDynamicMeshExportError(f"Actor mesh path does not exist: {mesh_path}")
     return actor_count
 
@@ -487,8 +544,12 @@ def main() -> int:
             {
                 "frame_id": frame_id,
                 "source_sample_index": source_sample_index,
-                "manifest_path": str(manifest_path),
-                "output_dir": str(manifest_path.parent),
+                "manifest_path": run_relative_path(
+                    experiment["output_root"], manifest_path, "manifest_path"
+                ),
+                "output_dir": run_relative_path(
+                    experiment["output_root"], manifest_path.parent, "output_dir"
+                ),
             }
         )
         if progress is not None:
@@ -500,10 +561,17 @@ def main() -> int:
     # Validate the index once more after the loop so later stages can trust that
     # every indexed manifest path exists on disk.
     for row in rows:
-        if not Path(row["manifest_path"]).exists():
-            raise BatchDynamicMeshExportError(
-                f"Indexed manifest_path does not exist: {row['manifest_path']}"
-            )
+        validate_index_path(
+            experiment["output_root"],
+            row.get("manifest_path"),
+            "dynamic index manifest_path",
+        )
+        validate_index_path(
+            experiment["output_root"],
+            row.get("output_dir"),
+            "dynamic index output_dir",
+            directory=True,
+        )
 
     write_index_csv(index_csv_path, rows)
 
@@ -541,13 +609,22 @@ def main() -> int:
                 manifest_path=manifest_path,
                 frame_id=frame_id,
                 source_sample_index=source_sample_index,
+                run_root=experiment["output_root"],
             )
             actor_rows.append(
                 {
                     "frame_id": frame_id,
                     "source_sample_index": source_sample_index,
-                    "actor_frame_manifest_path": str(manifest_path),
-                    "output_dir": str(manifest_path.parent),
+                    "actor_frame_manifest_path": run_relative_path(
+                        experiment["output_root"],
+                        manifest_path,
+                        "actor_frame_manifest_path",
+                    ),
+                    "output_dir": run_relative_path(
+                        experiment["output_root"],
+                        manifest_path.parent,
+                        "actor output_dir",
+                    ),
                     "actor_count": actor_count,
                     "alignment_policy": actor_options["alignment_policy"],
                     "z_alignment_policy": actor_options["z_alignment_policy"],
@@ -561,11 +638,17 @@ def main() -> int:
             actor_progress.close()
 
         for row in actor_rows:
-            if not Path(row["actor_frame_manifest_path"]).exists():
-                raise BatchDynamicMeshExportError(
-                    "Indexed actor_frame_manifest_path does not exist: "
-                    f"{row['actor_frame_manifest_path']}"
-                )
+            validate_index_path(
+                experiment["output_root"],
+                row.get("actor_frame_manifest_path"),
+                "actor index actor_frame_manifest_path",
+            )
+            validate_index_path(
+                experiment["output_root"],
+                row.get("output_dir"),
+                "actor index output_dir",
+                directory=True,
+            )
 
         write_actor_index_csv(actor_index_csv_path, actor_rows)
 

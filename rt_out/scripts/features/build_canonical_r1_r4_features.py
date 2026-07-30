@@ -17,6 +17,18 @@ class E(RuntimeError):
 def readj(p: Path):
     return json.loads(p.read_text())
 
+def resolve_output_root(config_path: Path, output_dir: str) -> Path:
+    configured = Path(output_dir).expanduser()
+    if configured.is_absolute():
+        return configured.resolve()
+    config_path = config_path.expanduser().resolve()
+    owner_root = (
+        config_path.parent.parent
+        if config_path.parent.name == 'config'
+        else config_path.parent
+    )
+    return (owner_root / configured).resolve()
+
 def atomic_csv(p: Path, fields, rows):
     p.parent.mkdir(parents=True, exist_ok=True)
     t = p.with_suffix(p.suffix + '.tmp')
@@ -67,8 +79,7 @@ def scene_features(x, classes, mats, otypes):
 def main():
     a = parse()
     cfg = readj(a.config)
-    root = Path(cfg['output_dir'])
-    root = (Path.cwd() / root).resolve() if not root.is_absolute() else root
+    root = resolve_output_root(a.config, cfg['output_dir'])
     gt = root / 'gt_scene_pointclouds'
     labels = root / 'rt_results/rt_2446frames_multi_rx_horizon10_labeled.csv'
     reg = readj(gt / 'label_registry.json')

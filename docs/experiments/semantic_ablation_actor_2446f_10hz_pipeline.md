@@ -55,10 +55,12 @@ but does not claim equality with a runtime animation phase.
 └── reports/                        validation and benchmark summaries
 ```
 
-The saved run's old `output_dir: "."` is a detail of the old script. A new
-batch run must use a repository-relative run path in
-`config/experiment_config.json`; otherwise current batch scripts can resolve
-outputs at the repository root.
+The recorded configuration keeps `output_dir: "."`. At runtime, a relative
+`output_dir` is resolved relative to the owning run: for a config below
+`<run>/config/`, `"."` resolves to `<run>`, independently of the current
+working directory. Keep the recorded value unchanged. A new run requires
+copied and resolved configuration, manifests, pose inputs, and geometry
+according to this guide and the canonical runbook.
 
 ## 5. Required configuration and environment
 
@@ -142,7 +144,9 @@ python3 rt_out/scripts/dynamic/export_dynamic_meshes_batch.py \
   --config "$RUN_ROOT/config/experiment_config.json" \
   --include-actors --blender "$BLENDER"
 python3 rt_out/scripts/composition/compose_frame_manifests_batch.py \
-  --config "$RUN_ROOT/config/experiment_config.json" --include-actors
+  --config "$RUN_ROOT/config/experiment_config.json" \
+  --static-manifest "$RUN_ROOT/geometry/static/export/merged_static_manifest.json" \
+  --include-actors
 python3 rt_out/scripts/rt/build_sionna_xml_batch.py \
   --config "$RUN_ROOT/config/experiment_config.json"
 ```
@@ -353,7 +357,7 @@ Forest, and RBF SVR are learned estimators.
 Run a clean full regression with:
 
 ```bash
-/home/telilab4090/miniconda3/envs/collabpaper/bin/python \
+python3 \
   rt_out/scripts/training/run_best_beam_power_regression_ctx.py \
   --experiment-root rt_out/experiments/semantic_ablation_actor_2446f_10hz/run_20260710_172015 \
   --full --force
@@ -362,7 +366,7 @@ Run a clean full regression with:
 Resume an interrupted regression with:
 
 ```bash
-/home/telilab4090/miniconda3/envs/collabpaper/bin/python \
+python3 \
   rt_out/scripts/training/run_best_beam_power_regression_ctx.py \
   --experiment-root rt_out/experiments/semantic_ablation_actor_2446f_10hz/run_20260710_172015 \
   --full --resume
