@@ -39,3 +39,9 @@ models/furniture/Reflective table/materials/textures/DepotEnvMap.dds
 
 /rt_out/experiments/
 
+
+# Local perception capture executable
+/rt_out/scripts/perception/capture/cpp/capture_synchronized_stable_instance_rgb_pcl_topics
+
+# Local Codex state
+.codex

@@ -4,7 +4,24 @@
 # The exact joint command sequence is part of the prototype motion dataset used
 # by the current rigid Panda/UR5 dynamic pipeline.
 
-set -e
+set -euo pipefail
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd -- "$SCRIPT_DIR/../../.." && pwd)"
+if [[ -z "${PIPELINE_RUN_DIR:-}" ]]; then
+  echo "PIPELINE_RUN_DIR must point to an experiment run before Panda motion can start." >&2
+  exit 2
+fi
+python3 - "$PROJECT_ROOT" "$PIPELINE_RUN_DIR" <<'PY'
+import sys
+from pathlib import Path
+
+project_root = Path(sys.argv[1])
+sys.path.insert(0, str(project_root / "rt_out" / "scripts"))
+from experiment_paths import resolve_experiment_root
+
+resolve_experiment_root(sys.argv[2], create=False, require_existing=True)
+PY
 
 # Helper for publishing one joint-position command to Gazebo.
 p () { gz topic -t /model/Panda/joint/$1/0/cmd_pos -m gz.msgs.Double -p "data: $2"; }

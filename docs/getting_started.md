@@ -1,140 +1,73 @@
-# Getting Started
+# Getting started
 
-This guide is the short entry point for the current Gazebo-to-Sionna RT
-project. It focuses on prerequisites and the order of the major branches. For
-script-by-script commands, use [Script Reference](script_reference.md), the
-experiment guides, and the canonical perception sections in
-[Pipeline Overview](pipeline_overview.md), [Configuration](configuration.md),
-and [Troubleshooting](troubleshooting.md).
+This page helps you choose the right guide. The executable workflow is
+[pipeline_execution_order.md](pipeline_execution_order.md).
 
 ## Prerequisites
 
-Run commands from the repository root. Keep these tools available:
+Run from the repository root with:
 
-- Python 3
-- a Sionna RT + Mitsuba-capable Python environment
-- Blender for mesh conversion and actor export
-- Gazebo Sim plus the `gz` CLI
-- `g++` or `clang++` for the perception topic-capture helper
-- an NVIDIA-capable setup if you want Gazebo rendering or GPU-backed RT
+- Python 3 with `numpy`; add `scikit-learn`, PyTorch, or XGBoost only for the
+  optional later stages that use them.
+- Gazebo Sim and the `gz` CLI for world execution and pose/topic capture.
+- Blender for mesh conversion, rigid export, actor export, and Blender
+  inspection workers.
+- A Sionna RT/Mitsuba Python environment for XML/RT stages. Set
+  `SIONNA_PYTHON`; the code also accepts the older `COLLABPAPER_PYTHON` variable.
+- A C++17 compiler and `pkg-config` entries for `gz-transport` and `gz-msgs`
+  for the perception capture helpers. OpenCV4 is optional in the build
+  helpers.
 
-Recommended shell setup:
+The repository does not contain a pinned lockfile or a complete environment
+manifest. Record the interpreter, Blender, Gazebo, Sionna, Mitsuba, compiler,
+and package versions in the run metadata when publishing a result.
+
+## Environment setup
 
 ```bash
-export SIONNA_PYTHON="$HOME/miniconda3/envs/your_env_name/bin/python"
-export COLLABPAPER_PYTHON="$SIONNA_PYTHON"
-export BLENDER=blender
+REPO_ROOT="$(pwd)"
+EXPERIMENT_NAME="<experiment_name>"
+RUN_ID="run_$(date +%Y%m%d_%H%M%S)"
+RUN_ROOT="$REPO_ROOT/rt_out/experiments/$EXPERIMENT_NAME/$RUN_ID"
+SIONNA_PYTHON="<path-to-sionna-python>"
+BLENDER="<path-to-blender>"
+
+export PIPELINE_RUN_DIR="$RUN_ROOT"
+export SIONNA_PYTHON BLENDER
 source rt_out/scripts/ops/setup_gazebo_env.sh
+mkdir -p "$RUN_ROOT"
 ```
 
+The current code requires an explicit run root for generated-output helpers;
+it rejects `rt_out` itself and the obsolete `current_experiment` convention.
+There is no generic run-initialization CLI, so configuration files must be
+copied or prepared in `"$RUN_ROOT/config"` by the user.
 
-## Typical Tooling
-
-These are current working examples rather than strict requirements:
-
-- Blender 4.5.x
-- Gazebo Sim with the `gz` CLI
-- Mitsuba variant ending in `_ad_mono_polarized`
-- a CUDA-capable environment for Sionna RT where applicable
-
-## Workflow Map
-
-1. Run or validate the static RT path.
-2. Build the rigid Panda/UR5 dynamic branch.
-3. Add the actor-aware branch if human motion is needed.
-4. Run the semantic/object-aware experiment branches.
-5. Optionally run the panoptic perception pilot.
-
-## Core Inputs
-
-The main project expects:
-
-- `myworld_rt.sdf`
-- `models/`
-- `rt_out/config/dynamic_prototype_config.json`
-- `rt_out/config/prototype_radio_sites.json`
-- `rt_out/config/rt_material_mapping.json`
-- `rt_out/materials/material_map.json`
-
-Actor-aware work also expects:
-
-- `rt_out/config/actor_dynamic_config.json`
-- actor assets under `models/`
-- Gazebo actor entries in `myworld_rt.sdf`
-
-The perception pilot additionally uses:
-
-- `rt_out/experiments/perception_rt_small_v0/configs/perception_dataset_config.json`
-- `rt_out/experiments/perception_rt_small_v0/configs/camera_rig.json`
-- `rt_out/experiments/perception_rt_small_v0/configs/semantic_label_map.json`
-
-## Minimal Branch Order
-
-Static RT foundation:
+## Shortest safe validation
 
 ```bash
-python3 rt_out/scripts/static_scene/00_extract_scene_manifests.py
-python3 rt_out/scripts/static_scene/01_validate_scene_manifests.py
-python3 rt_out/scripts/static_scene/02_build_scene_geometry_registry.py
-python3 rt_out/scripts/static_scene/03_build_static_scene_registry.py
-python3 rt_out/scripts/static_scene/20_merge_static_scene_by_material.py
-python3 rt_out/scripts/static_scene/23_build_static_sionna_xml.py
-python3 rt_out/scripts/static_scene/24_run_sionna_rt_sanity.py --xml rt_out/static_scene/export/static_scene_sionna.xml
+python3 -m compileall -q rt_out/scripts scripts
+find rt_out/scripts -type f -name '*.sh' -print0 | xargs -0 -n1 bash -n
+python3 rt_out/scripts/perception/run_perception_pipeline.py \
+  --config rt_out/experiments/perception_rt_small_v0/run_20260522_133045/config/perception_dataset_config.json \
+  --expected-cloud-count 24 --dry-run
 ```
 
-Rigid prototype:
+The last command reads the saved pilot path only if that run has been
+unpacked. It prints commands and performs no capture.
 
-```bash
-python3 rt_out/scripts/dynamic_rigid/30_build_prototype_dynamic_frames.py
-python3 rt_out/scripts/dynamic_rigid/31_build_prototype_dynamic_visual_frames.py
-python3 rt_out/scripts/dynamic_rigid/35_run_prototype_three_frame_rt_sanity.py
-python3 rt_out/scripts/dynamic_rigid/36_run_three_frame_three_rx_rt_sanity.py
-```
+## Choose a workflow
 
-Actor-aware prototype:
+- Use [pipeline_execution_order.md](pipeline_execution_order.md) for the
+  complete prepared-Gazebo-scene workflow.
+- Use [semantic_ablation_actor_2446f_10hz_pipeline.md](experiments/semantic_ablation_actor_2446f_10hz_pipeline.md)
+  for the current validated experiment.
+- Use [actor_aware_3frame_pipeline.md](experiments/actor_aware_3frame_pipeline.md) for the
+  three-frame actor test.
+- Use the 200-frame guides only to inspect the archives or older results; their
+  required scripts are not present in this repository version.
+- Use [perception_rt_small_v0_pipeline.md](experiments/perception_rt_small_v0_pipeline.md)
+  for the separate partial-coverage perception pilot.
 
-```bash
-python3 rt_out/scripts/dynamic_actor/40_extract_actor_manifest.py
-python3 rt_out/scripts/dynamic_actor/41_build_actor_frame_samples.py
-python3 rt_out/scripts/dynamic_rigid/35_run_prototype_three_frame_rt_sanity.py --include-actors
-python3 rt_out/scripts/dynamic_rigid/36_run_three_frame_three_rx_rt_sanity.py --include-actors
-```
-
-## Experiment Branches
-
-- `semantic_ablation_rigid_200f`: rigid 200-frame experiment
-- `semantic_ablation_actor_200f`: actor-aware 200-frame experiment
-- `perception_rt_small_v0`: optional Gazebo-native panoptic perception pilot
-
-Use the dedicated experiment docs for long-form command sequences instead of
-expanding everything in this page.
-
-## Perception Pilot Pointer
-
-For the finalized perception pilot, use these `docs/` pages together:
-
-- [Pipeline Overview](pipeline_overview.md) for branch context and current
-  pilot status
-- [Script Reference](script_reference.md) for the active renamed perception
-  scripts, utilities, and helpers
-- [Configuration](configuration.md) for camera/world/config contracts
-- [Troubleshooting](troubleshooting.md) for capture/validation pitfalls
-
-## Basic Validation Checks
-
-Useful quick checks:
-
-```bash
-python3 rt_out/scripts/static_scene/01_validate_scene_manifests.py
-find rt_out/scripts -name '*.py' -print0 | xargs -0 python3 -m py_compile
-bash -n rt_out/scripts/ops/setup_gazebo_env.sh
-bash -n rt_out/scripts/ops/run_gazebo_gpu.sh
-```
-
-If Gazebo rendering is involved, it is worth watching:
-
-```bash
-watch -n 1 nvidia-smi
-```
-
-For branch-specific failures, use [Troubleshooting](troubleshooting.md).
+The complete command and argument lists are in
+[script_reference.md](script_reference.md).

@@ -4,7 +4,24 @@
 # The resulting pose log is paired with the Panda log to define the current
 # rigid dynamic scope used by the Gazebo-to-Sionna prototype pipeline.
 
-set -e
+set -euo pipefail
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd -- "$SCRIPT_DIR/../../.." && pwd)"
+if [[ -z "${PIPELINE_RUN_DIR:-}" ]]; then
+  echo "PIPELINE_RUN_DIR must point to an experiment run before UR5 motion can start." >&2
+  exit 2
+fi
+python3 - "$PROJECT_ROOT" "$PIPELINE_RUN_DIR" <<'PY'
+import sys
+from pathlib import Path
+
+project_root = Path(sys.argv[1])
+sys.path.insert(0, str(project_root / "rt_out" / "scripts"))
+from experiment_paths import resolve_experiment_root
+
+resolve_experiment_root(sys.argv[2], create=False, require_existing=True)
+PY
 
 # Helper for publishing one joint-position command to Gazebo.
 u () { gz topic -t /model/ur5_rg2/joint/$1/0/cmd_pos -m gz.msgs.Double -p "data: $2"; }

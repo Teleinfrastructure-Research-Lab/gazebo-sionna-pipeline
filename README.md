@@ -1,104 +1,67 @@
-# Gazebo-To-Sionna RT Pipeline
+# Gazebo–Sionna RT pipeline
 
-This repository builds a Gazebo-to-Sionna RT pipeline for generating object-aware wireless datasets from 3D simulation scenes. It connects Gazebo scene geometry, rigid and actor-aware dynamics, and perception-side artifacts to Sionna RT ray-tracing outputs, RT-derived wireless labels, semantic/object-aware descriptors, and pilot perception products that can support downstream wireless learning and control workflows.
+This repository contains a Gazebo scene-to-Sionna RT workflow, rigid and
+actor-aware frame processing, labeled ground-truth scene point clouds, wireless
+labels, feature builders, optional classical ML experiments, and a separate
+Gazebo-native perception pilot.
 
-## What the project does
-
-The project turns Gazebo scene structure, dynamics, and selected perception outputs into Sionna RT wireless data, then derives labels and features that support object-aware wireless prediction, analysis, and control experiments.
-
-## Main capabilities
-
-- Static Gazebo/SDF scene export and Sionna RT validation
-- Rigid Panda/UR5 dynamic frame export and multi-frame RT evaluation
-- Actor-aware export for a moving human branch layered onto the rigid scene
-- Semantic/object-aware feature generation
-- Raw occupancy baseline generation
-- RT-derived wireless labels
-- Panoptic perception pilot on top of the actor-aware RT branch
-- RGB-D, synchronized RGB/PCL, and final labeled colorized point-cloud products where currently implemented
-
-## Current Validated Branches And Status
-
-- Static scene branch
-- Rigid Panda/UR5 branch
-- Actor-aware branch
-- `semantic_ablation_rigid_200f`
-- `semantic_ablation_actor_200f`
-- `perception_rt_small_v0` as a pilot extension, not a replacement for the validated RT baselines
-
-## Current Results Snapshot
-
-- Adaptation trigger F1: compact object-aware `0.411` vs raw occupancy `0.272`
-- Path change F1: compact object-aware `0.582` vs raw occupancy `0.527`
-- Actor-aware compact path-change F1 vs rigid compact baseline: `0.582` vs `0.509`
-
-## Perception / Panoptic Pilot Status
-
-- Experiment: `rt_out/experiments/perception_rt_small_v0`
-- Selected frames: `20`
-- Fixed cameras: `8`
-- Expected perception samples: `160`
-- Final useful output: synchronized, labeled, colorized point clouds with fields `x y z red green blue class_label instance_id`
-
-The perception branch is a pilot extension layered on top of the actor-aware RT outputs. It extends the validated RT workflow with Gazebo-native panoptic capture and synchronized labeled point-cloud products, but it does not replace the validated RT baselines.
-
-## Repository Structure
+Run commands from the repository root. Generated data belongs below a unique
+run directory:
 
 ```text
-docs/                    Canonical project documentation
-models/                  Gazebo models, robots, actors, and scene assets
-plugins/                 Gazebo plugin sources/build artifacts
-rt_out/scripts/          Static, dynamic, experiment, ops, validation, and perception scripts
-rt_out/experiments/      Experiment outputs, validation artifacts, and pilot branches
-myworld.sdf              Main Gazebo world
-myworld_rt.sdf           RT-oriented Gazebo world input
-run_myworld.sh           Gazebo launch helper
-run_myworld_rt.sh        RT-world launch helper
+rt_out/experiments/<experiment_name>/<run_id>/
 ```
 
-## Environment Setup
+The repository source tree contains the scripts, configuration templates,
+Gazebo models, and documentation. Large meshes, XML batches, point clouds, RT
+tables, features, models, and predictions are generated outputs. They are not
+source-code inputs unless a guide explicitly names them.
 
-Run commands from the repository root with a manually prepared environment. At minimum, keep Python 3, a Sionna RT + Mitsuba-capable Python environment, Blender, Gazebo Sim with the `gz` CLI, and a C++ compiler such as `g++` or `clang++` available. If you plan to run Gazebo rendering or GPU-backed RT, use an NVIDIA-capable setup.
+## Documentation guides
 
-Typical shell setup:
+- [Complete execution sequence](docs/pipeline_execution_order.md): one
+  end-to-end workflow from a prepared Gazebo scene to PCL and RT products.
+- [Getting started](docs/getting_started.md): prerequisites and navigation.
+- [Pipeline overview](docs/pipeline_overview.md): architecture and workflow
+  relationships only.
+- [Configuration reference](docs/configuration.md): owners, fields, and rerun
+  consequences.
+- [Script reference](docs/script_reference.md): every file under
+  `rt_out/scripts/` and `scripts/`, including arguments and roles.
+- [Troubleshooting](docs/troubleshooting.md): safe checks and recovery.
+
+Standalone experiment guides:
+
+- [Current 2,446-frame actor-aware experiment](docs/experiments/semantic_ablation_actor_2446f_10hz_pipeline.md)
+- [Three-frame actor prototype](docs/experiments/actor_aware_3frame_pipeline.md)
+- [Previous rigid 200-frame experiment](docs/experiments/semantic_ablation_200f_pipeline.md)
+- [Previous actor-aware 200-frame experiment](docs/experiments/semantic_ablation_actor_200f_pipeline.md)
+- [Perception pilot](docs/experiments/perception_rt_small_v0_pipeline.md)
+
+Recorded results are kept separate from execution instructions:
+
+- [Actor versus rigid ablation results](docs/experiments/actor_vs_rigid_ablation_comparison.md)
+
+## Minimal environment check
 
 ```bash
-export SIONNA_PYTHON="$HOME/miniconda3/envs/your_env_name/bin/python"
-export COLLABPAPER_PYTHON="$SIONNA_PYTHON"
-export BLENDER=blender
-source rt_out/scripts/ops/setup_gazebo_env.sh
+python3 --version
+python3 -m compileall -q rt_out/scripts scripts
+find rt_out/scripts -type f -name '*.sh' -print0 | xargs -0 -n1 bash -n
 ```
 
-## Quick Start
+Gazebo, Blender, and Sionna RT are required only for the stages that use
+them. Do not run the full RT or generation workflow as an installation test;
+use the dry-run and validation commands in the complete execution guide first.
 
-Start with the canonical docs rather than treating this page as the full runbook:
+## Important implementation limitation
 
-- [Getting Started](docs/getting_started.md)
-- [Pipeline Overview](docs/pipeline_overview.md)
-
-Useful validated entry commands from the current docs include:
-
-```bash
-python3 rt_out/scripts/static_scene/00_extract_scene_manifests.py
-python3 rt_out/scripts/static_scene/01_validate_scene_manifests.py
-python3 rt_out/scripts/static_scene/23_build_static_sionna_xml.py
-python3 rt_out/scripts/static_scene/24_run_sionna_rt_sanity.py --xml rt_out/static_scene/export/static_scene_sionna.xml
-```
-
-For rigid, actor-aware, experiment, and perception branches, follow the branch-specific documentation below.
-
-## Documentation
-
-- [Getting Started](docs/getting_started.md)
-- [Pipeline Overview](docs/pipeline_overview.md)
-- [Configuration](docs/configuration.md)
-- [Script Reference](docs/script_reference.md)
-- [Developer Guide](docs/developer_guide.md)
-- [Actor-Aware 3-Frame Pipeline](docs/actor_aware_3frame_pipeline.md)
-- [Semantic Ablation 200f Pipeline](docs/semantic_ablation_200f_pipeline.md)
-- [Actor-Aware Semantic Ablation 200f Pipeline](docs/semantic_ablation_actor_200f_pipeline.md)
-- [Actor vs Rigid Ablation Comparison](docs/actor_vs_rigid_ablation_comparison.md)
-- [Troubleshooting](docs/troubleshooting.md)
+The static registry scripts still use old default paths and do not provide
+options for selecting every input and output directory. The complete execution
+guide explains this limitation and uses explicit paths wherever the scripts
+support them. The 2,446-frame experiment is the current saved run. The older
+200-frame results remain in archives and cannot be rerun directly with the
+current scripts.
 
 ## Citation / Academic Use
 
@@ -106,4 +69,4 @@ If you use this repository, please cite the associated paper once available.
 
 ## License
 
-This repository is lincensed under the MIT license conditions.
+This repository is licensed under the MIT License.

@@ -19,11 +19,11 @@ DYNAMIC_ACTOR_SCRIPTS = SCRIPTS_ROOT / "dynamic_actor"
 EXPERIMENT_SCRIPTS = SCRIPTS_ROOT / "experiments"
 VALIDATION_SCRIPTS = SCRIPTS_ROOT / "validation"
 
-SCRIPT_24_RUN_SIONNA_RT_SANITY = STATIC_SCENE_SCRIPTS / "24_run_sionna_rt_sanity.py"
-SCRIPT_32_EXPORT_DYNAMIC_FRAME_MESHES = DYNAMIC_RIGID_SCRIPTS / "32_export_dynamic_frame_meshes.py"
-SCRIPT_33_COMPOSE_FRAME_SCENE = DYNAMIC_RIGID_SCRIPTS / "33_compose_prototype_frame_scene.py"
-SCRIPT_34_BUILD_FRAME_SIONNA_XML = DYNAMIC_RIGID_SCRIPTS / "34_build_prototype_frame_sionna_xml.py"
-SCRIPT_42_EXPORT_ACTOR_FRAME_MESHES = DYNAMIC_ACTOR_SCRIPTS / "42_export_actor_frame_meshes.py"
+SCRIPT_RUN_SIONNA_RT_SANITY = STATIC_SCENE_SCRIPTS / "run_sionna_rt_sanity.py"
+SCRIPT_EXPORT_DYNAMIC_FRAME_MESHES = DYNAMIC_RIGID_SCRIPTS / "export_dynamic_frame_meshes.py"
+SCRIPT_COMPOSE_FRAME_SCENE = DYNAMIC_RIGID_SCRIPTS / "compose_frame_scene.py"
+SCRIPT_BUILD_FRAME_SIONNA_XML = DYNAMIC_RIGID_SCRIPTS / "build_frame_sionna_xml.py"
+SCRIPT_EXPORT_ACTOR_FRAME_MESHES = DYNAMIC_ACTOR_SCRIPTS / "export_actor_frame_meshes.py"
 SCRIPT_ACTOR_BLENDER_EXPORT_FRAME_MESHES = (
     DYNAMIC_ACTOR_SCRIPTS / "actor_blender_export_frame_meshes.py"
 )
@@ -211,4 +211,3 @@ def runtime_env() -> dict[str, str]:
     env["MPLCONFIGDIR"] = str(MPLCONFIGDIR_DEFAULT)
     env["DRJIT_CACHE_DIR"] = str(DRJIT_CACHE_DIR_DEFAULT)
     return env
-
