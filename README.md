@@ -38,10 +38,6 @@ Standalone experiment guides:
 - [200-frame actor-aware semantic-ablation experiment](docs/experiments/semantic_ablation_actor_200f_pipeline.md)
 - [Perception pilot](docs/experiments/perception_rt_small_v0_pipeline.md)
 
-Recorded results are kept separate from execution instructions:
-
-- [Actor versus rigid ablation results](docs/experiments/actor_vs_rigid_ablation_comparison.md)
-
 ## Minimal environment check
 
 ```bash
@@ -53,21 +49,6 @@ find rt_out/scripts -type f -name '*.sh' -print0 | xargs -0 -n1 bash -n
 Gazebo, Blender, and Sionna RT are required only for the stages that use
 them. Do not run the full RT or generation workflow as an installation test;
 use the dry-run and validation commands in the complete execution guide first.
-
-## Static registry interfaces
-
-The static registry builders accept explicit input and output paths. Use
-`build_scene_geometry_registry.py` with `--static-manifest`,
-`--dynamic-manifest`, `--models-root`, and `--output`. Use
-`build_static_scene_registry.py` with `--geometry-registry`, `--material-map`,
-`--output`, `--project-root`, and `--converted-mesh-root`. The 2,446-frame and
-200-frame results remain in archives; their guides document the available
-processing stages and the input, path, and configuration adaptation required
-before a clean rerun.
-
-## Citation / Academic Use
-
-If you use this repository, please cite the associated paper once available.
 
 ## License
 
