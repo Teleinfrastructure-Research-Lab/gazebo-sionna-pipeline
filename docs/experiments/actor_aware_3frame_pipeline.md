@@ -159,11 +159,7 @@ The extracted reference contains three dynamic manifests, three actor manifests,
 - Sionna import failure: run `"$SIONNA_PYTHON" -c 'import sionna.rt, mitsuba'`.
 - Missing actor input: omit `--include-actors` or provide both actor files.
 
-## 15. Genuine limitations
-
-The harness plumbing does not recreate absent pose logs, model assets, or static exports. The omitted-argument Factory fallback is a compatibility behavior; explicit `--experiment-root` is the run-local interface documented here.
-
-## 16. Related documentation
+## 15. Related documentation
 
 - [Rigid 200-frame runbook](semantic_ablation_200f_pipeline.md)
 - [Actor-aware 200-frame runbook](semantic_ablation_actor_200f_pipeline.md)

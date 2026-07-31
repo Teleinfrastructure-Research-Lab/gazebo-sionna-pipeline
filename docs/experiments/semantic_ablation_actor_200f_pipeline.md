@@ -153,11 +153,7 @@ The extracted run contains 200 XML files, actor mesh manifests/indexes, labeled 
 - Composition fails: validate dynamic and actor index paths below `RUN_ROOT`.
 - Upstream frame stage fails: the required source pose logs are not in the archive.
 
-## 15. Genuine limitations
-
-The unavailable rigid pose logs prevent a clean upstream regeneration from archive contents. The actor sampling stage is present exactly once above and is not duplicated.
-
-## 16. Related documentation
+## 15. Related documentation
 
 - [Rigid 200-frame runbook](semantic_ablation_200f_pipeline.md)
 - [Recorded comparison](actor_vs_rigid_ablation_comparison.md)

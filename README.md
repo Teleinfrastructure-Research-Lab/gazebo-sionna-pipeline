@@ -14,8 +14,7 @@ rt_out/experiments/<experiment_name>/<run_id>/
 
 The repository source tree contains the scripts, configuration templates,
 Gazebo models, and documentation. Large meshes, XML batches, point clouds, RT
-tables, features, models, and predictions are generated outputs. They are not
-source-code inputs unless a guide explicitly names them.
+tables, features, models, and predictions are generated outputs.
 
 ## Documentation guides
 
@@ -38,6 +37,10 @@ Standalone experiment guides:
 - [200-frame actor-aware semantic-ablation experiment](docs/experiments/semantic_ablation_actor_200f_pipeline.md)
 - [Perception pilot](docs/experiments/perception_rt_small_v0_pipeline.md)
 
+Recorded results are kept separate from execution instructions:
+
+- [Actor versus rigid ablation results](docs/experiments/actor_vs_rigid_ablation_comparison.md)
+
 ## Minimal environment check
 
 ```bash
@@ -46,9 +49,11 @@ python3 -m compileall -q rt_out/scripts scripts
 find rt_out/scripts -type f -name '*.sh' -print0 | xargs -0 -n1 bash -n
 ```
 
-Gazebo, Blender, and Sionna RT are required only for the stages that use
-them. Do not run the full RT or generation workflow as an installation test;
-use the dry-run and validation commands in the complete execution guide first.
+Gazebo, Blender, and Sionna RT are required.
+
+## Citation / Academic Use
+
+If you use this repository, please cite the associated paper once available.
 
 ## License
 

@@ -125,11 +125,7 @@ The recorded tree contains 2,446 GT PLYs, 2,446 XML files, 14,676 raw RT rows (2
 - GT validation failure: inspect `gt_scene_pointclouds/` and its index/registry files.
 - Feature failure: validate `rt_results/` and GT input counts before writing features.
 
-## 15. Genuine limitations
-
-The recorded GT PLY batch exists, but there is no generic complete 2,446-frame GT producer. The fixed 100-frame benchmark is a separate workload and is not a full-run producer.
-
-## 16. Related documentation
+## 15. Related documentation
 
 - [Three-frame RT runbook](actor_aware_3frame_pipeline.md)
 - [Actor-aware 200-frame runbook](semantic_ablation_actor_200f_pipeline.md)

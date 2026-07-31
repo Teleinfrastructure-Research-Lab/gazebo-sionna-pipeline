@@ -125,8 +125,6 @@ python3 rt_out/scripts/experiments/run_semantic_ablation.py \
 
 Output: a result CSV below `"$RUN_ROOT/results"`. Stop on missing label, feature, or staged composed-manifest input.
 
-6. **Upstream regeneration.** Stop at frame sampling: the original pose logs are unavailable in the extracted archive.
-
 ## 12. Restart and overwrite behavior
 
 Feature builders expose no overwrite option. Use a fresh `RUN_ROOT`; do not write `REFERENCE_RUN_ROOT`. Label and evaluation outputs are written below the config-owned run root.
@@ -135,17 +133,7 @@ Feature builders expose no overwrite option. Use a fresh `RUN_ROOT`; do not writ
 
 The extracted tree contains 200 Sionna XML files, `rt_200frames_multi_rx.csv`, labeled RT rows, object/raw feature CSVs, and result CSVs.
 
-## 14. Troubleshooting
-
-- Missing composed manifest: inspect `frames/composed_manifests/composed_manifest_index.csv`.
-- Index path failure: modern `frames/...` values are resolved from `RUN_ROOT`, not cwd.
-- Missing pose logs: upstream sampling cannot be regenerated from this archive.
-
-## 15. Genuine limitations
-
-The archive does not contain original rigid pose logs or all source-scene inputs. The documented downstream commands do not restore those inputs.
-
-## 16. Related documentation
+## 14. Related documentation
 
 - [Actor-aware 200-frame runbook](semantic_ablation_actor_200f_pipeline.md)
 - [Recorded comparison](actor_vs_rigid_ablation_comparison.md)
