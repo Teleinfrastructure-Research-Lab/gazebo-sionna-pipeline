@@ -1,103 +1,163 @@
-# Actor-aware semantic-ablation 200-frame experiment
-
-> **Previous experiment.** The saved branch is inside
-> `rt_out/experiments/semantic_ablation_200f/run_20260522_143156/semantic_ablation.zip`.
-> The old experiment scripts are not present in the current repository version.
-> This document describes the saved experiment; it cannot be rerun from start
-> to finish with the current files.
+# Actor-aware 200-frame semantic-ablation runbook
 
 ## 1. Experiment purpose
 
-Measure the effect of one moving human actor on RT-derived path-change and
-adaptation labels and compare object-aware features with raw occupancy.
+This workflow adds actor sampling and actor mesh export to the 200-frame rigid-scene chain before composition, RT, labels, features, and evaluation.
 
-## 2. Status
+## 2. Execution modes
 
-`Previous experiment`, recorded at 200 frames with actor-aware composition.
+- Inspect recorded actor-aware outputs.
+- Rebuild RT labels, feature tables, and semantic-ablation evaluation from staged recorded RT and composed artifacts.
+- Run actor-aware upstream stages only when the archived pose inputs and the remaining scene inputs, actor manifest, and actor assets are available.
 
-## 3. Differences from the main pipeline
+## 3. Required source inputs
 
-The branch adds one actor mesh per selected frame, uses approximate offline
-actor sampling, and reports the saved 200-frame ablations. The current
-supported actor-aware implementation is the 2,446-frame guide.
+| Source input | Location | Consuming script | Validation |
+|---|---|---|---|
+| Recorded actor run | `rt_out/experiments/semantic_ablation_200f/run_20260522_143156/semantic_ablation/semantic_ablation_actor_200f/` | recorded inspection and staged downstream inputs | `test -d` |
+| Writable configuration | `<RUN_ROOT>/config/experiment_config.json` | feature builders | JSON parse |
+| Staged composed manifests and RT CSV | `<RUN_ROOT>/frames/composed_manifests/`, `<RUN_ROOT>/rt_results/` | label and feature builders | file and CSV checks |
+| Canonical rigid pose logs | `<REFERENCE_RUN_ROOT>/inputs/poses/` | sampler and rigid pose frames | file and SHA-256 checks |
 
-## 4. Archive layout
+`semantic_ablation.zip` includes the two canonical rigid pose logs under this run's `inputs/poses/` directory. The actor manifest/assets, scene manifests, and source geometry remain separate required inputs for upstream regeneration.
 
-```text
-semantic_ablation_actor_200f/
-├── configs/experiment_config.json
-├── frames/sampled_frames.json
-├── frames/actor_frame_samples.json
-├── frames/actor_meshes/
-├── rt_results/
-├── features/
-└── results/
-```
+## 4. Generated artifact chain
 
-The recorded actor policy was `bounds_center_xy_to_root`,
-`bounds_min_z_to_floor`, `floor_z=0.1`, with `runtime_phase_claim=false`.
+`sampled frames -> rigid pose frames -> actor frame samples -> rigid and actor mesh export -> composition -> XML -> RT -> labels -> features -> evaluation`.
 
-## 5. Required configuration/environment
+| Generated artifact | Producing command | Output path | Consumed by |
+|---|---|---|---|
+| Actor frame samples | `build_experiment_actor_frame_samples.py --config` | `frames/actor_frame_samples.json` | actor export |
+| Dynamic/actor mesh indexes | `export_dynamic_meshes_batch.py --include-actors` | `frames/dynamic_meshes/`, `frames/actor_meshes/` | composition |
+| Composed/XML indexes | composition/XML batch scripts | `frames/composed_manifests/`, `sionna_xml/` | RT |
+| Labeled RT rows, feature tables, and evaluation CSV | label, feature, and evaluation scripts | `<RUN_ROOT>/rt_results/`, `<RUN_ROOT>/features/`, `<RUN_ROOT>/results/` | inspection |
 
-The embedded config, static baseline, actor assets, Blender, Sionna RT/Mitsuba,
-and the missing old scripts are all required to rerun it. The current source
-tree supplies functional actor helpers but not the old 200-frame experiment
-orchestrator.
-
-## 6. Recorded end-to-end order
-
-```text
-sample rigid frames
-→ build rigid pose and visual records
-→ build experiment actor samples
-→ export rigid + actor meshes
-→ compose actor-aware manifests
-→ build frame XML
-→ run six-RX RT
-→ build labels
-→ build object/raw features
-→ run ablations
-```
-
-Use [actor_aware_3frame_pipeline.md](actor_aware_3frame_pipeline.md) for the
-current actor helper inputs and outputs. Do not substitute old numeric names
-for the current script paths.
-
-## 7. Smoke/debug/full status
-
-The current repository version cannot provide a verified 200-frame smoke or
-full command sequence. Safe archive inspection is:
+## 5. Environment prerequisites
 
 ```bash
-unzip -l rt_out/experiments/semantic_ablation_200f/run_20260522_143156/semantic_ablation.zip \
-  | grep 'semantic_ablation_actor_200f/' | head
+REPO_ROOT="$(git rev-parse --show-toplevel)"; cd "$REPO_ROOT"
+python3 --version; test -d models
+python3 rt_out/scripts/dynamic_actor/build_experiment_actor_frame_samples.py --help
+python3 rt_out/scripts/dynamic/export_dynamic_meshes_batch.py --help
+python3 rt_out/scripts/composition/compose_frame_manifests_batch.py --help
+python3 rt_out/scripts/rt/build_sionna_xml_batch.py --help
+python3 rt_out/scripts/rt/run_rt_multi_rx_batch.py --help
 ```
 
-Do not launch RT, Blender, or training against the archive as a documentation
-check.
+Blender is required for mesh export; Sionna RT/Mitsuba is required for RT. Check them before a heavy stage with `command -v blender` and `${SIONNA_PYTHON:-python3} -c 'import sionna.rt, mitsuba'`.
 
-## 8. Restart/resume status
+## 6. Run variables, 7. create the run root, and 8. configuration
 
-Keep the saved outputs unchanged. The current restart-safe script is hard-coded
-for the 2,446-frame reference layout and does not establish that this archive
-works with the current files.
+```bash
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+REFERENCE_RUN_ROOT="$REPO_ROOT/rt_out/experiments/semantic_ablation_200f/run_20260522_143156/semantic_ablation/semantic_ablation_actor_200f"
+RUN_ROOT="$REPO_ROOT/rt_out/experiments/semantic_ablation_actor_200f/run_example"
+SOURCE_CONFIG="$REFERENCE_RUN_ROOT/configs/experiment_config.json"
+CONFIG="$RUN_ROOT/config/experiment_config.json"
+mkdir -p "$RUN_ROOT/config" "$RUN_ROOT/frames" "$RUN_ROOT/rt_results"
+cp "$SOURCE_CONFIG" "$CONFIG"
+python3 - "$CONFIG" <<'PY'
+import json
+import sys
+from pathlib import Path
 
-## 9. Recorded counts and outputs
+path = Path(sys.argv[1])
+payload = json.loads(path.read_text(encoding="utf-8"))
+payload["output_dir"] = "."
+path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+PY
+python3 -m json.tool "$CONFIG" >/dev/null
+python3 - "$CONFIG" "$RUN_ROOT" <<'PY'
+import json
+import sys
+from pathlib import Path
+from rt_out.scripts.experiment_paths import resolve_config_output_root
 
-- 200 rigid frame records;
-- 200 actor mesh exports and actor-composed manifests;
-- 1,200 RT rows;
-- 1,194 horizon-label rows;
-- recorded object/raw feature rows and ablation results.
+config = Path(sys.argv[1])
+expected = Path(sys.argv[2]).resolve()
+assert resolve_config_output_root(config, json.loads(config.read_text())["output_dir"]) == expected
+PY
+cp -a "$REFERENCE_RUN_ROOT/frames/composed_manifests" "$RUN_ROOT/frames/"
+cp "$REFERENCE_RUN_ROOT/rt_results/rt_200frames_multi_rx.csv" "$RUN_ROOT/rt_results/"
+```
 
-## 10. Known limitations
+`REFERENCE_RUN_ROOT` remains read-only. A copied configuration alone is insufficient for an upstream actor-aware run: copy the archived pose inputs as well, and supply the remaining manifests, source geometry, actor manifest, and actor assets.
 
-Actor placement is an RT-oriented approximation, not runtime animation-phase
-reproduction. The saved branch has no current source-tracking format and must
-not be presented as a newly reproducible archive.
+## 9. Preflight
 
-## 11. Links
+```bash
+set -euo pipefail
+test -f "$CONFIG"
+test -f "$RUN_ROOT/frames/composed_manifests/composed_manifest_index.csv"
+test -f "$RUN_ROOT/rt_results/rt_200frames_multi_rx.csv"
+python3 -m json.tool "$CONFIG" >/dev/null
+```
 
-- [Complete pipeline sequence](../pipeline_execution_order.md)
-- [Current 2,446-frame guide](semantic_ablation_actor_2446f_10hz_pipeline.md)
-- [Script reference](../script_reference.md)
+## 10. Smoke workflow
+
+```bash
+python3 rt_out/scripts/rt/build_rt_labels.py --config "$CONFIG"
+```
+
+This writes `rt_results/rt_200frames_multi_rx_labeled.csv` below the writable `RUN_ROOT` from the staged recorded RT CSV.
+
+## 11. Complete workflow
+
+The full actor-aware dependency order is:
+
+`sampled frames -> rigid pose frames -> actor frame samples -> rigid mesh export -> actor mesh export -> composition -> XML -> RT -> labels -> features -> evaluation`.
+
+The extracted archive supports the writable downstream chain: `recorded RT -> RT labels -> object features -> raw occupancy features -> semantic-ablation evaluation`. It now includes canonical rigid pose inputs, but upstream frame and geometry regeneration still requires the remaining dynamic/static manifests, source geometry, actor manifest, and actor assets. For a complete source set, use a defined and validated dynamic manifest:
+
+```bash
+DYNAMIC_MANIFEST="$RUN_ROOT/manifests/dynamic_manifest.json"
+test -f "$DYNAMIC_MANIFEST"
+python3 rt_out/scripts/dynamic_rigid/sample_experiment_frames.py --config "$CONFIG" --dynamic-manifest "$DYNAMIC_MANIFEST"
+python3 rt_out/scripts/dynamic_rigid/build_dynamic_pose_frames.py --experiment-root "$RUN_ROOT"
+python3 rt_out/scripts/dynamic_rigid/resolve_dynamic_visual_frames.py --experiment-root "$RUN_ROOT" --models-root "$REPO_ROOT/models"
+python3 rt_out/scripts/dynamic_actor/build_experiment_actor_frame_samples.py --config "$CONFIG"
+python3 rt_out/scripts/dynamic/export_dynamic_meshes_batch.py --config "$CONFIG" --include-actors --blender "${BLENDER:-blender}"
+python3 rt_out/scripts/composition/compose_frame_manifests_batch.py --config "$CONFIG" --include-actors
+python3 rt_out/scripts/rt/build_sionna_xml_batch.py --config "$CONFIG"
+python3 rt_out/scripts/rt/run_rt_multi_rx_batch.py --config "$CONFIG" --sionna-python "${SIONNA_PYTHON:-python3}"
+python3 rt_out/scripts/rt/build_rt_labels.py --config "$CONFIG"
+python3 rt_out/scripts/features/build_object_features.py --config "$CONFIG"
+python3 rt_out/scripts/features/build_raw_occupancy_features.py --config "$CONFIG"
+```
+
+Validate each generated index/CSV with `test -f` before starting the next command. With the available archive, stop before the sampler; do not treat the defined `DYNAMIC_MANIFEST` example as an available public input.
+
+For the supported writable downstream path, run:
+
+```bash
+python3 rt_out/scripts/rt/build_rt_labels.py --config "$CONFIG"
+python3 rt_out/scripts/features/build_object_features.py --config "$CONFIG"
+python3 rt_out/scripts/features/build_raw_occupancy_features.py --config "$CONFIG"
+python3 rt_out/scripts/experiments/run_semantic_ablation.py \
+  --config "$CONFIG" --target y_path_change --feature-mode raw --models logistic
+```
+
+Each command resolves `output_dir: "."` from `"$RUN_ROOT/config/experiment_config.json"`, so its generated labels, features, and evaluation CSV stay below `RUN_ROOT`.
+
+## 12. Restart and overwrite behavior
+
+Batch mesh/XML/RT stages are heavy and may write run-local indexes. Use a fresh `RUN_ROOT` for regeneration. Normal 200-frame label generation writes the labeled CSV and summary CSV. `build_rt_labels.py --validate-only` is supported only for the canonical 2,446-frame one-second mode: `--horizon-frames 10 --one-second-split --validate-only`. Feature builders have no dry-run option.
+
+## 13. Output inventory
+
+The extracted run contains 200 XML files, actor mesh manifests/indexes, labeled RT rows, object/raw feature CSVs, timeline artifacts, and evaluation results.
+
+## 14. Troubleshooting
+
+- Actor export fails: validate `frames/actor_frame_samples.json` and actor configuration fields.
+- Composition fails: validate dynamic and actor index paths below `RUN_ROOT`.
+- Upstream frame stage fails: the required source pose logs are not in the archive.
+
+## 15. Genuine limitations
+
+The unavailable rigid pose logs prevent a clean upstream regeneration from archive contents. The actor sampling stage is present exactly once above and is not duplicated.
+
+## 16. Related documentation
+
+- [Rigid 200-frame runbook](semantic_ablation_200f_pipeline.md)
+- [Recorded comparison](actor_vs_rigid_ablation_comparison.md)

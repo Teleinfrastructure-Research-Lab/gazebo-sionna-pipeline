@@ -59,18 +59,32 @@ def _require_non_negative_int(value: Any, label: str) -> int:
     return value
 
 
-def _resolve_project_path(value: str, project_root: Path) -> Path:
-    """Resolve repo-relative paths so downstream scripts can open them directly."""
-    path = Path(value).expanduser()
-    if not path.is_absolute():
-        path = project_root / path
-    return path.resolve()
+def resolve_config_owned_pose_log_path(value: str, config_path: Path) -> Path:
+    """Resolve a pose-log path from the directory that owns its configuration."""
+    raw_path = Path(_require_non_empty_string(value, "pose_log")).expanduser()
+    if raw_path.is_absolute():
+        return raw_path.resolve()
+    if ".." in raw_path.parts:
+        raise DynamicPrototypeConfigError("pose_log must not contain '..' traversal")
+
+    resolved_config = config_path.expanduser().resolve()
+    owner = (
+        resolved_config.parent.parent
+        if resolved_config.parent.name == "config"
+        else resolved_config.parent
+    )
+    resolved = (owner / raw_path).resolve()
+    try:
+        resolved.relative_to(owner)
+    except ValueError as exc:
+        raise DynamicPrototypeConfigError(
+            f"pose_log escapes the configuration owner: {value}"
+        ) from exc
+    return resolved
 
 
 def load_dynamic_prototype_config(
     config_path: Path | None = None,
-    *,
-    project_root: Path = PROJECT_ROOT,
 ) -> dict[str, Any]:
     """Load the validated rigid Panda/UR5 prototype configuration.
 
@@ -149,7 +163,7 @@ def load_dynamic_prototype_config(
         expected_renderable_count = expected_link_count - len(non_renderable_links)
         models[model_name] = {
             "pose_log": pose_log,
-            "pose_log_path": _resolve_project_path(pose_log, project_root),
+            "pose_log_path": resolve_config_owned_pose_log_path(pose_log, path),
             "expected_link_count": expected_link_count,
             "expected_renderable_link_count": expected_renderable_count,
             "expected_renderable_visual_count": expected_renderable_count,

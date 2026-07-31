@@ -16,7 +16,11 @@ import statistics
 import sys
 from pathlib import Path
 from typing import Any
-PROJECT_ROOT = Path(__file__).resolve().parents[3]
+SCRIPT_ROOT = Path(__file__).resolve().parents[1]
+if str(SCRIPT_ROOT) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_ROOT))
+
+from experiment_paths import ExperimentPathError, resolve_config_output_root
 
 class RtLabelBuildError(RuntimeError):
     pass
@@ -71,18 +75,15 @@ def rt_batch_csv_name(num_frames: int) -> str:
 def rt_labeled_csv_name(num_frames: int) -> str:
     return f'rt_{num_frames}frames_multi_rx_labeled.csv'
 
-def resolve_project_path(value: str) -> Path:
-    path = Path(value).expanduser()
-    if not path.is_absolute():
-        path = PROJECT_ROOT / path
-    return path.resolve()
-
 def load_experiment_config(path: Path) -> dict[str, Any]:
     config = require_object(load_json(path), 'experiment_config.json')
     experiment_name = require_non_empty_string(config.get('experiment_name'), 'experiment_config.experiment_name')
     num_frames = require_positive_int(config.get('num_frames'), 'experiment_config.num_frames')
     output_dir = require_non_empty_string(config.get('output_dir'), 'experiment_config.output_dir')
-    output_root = resolve_project_path(output_dir)
+    try:
+        output_root = resolve_config_output_root(path, output_dir)
+    except ExperimentPathError as exc:
+        raise RtLabelBuildError(str(exc)) from exc
     rx_list = config.get('rx_list')
     if not isinstance(rx_list, list) or [item.get('id') if isinstance(item, dict) else None for item in rx_list] != list(CANONICAL_RX_IDS):
         raise RtLabelBuildError('experiment_config.rx_list is not the exact canonical receiver list/order')

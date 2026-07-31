@@ -25,7 +25,15 @@ if str(SCRIPT_ROOT) not in sys.path:
     sys.path.insert(0, str(SCRIPT_ROOT))
 
 from dynamic_prototype_config import load_dynamic_prototype_config
+from experiment_paths import ExperimentPathError
 from rt_material_config import load_rt_runtime_config
+from three_frame_paths import (
+    actor_frame_manifest_path as planned_actor_frame_manifest_path,
+    dynamic_manifest_path as planned_dynamic_manifest_path,
+    require_path_within_root,
+    resolve_cli_path,
+    resolve_three_frame_paths,
+)
 from runtime_config import (
     PROJECT_ROOT,
     SCRIPT_RUN_SIONNA_RT_SANITY,
@@ -44,12 +52,6 @@ COMPOSE_SCRIPT = SCRIPT_COMPOSE_FRAME_SCENE
 SIONNA_XML_SCRIPT = SCRIPT_BUILD_FRAME_SIONNA_XML
 SANITY_SCRIPT = SCRIPT_RUN_SIONNA_RT_SANITY
 
-DEFAULT_STATIC_MANIFEST_PATH = (
-    PROJECT_ROOT / "rt_out" / "experiments" / "factory_panda_ur5" / "legacy_run_20260522_133045" / "static_scene" / "export" / "merged_static_manifest.json"
-)
-DEFAULT_COMPOSED_SCENE_ROOT = PROJECT_ROOT / "rt_out" / "experiments" / "factory_panda_ur5" / "legacy_run_20260522_133045" / "composed_scene"
-DEFAULT_ACTOR_SAMPLES_PATH = PROJECT_ROOT / "rt_out" / "experiments" / "factory_panda_ur5" / "legacy_run_20260522_133045" / "dynamic_frames" / "actor_frame_samples.json"
-DEFAULT_ACTOR_MANIFEST_PATH = PROJECT_ROOT / "rt_out" / "experiments" / "factory_panda_ur5" / "legacy_run_20260522_133045" / "manifests" / "actor_manifest.json"
 SUPPORTED_ACTOR_ALIGNMENT_POLICIES = ("none", "bounds_center_xy_to_root")
 SUPPORTED_ACTOR_Z_ALIGNMENT_POLICIES = ("none", "bounds_min_z_to_floor")
 
@@ -138,15 +140,21 @@ def parse_args() -> argparse.Namespace:
         description="Run the three-frame prototype RT sanity flow."
     )
     parser.add_argument(
+        "--experiment-root",
+        type=Path,
+        default=None,
+        help="Run root for all generated and default input paths.",
+    )
+    parser.add_argument(
         "--static-manifest",
         type=Path,
-        default=DEFAULT_STATIC_MANIFEST_PATH,
+        default=None,
         help="Static merged manifest to compose with each prototype frame.",
     )
     parser.add_argument(
         "--composed-root",
         type=Path,
-        default=DEFAULT_COMPOSED_SCENE_ROOT,
+        default=None,
         help="Root directory for composed manifests, XML files, and summary CSV.",
     )
     parser.add_argument(
@@ -183,13 +191,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--actor-samples",
         type=Path,
-        default=DEFAULT_ACTOR_SAMPLES_PATH,
+        default=None,
         help="Actor frame samples JSON used when --include-actors is passed.",
     )
     parser.add_argument(
         "--actor-manifest",
         type=Path,
-        default=DEFAULT_ACTOR_MANIFEST_PATH,
+        default=None,
         help="Actor manifest JSON used when --include-actors is passed.",
     )
     parser.add_argument(
@@ -223,46 +231,25 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def configure_runtime(args: argparse.Namespace) -> None:
+def configure_runtime(
+    dynamic_prototype_config_path: Path | None,
+    rt_runtime_config_path: Path | None,
+) -> None:
     global PROTOTYPE_CONFIG, PROTOTYPE_FRAMES, EXPECTED_DYNAMIC_COUNT, CARRIER_FREQUENCY_HZ
     global DYNAMIC_PROTOTYPE_CONFIG_PATH, RT_RUNTIME_CONFIG_PATH
-    prototype_path = args.dynamic_prototype_config.expanduser().resolve() if args.dynamic_prototype_config else None
-    runtime_path = args.rt_runtime_config.expanduser().resolve() if args.rt_runtime_config else None
-    DYNAMIC_PROTOTYPE_CONFIG_PATH = prototype_path
-    RT_RUNTIME_CONFIG_PATH = runtime_path
-    PROTOTYPE_CONFIG = load_dynamic_prototype_config(prototype_path)
+    DYNAMIC_PROTOTYPE_CONFIG_PATH = dynamic_prototype_config_path
+    RT_RUNTIME_CONFIG_PATH = rt_runtime_config_path
+    PROTOTYPE_CONFIG = load_dynamic_prototype_config(dynamic_prototype_config_path)
     PROTOTYPE_FRAMES = [
         (frame["frame_id"], frame["source_sample_index"])
         for frame in PROTOTYPE_CONFIG["prototype_frames"]
     ]
     EXPECTED_DYNAMIC_COUNT = PROTOTYPE_CONFIG["expected_renderable_visual_count_total"]
-    CARRIER_FREQUENCY_HZ = load_rt_runtime_config(runtime_path).carrier_frequency_hz
+    CARRIER_FREQUENCY_HZ = load_rt_runtime_config(rt_runtime_config_path).carrier_frequency_hz
 
 
 def frame_dir_name(frame_id: int) -> str:
     return f"frame_{frame_id:03d}"
-
-
-def dynamic_manifest_path(frame_id: int) -> Path:
-    return (
-        PROJECT_ROOT
-        / "rt_out"
-        / "experiments" / "factory_panda_ur5" / "legacy_run_20260522_133045"
-        / "dynamic_scene"
-        / frame_dir_name(frame_id)
-        / f"dynamic_frame_{frame_id:03d}_manifest.json"
-    )
-
-
-def actor_frame_manifest_path(frame_id: int) -> Path:
-    return (
-        PROJECT_ROOT
-        / "rt_out"
-        / "experiments" / "factory_panda_ur5" / "legacy_run_20260522_133045"
-        / "dynamic_scene"
-        / frame_dir_name(frame_id)
-        / f"actor_frame_{frame_id:03d}_manifest.json"
-    )
 
 
 def suffix_filename(base: str, suffix: str, ext: str) -> str:
@@ -530,6 +517,7 @@ def run_frame(
     *,
     static_manifest_path: Path,
     composed_root: Path,
+    dynamic_output_root: Path,
     output_suffix: str,
     include_actors: bool,
     actor_samples_path: Path,
@@ -544,20 +532,24 @@ def run_frame(
 
     # Rebuild the dynamic meshes for this prototype frame so the end-to-end
     # sanity harness covers the full rigid Panda/UR5 path.
-    run_command(
-        [
-            sys.executable,
-            str(DYNAMIC_EXPORT_SCRIPT),
-            "--frame-id",
-            str(frame_id),
-            "--source-sample-index",
-            str(source_sample_index),
-        ]
-    )
-    validate_dynamic_manifest(dynamic_manifest_path(frame_id), frame_id, source_sample_index)
+    dynamic_manifest = planned_dynamic_manifest_path(dynamic_output_root, frame_id)
+    dynamic_command = [
+        sys.executable,
+        str(DYNAMIC_EXPORT_SCRIPT),
+        "--frame-id",
+        str(frame_id),
+        "--source-sample-index",
+        str(source_sample_index),
+        "--output-root",
+        str(dynamic_output_root),
+    ]
+    if DYNAMIC_PROTOTYPE_CONFIG_PATH is not None:
+        dynamic_command.extend(["--dynamic-prototype-config", str(DYNAMIC_PROTOTYPE_CONFIG_PATH)])
+    run_command(dynamic_command)
+    validate_dynamic_manifest(dynamic_manifest, frame_id, source_sample_index)
 
     actor_count = 0
-    actor_frame_manifest = actor_frame_manifest_path(frame_id)
+    actor_frame_manifest = planned_actor_frame_manifest_path(dynamic_output_root, frame_id)
     if include_actors:
         actor_export_command = [
             sys.executable,
@@ -569,7 +561,7 @@ def run_frame(
             "--actor-manifest",
             str(actor_manifest_path),
             "--output-root",
-            str(PROJECT_ROOT / "rt_out" / "experiments" / "factory_panda_ur5" / "legacy_run_20260522_133045" / "dynamic_scene"),
+            str(dynamic_output_root),
             "--alignment-policy",
             actor_alignment_policy,
             "--z-alignment-policy",
@@ -593,6 +585,8 @@ def run_frame(
         str(frame_id),
         "--static-manifest",
         str(static_manifest_path),
+        "--dynamic-manifest",
+        str(dynamic_manifest),
         "--output-manifest",
         str(output_manifest),
     ]
@@ -717,18 +711,58 @@ def write_summary(rows: list[dict[str, Any]], summary_csv_path: Path) -> None:
 def main() -> int:
     args = parse_args()
     try:
-        configure_runtime(args)
-    except (RuntimeError, OSError) as exc:
+        path_plan, legacy_default = resolve_three_frame_paths(args.experiment_root)
+        experiment_root = path_plan.experiment_root
+        dynamic_prototype_config_path = (
+            resolve_cli_path(args.dynamic_prototype_config)
+            if args.dynamic_prototype_config is not None
+            else (path_plan.dynamic_prototype_config if args.experiment_root is not None else None)
+        )
+        rt_runtime_config_path = (
+            resolve_cli_path(args.rt_runtime_config)
+            if args.rt_runtime_config is not None
+            else (path_plan.rt_runtime_config if args.experiment_root is not None else None)
+        )
+        for label, path in (
+            ("Dynamic prototype config", dynamic_prototype_config_path),
+            ("RT runtime config", rt_runtime_config_path),
+        ):
+            if args.experiment_root is not None and (path is None or not path.is_file()):
+                raise ExperimentPathError(f"{label} does not exist or is not a file: {path}")
+        static_manifest_path = (
+            resolve_cli_path(args.static_manifest)
+            if args.static_manifest is not None
+            else path_plan.static_manifest
+        )
+        composed_root = (
+            resolve_cli_path(args.composed_root)
+            if args.composed_root is not None
+            else path_plan.composed_root
+        )
+        if args.experiment_root is not None:
+            composed_root = require_path_within_root(composed_root, experiment_root, "--composed-root")
+        actor_samples_path = (
+            resolve_cli_path(args.actor_samples)
+            if args.actor_samples is not None
+            else path_plan.actor_samples
+        )
+        actor_manifest_path = (
+            resolve_cli_path(args.actor_manifest)
+            if args.actor_manifest is not None
+            else path_plan.actor_manifest
+        )
+    except ExperimentPathError as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1
     try:
+        configure_runtime(dynamic_prototype_config_path, rt_runtime_config_path)
         rt_python = find_sionna_python(args.sionna_python)
-    except RuntimeConfigError as exc:
+    except (RuntimeError, OSError, RuntimeConfigError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1
-
-    static_manifest_path = args.static_manifest.expanduser().resolve()
-    if not static_manifest_path.exists():
+    if legacy_default:
+        print("WARNING: using legacy Factory run defaults; pass --experiment-root for a run-local flow.", file=sys.stderr)
+    if not static_manifest_path.is_file():
         print(f"ERROR: Static manifest does not exist: {static_manifest_path}", file=sys.stderr)
         return 1
 
@@ -737,22 +771,17 @@ def main() -> int:
         print("ERROR: --output-suffix must not contain path separators", file=sys.stderr)
         return 1
 
-    composed_root = args.composed_root.expanduser().resolve()
     summary_csv_path = (
-        args.summary_csv.expanduser().resolve()
+        resolve_cli_path(args.summary_csv)
         if args.summary_csv is not None
         else composed_root / suffix_filename("three_frame_rt_summary", output_suffix, ".csv")
     )
-
-    actor_samples_path = args.actor_samples.expanduser()
-    if not actor_samples_path.is_absolute():
-        actor_samples_path = PROJECT_ROOT / actor_samples_path
-    actor_samples_path = actor_samples_path.resolve()
-
-    actor_manifest_path = args.actor_manifest.expanduser()
-    if not actor_manifest_path.is_absolute():
-        actor_manifest_path = PROJECT_ROOT / actor_manifest_path
-    actor_manifest_path = actor_manifest_path.resolve()
+    try:
+        if args.experiment_root is not None:
+            summary_csv_path = require_path_within_root(summary_csv_path, experiment_root, "--summary-csv")
+    except ExperimentPathError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
 
     if args.include_actors:
         if not actor_manifest_path.exists():
@@ -790,6 +819,7 @@ def main() -> int:
                     rt_python,
                     static_manifest_path=static_manifest_path,
                     composed_root=composed_root,
+                    dynamic_output_root=path_plan.dynamic_root,
                     output_suffix=output_suffix,
                     include_actors=args.include_actors,
                     actor_samples_path=actor_samples_path,

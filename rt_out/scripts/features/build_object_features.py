@@ -25,6 +25,11 @@ if str(SCRIPT_ROOT) not in sys.path:
     sys.path.insert(0, str(SCRIPT_ROOT))
 
 from dynamic_prototype_config import DynamicPrototypeConfigError, load_dynamic_prototype_config
+from experiment_paths import (
+    ExperimentPathError,
+    resolve_config_output_root,
+    resolve_run_index_path,
+)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
@@ -147,13 +152,20 @@ def load_experiment_config(path: Path) -> dict[str, Any]:
     return {
         "experiment_name": experiment_name,
         "num_frames": num_frames,
-        "output_root": resolve_project_path(output_dir),
+        "output_root": _resolve_output_root(path, output_dir),
         "dynamic_models": dynamic_models,
         "materials_of_interest": materials,
         "semantic_classes_of_interest": semantics,
         "actors_enabled": actors_enabled,
         "actor_semantic_class": actor_semantic_class,
     }
+
+
+def _resolve_output_root(config_path: Path, output_dir: str) -> Path:
+    try:
+        return resolve_config_output_root(config_path, output_dir)
+    except ExperimentPathError as exc:
+        raise ObjectFeatureBuildError(str(exc)) from exc
 
 
 def parse_float(value: Any) -> float | None:
@@ -191,7 +203,9 @@ def safe_slug(value: str) -> str:
     return text or "value"
 
 
-def load_composed_manifest_index(path: Path, *, expected_frames: int) -> dict[int, dict[str, Any]]:
+def load_composed_manifest_index(
+    path: Path, *, output_root: Path, expected_frames: int
+) -> dict[int, dict[str, Any]]:
     try:
         with path.open("r", encoding="utf-8", newline="") as handle:
             rows = list(csv.DictReader(handle))
@@ -223,7 +237,14 @@ def load_composed_manifest_index(path: Path, *, expected_frames: int) -> dict[in
             )
         if frame_id in manifest_by_frame:
             raise ObjectFeatureBuildError(f"Duplicate frame_id in composed manifest index: {frame_id}")
-        manifest_path = resolve_project_path(manifest_path_text)
+        try:
+            manifest_path = resolve_run_index_path(
+                manifest_path_text,
+                output_root,
+                label=f"composed_manifest_index[{index}].composed_manifest_path",
+            )
+        except ExperimentPathError as exc:
+            raise ObjectFeatureBuildError(str(exc)) from exc
         if not manifest_path.exists():
             raise ObjectFeatureBuildError(f"Missing composed manifest: {manifest_path}")
         manifest_by_frame[frame_id] = {
@@ -708,6 +729,7 @@ def main() -> int:
     # then join them by frame_id/source_sample_index.
     manifest_by_frame = load_composed_manifest_index(
         composed_manifest_index_path,
+        output_root=output_root,
         expected_frames=config["num_frames"],
     )
     rt_rows = load_rt_label_rows(rt_labels_path)

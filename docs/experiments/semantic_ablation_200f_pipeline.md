@@ -1,107 +1,151 @@
-# Rigid semantic-ablation 200-frame experiment
-
-> **Previous experiment.** The current repository version contains the saved
-> rigid experiment inside the archive
-> `rt_out/experiments/semantic_ablation_200f/run_20260522_143156/semantic_ablation.zip`,
-> but it does not contain the old `exp_*` scripts used by that run. This page
-> describes the saved file layout and its exact limitation; it is not a
-> directly runnable replacement.
+# Rigid 200-frame semantic-ablation runbook
 
 ## 1. Experiment purpose
 
-Compare raw occupancy and object-aware scene features for RT-derived temporal
-labels with rigid Panda/UR5 motion and six RX sites. Actors are excluded.
+This experiment evaluates semantic/material features and raw occupancy features against labeled multi-RX RT rows for 200 rigid-scene frames.
 
-## 2. Status
+## 2. Execution modes
 
-`Previous experiment`, recorded at 200 sampled frames. The source scripts are
-absent, so this repository cannot rerun it from start to finish.
+- Inspect the extracted result tree.
+- Rebuild RT labels, object features, raw-occupancy features, and an explicit semantic-ablation evaluation from staged recorded RT and composed artifacts.
+- Regenerate upstream rigid frames only when the archived pose inputs and the remaining dynamic/static manifests, source geometry, and other required scene inputs are available.
 
-## 3. Differences from the main pipeline
+## 3. Required source inputs
 
-The recorded run is rigid only, uses 200 frames and 1,200 raw RT rows, and
-does not include the current 2,446-frame actor-aware source-tracking and archive
-formats.
+| Source input | Location | Consuming script | Validation |
+|---|---|---|---|
+| Recorded reference run | `rt_out/experiments/semantic_ablation_200f/run_20260522_143156/semantic_ablation/semantic_ablation_rigid_200f/` | recorded inspection and staged downstream inputs | `test -d` |
+| Writable configuration | `<RUN_ROOT>/config/experiment_config.json` | feature builders | `python3 -m json.tool` |
+| Staged composed-manifest index and manifests | `<RUN_ROOT>/frames/composed_manifests/` | feature builders | CSV header and `test -f` |
+| Staged RT CSV | `<RUN_ROOT>/rt_results/rt_200frames_multi_rx.csv` | label builder | CSV header |
+| Canonical Panda/UR5 pose logs | `<REFERENCE_RUN_ROOT>/inputs/poses/` | rigid sampler and pose-frame extraction | file and SHA-256 checks |
 
-## 4. Exact experiment/archive layout
+`semantic_ablation.zip` includes the two canonical rigid pose logs under this run's `inputs/poses/` directory. They do not by themselves provide the manifests, source geometry, or other scene inputs needed for a complete upstream regeneration.
 
-The archive contains the branch under:
+## 4. Generated artifact chain
 
-```text
-semantic_ablation_rigid_200f/
-├── configs/experiment_config.json
-├── frames/
-├── rt_results/
-├── features/
-└── results/
-```
+| Generated artifact | Producing command | Output path | Consumed by |
+|---|---|---|---|
+| Labeled RT rows | `build_rt_labels.py --config` | `<RUN_ROOT>/rt_results/rt_200frames_multi_rx_labeled.csv` | feature builders |
+| Object features | `build_object_features.py --config` | `<RUN_ROOT>/features/object_features_rt_labels.csv` | raw features |
+| Raw occupancy features | `build_raw_occupancy_features.py --config` | `<RUN_ROOT>/features/raw_occupancy_features_rt_labels.csv` | inspection |
+| Ablation result CSV | `run_semantic_ablation.py` | `<RUN_ROOT>/results/` | inspection |
 
-The archive is the saved input. Do not unpack over a current run.
-
-## 5. Required configuration and environment
-
-The recorded config defines 200 frames, Panda/UR5, 28 GHz, six RX sites, RT
-label thresholds, and rigid-only features. Reproduction would additionally
-require the missing experiment scripts, Blender, Sionna RT/Mitsuba, and the
-resolved static baseline. These requirements are not satisfied by source files
-in the current repository version.
-
-## 6. Recorded command order
-
-The previous run used this order:
-
-```text
-sample frames
-→ build rigid pose frames
-→ resolve dynamic visuals
-→ export dynamic meshes
-→ compose manifests
-→ build Sionna XML
-→ run multi-RX RT
-→ build labels
-→ build object/raw features
-→ run ablations
-```
-
-The old script filenames are intentionally not repeated as current commands.
-Use [script_reference.md](../script_reference.md) for the current functional
-names and [pipeline_execution_order.md](../pipeline_execution_order.md) for the
-supported implementation.
-
-## 7. Smoke/debug and full-run status
-
-No current smoke/full command can rerun this branch without the archived
-scripts and their run configuration. Inspection-only checks are safe:
+## 5. Environment prerequisites
 
 ```bash
-unzip -l rt_out/experiments/semantic_ablation_200f/run_20260522_143156/semantic_ablation.zip
+REPO_ROOT="$(git rev-parse --show-toplevel)"; cd "$REPO_ROOT"
+python3 --version
+python3 rt_out/scripts/rt/build_rt_labels.py --help
+python3 rt_out/scripts/features/build_object_features.py --help
+python3 rt_out/scripts/features/build_raw_occupancy_features.py --help
+python3 rt_out/scripts/experiments/run_semantic_ablation.py --help
+df -h "$REPO_ROOT"
 ```
 
-Do not run training or RT merely to test the archive.
+## 6. Run variables, 7. create the run root, and 8. configuration
 
-## 8. Restart/resume status
+```bash
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+REFERENCE_RUN_ROOT="$REPO_ROOT/rt_out/experiments/semantic_ablation_200f/run_20260522_143156/semantic_ablation/semantic_ablation_rigid_200f"
+RUN_ROOT="$REPO_ROOT/rt_out/experiments/semantic_ablation_rigid_200f/run_example"
+SOURCE_CONFIG="$REFERENCE_RUN_ROOT/configs/experiment_config.json"
+CONFIG="$RUN_ROOT/config/experiment_config.json"
+test -d "$REFERENCE_RUN_ROOT"
+test -f "$SOURCE_CONFIG"
+mkdir -p "$RUN_ROOT/config" "$RUN_ROOT/frames" "$RUN_ROOT/rt_results"
+cp "$SOURCE_CONFIG" "$CONFIG"
+python3 - "$CONFIG" <<'PY'
+import json
+import sys
+from pathlib import Path
 
-Keep the saved results unchanged. They record the output of the original
-experiment. Current restart-safe scripts target the 2,446-frame experiment and
-must not be pointed at this older tree without checking whether the old files
-work with the current scripts.
+path = Path(sys.argv[1])
+payload = json.loads(path.read_text(encoding="utf-8"))
+payload["output_dir"] = "."
+path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+PY
+python3 -m json.tool "$CONFIG" >/dev/null
+python3 - "$CONFIG" "$RUN_ROOT" <<'PY'
+import json
+import sys
+from pathlib import Path
+from rt_out.scripts.experiment_paths import resolve_config_output_root
 
-## 9. Recorded inputs, outputs, and counts
+config = Path(sys.argv[1])
+expected = Path(sys.argv[2]).resolve()
+actual = resolve_config_output_root(config, json.loads(config.read_text())["output_dir"])
+assert actual == expected, (actual, expected)
+print(actual)
+PY
+```
 
-- sampled frames: 200;
-- raw RT rows: 1,200 = 200 × 6 RX;
-- horizon labels: 1,194 = 199 × 6 RX;
-- downstream feature rows: 1,194 where recorded;
-- actor rows: none.
+`REFERENCE_RUN_ROOT` is read-only. Stage only the recorded downstream inputs needed by the label and feature builders:
 
-## 10. Validation and limitations
+```bash
+cp -a "$REFERENCE_RUN_ROOT/frames/composed_manifests" "$RUN_ROOT/frames/"
+cp "$REFERENCE_RUN_ROOT/rt_results/rt_200frames_multi_rx.csv" "$RUN_ROOT/rt_results/"
+```
 
-Validate the archive and read the embedded reports before citing a result. The
-current repository version does not provide a clean rerun, dependency lock, or
-current CLI argument list for this experiment.
+## 9. Preflight
 
-## 11. Links
+```bash
+set -euo pipefail
+test -f "$CONFIG"
+test -f "$RUN_ROOT/rt_results/rt_200frames_multi_rx.csv"
+test -f "$RUN_ROOT/frames/composed_manifests/composed_manifest_index.csv"
+python3 -m json.tool "$CONFIG" >/dev/null
+python3 - <<'PY' "$RUN_ROOT/frames/composed_manifests/composed_manifest_index.csv"
+import csv, sys
+rows=list(csv.DictReader(open(sys.argv[1], newline='')))
+assert len(rows)==200 and 'composed_manifest_path' in rows[0]
+PY
+```
 
-- [Complete pipeline sequence](../pipeline_execution_order.md)
-- [Current 2,446-frame guide](semantic_ablation_actor_2446f_10hz_pipeline.md)
-- [Script reference](../script_reference.md)
+## 10. Smoke workflow
+
+The safe smoke path rebuilds labels from the staged recorded RT CSV:
+
+```bash
+python3 rt_out/scripts/rt/build_rt_labels.py --config "$CONFIG"
+```
+
+## 11. Complete workflow
+
+1. **Recorded inspection.** Input: `REFERENCE_RUN_ROOT`. Command: `test -f "$REFERENCE_RUN_ROOT/rt_results/rt_200frames_multi_rx.csv"`. It does not write the reference tree.
+2. **RT labels.** Input: staged RT CSV. Command: `python3 rt_out/scripts/rt/build_rt_labels.py --config "$CONFIG"`. Output: `"$RUN_ROOT/rt_results/rt_200frames_multi_rx_labeled.csv"` and `rt_label_summary.csv`. Validation: `test -f "$RUN_ROOT/rt_results/rt_200frames_multi_rx_labeled.csv"`.
+3. **Object features.** Input: generated labeled CSV and staged composed manifests. Command: `python3 rt_out/scripts/features/build_object_features.py --config "$CONFIG"`. Output: `"$RUN_ROOT/features/object_features_rt_labels.csv"`. Validation: `test -f "$RUN_ROOT/features/object_features_rt_labels.csv"`.
+4. **Raw occupancy features.** Input: object features and staged composed mesh paths. Command: `python3 rt_out/scripts/features/build_raw_occupancy_features.py --config "$CONFIG"`. Output: `"$RUN_ROOT/features/raw_occupancy_features_rt_labels.csv"`. Validation: `test -f "$RUN_ROOT/features/raw_occupancy_features_rt_labels.csv"`.
+5. **Evaluation.** Input: generated raw-occupancy features. Command:
+
+```bash
+python3 rt_out/scripts/experiments/run_semantic_ablation.py \
+  --config "$CONFIG" --target y_path_change --feature-mode raw --models logistic
+```
+
+Output: a result CSV below `"$RUN_ROOT/results"`. Stop on missing label, feature, or staged composed-manifest input.
+
+6. **Upstream regeneration.** Stop at frame sampling: the original pose logs are unavailable in the extracted archive.
+
+## 12. Restart and overwrite behavior
+
+Feature builders expose no overwrite option. Use a fresh `RUN_ROOT`; do not write `REFERENCE_RUN_ROOT`. Label and evaluation outputs are written below the config-owned run root.
+
+## 13. Output inventory
+
+The extracted tree contains 200 Sionna XML files, `rt_200frames_multi_rx.csv`, labeled RT rows, object/raw feature CSVs, and result CSVs.
+
+## 14. Troubleshooting
+
+- Missing composed manifest: inspect `frames/composed_manifests/composed_manifest_index.csv`.
+- Index path failure: modern `frames/...` values are resolved from `RUN_ROOT`, not cwd.
+- Missing pose logs: upstream sampling cannot be regenerated from this archive.
+
+## 15. Genuine limitations
+
+The archive does not contain original rigid pose logs or all source-scene inputs. The documented downstream commands do not restore those inputs.
+
+## 16. Related documentation
+
+- [Actor-aware 200-frame runbook](semantic_ablation_actor_200f_pipeline.md)
+- [Recorded comparison](actor_vs_rigid_ablation_comparison.md)

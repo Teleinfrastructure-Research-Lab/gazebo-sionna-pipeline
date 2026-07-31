@@ -7,6 +7,7 @@ registry that drives material-wise static mesh merging.
 
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 from pathlib import Path
@@ -16,6 +17,11 @@ ROOT = Path(__file__).resolve().parents[3]
 REGISTRY_PATH = ROOT / "rt_out/experiments/factory_panda_ur5/legacy_run_20260522_133045/manifests/geometry_registry.json"
 MATERIAL_MAP_PATH = ROOT / "rt_out/materials/material_map.json"
 OUTPUT_PATH = ROOT / "rt_out/experiments/factory_panda_ur5/legacy_run_20260522_133045/manifests/static_registry.json"
+DEFAULT_CONVERTED_MESH_ROOT = (
+    ROOT
+    / "rt_out/experiments/factory_panda_ur5/legacy_run_20260522_133045"
+    / "static_scene/converted_meshes"
+)
 
 SUPPORTED_GEOMETRY = {"mesh", "box", "sphere", "cylinder"}
 MESH_EXTENSIONS = {".ply", ".obj", ".dae", ".stl", ".glb"}
@@ -164,12 +170,14 @@ def pick_material(match_text: str, rules: Dict[str, Any]) -> str:
     return default_material
 
 
-def build_converted_mesh_path(src_path: Path, root: Path) -> Path:
+def build_converted_mesh_path(
+    src_path: Path, project_root: Path, converted_mesh_root: Path
+) -> Path:
     try:
-        rel = src_path.relative_to(root)
+        rel = src_path.relative_to(project_root)
     except ValueError:
         rel = Path(src_path.name)
-    return root / "rt_out/experiments/factory_panda_ur5/legacy_run_20260522_133045/static_scene/converted_meshes" / rel.with_suffix(".ply")
+    return converted_mesh_root / rel.with_suffix(".ply")
 
 
 def record_status_for_mesh(src_path: Optional[Path], dst_path: Optional[Path]) -> str:
@@ -184,7 +192,12 @@ def record_status_for_mesh(src_path: Optional[Path], dst_path: Optional[Path]) -
     return "ready" if dst_path.exists() else "missing_converted_mesh"
 
 
-def build_entry(raw: Dict[str, Any], material_rules: Dict[str, Any], root: Path) -> Optional[Dict[str, Any]]:
+def build_entry(
+    raw: Dict[str, Any],
+    material_rules: Dict[str, Any],
+    root: Path,
+    converted_mesh_root: Path,
+) -> Optional[Dict[str, Any]]:
     """Convert one geometry-registry row into a merge-ready static record.
 
     The final world transform here follows the validated static transform chain:
@@ -237,7 +250,11 @@ def build_entry(raw: Dict[str, Any], material_rules: Dict[str, Any], root: Path)
     if geometry_type == "mesh":
         resolved_path = raw.get("resolved_path")
         src_path = Path(resolved_path) if resolved_path else None
-        dst_path = build_converted_mesh_path(src_path, root) if src_path else None
+        dst_path = (
+            build_converted_mesh_path(src_path, root, converted_mesh_root)
+            if src_path
+            else None
+        )
 
         entry.update(
             {
@@ -277,7 +294,12 @@ def build_entry(raw: Dict[str, Any], material_rules: Dict[str, Any], root: Path)
     return entry
 
 
-def build_static_registry(root: Path, registry_path: Path, material_map_path: Path) -> Dict[str, Any]:
+def build_static_registry(
+    root: Path,
+    registry_path: Path,
+    material_map_path: Path,
+    converted_mesh_root: Path = DEFAULT_CONVERTED_MESH_ROOT,
+) -> Dict[str, Any]:
     """Filter the geometry registry down to ready static records plus summary."""
     raw_registry = load_json(registry_path)
     material_rules = load_material_rules(material_map_path)
@@ -316,7 +338,7 @@ def build_static_registry(root: Path, registry_path: Path, material_map_path: Pa
             summary["skipped_unsupported_geometry"] += 1
             continue
 
-        entry = build_entry(raw, material_rules, root)
+        entry = build_entry(raw, material_rules, root, converted_mesh_root)
         if entry is None:
             summary["skipped_by_rule"] += 1
             continue
@@ -343,17 +365,71 @@ def build_static_registry(root: Path, registry_path: Path, material_map_path: Pa
     }
 
 
-def main() -> None:
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Build a material-filtered static registry from a geometry registry."
+    )
+    parser.add_argument("--geometry-registry", type=Path, default=REGISTRY_PATH)
+    parser.add_argument("--material-map", type=Path, default=MATERIAL_MAP_PATH)
+    parser.add_argument("--output", type=Path, default=OUTPUT_PATH)
+    parser.add_argument(
+        "--converted-mesh-root",
+        type=Path,
+        default=DEFAULT_CONVERTED_MESH_ROOT,
+        help="Target root recorded for converted non-PLY/non-OBJ mesh paths.",
+    )
+    parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=ROOT,
+        help="Repository root used only to preserve converted-mesh path semantics.",
+    )
+    return parser.parse_args(argv)
+
+
+def _require_file(path: Path, label: str) -> Path:
+    resolved = path.expanduser().resolve()
+    if not resolved.is_file():
+        raise ValueError(f"{label} does not exist or is not a file: {resolved}")
+    return resolved
+
+
+def _require_directory(path: Path, label: str) -> Path:
+    resolved = path.expanduser().resolve()
+    if not resolved.is_dir():
+        raise ValueError(f"{label} does not exist or is not a directory: {resolved}")
+    return resolved
+
+
+def main(argv: list[str] | None = None) -> int:
     """Write the static registry that drives the material-wise merge stage."""
-    if any(argument in {"-h", "--help"} for argument in sys.argv[1:]):
-        print("Usage: python build_static_scene_registry.py")
-        print("Builds the material-filtered static registry from the geometry registry.")
-        return
-    registry = build_static_registry(ROOT, REGISTRY_PATH, MATERIAL_MAP_PATH)
-    save_json(OUTPUT_PATH, registry)
+    try:
+        args = parse_args(argv)
+        registry_path = _require_file(args.geometry_registry, "Geometry registry")
+        material_map_path = _require_file(args.material_map, "Material map")
+        project_root = _require_directory(args.project_root, "Project root")
+        converted_mesh_root = args.converted_mesh_root.expanduser().resolve()
+        if converted_mesh_root.exists() and not converted_mesh_root.is_dir():
+            raise ValueError(
+                f"Converted mesh root is not a directory: {converted_mesh_root}"
+            )
+        output_path = args.output.expanduser().resolve()
+        if output_path.exists() and output_path.is_dir():
+            raise ValueError(f"Output path is a directory: {output_path}")
+        registry = build_static_registry(
+            project_root, registry_path, material_map_path, converted_mesh_root
+        )
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
+    save_json(output_path, registry)
     s = registry["summary"]
 
-    print(f"Saved: {OUTPUT_PATH}")
+    print(f"Geometry registry: {registry_path}")
+    print(f"Material map: {material_map_path}")
+    print(f"Project root: {project_root}")
+    print(f"Converted mesh root: {converted_mesh_root}")
+    print(f"Saved: {output_path}")
     print(f"Input records: {s['total_input_records']}")
     print(f"Static records: {s['total_static_records']}")
     print(f"Kept records: {s['kept_records']}")
@@ -363,7 +439,8 @@ def main() -> None:
     print(f"Unsupported mesh extension: {s.get('unsupported_mesh_extension', 0)}")
     print(f"Missing source path: {s.get('missing_source_path', 0)}")
     print(f"Missing target path: {s.get('missing_target_path', 0)}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

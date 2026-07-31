@@ -250,10 +250,6 @@ mkdir -p "$RUN_ROOT/inputs/poses"
 cp -- "$PANDA_CAPTURED_LOG" "$RUN_ROOT/inputs/poses/panda_pose.log"
 cp -- "$UR5_CAPTURED_LOG" "$RUN_ROOT/inputs/poses/ur5_pose.log"
 
-case "$RUN_ROOT" in
-  "$REPO_ROOT"/*) RUN_ROOT_REL="${RUN_ROOT#"$REPO_ROOT"/}" ;;
-  *) echo "RUN_ROOT must be below REPO_ROOT for repository-relative pose_log fields" >&2; exit 2 ;;
-esac
 ```
 
 There is no supported automatic updater for these JSON fields. Edit only the
@@ -264,31 +260,31 @@ following existing fields in
 {
   "dynamic_models": {
     "Panda": {
-      "pose_log": "rt_out/experiments/<experiment_name>/<run_id>/inputs/poses/panda_pose.log"
+      "pose_log": "inputs/poses/panda_pose.log"
     },
     "ur5_rg2": {
-      "pose_log": "rt_out/experiments/<experiment_name>/<run_id>/inputs/poses/ur5_pose.log"
+      "pose_log": "inputs/poses/ur5_pose.log"
     }
   }
 }
 ```
 
-Replace the two placeholder paths with `$RUN_ROOT_REL/inputs/poses/...`.
 The exact implementation fields are `dynamic_models.Panda.pose_log` and
 `dynamic_models.ur5_rg2.pose_log`; do not invent `pose_log_path`.
-The loader resolves these repository-relative values from `REPO_ROOT`.
+For a configuration at `$RUN_ROOT/config/dynamic_prototype_config.json`, the
+loader resolves these run-relative values from `$RUN_ROOT`, never from the
+repository root or process working directory.
 
 Validate the binding before Stage 5:
 
 ```bash
-python3 - "$REPO_ROOT" "$RUN_ROOT" "$RUN_ROOT/config/dynamic_prototype_config.json" <<'PY'
+python3 - "$RUN_ROOT" "$RUN_ROOT/config/dynamic_prototype_config.json" <<'PY'
 import json
 import sys
 from pathlib import Path
 
-repo_root = Path(sys.argv[1]).resolve()
-run_root = Path(sys.argv[2]).resolve()
-config = json.loads(Path(sys.argv[3]).read_text(encoding="utf-8"))
+run_root = Path(sys.argv[1]).resolve()
+config = json.loads(Path(sys.argv[2]).read_text(encoding="utf-8"))
 expected = {
     "Panda": run_root / "inputs/poses/panda_pose.log",
     "ur5_rg2": run_root / "inputs/poses/ur5_pose.log",
@@ -297,7 +293,7 @@ for model, expected_path in expected.items():
     raw = config["dynamic_models"][model]["pose_log"]
     resolved = Path(raw).expanduser()
     if not resolved.is_absolute():
-        resolved = repo_root / resolved
+        resolved = run_root / resolved
     assert resolved.resolve() == expected_path.resolve(), (model, raw, resolved)
     assert expected_path.is_file() and expected_path.stat().st_size > 0, expected_path
 print("pose_log_binding=PASS")

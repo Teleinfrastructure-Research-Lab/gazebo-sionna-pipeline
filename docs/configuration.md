@@ -51,7 +51,7 @@ helpers. It contains:
 
 - `prototype_frames` with `frame_id` and `source_sample_index`;
 - `dynamic_models.Panda` and `dynamic_models.ur5_rg2`;
-- pose-log paths;
+- run-local pose-log paths, resolved from the configuration owner (`<run>` for `<run>/config/dynamic_prototype_config.json`);
 - expected link counts (12 and 11);
 - non-renderable links (`panda_link8`, `tool0`);
 - forced material (`metal`).

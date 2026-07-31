@@ -32,10 +32,10 @@ source-code inputs unless a guide explicitly names them.
 
 Standalone experiment guides:
 
-- [Current 2,446-frame actor-aware experiment](docs/experiments/semantic_ablation_actor_2446f_10hz_pipeline.md)
+- [2,446-frame actor-aware semantic-ablation experiment](docs/experiments/semantic_ablation_actor_2446f_10hz_pipeline.md)
 - [Three-frame actor prototype](docs/experiments/actor_aware_3frame_pipeline.md)
-- [Previous rigid 200-frame experiment](docs/experiments/semantic_ablation_200f_pipeline.md)
-- [Previous actor-aware 200-frame experiment](docs/experiments/semantic_ablation_actor_200f_pipeline.md)
+- [200-frame rigid semantic-ablation experiment](docs/experiments/semantic_ablation_200f_pipeline.md)
+- [200-frame actor-aware semantic-ablation experiment](docs/experiments/semantic_ablation_actor_200f_pipeline.md)
 - [Perception pilot](docs/experiments/perception_rt_small_v0_pipeline.md)
 
 Recorded results are kept separate from execution instructions:
@@ -54,14 +54,16 @@ Gazebo, Blender, and Sionna RT are required only for the stages that use
 them. Do not run the full RT or generation workflow as an installation test;
 use the dry-run and validation commands in the complete execution guide first.
 
-## Important implementation limitation
+## Static registry interfaces
 
-The static registry scripts still use old default paths and do not provide
-options for selecting every input and output directory. The complete execution
-guide explains this limitation and uses explicit paths wherever the scripts
-support them. The 2,446-frame experiment is the current saved run. The older
-200-frame results remain in archives and cannot be rerun directly with the
-current scripts.
+The static registry builders accept explicit input and output paths. Use
+`build_scene_geometry_registry.py` with `--static-manifest`,
+`--dynamic-manifest`, `--models-root`, and `--output`. Use
+`build_static_scene_registry.py` with `--geometry-registry`, `--material-map`,
+`--output`, `--project-root`, and `--converted-mesh-root`. The 2,446-frame and
+200-frame results remain in archives; their guides document the available
+processing stages and the input, path, and configuration adaptation required
+before a clean rerun.
 
 ## Citation / Academic Use
 

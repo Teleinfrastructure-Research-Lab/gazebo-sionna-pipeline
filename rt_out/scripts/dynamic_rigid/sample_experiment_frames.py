@@ -21,6 +21,7 @@ if str(SCRIPT_ROOT) not in sys.path:
     sys.path.insert(0, str(SCRIPT_ROOT))
 
 from dynamic_prototype_config import load_dynamic_prototype_config
+from experiment_paths import ExperimentPathError, resolve_config_output_root
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
@@ -68,6 +69,15 @@ def parse_args() -> argparse.Namespace:
         required=True,
         help="Path to experiment_config.json",
     )
+    parser.add_argument(
+        "--dynamic-manifest",
+        type=Path,
+        default=None,
+        help=(
+            "Explicit dynamic_manifest.json. Relative values are resolved from "
+            "the repository root."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -101,7 +111,10 @@ def load_experiment_config(config_path: Path) -> dict[str, Any]:
         raise ExperimentFrameSamplingError("experiment_config.dynamic_models contains duplicates")
 
     output_dir = require_non_empty_string(data.get("output_dir"), "experiment_config.output_dir")
-    output_root = resolve_project_path(output_dir)
+    try:
+        output_root = resolve_config_output_root(config_path, output_dir)
+    except ExperimentPathError as exc:
+        raise ExperimentFrameSamplingError(str(exc)) from exc
     dynamic_prototype_config_value = data.get("dynamic_prototype_config")
     dynamic_prototype_config_path: Path | None = None
     if dynamic_prototype_config_value not in (None, ""):
@@ -270,10 +283,16 @@ def iter_pose_blocks(path: Path):
         raise ExperimentFrameSamplingError(f"Unclosed pose block in {path}")
 
 
-def load_dynamic_manifest_models(prototype_config: dict[str, Any]) -> dict[str, dict[str, Any]]:
+def load_dynamic_manifest_models(
+    prototype_config: dict[str, Any], dynamic_manifest_path: Path
+) -> dict[str, dict[str, Any]]:
     # Read the validated dynamic manifest to confirm the requested experiment
     # models are still the supported rigid Panda/UR5 entries.
-    manifest = load_json(DYNAMIC_MANIFEST_PATH)
+    if not dynamic_manifest_path.is_file():
+        raise ExperimentFrameSamplingError(
+            f"Dynamic manifest does not exist or is not a file: {dynamic_manifest_path}"
+        )
+    manifest = load_json(dynamic_manifest_path)
     if not isinstance(manifest, list):
         raise ExperimentFrameSamplingError("dynamic_manifest.json must contain a list")
 
@@ -459,7 +478,18 @@ def main() -> int:
     prototype_config = load_dynamic_prototype_config(
         experiment["dynamic_prototype_config_path"]
     )
-    manifest_models = load_dynamic_manifest_models(prototype_config)
+    dynamic_manifest_path = (
+        resolve_project_path(str(args.dynamic_manifest))
+        if args.dynamic_manifest is not None
+        else DYNAMIC_MANIFEST_PATH
+    )
+    if args.dynamic_manifest is None:
+        print(
+            "WARNING: using legacy Factory dynamic manifest default; "
+            "pass --dynamic-manifest for a run-local input.",
+            file=sys.stderr,
+        )
+    manifest_models = load_dynamic_manifest_models(prototype_config, dynamic_manifest_path)
 
     per_model_sample_counts: dict[str, int] = {}
     for model_name in experiment["dynamic_models"]:
@@ -492,6 +522,7 @@ def main() -> int:
         "config_path": str(experiment["config_path"]),
         "experiment_name": experiment["experiment_name"],
         "dynamic_prototype_config_path": str(prototype_config["config_path"]),
+        "dynamic_manifest_path": str(dynamic_manifest_path),
         "dynamic_pose_logs": {
             model_name: str(prototype_config["dynamic_models"][model_name]["pose_log_path"])
             for model_name in experiment["dynamic_models"]

@@ -9,6 +9,7 @@ instead of higher-level Gazebo SDF structure.
 
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 from functools import lru_cache
@@ -605,22 +606,51 @@ def build_registry(
 
 
 def write_registry(path: Path, registry: list[dict[str, Any]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as handle:
         json.dump(registry, handle, indent=2, ensure_ascii=False)
         handle.write("\n")
 
 
-def main() -> int:
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Build a geometry registry from static and dynamic manifests."
+    )
+    parser.add_argument("--static-manifest", type=Path, default=STATIC_MANIFEST_PATH)
+    parser.add_argument("--dynamic-manifest", type=Path, default=DYNAMIC_MANIFEST_PATH)
+    parser.add_argument("--models-root", type=Path, default=MODELS_ROOT)
+    parser.add_argument("--output", type=Path, default=REGISTRY_PATH)
+    return parser.parse_args(argv)
+
+
+def _resolve_file(path: Path, label: str) -> Path:
+    resolved = path.expanduser().resolve()
+    if not resolved.is_file():
+        raise ValueError(f"{label} does not exist or is not a file: {resolved}")
+    return resolved
+
+
+def _resolve_directory(path: Path, label: str) -> Path:
+    resolved = path.expanduser().resolve()
+    if not resolved.is_dir():
+        raise ValueError(f"{label} does not exist or is not a directory: {resolved}")
+    return resolved
+
+
+def main(argv: list[str] | None = None) -> int:
     """Flatten the extracted manifests into the geometry registry JSON."""
-    if any(argument in {"-h", "--help"} for argument in sys.argv[1:]):
-        print("Usage: python build_scene_geometry_registry.py")
-        print("Builds the geometry registry from the extracted static and dynamic manifests.")
-        return 0
     try:
+        args = parse_args(argv)
+        static_manifest_path = _resolve_file(args.static_manifest, "Static manifest")
+        dynamic_manifest_path = _resolve_file(args.dynamic_manifest, "Dynamic manifest")
+        models_root = _resolve_directory(args.models_root, "Models root")
+        output_path = args.output.expanduser().resolve()
+        if output_path.exists() and output_path.is_dir():
+            raise ValueError(f"Output path is a directory: {output_path}")
         # Read both validated manifests, expand them into geometry-centric rows,
         # and persist one registry JSON for all later export stages.
-        static_manifest = load_json(STATIC_MANIFEST_PATH)
-        dynamic_manifest = load_json(DYNAMIC_MANIFEST_PATH)
+        static_manifest = load_json(static_manifest_path)
+        dynamic_manifest = load_json(dynamic_manifest_path)
     except (FileNotFoundError, ValueError) as exc:
         print(exc, file=sys.stderr)
         return 1
@@ -629,9 +659,9 @@ def main() -> int:
         static_manifest,
         dynamic_manifest,
         PROJECT_ROOT,
-        MODELS_ROOT,
+        models_root,
     )
-    write_registry(REGISTRY_PATH, registry)
+    write_registry(output_path, registry)
 
     print("Geometry registry summary")
     print("=========================")
@@ -644,7 +674,10 @@ def main() -> int:
     print(f"Skipped visuals: {summary['skipped_visuals']}")
     print(f"Links without visuals: {summary['links_without_visuals']}")
     print(f"Warnings: {len(summary['warnings'])}")
-    print(f"Saved to: {REGISTRY_PATH}")
+    print(f"Static manifest: {static_manifest_path}")
+    print(f"Dynamic manifest: {dynamic_manifest_path}")
+    print(f"Models root: {models_root}")
+    print(f"Saved to: {output_path}")
 
     if summary["info"]:
         print("Info:")

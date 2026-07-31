@@ -38,8 +38,8 @@ source rt_out/scripts/ops/setup_gazebo_env.sh
 mkdir -p "$RUN_ROOT"
 ```
 
-The current code requires an explicit run root for generated-output helpers;
-it rejects `rt_out` itself and the obsolete `current_experiment` convention.
+Generated-output helpers require an explicit run root; they reject `rt_out`
+itself and the obsolete `current_experiment` convention.
 There is no generic run-initialization CLI, so configuration files must be
 copied or prepared in `"$RUN_ROOT/config"` by the user.
 
@@ -61,11 +61,13 @@ unpacked. It prints commands and performs no capture.
 - Use [pipeline_execution_order.md](pipeline_execution_order.md) for the
   complete prepared-Gazebo-scene workflow.
 - Use [semantic_ablation_actor_2446f_10hz_pipeline.md](experiments/semantic_ablation_actor_2446f_10hz_pipeline.md)
-  for the current validated experiment.
+  for the 2,446-frame actor-aware semantic-ablation workflow.
 - Use [actor_aware_3frame_pipeline.md](experiments/actor_aware_3frame_pipeline.md) for the
   three-frame actor test.
-- Use the 200-frame guides only to inspect the archives or older results; their
-  required scripts are not present in this repository version.
+- Use the 200-frame guides for archive inspection and for the documented
+  recorded-to-repository script mapping. Functional equivalents exist, but the
+  archives still require input, path, and configuration adaptation before a
+  clean rerun.
 - Use [perception_rt_small_v0_pipeline.md](experiments/perception_rt_small_v0_pipeline.md)
   for the separate partial-coverage perception pilot.
 

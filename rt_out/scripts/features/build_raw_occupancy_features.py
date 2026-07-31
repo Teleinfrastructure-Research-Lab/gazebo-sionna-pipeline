@@ -20,6 +20,16 @@ from typing import Any
 
 import numpy as np
 
+SCRIPT_ROOT = Path(__file__).resolve().parents[1]
+if str(SCRIPT_ROOT) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_ROOT))
+
+from experiment_paths import (
+    ExperimentPathError,
+    resolve_config_output_root,
+    resolve_run_index_path,
+)
+
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 MAX_VERTICES_PER_FRAME = 20_000
@@ -147,9 +157,16 @@ def load_experiment_config(path: Path) -> dict[str, Any]:
     return {
         "experiment_name": experiment_name,
         "num_frames": num_frames,
-        "output_root": resolve_project_path(output_dir),
+        "output_root": _resolve_output_root(path, output_dir),
         "config_path": path.resolve(),
     }
+
+
+def _resolve_output_root(config_path: Path, output_dir: str) -> Path:
+    try:
+        return resolve_config_output_root(config_path, output_dir)
+    except ExperimentPathError as exc:
+        raise RawOccupancyFeatureError(str(exc)) from exc
 
 
 def load_object_feature_rows(path: Path, *, config_path: Path) -> list[dict[str, str]]:
@@ -170,7 +187,9 @@ def load_object_feature_rows(path: Path, *, config_path: Path) -> list[dict[str,
     return rows
 
 
-def load_composed_manifest_index(path: Path, *, expected_frames: int) -> dict[int, dict[str, Any]]:
+def load_composed_manifest_index(
+    path: Path, *, output_root: Path, expected_frames: int
+) -> dict[int, dict[str, Any]]:
     # Read the composed-manifest index and reduce it to frame/sample/manifest
     # records so per-frame geometry can be cached once and reused across RX rows.
     try:
@@ -197,7 +216,14 @@ def load_composed_manifest_index(path: Path, *, expected_frames: int) -> dict[in
         )
         if frame_id in manifest_by_frame:
             raise RawOccupancyFeatureError(f"Duplicate frame_id in composed manifest index: {frame_id}")
-        manifest_path = resolve_project_path(manifest_path_text)
+        try:
+            manifest_path = resolve_run_index_path(
+                manifest_path_text,
+                output_root,
+                label=f"composed_manifest_index[{index}].composed_manifest_path",
+            )
+        except ExperimentPathError as exc:
+            raise RawOccupancyFeatureError(str(exc)) from exc
         if not manifest_path.exists():
             raise RawOccupancyFeatureError(f"Missing composed manifest: {manifest_path}")
         manifest_by_frame[frame_id] = {
@@ -355,6 +381,7 @@ def load_mesh_vertices(path: Path, mesh_cache: dict[Path, np.ndarray]) -> np.nda
 def collect_world_vertices_for_frame(
     manifest_path: Path,
     *,
+    output_root: Path,
     mesh_cache: dict[Path, np.ndarray],
     frame_id: int,
 ) -> np.ndarray:
@@ -372,7 +399,14 @@ def collect_world_vertices_for_frame(
             entry.get("mesh_path"),
             f"{manifest_path}.entries[{entry_index}].mesh_path",
         )
-        mesh_path = resolve_project_path(mesh_path_text)
+        try:
+            mesh_path = resolve_run_index_path(
+                mesh_path_text,
+                output_root,
+                label=f"{manifest_path}.entries[{entry_index}].mesh_path",
+            )
+        except ExperimentPathError as exc:
+            raise RawOccupancyFeatureError(str(exc)) from exc
         if not mesh_path.exists():
             raise RawOccupancyFeatureError(f"Referenced mesh does not exist: {mesh_path}")
 
@@ -492,6 +526,7 @@ def main() -> int:
     source_rows = load_object_feature_rows(source_feature_path, config_path=config_path)
     manifest_by_frame = load_composed_manifest_index(
         manifest_index_path,
+        output_root=output_root,
         expected_frames=experiment["num_frames"],
     )
 
@@ -514,6 +549,7 @@ def main() -> int:
         print(f"[raw occupancy] loading frame {frame_index}/{len(unique_frame_ids)} frame_id={frame_id}")
         frame_vertex_cache[frame_id] = collect_world_vertices_for_frame(
             manifest_info["manifest_path"],
+            output_root=output_root,
             mesh_cache=mesh_cache,
             frame_id=frame_id,
         )

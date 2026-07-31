@@ -16,13 +16,18 @@ import csv
 import importlib
 import json
 import math
+import sys
 from pathlib import Path
 from typing import Any
 
 import numpy as np
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[3]
+SCRIPT_ROOT = Path(__file__).resolve().parents[1]
+if str(SCRIPT_ROOT) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_ROOT))
+
+from experiment_paths import ExperimentPathError, resolve_config_output_root
 
 
 class SemanticAblationError(RuntimeError):
@@ -236,13 +241,6 @@ def require_non_empty_string(value: Any, label: str) -> str:
     return value.strip()
 
 
-def resolve_project_path(value: str) -> Path:
-    path = Path(value).expanduser()
-    if not path.is_absolute():
-        path = PROJECT_ROOT / path
-    return path.resolve()
-
-
 def load_experiment_config(path: Path) -> dict[str, Any]:
     # Only the experiment name and output root are needed here because the
     # learning script consumes the already-built feature table.
@@ -255,9 +253,13 @@ def load_experiment_config(path: Path) -> dict[str, Any]:
         config.get("output_dir"),
         "experiment_config.output_dir",
     )
+    try:
+        output_root = resolve_config_output_root(path, output_dir)
+    except ExperimentPathError as exc:
+        raise SemanticAblationError(str(exc)) from exc
     return {
         "experiment_name": experiment_name,
-        "output_root": resolve_project_path(output_dir),
+        "output_root": output_root,
     }
 
 

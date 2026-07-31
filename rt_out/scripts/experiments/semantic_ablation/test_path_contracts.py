@@ -15,13 +15,16 @@ sys.path.insert(0, str(REPOSITORY_ROOT / "rt_out/scripts/composition"))
 sys.path.insert(0, str(REPOSITORY_ROOT / "rt_out/scripts/dynamic"))
 sys.path.insert(0, str(REPOSITORY_ROOT / "rt_out/scripts/features"))
 sys.path.insert(0, str(REPOSITORY_ROOT / "rt_out/scripts/rt"))
+sys.path.insert(0, str(REPOSITORY_ROOT / "rt_out/scripts/experiments"))
 
+import build_rt_labels as rt_labels  # noqa: E402
 import build_canonical_r1_r4_features as canonical_features  # noqa: E402
 import build_segmentation_ablation_voxels as voxel_features  # noqa: E402
 import compose_frame_manifests_batch as composition  # noqa: E402
 import export_dynamic_meshes_batch as dynamic_batch  # noqa: E402
 import build_sionna_xml_batch as xml_batch  # noqa: E402
 import run_rt_multi_rx_batch as rt_batch  # noqa: E402
+import run_semantic_ablation as semantic_ablation  # noqa: E402
 import semantic_ablation_run_sionna_rt_restart_safe as restart_safe  # noqa: E402
 
 
@@ -65,6 +68,22 @@ class PathContractTests(unittest.TestCase):
                     "rx_list": [
                         {"id": "rx_test", "position": [1.0, 1.0, 1.0]}
                     ],
+                }
+            ),
+            encoding="utf-8",
+        )
+        return path
+
+    def make_label_config(self, run_root: Path, num_frames: int = 2) -> Path:
+        path = run_root / "config/experiment_config.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(
+            json.dumps(
+                {
+                    "experiment_name": "test",
+                    "num_frames": num_frames,
+                    "output_dir": ".",
+                    "rx_list": [{"id": rx_id} for rx_id in rt_labels.CANONICAL_RX_IDS],
                 }
             ),
             encoding="utf-8",
@@ -751,6 +770,150 @@ class PathContractTests(unittest.TestCase):
         )
         self.assertNotIn(str(self.root), json.dumps([composed_rows, xml_rows]))
         self.assertNotIn(str(REPOSITORY_ROOT), json.dumps([composed_rows, xml_rows]))
+
+    def test_label_builder_reads_and_writes_only_below_run_root(self):
+        run_root = self.root / "run"
+        config_path = self.make_label_config(run_root)
+        input_path = run_root / "rt_results/rt_2frames_multi_rx.csv"
+        fieldnames = [
+            "frame_id",
+            "source_sample_index",
+            "rx_id",
+            "xml_path",
+            "sanity_ok",
+            "num_paths",
+            "delay_spread",
+            "rx_power_dbm",
+        ]
+        input_path.parent.mkdir(parents=True)
+        with input_path.open("w", newline="", encoding="utf-8") as handle:
+            writer = csv.DictWriter(handle, fieldnames=fieldnames)
+            writer.writeheader()
+            for frame_id in (0, 1):
+                for receiver_index, rx_id in enumerate(rt_labels.CANONICAL_RX_IDS):
+                    writer.writerow(
+                        {
+                            "frame_id": frame_id,
+                            "source_sample_index": frame_id,
+                            "rx_id": rx_id,
+                            "xml_path": f"sionna_xml/frame_{frame_id:03d}.xml",
+                            "sanity_ok": "True",
+                            "num_paths": 2 + frame_id,
+                            "delay_spread": 0.1 + receiver_index * 0.01 + frame_id * 0.02,
+                            "rx_power_dbm": -50.0 - receiver_index - frame_id,
+                        }
+                    )
+        with patch.object(sys, "argv", ["build_rt_labels.py", "--config", str(config_path)]):
+            self.assertEqual(rt_labels.main(), 0)
+        self.assertTrue(input_path.is_file())
+        self.assertTrue((run_root / "rt_results/rt_2frames_multi_rx_labeled.csv").is_file())
+        self.assertTrue((run_root / "rt_results/rt_label_summary.csv").is_file())
+        self.assertEqual(rt_labels.load_experiment_config(config_path)["output_root"], run_root.resolve())
+
+    def test_ablation_reads_features_and_writes_results_below_run_root(self):
+        run_root = self.root / "run"
+        config_path = run_root / "config/experiment_config.json"
+        self.write_json(
+            config_path,
+            {"experiment_name": "test", "output_dir": "."},
+        )
+        features_path = run_root / "features/raw_occupancy_features_rt_labels.csv"
+        fieldnames = ["frame_id", "rx_id", "y_path_change", "raw_occupancy"]
+        features_path.parent.mkdir(parents=True)
+        with features_path.open("w", newline="", encoding="utf-8") as handle:
+            writer = csv.DictWriter(handle, fieldnames=fieldnames)
+            writer.writeheader()
+            for frame_id in range(10):
+                writer.writerow(
+                    {
+                        "frame_id": frame_id,
+                        "rx_id": "rx_test",
+                        "y_path_change": frame_id % 2,
+                        "raw_occupancy": frame_id / 10.0,
+                    }
+                )
+        with patch.object(
+            sys,
+            "argv",
+            [
+                "run_semantic_ablation.py",
+                "--config",
+                str(config_path),
+                "--target",
+                "y_path_change",
+                "--feature-mode",
+                "raw",
+                "--models",
+                "logistic",
+            ],
+        ):
+            self.assertEqual(semantic_ablation.main(), 0)
+        output_paths = list((run_root / "results").glob("*.csv"))
+        self.assertEqual(len(output_paths), 1)
+        self.assertTrue(output_paths[0].is_file())
+        self.assertEqual(
+            semantic_ablation.load_experiment_config(config_path)["output_root"],
+            run_root.resolve(),
+        )
+
+    def test_label_and_ablation_reject_unsafe_output_roots(self):
+        for output_dir in ("..", str(REPOSITORY_ROOT), str(REPOSITORY_ROOT / "rt_out")):
+            config_path = self.root / f"unsafe_{len(output_dir)}" / "config/experiment_config.json"
+            self.write_json(
+                config_path,
+                {
+                    "experiment_name": "test",
+                    "num_frames": 2,
+                    "output_dir": output_dir,
+                    "rx_list": [{"id": rx_id} for rx_id in rt_labels.CANONICAL_RX_IDS],
+                },
+            )
+            with self.assertRaises(rt_labels.RtLabelBuildError):
+                rt_labels.load_experiment_config(config_path)
+            with self.assertRaises(semantic_ablation.SemanticAblationError):
+                semantic_ablation.load_experiment_config(config_path)
+
+    def test_label_and_ablation_accept_safe_absolute_output_root(self):
+        config_path = self.root / "run/config/experiment_config.json"
+        output_root = self.root / "separate_output"
+        self.write_json(
+            config_path,
+            {
+                "experiment_name": "test",
+                "num_frames": 2,
+                "output_dir": str(output_root),
+                "rx_list": [{"id": rx_id} for rx_id in rt_labels.CANONICAL_RX_IDS],
+            },
+        )
+        self.assertEqual(
+            rt_labels.load_experiment_config(config_path)["output_root"],
+            output_root.resolve(),
+        )
+        self.assertEqual(
+            semantic_ablation.load_experiment_config(config_path)["output_root"],
+            output_root.resolve(),
+        )
+
+    def test_existing_2446_frame_label_validation_passes(self):
+        config_path = (
+            REPOSITORY_ROOT
+            / "rt_out/experiments/semantic_ablation_actor_2446f_10hz"
+            / "run_20260710_172015/config/experiment_config.json"
+        )
+        with patch.object(
+            sys,
+            "argv",
+            [
+                "build_rt_labels.py",
+                "--config",
+                str(config_path),
+                "--horizon-frames",
+                "10",
+                "--one-second-split",
+                "--validate-only",
+            ],
+        ):
+            self.assertEqual(rt_labels.main(), 0)
 
 
 if __name__ == "__main__":

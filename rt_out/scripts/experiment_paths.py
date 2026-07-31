@@ -51,6 +51,69 @@ def _resolve_candidate(value: str | Path) -> Path:
     return candidate.resolve()
 
 
+def resolve_config_output_root(config_path: str | Path, output_dir: str | Path) -> Path:
+    """Resolve an experiment output directory from its owning configuration.
+
+    A configuration in ``<run>/config/`` owns paths relative to ``<run>``;
+    configurations elsewhere own paths relative to their parent directory.
+    This deliberately does not use the process working directory.
+    """
+
+    if not isinstance(output_dir, (str, Path)) or not str(output_dir).strip():
+        raise ExperimentPathError("experiment_config.output_dir must be a non-empty path")
+    config = Path(config_path).expanduser().resolve()
+    configured = Path(output_dir).expanduser()
+    owner_root = config.parent.parent if config.parent.name == "config" else config.parent
+    if configured.is_absolute():
+        resolved = configured.resolve()
+    else:
+        resolved = (owner_root / configured).resolve()
+        try:
+            resolved.relative_to(owner_root)
+        except ValueError as exc:
+            raise ExperimentPathError(
+                f"experiment_config.output_dir escapes its owner root {owner_root}: {resolved}"
+            ) from exc
+    if resolved in {PROJECT_ROOT, RT_OUT_ROOT}:
+        raise ExperimentPathError(
+            f"experiment_config.output_dir resolves to unsafe repository-wide root: {resolved}"
+        )
+    return resolved
+
+
+def resolve_run_index_path(
+    value: str | Path,
+    output_root: str | Path,
+    *,
+    label: str = "index path",
+) -> Path:
+    """Resolve an absolute, run-relative, or explicit historical repo path.
+
+    Modern indexes are relative to ``output_root``. Historical repository paths
+    are recognized only by their unambiguous ``rt_out/`` prefix. Relative paths
+    containing traversal are rejected rather than interpreted from cwd.
+    """
+
+    if not isinstance(value, (str, Path)) or not str(value).strip():
+        raise ExperimentPathError(f"{label} must be a non-empty path")
+    root = Path(output_root).expanduser().resolve()
+    raw = Path(value).expanduser()
+    if raw.is_absolute():
+        return raw.resolve()
+    if ".." in raw.parts:
+        raise ExperimentPathError(f"{label} must not contain '..': {value}")
+    if raw.parts[:1] == ("rt_out",):
+        return (PROJECT_ROOT / raw).resolve()
+    resolved = (root / raw).resolve()
+    try:
+        resolved.relative_to(root)
+    except ValueError as exc:
+        raise ExperimentPathError(
+            f"{label} escapes experiment output root {root}: {resolved}"
+        ) from exc
+    return resolved
+
+
 def resolve_experiment_root(
     value: str | Path | None = None,
     *,

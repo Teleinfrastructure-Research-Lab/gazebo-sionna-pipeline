@@ -376,7 +376,7 @@ python3 rt_out/scripts/dynamic_actor/extract_actor_manifest.py --world myworld_r
 
 - **Type:** Imported configuration loader
 - **Imported by:** Dynamic pose, visual-frame, actor, composition, and RT sanity scripts.
-- **Input:** Dynamic prototype configuration JSON.
+- **Input:** Dynamic prototype configuration JSON; relative `pose_log` values resolve from its owning run when it is stored under `<run>/config/`.
 - **Output:** Normalized dynamic model/link, pose, and timing settings in memory.
 - **Run directly:** No; importing it does not create or modify experiment artifacts.
 
